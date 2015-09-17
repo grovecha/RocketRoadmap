@@ -3,10 +3,14 @@
  */
 
 
-function validateCredentials()
+function  validateCredentials()
 {
-    window.loccation.href = "Home.html";
-    if(document.getElementById("email_ID")!="" && document.getElementById("password_ID")!="") {
-
+    console.log("Got Here");
+    var username = document.getElementById("username_ID");
+    var password = document.getElementById("password_ID");
+    if(username.value!="" && password.value!="") {
+        console.log("Both elements entered in!")
     }
+
+    return true;
 }

@@ -5,19 +5,18 @@
     <title>Test</title>
     <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
-<body>
 <body class="align">
 
 <section class="login">
     <div class="title">Staff Login</div>
-    <form action="#" method="post" enctype="application/x-www-form-urlencoded">
-        <input type="text" required title="Username required" placeholder="Username" data-icon="U">
-        <input type="password" required title="Password required" placeholder="Password" data-icon="x">
+    <form method="post" action ="Home.html" onsubmit="return validateCredentials();">
+        <input type="text" id="username_ID" placeholder="Username" data-icon="U"> <!-- to make required required title="Password required" -->
+        <input type="password" id="password_ID"  placeholder="Password" data-icon="x">
 
-        <a href="#" class="enviar">Submit</a>
+        <input type="submit" class="submit">Submit</a>
     </form>
 </section>
+<script src="../js/Login.js"></script>
 
-</body>
 </body>
 </html>
