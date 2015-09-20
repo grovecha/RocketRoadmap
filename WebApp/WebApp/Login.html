@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Login Page
+    </title>
+
+    <p>  Login Page</p>
+</head>
+<body>
+<FORM METHOD="LINK" ACTION="Home.html">
+    <INPUT TYPE="submit" VALUE="Home">
+</FORM>
+<FORM METHOD="LINK" ACTION="Roadmap.html">
+    <INPUT TYPE="submit" VALUE="RoadMap">
+</FORM>
+
+<section class="loginform cf">
+    <form name="login" action="" method="get" accept-charset="utf-8">
+        <ul>
+            <li><label for="usermail">Email</label>
+                <input id="email_ID" type="email" name="usermail" placeholder="yourname@email.com" ></li> <!--put required back in-->
+            <li><label for="password">Password</label>
+                <input id="password_ID" type="password" name="password" placeholder="password" ></li>        <!--required-->
+            <li>
+                <input type="submit" value="Login" onclick="validateCredentials();"></li>
+        </ul>
+    </form>
+</section>
+
+<script src="js/Login.js"></script>
+</body>
+</html>
