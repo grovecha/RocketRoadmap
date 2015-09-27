@@ -207,6 +207,7 @@
     <Content Include="Global.asax" />
     <Content Include="css\Site.css" />
     <Content Include="Home.html" />
+    <Content Include="ChaseTestPage.html" />
     <Content Include="images\quicken-loans-logo.png" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
