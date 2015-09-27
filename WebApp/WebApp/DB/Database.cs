@@ -32,12 +32,25 @@ namespace WebApp.Cls
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
 
-            cmd.CommandText = "SELECT Name from User WHERE Email='bpchiv@gmail.com'";
+            cmd.CommandText = "SELECT Name from [dbo].[User] WHERE Email='bpchiv@gmail.com'";
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Connection = conn;
 
             reader = cmd.ExecuteReader();
-            string name = reader.GetString(0);
+            string name= "";
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    name = reader.GetString(0);
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("No rows found.");
+            }
+            reader.Close();
             conn.Close();
             return name;
         }
