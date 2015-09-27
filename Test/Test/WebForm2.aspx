@@ -12,21 +12,8 @@
     </div>
 
             <asp:Button runat="server" id="testbutton" text="Test" OnClick="Button_Click" />
-        <p>
-            <asp:PlaceHolder runat="server" ID="newbutton" />
-        </p>
-        <p>
-                        <asp:PlaceHolder runat="server" ID="PlaceHolder1" />
-                        </p>
-        <p>
-                        <asp:PlaceHolder runat="server" ID="PlaceHolder2" />
-                        </p>
-        <p>
-                        <asp:PlaceHolder runat="server" ID="PlaceHolder3" />
-                        </p>
-        <p>
-                        <asp:PlaceHolder runat="server" ID="PlaceHolder4" />
-        </p>
+            <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+
     </form>
 </body>
 </html>
