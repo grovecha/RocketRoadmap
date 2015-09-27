@@ -5,11 +5,13 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WebApp.Cls
+namespace WebApp.DB
 {
     public class Database
     {
-        public SqlConnection connect()
+        private SqlConnection mConnection;
+
+        public void connect()
         {
             string connstring=ConfigurationManager.ConnectionStrings["QLDB"].ToString();
             SqlConnection conn= new SqlConnection(connstring);
@@ -20,9 +22,28 @@ namespace WebApp.Cls
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show("error");
+                System.Windows.Forms.MessageBox.Show("SQL Connection Error");
             }
-            return conn;
+            mConnection= conn;
+        }
+
+        public void close(SqlConnection conn)
+        {
+            mConnection.close();
+        }
+
+        public SqlDataReader execute(string command)
+        {
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = command;
+            cmd.CommandType = System.Data.CommandType.Text;
+            cmd.Connection = mConnection;
+
+            reader = cmd.ExecuteReader();
+
+            return reader;
         }
 
         public string getusername()
