@@ -168,12 +168,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Cls\Database.cs" />
-    <Compile Include="Cls\WebForm1.aspx.cs">
+    <Compile Include="DB\Project.cs" />
+    <Compile Include="DB\User.cs" />
+    <Compile Include="DB\Database.cs" />
+    <Compile Include="DB\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Cls\WebForm1.aspx.designer.cs">
+    <Compile Include="DB\WebForm1.aspx.designer.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
@@ -195,7 +197,7 @@
     <Content Include="Content\login.css" />
     <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="Cls\WebForm1.aspx" />
+    <Content Include="DB\WebForm1.aspx" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
