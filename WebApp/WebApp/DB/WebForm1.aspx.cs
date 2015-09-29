@@ -8,20 +8,16 @@ using System.Web.UI.WebControls;
 using static WebApp.DB.Database;
 
 
-namespace WebApp.Cls
+namespace WebApp.DB
 {
-    
+
     public partial class WebForm1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Database db = new Database();
+            DB.Database db = new Database();
             db.connect();
             name.InnerText = db.getusername();
-            
-            
-
-       
         }
     }
 }

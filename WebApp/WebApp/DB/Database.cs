@@ -15,8 +15,8 @@ namespace WebApp.DB
         //Actually initiates connection to database
         public void connect()
         {
-            string connstring=ConfigurationManager.ConnectionStrings["QLDB"].ToString();
-            SqlConnection conn= new SqlConnection(connstring);
+            string connstring = ConfigurationManager.ConnectionStrings["QLDB"].ToString();
+            SqlConnection conn = new SqlConnection(connstring);
 
             try
             {
@@ -26,7 +26,7 @@ namespace WebApp.DB
             {
                 System.Windows.Forms.MessageBox.Show("SQL Connection Error");
             }
-            mConnection= conn;
+            mConnection = conn;
         }
 
         //Closes database connection
@@ -59,7 +59,7 @@ namespace WebApp.DB
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Connection = mConnection;
 
-            return (cmd.ExecuteNonQuery()!=0);
+            return (cmd.ExecuteNonQuery() != 0);
         }
     }
 }
