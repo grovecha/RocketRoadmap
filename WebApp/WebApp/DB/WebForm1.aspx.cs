@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using static WebApp.Cls.Database;
+using static WebApp.DB.Database;
 
 
 namespace WebApp.Cls

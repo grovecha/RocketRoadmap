@@ -27,9 +27,9 @@ namespace WebApp.DB
             mConnection= conn;
         }
 
-        public void close(SqlConnection conn)
+        public void close()
         {
-            mConnection.close();
+            mConnection.Close();
         }
 
         public SqlDataReader execute(string command)
@@ -48,7 +48,7 @@ namespace WebApp.DB
 
         public string getusername()
         {
-            SqlConnection conn= connect();
+            SqlConnection conn= new SqlConnection(); // connect();
 
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
