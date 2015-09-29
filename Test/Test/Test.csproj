@@ -172,6 +172,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DataInput.aspx.cs">
+      <DependentUpon>DataInput.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataInput.aspx.designer.cs">
+      <DependentUpon>DataInput.aspx</DependentUpon>
+    </Compile>
     <Compile Include="EventUserControl.ascx.cs">
       <DependentUpon>EventUserControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -239,6 +246,7 @@
     <Content Include="css\login.css" />
     <Content Include="css\simple-sidebar.css" />
     <Content Include="css\Site.css" />
+    <Content Include="DataInput.aspx" />
     <Content Include="EventUserControl.ascx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
