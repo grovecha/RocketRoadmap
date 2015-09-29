@@ -29,7 +29,7 @@ namespace WebApp.DB
 
         public void close(SqlConnection conn)
         {
-            mConnection.close();
+            mConnection.Close();
         }
 
         public SqlDataReader execute(string command)
@@ -46,7 +46,7 @@ namespace WebApp.DB
             return reader;
         }
 
-        public string getusername()
+     /*   public string getusername()
         {
             SqlConnection conn= connect();
 
@@ -74,6 +74,6 @@ namespace WebApp.DB
             reader.Close();
             conn.Close();
             return name;
-        }
+        }*/
     }
 }

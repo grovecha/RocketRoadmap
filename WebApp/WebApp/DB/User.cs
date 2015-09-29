@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WebApp.DB
 {
@@ -15,7 +17,10 @@ namespace WebApp.DB
         public string GetName() { return mName; }
 
         public void SetUserName(string UserName) { mUserName = UserName; }
-        public string GetUserName() { return mUserName; }
+        public string GetUserName() {
+
+            return "TEST"; // Database.execute("SELECT Name from [dbo].[User] WHERE Email='bpchiv@gmail.com'");
+        }
 
         public void SetEmail(string email) { mEmail = email; }
         public string GetEmail() { return mEmail; }
@@ -28,6 +33,7 @@ namespace WebApp.DB
         string mUserName;
         string mEmail;
         string mPassword;
+        
     }
 
 }

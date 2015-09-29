@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WebApp.DB
 {
@@ -14,8 +16,8 @@ namespace WebApp.DB
         private string mBusinessValue;
 
         #region Getter's and Setters
-        public void SetName(string name) {
-            SqlConnection conn = WebApp.DB.connect();
+      /*  public void SetName(string name) {
+            SqlConnection WebApp.DB.Database.connect();
 
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
@@ -41,7 +43,7 @@ namespace WebApp.DB
             reader.Close();
             conn.Close();
             return name;
-        }
+        }*/
         public string GetName() { return mName; }
 
         public void SetDescription(string description) { mDescription = description; }
