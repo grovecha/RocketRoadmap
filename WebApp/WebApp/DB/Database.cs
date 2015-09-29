@@ -13,8 +13,8 @@ namespace WebApp.DB
 
         public void connect()
         {
-            string connstring=ConfigurationManager.ConnectionStrings["QLDB"].ToString();
-            SqlConnection conn= new SqlConnection(connstring);
+            string connstring = ConfigurationManager.ConnectionStrings["QLDB"].ToString();
+            SqlConnection conn = new SqlConnection(connstring);
 
             try
             {
@@ -24,10 +24,10 @@ namespace WebApp.DB
             {
                 System.Windows.Forms.MessageBox.Show("SQL Connection Error");
             }
-            mConnection= conn;
+            mConnection = conn;
         }
 
-        public void close(SqlConnection conn)
+        public void close()
         {
             mConnection.Close();
         }
@@ -46,25 +46,25 @@ namespace WebApp.DB
             return reader;
         }
 
-     /*   public string getusername()
+        public string getusername()
         {
-            SqlConnection conn= connect();
+            connect(); 
 
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
 
             cmd.CommandText = "SELECT Name from [dbo].[User] WHERE Email='bpchiv@gmail.com'";
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Connection = conn;
+            cmd.Connection = mConnection;
 
             reader = cmd.ExecuteReader();
-            string name= "";
+            string name = "";
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
                     name = reader.GetString(0);
-                    
+
                 }
             }
             else
@@ -72,8 +72,8 @@ namespace WebApp.DB
                 Console.WriteLine("No rows found.");
             }
             reader.Close();
-            conn.Close();
+            close();
             return name;
-        }*/
+        }
     }
 }

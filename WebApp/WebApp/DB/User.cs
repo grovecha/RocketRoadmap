@@ -9,31 +9,49 @@ namespace WebApp.DB
 {
     public class User
     {
+
+  
+
+
         /**
         * Getters and Setters for User DB object
         */
-        #region Getters and Setters
-        public void SetName(string name) { mName = name; }
-        public string GetName() { return mName; }
+        #region Getters
 
-        public void SetUserName(string UserName) { mUserName = UserName; }
+        public string GetName()
+        {
+            mDatabase.connect();
+            mReader = mDatabase.execute("SELECT User FROM Project WHERE Name=" + mUserName);
+            mReader.Read();
+            return mReader.GetString(0).ToString();
+        }
+
         public string GetUserName() {
 
             return "TEST"; // Database.execute("SELECT Name from [dbo].[User] WHERE Email='bpchiv@gmail.com'");
         }
 
-        public void SetEmail(string email) { mEmail = email; }
         public string GetEmail() { return mEmail; }
 
-        public void SetPassword(string pass) { mPassword = pass; }
         public string GetPassword() { return mPassword; }
         #endregion
+
+        public bool NewUser(string name, string username, string email, string password )
+        {
+            mDatabase.connect();
+            mReader = mDatabase.execute("INSERT INTO [dbo].[User] ( Name, UserName, Email, Password) VALUES (" + name + "," + username + "," + email + "," + password + ")");
+            mDatabase.close();
+
+            return false;
+        }
 
         string mName;
         string mUserName;
         string mEmail;
         string mPassword;
-        
+
+        private WebApp.DB.Database mDatabase;
+        private SqlDataReader mReader;
     }
 
 }

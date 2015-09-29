@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace WebApp.DB
 {
@@ -15,36 +14,24 @@ namespace WebApp.DB
         private DateTime mEndDate;
         private string mBusinessValue;
 
+        private WebApp.DB.Database mDatabase;
+        private SqlDataReader mReader;
+
+
         #region Getter's and Setters
-      /*  public void SetName(string name) {
-            SqlConnection WebApp.DB.Database.connect();
-
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
-
-            cmd.CommandText = "UPDATE Name from [dbo].[Project] WHERE Name='bpchiv@gmail.com'";
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Connection = conn;
-
-            reader = cmd.ExecuteReader();
-            string name = "";
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    name = reader.GetString(0);
-
-                }
-            }
-            else
-            {
-                Console.WriteLine("No rows found.");
-            }
-            reader.Close();
-            conn.Close();
-            return name;
-        }*/
-        public string GetName() { return mName; }
+        public void SetName(string name)
+        {
+            mDatabase.connect();
+            mReader = mDatabase.execute("UPDATE Project SET Name=" + name + " WHERE Name=" + mName);
+            mDatabase.close();
+        }
+        public string GetName()
+        {
+            mDatabase.connect();
+            mReader = mDatabase.execute("SELECT Name FROM Project WHERE Name=" + mName);
+            mReader.Read();
+            return mReader.GetString(0).ToString();
+        }
 
         public void SetDescription(string description) { mDescription = description; }
         public string GetDescription() { return mDescription; }
