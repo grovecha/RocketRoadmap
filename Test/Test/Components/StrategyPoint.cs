@@ -11,7 +11,14 @@ namespace Test.Components
 
         public StrategyPoint ()
         {
+            Width = 200;
+            Height = 100;
+        }
 
+
+        public void OnClick(object sender, EventArgs e)
+        {
+            
         }
 
 

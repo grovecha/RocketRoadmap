@@ -39,6 +39,7 @@
             <li class="sidebar-brand">
                 <br />
             <asp:Button runat="server" id="testbutton" text="New Point" OnClick="Button_Click"  />
+            <asp:PlaceHolder ID="BVal1" runat="server"></asp:PlaceHolder>
             </li>
 
         </ul>
@@ -57,7 +58,12 @@
                     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Tooltip on top</button>
                 </div>
                 <br />
-               <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+                <table>
+                    <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+                </table>
+
+
+
             </div>
         </div>
     </div>

@@ -10,28 +10,52 @@ namespace Test
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> controlIDList = new List<string>();
-        int counter = 0;
+        List<string> StrategyPoints = new List<string>();
+        List<string> BusinessValueControls = new List<String>();
+        
+        int SPcounter = 0;
+        int BVCcounter = 0;
 
 
         protected override void LoadViewState(object savedState)
         {
             base.LoadViewState(savedState);
-            controlIDList = (List<string>)ViewState["controlIDList"];
-            foreach (string id in controlIDList)
+            StrategyPoints = (List<string>)ViewState["StrategyPoints"];
+            BusinessValueControls = (List<string>)ViewState["BusinessValueControls"];
+
+            foreach (string id in StrategyPoints)
             {
 
-                counter++;
+                SPcounter++;
                 StrategyPoint test = new StrategyPoint();
-                test.ID = "Button" + counter.ToString();
-                test.Text = "Point " + counter.ToString();
+                test.ID = "Button" + SPcounter.ToString();
+                test.Text = "Point " + SPcounter.ToString();
 
-                test.Click += new EventHandler(this.Point_Button_Click);
+                test.Click += new EventHandler(test.OnClick);
+
+                LiteralControl linebreak = new LiteralControl("<br />");
+                //PlaceHolder1.Controls.Add(test);
+                //PlaceHolder1.Controls.Add(linebreak);
+
+                PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
+                PlaceHolder1.Controls.Add(test);
+                PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+            }
+
+            foreach (string id in BusinessValueControls)
+            {
+
+                BVCcounter++;
+                Button control = new Button();
+                control.ID = "BV" + BVCcounter.ToString();
+                control.Text = "Add Business Value";
 
                 LiteralControl linebreak = new LiteralControl("<br />");
 
-                PlaceHolder1.Controls.Add(test);
-                PlaceHolder1.Controls.Add(linebreak);
+                BVal1.Controls.Add(control);
+                BVal1.Controls.Add(linebreak);
             }
         }
 
@@ -42,29 +66,48 @@ namespace Test
 
         protected void Button_Click(object sender, EventArgs e)
         {
-            counter++;
+            SPcounter++;
             StrategyPoint test = new StrategyPoint();
-            test.ID = "Button" + counter.ToString();
-            test.Text = "Point " + counter.ToString();
+            test.ID = "Button" + SPcounter.ToString();
+            test.Text = "Point " + SPcounter.ToString();
 
-            test.Click += new EventHandler(this.Point_Button_Click);
+            test.Click += new EventHandler(test.OnClick);
+
 
             //test.Attributes.Add("OnClick", "Point_Button_Click");
 
 
             LiteralControl linebreak = new LiteralControl("<br />");
+            //PlaceHolder1.Controls.Add(test);
+            //PlaceHolder1.Controls.Add(linebreak);
 
+            PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
+            PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
             PlaceHolder1.Controls.Add(test);
-            PlaceHolder1.Controls.Add(linebreak);
+            PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+            PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
 
-            controlIDList.Add(test.ID);
-            ViewState["controlIDList"] = controlIDList;
+            StrategyPoints.Add(test.ID);
+            ViewState["StrategyPoints"] = StrategyPoints;
+
+            if (BVCcounter == 0)
+            {
+                BVCcounter++;
+                Button control = new Button();
+                control.ID = "BV" + BVCcounter.ToString();
+                control.Text = "Add Business Value";
+
+
+                BVal1.Controls.Add(control);
+                BVal1.Controls.Add(linebreak);
+
+                BusinessValueControls.Add(control.ID);
+                ViewState["BusinessValueControls"] = BusinessValueControls;
+
+            }
+
+
         }
 
-        protected void Point_Button_Click(object sender, EventArgs e)
-        {
-            
-
-        }
     }
 }

@@ -8,7 +8,7 @@ namespace Test.Components
 {
     public class BusinessValue:Image
     {
-
+        
         public BusinessValue ()
         {
             
