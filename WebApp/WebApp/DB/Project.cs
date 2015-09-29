@@ -19,14 +19,12 @@ namespace WebApp.DB
 
 
         #region Getter's and Setters
-        public void SetName(string name)
-        {
+        public void SetName(string name) {
             mDatabase.connect();
             mReader = mDatabase.execute("UPDATE Project SET Name=" + name + " WHERE Name=" + mName);
             mDatabase.close();
         }
-        public string GetName()
-        {
+        public string GetName() {
             mDatabase.connect();
             mReader = mDatabase.execute("SELECT Name FROM Project WHERE Name=" + mName);
             mReader.Read();
