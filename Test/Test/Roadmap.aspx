@@ -39,7 +39,7 @@
             <li class="sidebar-brand">
                 <br />
             <asp:Button runat="server" id="testbutton" text="New Point" OnClick="Button_Click"  />
-            <asp:PlaceHolder ID="BVal1" runat="server"></asp:PlaceHolder>
+               
             </li>
 
         </ul>
@@ -54,8 +54,8 @@
                     <h1>Simple Sidebar</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> Launch demo modal</button>
-                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Tooltip on top</button>
+                 <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#myModal" data-toggle="modal" OnClientClick="javascript:return false;" />
+            <asp:PlaceHolder ID="BVal1" runat="server"></asp:PlaceHolder>
                 </div>
                 <br />
                 <table>
@@ -96,6 +96,14 @@
                 </div>
             </div>
         </div>
+
+<!-- Boot strap modal asp button attempt -->
+
+
+
+
+
+ 
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
