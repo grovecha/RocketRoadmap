@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
 
 namespace WebApp.DB
 {
@@ -11,7 +12,11 @@ namespace WebApp.DB
         * Getters and Setters for User DB object
         */
         #region Getters and Setters
-        public void SetName(string name) { mName = name; }
+        public void SetName(string name) {
+            WebApp.DB.Database.connect();
+            mName = name;
+        }
+
         public string GetName() { return mName; }
 
         public void SetUserName(string UserName) { mUserName = UserName; }
@@ -24,10 +29,11 @@ namespace WebApp.DB
         public string GetPassword() { return mPassword; }
         #endregion
 
-        string mName;
-        string mUserName;
-        string mEmail;
-        string mPassword;
+        private string mName;
+        private string mUserName;
+        private string mEmail;
+        private string mPassword;
+        private SqlDataReader mReader;
     }
 
 }

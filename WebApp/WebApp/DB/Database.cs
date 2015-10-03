@@ -29,7 +29,7 @@ namespace WebApp.DB
 
         public void close(SqlConnection conn)
         {
-            mConnection.close();
+            mConnection.Close();
         }
 
         public SqlDataReader execute(string command)
