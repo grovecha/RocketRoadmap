@@ -21,7 +21,7 @@ namespace WebApp.DB
         public string GetName()
         {
             mDatabase.connect();
-            mReader = mDatabase.execute("SELECT User FROM Project WHERE Name=" + mUserName);
+            mReader = mDatabase.executeread("SELECT User FROM Project WHERE Name=" + mUserName);
             mReader.Read();
             return mReader.GetString(0).ToString();
         }
@@ -39,7 +39,7 @@ namespace WebApp.DB
         public bool NewUser(string name, string username, string email, string password )
         {
             mDatabase.connect();
-            mReader = mDatabase.execute("INSERT INTO [dbo].[User] ( Name, UserName, Email, Password) VALUES (" + name + "," + username + "," + email + "," + password + ")");
+            mDatabase.executewrite("INSERT INTO [dbo].[User] ( Name, UserName, Email, Password) VALUES (" + name + "," + username + "," + email + "," + password + ")");
             mDatabase.close();
 
             return false;
