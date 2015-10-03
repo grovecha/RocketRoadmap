@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Roadmap</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,11 +51,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Simple Sidebar</h1>
+                    <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> Launch demo modal</button>
-                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Tooltip on top</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> modal</button>
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Hover</button>
                 </div>
                 <br />
                 <table>

@@ -36,9 +36,10 @@ namespace Test
                 LiteralControl linebreak = new LiteralControl("<br />");
                 //PlaceHolder1.Controls.Add(test);
                 //PlaceHolder1.Controls.Add(linebreak);
+                string rowid = "<tr id= \"Row" + SPcounter + "\">";
+                PlaceHolder1.Controls.Add(new LiteralControl(rowid));
 
-                PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("<td id=\"Col\">"));
                 PlaceHolder1.Controls.Add(test);
                 PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                 PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
@@ -81,7 +82,8 @@ namespace Test
             //PlaceHolder1.Controls.Add(test);
             //PlaceHolder1.Controls.Add(linebreak);
 
-            PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
+            string rowid = "<tr id= \"Row" + SPcounter + "\">";
+            PlaceHolder1.Controls.Add(new LiteralControl(rowid));
             PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
             PlaceHolder1.Controls.Add(test);
             PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
