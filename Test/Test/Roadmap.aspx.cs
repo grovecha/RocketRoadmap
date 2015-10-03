@@ -12,7 +12,7 @@ namespace Test
     {
         List<string> StrategyPoints = new List<string>();
         List<string> BusinessValueControls = new List<String>();
-        Table table;
+        
         int SPcounter = 0;
         int BVCcounter = 0;
 
@@ -25,24 +25,25 @@ namespace Test
 
             foreach (string id in StrategyPoints)
             {
-                SPcounter++;
-                TableRow row1 = new TableRow();
-                TableCell cell = new TableCell();
-                Table1.Rows.Add(row1);
-                row1.Cells.Add(cell);
 
+                SPcounter++;
                 StrategyPoint test = new StrategyPoint();
                 test.ID = "Button" + SPcounter.ToString();
                 test.Text = "Point " + SPcounter.ToString();
 
                 test.Click += new EventHandler(test.OnClick);
-                cell.Controls.Add(test);
 
-                //    SPcounter++;
-                //    StrategyPoint test = new StrategyPoint();
-                //    test.ID = "Button" + SPcounter.ToString();
-                //    test.Text = "Point " + SPcounter.ToString();
+                LiteralControl linebreak = new LiteralControl("<br />");
+                //PlaceHolder1.Controls.Add(test);
+                //PlaceHolder1.Controls.Add(linebreak);
 
+                PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
+                PlaceHolder1.Controls.Add(test);
+                PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+
+<<<<<<< HEAD
                 //LiteralControl linebreak = new LiteralControl("<br />");
                 ////PlaceHolder1.Controls.Add(test);
                 ////PlaceHolder1.Controls.Add(linebreak);
@@ -53,6 +54,18 @@ namespace Test
                 //PlaceHolder1.Controls.Add(test);
                 //PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                 //PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+=======
+                LiteralControl linebreak = new LiteralControl("<br />");
+                //PlaceHolder1.Controls.Add(test);
+                //PlaceHolder1.Controls.Add(linebreak);
+                string rowid = "<tr id= \"Row" + SPcounter + "\">";
+                PlaceHolder1.Controls.Add(new LiteralControl(rowid));
+
+                PlaceHolder1.Controls.Add(new LiteralControl("<td id=\"Col\">"));
+                PlaceHolder1.Controls.Add(test);
+                PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+                PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+>>>>>>> 77d91f36ec5320b2121f5dfa78f56d087224fcdb
 
                 //    test.Click += new EventHandler(test.OnClick);
 
@@ -68,20 +81,20 @@ namespace Test
 
             }
 
-        //foreach (string id in BusinessValueControls)
-        //{
+            foreach (string id in BusinessValueControls)
+            {
 
-        //    BVCcounter++;
-        //    Button control = new Button();
-        //    control.ID = "BV" + BVCcounter.ToString();
-        //    control.Text = "Add Business Value";
+                BVCcounter++;
+                Button control = new Button();
+                control.ID = "BV" + BVCcounter.ToString();
+                control.Text = "Add Business Value";
 
-        //    LiteralControl linebreak = new LiteralControl("<br />");
+                LiteralControl linebreak = new LiteralControl("<br />");
 
-        //    BVal1.Controls.Add(control);
-        //    BVal1.Controls.Add(linebreak);
-        //}
-    }
+                //BVal1.Controls.Add(control);
+                //BVal1.Controls.Add(linebreak);
+            }
+        }
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -91,24 +104,15 @@ namespace Test
         protected void Button_Click(object sender, EventArgs e)
         {
             SPcounter++;
-            TableRow row = new TableRow();
-            row.ID = "StratRow" + SPcounter.ToString();
-            TableCell cell = new TableCell();
+            StrategyPoint test = new StrategyPoint();
+            test.ID = "Button" + SPcounter.ToString();
+            test.Text = "Point " + SPcounter.ToString();
 
-            Table1.Rows.Add(row);
-            row.Cells.Add(cell);
-            
+            test.Click += new EventHandler(test.OnClick);
 
-            StrategyPoint stratpt = new StrategyPoint();
-            stratpt.ID = "Button" + SPcounter.ToString();
-            stratpt.Text = "Point " + SPcounter.ToString();
 
-            stratpt.Click += new EventHandler(stratpt.OnClick);
 
-            StrategyPoints.Add(stratpt.ID);
-            ViewState["StrategyPoints"] = StrategyPoints;
-            cell.Controls.Add(stratpt);
-
+<<<<<<< HEAD
             //string rowid = "<tr id= \"Row" + SPcounter + "\">";
             //PlaceHolder1.Controls.Add(new LiteralControl(rowid));
             //PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
@@ -118,37 +122,49 @@ namespace Test
 
             //test.Attributes.Add("OnClick", "Point_Button_Click");
 
+=======
+            string rowid = "<tr id= \"Row" + SPcounter + "\">";
+            PlaceHolder1.Controls.Add(new LiteralControl(rowid));
+            PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
+            PlaceHolder1.Controls.Add(test);
+            PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+            PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+
+            //test.Attributes.Add("OnClick", "Point_Button_Click");
+>>>>>>> 77d91f36ec5320b2121f5dfa78f56d087224fcdb
 
 
-            //LiteralControl linebreak = new LiteralControl("<br />");
-            ////PlaceHolder1.Controls.Add(test);
-            ////PlaceHolder1.Controls.Add(linebreak);
 
-            //PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-            //PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
+            LiteralControl linebreak = new LiteralControl("<br />");
             //PlaceHolder1.Controls.Add(test);
-            //PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-            //PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+            //PlaceHolder1.Controls.Add(linebreak);
+
+            PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
+            PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
+            PlaceHolder1.Controls.Add(test);
+            PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
+            PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
+
+            StrategyPoints.Add(test.ID);
+            ViewState["StrategyPoints"] = StrategyPoints;
+
+            if (BVCcounter == 0)
+            {
+                BVCcounter++;
+                Button control = new Button();
+                control.ID = "BV" + BVCcounter.ToString();
+                control.Text = "Add Business Value";
 
 
+                BVal1.Controls.Add(control);
+                BVal1.Controls.Add(linebreak);
 
-            //if (BVCcounter == 0)
-            //{
-            //    BVCcounter++;
-            //    Button control = new Button();
-            //    control.ID = "BV" + BVCcounter.ToString();
-            //    control.Text = "Add Business Value";
+                BusinessValueControls.Add(control.ID);
+                ViewState["BusinessValueControls"] = BusinessValueControls;
 
-
-            //    BVal1.Controls.Add(control);
-            //    BVal1.Controls.Add(linebreak);
-
-            //    BusinessValueControls.Add(control.ID);
-            //    ViewState["BusinessValueControls"] = BusinessValueControls;
-
-            //}
+            }
         }
-
+       
 
     }
 }

@@ -171,18 +171,17 @@
     <Compile Include="DB\Issue.cs" />
     <Compile Include="DB\Link.cs" />
     <Compile Include="DB\Project.cs" />
+    <Compile Include="DB\RoadMap.cs" />
+    <Compile Include="DB\RoadMaps.cs" />
+    <Compile Include="DB\StrategyPoint.cs" />
+    <Compile Include="DB\TickMark.cs" />
+    <Compile Include="DB\TimeLine.cs" />
     <Compile Include="DB\User.cs" />
     <Compile Include="DB\Database.cs" />
-    <Compile Include="DB\WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DB\WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DB\Users.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -206,7 +205,6 @@
     <Content Include="Content\login.css" />
     <Content Include="Content\simple-sidebar.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="DB\WebForm1.aspx" />
     <Content Include="css\bootstrap-theme.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
