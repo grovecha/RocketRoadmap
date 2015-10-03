@@ -9,12 +9,14 @@ namespace WebApp.DB
 {
     public class Database
     {
+        //Connection
         private SqlConnection mConnection;
 
+        //Actually initiates connection to database
         public void connect()
         {
-            string connstring=ConfigurationManager.ConnectionStrings["QLDB"].ToString();
-            SqlConnection conn= new SqlConnection(connstring);
+            string connstring = ConfigurationManager.ConnectionStrings["QLDB"].ToString();
+            SqlConnection conn = new SqlConnection(connstring);
 
             try
             {
@@ -24,15 +26,17 @@ namespace WebApp.DB
             {
                 System.Windows.Forms.MessageBox.Show("SQL Connection Error");
             }
-            mConnection= conn;
+            mConnection = conn;
         }
 
-        public void close(SqlConnection conn)
+        //Closes database connection
+        public void close()
         {
             mConnection.Close();
         }
 
-        public SqlDataReader execute(string command)
+        //Executes a read command (SELECT)
+        public SqlDataReader executeread(string command)
         {
             SqlCommand cmd = new SqlCommand();
             SqlDataReader reader;
@@ -46,34 +50,16 @@ namespace WebApp.DB
             return reader;
         }
 
-        public string getusername()
+        //Executes a write command (UPDATE, INSERT, DELETE....)
+        public bool executewrite(string command)
         {
-            SqlConnection conn= connect();
-
             SqlCommand cmd = new SqlCommand();
-            SqlDataReader reader;
 
-            cmd.CommandText = "SELECT Name from [dbo].[User] WHERE Email='bpchiv@gmail.com'";
+            cmd.CommandText = command;
             cmd.CommandType = System.Data.CommandType.Text;
-            cmd.Connection = conn;
+            cmd.Connection = mConnection;
 
-            reader = cmd.ExecuteReader();
-            string name= "";
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    name = reader.GetString(0);
-                    
-                }
-            }
-            else
-            {
-                Console.WriteLine("No rows found.");
-            }
-            reader.Close();
-            conn.Close();
-            return name;
+            return (cmd.ExecuteNonQuery() != 0);
         }
     }
 }

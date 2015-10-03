@@ -3,36 +3,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WebApp.DB
 {
     public class User
     {
+
+  
+
+
         /**
         * Getters and Setters for User DB object
         */
-        #region Getters and Setters
-        public void SetName(string name) {
-            WebApp.DB.Database.connect();
-            mName = name;
+        #region Getters
+
+        public string GetName()
+        {
+            mDatabase.connect();
+            mReader = mDatabase.execute("SELECT User FROM Project WHERE Name=" + mUserName);
+            mReader.Read();
+            return mReader.GetString(0).ToString();
         }
 
-        public string GetName() { return mName; }
+        public string GetUserName() {
 
-        public void SetUserName(string UserName) { mUserName = UserName; }
-        public string GetUserName() { return mUserName; }
+            return "TEST"; // Database.execute("SELECT Name from [dbo].[User] WHERE Email='bpchiv@gmail.com'");
+        }
 
-        public void SetEmail(string email) { mEmail = email; }
         public string GetEmail() { return mEmail; }
 
-        public void SetPassword(string pass) { mPassword = pass; }
         public string GetPassword() { return mPassword; }
         #endregion
 
-        private string mName;
-        private string mUserName;
-        private string mEmail;
-        private string mPassword;
+        public bool NewUser(string name, string username, string email, string password )
+        {
+            mDatabase.connect();
+            mReader = mDatabase.execute("INSERT INTO [dbo].[User] ( Name, UserName, Email, Password) VALUES (" + name + "," + username + "," + email + "," + password + ")");
+            mDatabase.close();
+
+            return false;
+        }
+
+        string mName;
+        string mUserName;
+        string mEmail;
+        string mPassword;
+
+        private WebApp.DB.Database mDatabase;
         private SqlDataReader mReader;
     }
 

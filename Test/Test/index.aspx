@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="Test.index" %>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +19,7 @@
 
     <div class="title">Staff Login</div>
 
-    <form method="get" action ="Home.html" onsubmit="true">
+    <form method="get" action ="home.aspx" onsubmit="true">
         <input type="text" id="username_ID" placeholder="Username" data-icon="U"> <!-- to make required required title="Password required" -->
         <input type="password" id="password_ID"  placeholder="Password" data-icon="x">
 
