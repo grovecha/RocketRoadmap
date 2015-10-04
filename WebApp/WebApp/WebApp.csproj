@@ -168,6 +168,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="DB\Issue.cs" />
+    <Compile Include="DB\Link.cs" />
     <Compile Include="DB\Project.cs" />
     <Compile Include="DB\RoadMap.cs" />
     <Compile Include="DB\RoadMaps.cs" />
