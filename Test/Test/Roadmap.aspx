@@ -61,6 +61,9 @@
                 <table>
                     <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
                 </table>
+                <asp:Table ID="Table1" runat="server">
+
+                </asp:Table>
 
 
 
