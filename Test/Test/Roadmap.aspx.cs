@@ -43,7 +43,6 @@ namespace Test
                 PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                 PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
 
-<<<<<<< HEAD
                 //LiteralControl linebreak = new LiteralControl("<br />");
                 ////PlaceHolder1.Controls.Add(test);
                 ////PlaceHolder1.Controls.Add(linebreak);
@@ -54,8 +53,7 @@ namespace Test
                 //PlaceHolder1.Controls.Add(test);
                 //PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                 //PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-=======
-                LiteralControl linebreak = new LiteralControl("<br />");
+                //LiteralControl linebreak = new LiteralControl("<br />");
                 //PlaceHolder1.Controls.Add(test);
                 //PlaceHolder1.Controls.Add(linebreak);
                 string rowid = "<tr id= \"Row" + SPcounter + "\">";
@@ -65,7 +63,6 @@ namespace Test
                 PlaceHolder1.Controls.Add(test);
                 PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
                 PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
->>>>>>> 77d91f36ec5320b2121f5dfa78f56d087224fcdb
 
                 //    test.Click += new EventHandler(test.OnClick);
 
@@ -81,19 +78,19 @@ namespace Test
 
             }
 
-            foreach (string id in BusinessValueControls)
-            {
+            //foreach (string id in BusinessValueControls)
+            //{
 
-                BVCcounter++;
-                Button control = new Button();
-                control.ID = "BV" + BVCcounter.ToString();
-                control.Text = "Add Business Value";
+            //    BVCcounter++;
+            //    Button control = new Button();
+            //    control.ID = "BV" + BVCcounter.ToString();
+            //    control.Text = "Add Business Value";
 
-                LiteralControl linebreak = new LiteralControl("<br />");
+            //    LiteralControl linebreak = new LiteralControl("<br />");
 
-                //BVal1.Controls.Add(control);
-                //BVal1.Controls.Add(linebreak);
-            }
+            //    //BVal1.Controls.Add(control);
+            //    //BVal1.Controls.Add(linebreak);
+            //}
         }
 
 
@@ -112,7 +109,6 @@ namespace Test
 
 
 
-<<<<<<< HEAD
             //string rowid = "<tr id= \"Row" + SPcounter + "\">";
             //PlaceHolder1.Controls.Add(new LiteralControl(rowid));
             //PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
@@ -122,7 +118,6 @@ namespace Test
 
             //test.Attributes.Add("OnClick", "Point_Button_Click");
 
-=======
             string rowid = "<tr id= \"Row" + SPcounter + "\">";
             PlaceHolder1.Controls.Add(new LiteralControl(rowid));
             PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
@@ -131,7 +126,6 @@ namespace Test
             PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
 
             //test.Attributes.Add("OnClick", "Point_Button_Click");
->>>>>>> 77d91f36ec5320b2121f5dfa78f56d087224fcdb
 
 
 
@@ -148,21 +142,21 @@ namespace Test
             StrategyPoints.Add(test.ID);
             ViewState["StrategyPoints"] = StrategyPoints;
 
-            if (BVCcounter == 0)
-            {
-                BVCcounter++;
-                Button control = new Button();
-                control.ID = "BV" + BVCcounter.ToString();
-                control.Text = "Add Business Value";
+            //if (BVCcounter == 0)
+            //{
+            //    BVCcounter++;
+            //    Button control = new Button();
+            //    control.ID = "BV" + BVCcounter.ToString();
+            //    control.Text = "Add Business Value";
 
 
-                BVal1.Controls.Add(control);
-                BVal1.Controls.Add(linebreak);
+            //    BVal1.Controls.Add(control);
+            //    BVal1.Controls.Add(linebreak);
 
-                BusinessValueControls.Add(control.ID);
-                ViewState["BusinessValueControls"] = BusinessValueControls;
+            //    BusinessValueControls.Add(control.ID);
+            //    ViewState["BusinessValueControls"] = BusinessValueControls;
 
-            }
+            //}
         }
        
 
