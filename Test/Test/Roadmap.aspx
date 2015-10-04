@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Roadmap</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -50,22 +50,16 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1>Simple Sidebar</h1>
+                <div class="col-lg-12"><
+                    <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> modal</button>
-                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Hover</button>
-                 <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#myModal" data-toggle="modal" OnClientClick="javascript:return false;" />
-            <asp:PlaceHolder ID="BVal1" runat="server"></asp:PlaceHolder>
-                    <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#displayModal" data-toggle="modal" OnClientClick="javascript:return false;" />
-                    <asp:Button ID="Button1" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#inputModal" data-toggle="modal" OnClientClick="javascript:return false;" />
-         
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#disModal">Open Modal</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#inpModal">input Modal</button>
                 </div>
                 <br />
-                <table>
-                    <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
-                </table>
+                <asp:Table ID="Table1" runat="server">
+
+                </asp:Table>
 
 
 
@@ -77,23 +71,23 @@
 </div>
 <!-- /#wrapper -->
 
-    <!-- Modal Display -->
-        <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Modal -->
+        <div class="modal fade" id="disModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="displayLabel">Display Modal</h4>
+                        <h4 class="modal-title" id="disLabel">Modal title</h4>
                     </div>
                     <div class="modal-body">
                         <h2><u>Description</u></h2>
-                       <p>Need to call Description Details here</p> 
+                       <p>Modal data will be taken here</p> 
                         <p></p>
                         <h2><u>Dependencies</u></h2>
-                        <p>Link to another project?</p>
+                        <p>Project ot Project dependencies</p>
                         <p></p>
                         <h2><u>Risks</u></h2>
-                        <p>Risks or links to outside documentation</p>
+                        <p>Risk textboxes</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -101,30 +95,35 @@
                 </div>
             </div>
         </div>
-
-    <!-- Modal Input -->
-        <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
+   
+    
+     <!-- Modal input -->
+        <div class="modal fade" id="inpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="banner">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="inputLabel">Input Modal</h4>
+                        <h4 class="modal-title" id="inpLabel">Modal title</h4>
                     </div>
                     <div class="modal-body">
                         <h2><u>Description</u></h2>
                         <textarea>
 
 
-                        </textarea>
+
+
+                        </textarea> 
                         <p></p>
                         <h2><u>Dependencies</u></h2>
-                        <p>Link to another project?</p>
+                        <p>Project ot Project dependencies</p>
                         <p></p>
                         <h2><u>Risks</u></h2>
-                       <textarea>
+                        <textarea>
 
 
-                       </textarea>
+
+
+                      </textarea> 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -134,16 +133,18 @@
         </div>
 
 
-
-
-
- 
-
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+
+<!-- Modal Call Function -->
+<script> type="text/javascript"
+    function openModal() {
+        $('#displayModal').modal('show');
+    }
+</script>
 
 <!-- Menu Toggle Script -->
 <script>

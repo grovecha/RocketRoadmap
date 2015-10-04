@@ -12,7 +12,7 @@ namespace Test
     {
         List<string> StrategyPoints = new List<string>();
         List<string> BusinessValueControls = new List<String>();
-        
+        Table table;
         int SPcounter = 0;
         int BVCcounter = 0;
 
@@ -25,56 +25,19 @@ namespace Test
 
             foreach (string id in StrategyPoints)
             {
-
                 SPcounter++;
+                TableRow row1 = new TableRow();
+                TableCell cell = new TableCell();
+                Table1.Rows.Add(row1);
+                row1.Cells.Add(cell);
+
                 StrategyPoint test = new StrategyPoint();
                 test.ID = "Button" + SPcounter.ToString();
                 test.Text = "Point " + SPcounter.ToString();
 
                 test.Click += new EventHandler(test.OnClick);
+                cell.Controls.Add(test);
 
-                LiteralControl linebreak = new LiteralControl("<br />");
-                //PlaceHolder1.Controls.Add(test);
-                //PlaceHolder1.Controls.Add(linebreak);
-
-                PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
-                PlaceHolder1.Controls.Add(test);
-                PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-
-                //LiteralControl linebreak = new LiteralControl("<br />");
-                ////PlaceHolder1.Controls.Add(test);
-                ////PlaceHolder1.Controls.Add(linebreak);
-                //string rowid = "<tr id= \"Row" + SPcounter + "\">";
-                //PlaceHolder1.Controls.Add(new LiteralControl(rowid));
-
-                //PlaceHolder1.Controls.Add(new LiteralControl("<td id=\"Col\">"));
-                //PlaceHolder1.Controls.Add(test);
-                //PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-                //PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-                //LiteralControl linebreak = new LiteralControl("<br />");
-                //PlaceHolder1.Controls.Add(test);
-                //PlaceHolder1.Controls.Add(linebreak);
-                string rowid = "<tr id= \"Row" + SPcounter + "\">";
-                PlaceHolder1.Controls.Add(new LiteralControl(rowid));
-
-                PlaceHolder1.Controls.Add(new LiteralControl("<td id=\"Col\">"));
-                PlaceHolder1.Controls.Add(test);
-                PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-                PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-
-                //    test.Click += new EventHandler(test.OnClick);
-
-                //    LiteralControl linebreak = new LiteralControl("<br />");
-                //    //PlaceHolder1.Controls.Add(test);
-                //    //PlaceHolder1.Controls.Add(linebreak);
-
-                //    PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-                //    PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
-                //    PlaceHolder1.Controls.Add(test);
-                //    PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-                //    PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
 
             }
 
@@ -88,8 +51,8 @@ namespace Test
 
             //    LiteralControl linebreak = new LiteralControl("<br />");
 
-            //    //BVal1.Controls.Add(control);
-            //    //BVal1.Controls.Add(linebreak);
+            //    BVal1.Controls.Add(control);
+            //    BVal1.Controls.Add(linebreak);
             //}
         }
 
@@ -101,46 +64,26 @@ namespace Test
         protected void Button_Click(object sender, EventArgs e)
         {
             SPcounter++;
-            StrategyPoint test = new StrategyPoint();
-            test.ID = "Button" + SPcounter.ToString();
-            test.Text = "Point " + SPcounter.ToString();
+            TableRow row = new TableRow();
+            row.ID = "StratRow" + SPcounter.ToString();
+            TableCell cell = new TableCell();
 
-            test.Click += new EventHandler(test.OnClick);
-
-
-
-            //string rowid = "<tr id= \"Row" + SPcounter + "\">";
-            //PlaceHolder1.Controls.Add(new LiteralControl(rowid));
-            //PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
-            //PlaceHolder1.Controls.Add(test);
-            //PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-            //PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-
-            //test.Attributes.Add("OnClick", "Point_Button_Click");
-
-            string rowid = "<tr id= \"Row" + SPcounter + "\">";
-            PlaceHolder1.Controls.Add(new LiteralControl(rowid));
-            PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
-            PlaceHolder1.Controls.Add(test);
-            PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-            PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-
-            //test.Attributes.Add("OnClick", "Point_Button_Click");
+            Table1.Rows.Add(row);
+            row.Cells.Add(cell);
 
 
+            StrategyPoint stratpt = new StrategyPoint();
+            stratpt.ID = "Button" + SPcounter.ToString();
+            stratpt.Text = "Point " + SPcounter.ToString();
 
-            LiteralControl linebreak = new LiteralControl("<br />");
-            //PlaceHolder1.Controls.Add(test);
-            //PlaceHolder1.Controls.Add(linebreak);
+            stratpt.Click += new EventHandler(stratpt.OnClick);
 
-            PlaceHolder1.Controls.Add(new LiteralControl("<tr>"));
-            PlaceHolder1.Controls.Add(new LiteralControl("<td>"));
-            PlaceHolder1.Controls.Add(test);
-            PlaceHolder1.Controls.Add(new LiteralControl("</td>"));
-            PlaceHolder1.Controls.Add(new LiteralControl("</tr>"));
-
-            StrategyPoints.Add(test.ID);
+            StrategyPoints.Add(stratpt.ID);
             ViewState["StrategyPoints"] = StrategyPoints;
+            cell.Controls.Add(stratpt);
+
+
+
 
             //if (BVCcounter == 0)
             //{
@@ -158,7 +101,7 @@ namespace Test
 
             //}
         }
-       
+
 
     }
 }
