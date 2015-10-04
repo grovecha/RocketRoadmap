@@ -55,20 +55,22 @@
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     <!-- Button trigger modal -->
 <<<<<<< HEAD
+                    <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#displayModal" data-toggle="modal" OnClientClick="javascript:return false;" />
+                    <asp:Button ID="Button1" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#inputModal" data-toggle="modal" OnClientClick="javascript:return false;" />
+=======
+<<<<<<< HEAD
                     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> modal</button>
                     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Hover</button>
 =======
                  <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#myModal" data-toggle="modal" OnClientClick="javascript:return false;" />
             <asp:PlaceHolder ID="BVal1" runat="server"></asp:PlaceHolder>
 >>>>>>> 74ae2ae94f4515d4cb14059c67c9c848839a1e8a
+>>>>>>> 4fa2787eb3456c05d87b404eb5573bbcbbdf070b
                 </div>
                 <br />
                 <table>
                     <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
                 </table>
-                <asp:Table ID="Table1" runat="server">
-
-                </asp:Table>
 
 
 
@@ -80,23 +82,23 @@
 </div>
 <!-- /#wrapper -->
 
-    <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- Modal Display -->
+        <div class="modal fade" id="displayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        <h4 class="modal-title" id="displayLabel">Display Modal</h4>
                     </div>
                     <div class="modal-body">
                         <h2><u>Description</u></h2>
-                       <p>It will be saying things about our object BLah BLah Blah</p> 
+                       <p>Need to call Description Details here</p> 
                         <p></p>
                         <h2><u>Dependencies</u></h2>
-                        <p>Becky totally depends on Johnny</p>
+                        <p>Link to another project?</p>
                         <p></p>
                         <h2><u>Risks</u></h2>
-                        <p>We are all risky</p>
+                        <p>Risks or links to outside documentation</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -105,7 +107,36 @@
             </div>
         </div>
 
-<!-- Boot strap modal asp button attempt -->
+    <!-- Modal Input -->
+        <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="inputLabel">Input Modal</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h2><u>Description</u></h2>
+                        <textarea>
+
+
+                        </textarea>
+                        <p></p>
+                        <h2><u>Dependencies</u></h2>
+                        <p>Link to another project?</p>
+                        <p></p>
+                        <h2><u>Risks</u></h2>
+                       <textarea>
+
+
+                       </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
