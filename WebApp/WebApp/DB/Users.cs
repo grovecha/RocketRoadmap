@@ -20,7 +20,7 @@ namespace WebApp.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("INSERT INTO [User] ( Name, ID, Email, Password ) VALUES (" + "'" + newuser.GetName() + "'" + ',' + "'" + newuser.GetUserName() + "'" + ',' + "'" + newuser.GetEmail() + "'" + ',' + "'" + newuser.GetPassword() + "')"))
+            if (mDatabase.executewrite("INSERT INTO [dbo].[User] ( Name, ID, Email, Password ) VALUES (" + "'" + newuser.GetName() + "'" + ',' + "'" + newuser.GetUserName() + "'" + ',' + "'" + newuser.GetEmail() + "'" + ',' + "'" + newuser.GetPassword() + "')"))
             {
                 toReturn = true;
             }
@@ -55,7 +55,7 @@ namespace WebApp.DB
             return user;
         }
 
-        private WebApp.DB.Database mDatabase;
+        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
 
     }
