@@ -51,6 +51,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DB\IssueTests.cs" />
+    <Compile Include="DB\LinkTests.cs" />
+    <Compile Include="DB\ProjectTests.cs" />
+    <Compile Include="DB\RoadMapsTests.cs" />
+    <Compile Include="DB\RoadMapTests.cs" />
+    <Compile Include="DB\StrategyPointTests.cs" />
+    <Compile Include="DB\TickMarkTests.cs" />
+    <Compile Include="DB\TimeLineTests.cs" />
     <Compile Include="DB\UsersTests.cs" />
     <Compile Include="DB\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
