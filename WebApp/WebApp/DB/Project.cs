@@ -18,7 +18,7 @@ namespace WebApp.DB
         private SqlDataReader mReader;
 
 
-        #region Getter's and Setters
+    /*    #region Getter's and Setters
         public void SetName(string name) {
             mDatabase.connect();
             mReader = mDatabase.execute("UPDATE Project SET Name=" + name + " WHERE Name=" + mName);
@@ -42,6 +42,6 @@ namespace WebApp.DB
 
         public void SetBusinessValue(string businessvalue) { mBusinessValue = businessvalue; }
         public string GetBusinessValue() { return mBusinessValue; }
-        #endregion
+        #endregion*/
     }
 }
