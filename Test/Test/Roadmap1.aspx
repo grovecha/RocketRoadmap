@@ -26,10 +26,17 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+
 </head>
 
 <body>
 <form id="form1" runat="server">
+
+
+
+
+                                                
 <div id="wrapper">
 
     <!-- Sidebar -->
@@ -37,8 +44,19 @@
         <ul class="sidebar-nav">
 
             <li class="sidebar-brand">
-                <br />
-            <asp:Button runat="server" id="testbutton" text="New Point" OnClick="Button_Click"  />
+                <br />      
+                <asp:Table runat="server" ID="SideBarTable">
+                    <asp:TableRow ID="Strat1">
+                        
+                        <asp:TableCell>
+                        <button type="button" id="button1" onclick="StratClick()"> Strategy Point</button>
+                        </asp:TableCell>
+                    </asp:TableRow>
+
+
+                </asp:Table>
+
+                
                
             </li>
 
@@ -55,9 +73,9 @@
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                 </div>
                 <br />
-                <asp:Table ID="Table1" runat="server">
+                <table id="roadmap-table">
 
-                </asp:Table>
+                </table>
 
 
 
@@ -67,6 +85,8 @@
     <!-- /#page-content-wrapper -->
 
 </div>
+
+
 <!-- /#wrapper -->
 
     <!-- Modal -->
@@ -108,6 +128,7 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
+    <script src="js/Roadmap.js"></script>
 <!-- Menu Toggle Script -->
 <script>
     $("#menu-toggle").click(function(e) {

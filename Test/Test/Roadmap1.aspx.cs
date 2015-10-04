@@ -20,26 +20,26 @@ namespace Test
         protected override void LoadViewState(object savedState)
         {
             base.LoadViewState(savedState);
-            StrategyPoints = (List<string>)ViewState["StrategyPoints"];
-            BusinessValueControls = (List<string>)ViewState["BusinessValueControls"];
+            //StrategyPoints = (List<string>)ViewState["StrategyPoints"];
+            //BusinessValueControls = (List<string>)ViewState["BusinessValueControls"];
 
-            foreach (string id in StrategyPoints)
-            {
-                SPcounter++;
-                TableRow row1 = new TableRow();
-                TableCell cell = new TableCell();
-                Table1.Rows.Add(row1);
-                row1.Cells.Add(cell);
+            //foreach (string id in StrategyPoints)
+            //{
+            //    SPcounter++;
+            //    TableRow row1 = new TableRow();
+            //    TableCell cell = new TableCell();
+            //    Table1.Rows.Add(row1);
+            //    row1.Cells.Add(cell);
 
-                StrategyPoint test = new StrategyPoint();
-                test.ID = "Button" + SPcounter.ToString();
-                test.Text = "Point " + SPcounter.ToString();
+            //    StrategyPoint test = new StrategyPoint();
+            //    test.ID = "Button" + SPcounter.ToString();
+            //    test.Text = "Point " + SPcounter.ToString();
 
-                test.Click += new EventHandler(test.OnClick);
-                cell.Controls.Add(test);
+            //    test.Click += new EventHandler(test.OnClick);
+            //    cell.Controls.Add(test);
 
 
-            }
+            //}
 
             //foreach (string id in BusinessValueControls)
             //{
@@ -63,24 +63,24 @@ namespace Test
 
         protected void Button_Click(object sender, EventArgs e)
         {
-            SPcounter++;
-            TableRow row = new TableRow();
-            row.ID = "StratRow" + SPcounter.ToString();
-            TableCell cell = new TableCell();
+            //SPcounter++;
+            //TableRow row = new TableRow();
+            //row.ID = "StratRow" + SPcounter.ToString();
+            //TableCell cell = new TableCell();
 
-            Table1.Rows.Add(row);
-            row.Cells.Add(cell);
+            //Table1.Rows.Add(row);
+            //row.Cells.Add(cell);
 
 
-            StrategyPoint stratpt = new StrategyPoint();
-            stratpt.ID = "Button" + SPcounter.ToString();
-            stratpt.Text = "Point " + SPcounter.ToString();
+            //StrategyPoint stratpt = new StrategyPoint();
+            //stratpt.ID = "Button" + SPcounter.ToString();
+            //stratpt.Text = "Point " + SPcounter.ToString();
 
-            stratpt.Click += new EventHandler(stratpt.OnClick);
+            ////stratpt.Click += new EventHandler(stratpt.OnClick);
 
-            StrategyPoints.Add(stratpt.ID);
-            ViewState["StrategyPoints"] = StrategyPoints;
-            cell.Controls.Add(stratpt);
+            ////StrategyPoints.Add(stratpt.ID);
+            ////ViewState["StrategyPoints"] = StrategyPoints;
+            //cell.Controls.Add(stratpt);
 
 
 
@@ -101,7 +101,6 @@ namespace Test
 
             //}
         }
-
 
     }
 }

@@ -267,6 +267,7 @@
     <Content Include="js\jquery.js" />
     <Content Include="js\Login.js" />
     <Content Include="js\npm.js" />
+    <Content Include="js\Roadmap.js" />
     <Content Include="Roadmap.aspx" />
     <Content Include="Roadmap1.aspx" />
     <Content Include="Scripts\bootstrap.js" />
