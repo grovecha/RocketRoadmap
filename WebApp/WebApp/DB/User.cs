@@ -15,17 +15,10 @@ namespace WebApp.DB
             mPassword = password;
         }
 
-        /**
-        * Getters and Setters for User object
-        */
-        #region Getters
-
         public string GetName(){ return mName; }
         public string GetUserName() { return mUserName; }
         public string GetEmail() { return mEmail; }
         public string GetPassword() { return mPassword; }
-
-        #endregion
 
         private string mName;
         private string mUserName;

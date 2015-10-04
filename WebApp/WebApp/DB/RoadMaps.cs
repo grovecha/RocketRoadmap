@@ -25,8 +25,8 @@ namespace WebApp.DB
             while (mReader.Read())
             {
                 //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0).ToString(), Convert.ToDateTime(mReader.GetString(1)), mReader.GetString(2).ToString(), mReader.GetString(3).ToString());
-                Maps.Add(map);
+               // RoadMap map = new RoadMap(mReader.GetString(0).ToString(), Convert.ToDateTime(mReader.GetString(1)), mReader.GetString(2).ToString(), mReader.GetString(3).ToString());
+               // Maps.Add(map);
             }
             //return list of roadmaps
             return Maps;
@@ -45,8 +45,8 @@ namespace WebApp.DB
             while (mReader.Read())
             {
                 //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0).ToString(), Convert.ToDateTime(mReader.GetString(1)), mReader.GetString(2).ToString(), mReader.GetString(3).ToString());
-                Maps.Add(map);
+              //  RoadMap map = new RoadMap(mReader.GetString(0).ToString(), Convert.ToDateTime(mReader.GetString(1)), mReader.GetString(2).ToString(), mReader.GetString(3).ToString());
+              //  Maps.Add(map);
             }
             //return list of roadmaps
             return Maps;

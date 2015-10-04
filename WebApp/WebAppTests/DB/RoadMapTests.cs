@@ -14,7 +14,15 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void RoadMapTest()
         {
-            Assert.Fail();
+            RoadMap map = new RoadMap("Test");
+           // TimeLine timeline = new TimeLine();
+
+            Assert.AreEqual("TEST", map.GetDecription());
+            Assert.AreEqual("test", map.GetName());
+            Assert.AreEqual(Convert.ToDateTime("10/4/2015 12:33:45 PM"), map.GetTimeStamp());
+            Assert.AreEqual("123", map.GetUserID());
+
+           // Assert.AreEqual( timeline, map.GetTimeline());
         }
 
         [TestMethod()]
