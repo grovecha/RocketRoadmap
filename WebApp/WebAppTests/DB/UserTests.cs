@@ -12,51 +12,14 @@ namespace WebApp.DB.Tests
     public class UserTests
     {
         [TestMethod()]
-        public void SetNameTest()
+        public void UserTest()
         {
-            Assert.Fail();
-        }
+            User user = new User("NewName", "NewUserName", "NewEmail", "password");
 
-        [TestMethod()]
-        public void GetNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SetUserNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetUserNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SetEmailTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetEmailTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void SetPasswordTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetPasswordTest()
-        {
-            Assert.Fail();
+            Assert.AreEqual("NewName", user.GetName());
+            Assert.AreEqual("NewUserName", user.GetUserName());
+            Assert.AreEqual("NewEmail", user.GetEmail());
+            Assert.AreEqual("password", user.GetPassword());
         }
     }
 }

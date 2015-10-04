@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Roadmap</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,11 +51,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Simple Sidebar</h1>
+                    <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     <!-- Button trigger modal -->
+<<<<<<< HEAD
                     <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#displayModal" data-toggle="modal" OnClientClick="javascript:return false;" />
                     <asp:Button ID="Button1" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#inputModal" data-toggle="modal" OnClientClick="javascript:return false;" />
+=======
+<<<<<<< HEAD
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"> modal</button>
+                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on ">Hover</button>
+=======
+                 <asp:Button ID="btnShowModal" runat="server" Text="Show Modal" CssClass="btn btn-primary btn-info" data-target="#myModal" data-toggle="modal" OnClientClick="javascript:return false;" />
+            <asp:PlaceHolder ID="BVal1" runat="server"></asp:PlaceHolder>
+>>>>>>> 74ae2ae94f4515d4cb14059c67c9c848839a1e8a
+>>>>>>> 4fa2787eb3456c05d87b404eb5573bbcbbdf070b
                 </div>
                 <br />
                 <table>
