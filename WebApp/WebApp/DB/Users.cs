@@ -80,6 +80,5 @@ namespace WebApp.DB
 
         private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
-
     }
 }

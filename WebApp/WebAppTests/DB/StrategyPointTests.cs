@@ -14,19 +14,10 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void StrategyPointTest()
         {
-            Assert.Fail();
-        }
+            StrategyPoint sp = new StrategyPoint("test", "TEST");
 
-        [TestMethod()]
-        public void GetNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetDescriptionTest()
-        {
-            Assert.Fail();
+            Assert.AreEqual("test", sp.GetName());
+            Assert.AreEqual("TEST", sp.GetDescription());
         }
     }
 }
