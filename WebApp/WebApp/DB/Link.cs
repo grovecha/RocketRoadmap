@@ -12,52 +12,73 @@ namespace WebApp.DB
         private string mDescription;
         private string mLink;
 
-        private WebApp.DB.Database mDatabase;
+        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
 
+        public Link(string descrip, string projname, string link)
+        {
+            mProjectName = projname;
+            mLink = link;
+            mDescription = descrip;
+        }
+
         #region Getter's and Setter's
-        public void SetDescription(string description)
+        public bool SetDescription(string description)
         {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Link SET Description=" + description + " WHERE Description=" + mDescription);
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET Description='" + description + "' WHERE Description='" + mDescription + "'");
             mDatabase.close();
+            return flag;
         }
         public string GetDescription()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM Link WHERE Description=" + mDescription);
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Link] WHERE Description='" + mDescription + "'");
             mReader.Read();
+            string descrip = mReader.GetString(0).ToString();
             mDatabase.close();
-            return mReader.GetString(0).ToString();
+            return descrip;
         }
-        public void SetProjectName(string projectname)
+        public bool SetProjectName(string projectname)
         {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Link SET ProjectName=" + projectname + " WHERE Description=" + mDescription);
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET ProjectName='" + projectname + "' WHERE Description='" + mDescription + "'");
             mDatabase.close();
+            return flag;
         }
         public string GetProjectName()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT ProjectName FROM Link WHERE Description=" + mDescription);
+            mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Link] WHERE Description='" + mDescription + "'");
             mReader.Read();
+            string name = mReader.GetString(0).ToString();
             mDatabase.close();
-            return mReader.GetString(0).ToString();
+            return name;
         }
-        public void SetLink(string link)
+        public bool SetLink(string link)
         {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Link SET Link=" + link + " WHERE Description=" + mDescription);
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET Address='" + link + "' WHERE Description='" + mDescription + "'");
             mDatabase.close();
+            return flag;
         }
         public string GetLink()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Link FROM Link WHERE Description=" + mDescription);
+            mReader = mDatabase.executeread("SELECT Address FROM [dbo].[Link] WHERE Description='" + mDescription+"'");
             mReader.Read();
+            string link = mReader.GetString(0).ToString();
             mDatabase.close();
-            return mReader.GetString(0).ToString();
+            return link;
         }
         #endregion
+
+        public bool InsertDB()
+        {
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Link] (Description, ProjectName, Address) VALUES ('" + mDescription + "','" + mProjectName + "','" + mLink + "')");
+            mDatabase.close();
+            return flag;
+        }
     }
 }

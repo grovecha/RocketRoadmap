@@ -14,75 +14,111 @@ namespace WebApp.DB
         private DateTime mEndDate;
         private string mBusinessValue;
 
-        private WebApp.DB.Database mDatabase;
+        private WebApp.DB.Database mDatabase =  new Database();
         private SqlDataReader mReader;
 
+        public Project(string name, string description, string businessvalue)
+        {
+            mName = name;
+            mDescription = description;
+            mBusinessValue = businessvalue;
+        }
 
         #region Getter's and Setters
-        public void SetName(string name) {
+        public bool SetName(string name) {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Project SET Name=" + name + " WHERE Name=" + mName);
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET Name='" + name + "' WHERE Name='" + mName+"'");
+            mName = name;
             mDatabase.close();
+            return flag;
         }
         public string GetName() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name FROM Project WHERE Name=" + mName);
+            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[Project] WHERE Name='" + mName + "'");
             mReader.Read();
+            string name = mReader.GetString(0).ToString();
             mDatabase.close();
-            return mReader.GetString(0).ToString();
+            return name;
         }
 
-        public void SetDescription(string description) {
+        public bool SetDescription(string description) {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Project SET Description=" + description + " WHERE Name=" + mName);
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "'");
             mDatabase.close();
+            mDescription = description;
+            return flag;
         }
         public string GetDescription() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM Project WHERE Name=" + mName);
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Project] WHERE Name='" + mName+"'");
             mReader.Read();
+            string descrip = mReader.GetString(0).ToString();
             mDatabase.close();
-            return mReader.GetString(0).ToString();
+            return descrip;
         }
 
-        public void SetStartDate(DateTime startdate) {
+        public bool SetStartDate(DateTime startdate) {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Project SET StartDate=" + startdate + " WHERE Name=" + mName);
-            mDatabase.close(); 
+            bool flag= mDatabase.executewrite("UPDATE [dbo].[Project] SET StartDate='" + startdate + "' WHERE Name='" + mName+"'");
+            mDatabase.close();
+            mStartDate = startdate;
+            return flag;
         }
         public DateTime GetStartDate() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT StartDate FROM Project WHERE Name=" + mName);
+            mReader = mDatabase.executeread("SELECT StartDate FROM [dbo].[Project] WHERE Name='" + mName+"'");
             mReader.Read();
+            DateTime start = mReader.GetDateTime(0);
             mDatabase.close();
-            return mReader.GetDateTime(0);
+            return start;
         }
 
-        public void SetEndDate(DateTime enddate) {
+        public bool SetEndDate(DateTime enddate) {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Project SET EndDate=" + enddate + " WHERE Name=" + mName);
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET EndDate='" + enddate + "' WHERE Name='" + mName+"'");
             mDatabase.close();
+            mEndDate = enddate;
+            return flag;
         }
         public DateTime GetEndDate() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT EndDate FROM Project WHERE Name=" + mName);
+            mReader = mDatabase.executeread("SELECT EndDate FROM [dbo].[Project] WHERE Name='" + mName+"'");
             mReader.Read();
+            DateTime end = mReader.GetDateTime(0);
             mDatabase.close();
-            return mReader.GetDateTime(0);
+            return end;
         }
 
-        public void SetBusinessValue(string businessvalue) {
+        public bool SetBusinessValue(string businessvalue) {
             mDatabase.connect();
-            mDatabase.executewrite("UPDATE Project SET BusinessValue=" + businessvalue + " WHERE Name=" + mName);
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET BusinessValueName='" + businessvalue + "' WHERE Name='" + mName+"'");
             mDatabase.close();
+            mBusinessValue = businessvalue;
+            return flag;
         }
         public string GetBusinessValue() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT BusinessValue FROM Project WHERE Name=" + mName);
+            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[Project] WHERE Name='" + mName+"'");
             mReader.Read();
+            string bus = mReader.GetString(0).ToString();
             mDatabase.close();
-            return mReader.GetString(0).ToString();
+            return bus;
         }
         #endregion
+
+        public bool InsertDB()
+        {
+            mDatabase.connect();
+            try
+            {
+                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Project] (Name,Description, BusinessValueName) VALUES ('" + mName + "', '"+mDescription+"','"+mBusinessValue+"')");
+                mDatabase.close();
+                return flag;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DB\BusinessValueTest.cs" />
     <Compile Include="DB\IssueTests.cs" />
     <Compile Include="DB\LinkTests.cs" />
     <Compile Include="DB\ProjectTests.cs" />

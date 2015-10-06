@@ -12,27 +12,43 @@ namespace WebApp.DB.Tests
     public class IssueTests
     {
         [TestMethod()]
+        public void IssueConstructorTest()
+        {
+            Issue issue = new Issue("test","test2");
+           
+            Assert.IsNotNull(issue);
+        }
+        [TestMethod()]
         public void SetDescriptionTest()
         {
-            Assert.Fail();
+            Issue issue = new Issue("test", "test2");
+
+
+            Assert.IsTrue(issue.SetDescription("test"));
         }
 
         [TestMethod()]
         public void GetDescriptionTest()
         {
-            Assert.Fail();
+            Issue issue = new Issue("test", "test2");
+
+            Assert.IsTrue(issue.GetDescription()=="test");
         }
 
         [TestMethod()]
         public void SetProjectNameTest()
         {
-            Assert.Fail();
+            Issue issue = new Issue("test", "test2");
+
+            Assert.IsTrue(issue.SetProjectName("test2"));
         }
 
         [TestMethod()]
         public void GetProjectNameTest()
         {
-            Assert.Fail();
+            Issue issue = new Issue("test", "test2");
+
+            Assert.IsTrue(issue.GetProjectName()=="test2");
         }
     }
 }

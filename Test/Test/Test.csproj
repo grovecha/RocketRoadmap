@@ -251,6 +251,7 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\login.css" />
+    <Content Include="css\Roadmap.css" />
     <Content Include="css\simple-sidebar.css" />
     <Content Include="css\Site.css" />
     <Content Include="DataInput.aspx" />

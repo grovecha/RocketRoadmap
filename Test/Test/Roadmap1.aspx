@@ -19,6 +19,10 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -32,7 +36,7 @@
 
 <body>
 <form id="form1" runat="server">
-
+                            <asp:ScriptManager runat="server"></asp:ScriptManager>
 
 
 
@@ -41,26 +45,42 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
+
+        <!-- Data Input -->
+        <div id="mainDiv">
+            <table id ="sidebar-table">
+            <tr>
+                <td>
+                    <input class="txtStrat"id="StratBox1" type="text" placeholder="Add Strategy Point" onkeypress="addStrat(event,1)" /> 
+ 
+                </td>
+            </tr>
+            </table>
+
+
+           
+        </div>
+        <!--
+            <ul class="sidebar-nav">
 
             <li class="sidebar-brand">
                 <br />      
-                <asp:Table runat="server" ID="SideBarTable">
-                    <asp:TableRow ID="Strat1">
-                        
-                        <asp:TableCell>
+                <table id="sidebar">
+                    <tr>
+                        <td id="stratBu1">
                         <button type="button" id="button1" onclick="StratClick()"> Strategy Point</button>
-                        </asp:TableCell>
-                    </asp:TableRow>
 
+                        </td>
+                    </tr>
+                </table>
 
-                </asp:Table>
 
                 
                
             </li>
 
         </ul>
+            -->
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -74,6 +94,10 @@
                 </div>
                 <br />
                 <table id="roadmap-table">
+
+
+
+  
 
                 </table>
 
@@ -93,7 +117,7 @@
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+             d       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
@@ -125,6 +149,7 @@
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 
+
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
@@ -142,6 +167,55 @@
         $("#myModal").modal("show");
     });
 </script>
+
+<script>
+    function showModal() {                        
+        $("#myModal").modal("show");
+    }                    
+</script>
+
+
+<!-- Data Input -->
+        <style>
+        .txtStrat {
+            width: 250px;
+            height: 30px;
+            margin-left: 0px;
+        }
+
+        .txtBus {
+            width: 230px;
+            height: 30px;
+            margin-left: 20px;
+        }
+
+        .txtProj {
+            width: 210px;
+            height: 30px;
+            margin-left: 40px;
+        }
+        .btnStrat{
+            height:200px;
+            width:200px;
+        }
+        
+        .busroot {
+           
+        }
+        .mainroot {
+           
+        }
+        .projroot {
+         
+        }
+        .mainDiv {
+
+        }
+        
+   
+    </style>
+
+    <!-- /#Data Input-->
    
     </form>
 </body>
