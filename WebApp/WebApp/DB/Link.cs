@@ -50,8 +50,13 @@ namespace WebApp.DB
         {
             mDatabase.connect();
             mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Link] WHERE Description='" + mDescription + "'");
-            mReader.Read();
-            string name = mReader.GetString(0).ToString();
+
+            string name="";
+            if (mReader.HasRows)
+            {
+                mReader.Read();
+                name = mReader.GetString(0).ToString();
+            }
             mDatabase.close();
             return name;
         }

@@ -11,11 +11,29 @@ namespace WebApp.DB
         private string mName;
         private string mDescription;
 
+        private List<Project> mProjects;
+
         private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
+
+
         public BusinessValue(string name)
         {
             mName = name;
+
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName='" + mName + "'");
+            while (mReader.Read())
+            {
+                mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName));
+            }
+            mDatabase.close();
+        }
+
+        private void AddProject(Project proj)
+        {
+            mProjects.Add(proj);
+            proj.InsertDB();
         }
 
         #region Getter's and Setter's
