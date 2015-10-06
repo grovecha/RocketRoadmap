@@ -14,19 +14,10 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void TickMarkTest()
         {
-            Assert.Fail();
-        }
+            TickMark tick = new TickMark("Test", 0);
 
-        [TestMethod()]
-        public void GetNameTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetXPlacementTest()
-        {
-            Assert.Fail();
+            Assert.AreEqual("Test", tick.GetName());
+            Assert.AreEqual(0, tick.GetXPlacement());
         }
     }
 }

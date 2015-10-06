@@ -12,39 +12,57 @@ namespace WebApp.DB.Tests
     public class LinkTests
     {
         [TestMethod()]
+        public void ConstructorTest()
+        {
+            Link link = new Link("test", "test2", "www.test.com");
+            Assert.IsNotNull(link);
+        }
+        [TestMethod()]
         public void SetDescriptionTest()
         {
-            Assert.Fail();
+            Link link = new Link("test", "test2", "www.test.com");
+
+            Assert.IsTrue(link.SetDescription("test2"));
         }
 
         [TestMethod()]
         public void GetDescriptionTest()
         {
-            Assert.Fail();
+            Link link = new Link("test2", "test2", "www.test.com");
+
+            Assert.IsTrue(link.GetDescription() == "test2");
         }
 
         [TestMethod()]
         public void SetProjectNameTest()
         {
-            Assert.Fail();
+            Link link = new Link("test", "test2", "www.test.com");
+
+            Assert.IsTrue(link.SetProjectName("test2"));
         }
 
         [TestMethod()]
         public void GetProjectNameTest()
         {
-            Assert.Fail();
+            Link link = new Link("test", "test2", "www.test.com");
+
+            Assert.IsTrue(link.GetProjectName()=="test2");
         }
 
         [TestMethod()]
         public void SetLinkTest()
         {
-            Assert.Fail();
+            Link link = new Link("test2", "test2", "www.test.com");
+
+            Assert.IsTrue(link.SetLink("www.test.org"));
         }
 
         [TestMethod()]
         public void GetLinkTest()
         {
-            Assert.Fail();
+            Link link = new Link("test2", "test2", "www.test.com");
+
+            Assert.IsTrue(link.GetLink()=="www.test.org");
         }
     }
 }

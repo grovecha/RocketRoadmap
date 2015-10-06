@@ -45,7 +45,13 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
+
+        <!-- Data Input -->
+        <div id="mainDiv">
+            <input class="txtStrat" type="text" placeholder="Add Strategy Point" onkeypress="addStrat(event)" />               
+        </div>
+        <!--
+            <ul class="sidebar-nav">
 
             <li class="sidebar-brand">
                 <br />      
@@ -64,6 +70,7 @@
             </li>
 
         </ul>
+            -->
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -77,7 +84,8 @@
                 </div>
                 <br />
                 <table id="roadmap-table">
-
+                    <tbody id="PlaceHolder1" runat="server">
+                    </tbody>
                 </table>
 
 
@@ -146,6 +154,144 @@
         $("#myModal").modal("show");
     });
 </script>
+
+<script>
+    function showModal() {                        
+        $("#myModal").modal("show");
+    }                    
+</script>
+
+
+<!-- Data Input -->
+        <style>
+        .txtStrat {
+            width: 250px;
+            height: 30px;
+            margin-left: 0px;
+        }
+
+        .txtBus {
+            width: 230px;
+            height: 30px;
+            margin-left: 20px;
+        }
+
+        .txtProj {
+            width: 210px;
+            height: 30px;
+            margin-left: 40px;
+        }
+        .btnStrat{
+            height:200px;
+            width:200px;
+        }
+        
+        .busroot {
+           
+        }
+        .mainroot {
+           
+        }
+        .projroot {
+         
+        }
+        .mainDiv {
+
+        }
+        
+   
+    </style>
+    <script type="text/javascript">
+        
+        function addStrat(e) {
+            if (e.keyCode === 13) {
+                
+                var mainDiv = document.getElementById('mainDiv');
+
+                var mainroot = document.createElement('div');
+                //add 1 to each 
+                mainroot.innerHTML = "<div class='mainroot'>" +
+                                    "<div id='busroot'>" +
+                                    "<input name='p1' class='txtBus' type='text' placeholder='Add Business Value' onkeypress='addBus(event, this)' /><br />" +
+                                    "<div id='projroot'>" +
+                                    "<input name='DynamicTextBox' class='txtProj' type='text' placeholder='Add Project' onkeypress='addProj(event, this)' /><br />" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "<input name='s' class='txtStrat' type='text' placeholder='Add Strategy Point' onkeypress='addStrat(event)'/><br />" +
+                                    "</div>";
+
+                mainDiv.appendChild(mainroot);                
+            }
+
+            return false;
+        }
+
+        function addBus(e, obj) {
+            if (e.keyCode === 13) {
+             
+                var busroot = document.createElement('div');
+                //add 1 to current b value
+                busroot.innerHTML = "<div id='busroot'>" +
+                                    "<input class='txtBus' type='text' placeholder='Add Business Value' onkeypress='addBus(event, this)' /><br />" +
+                                    "<div id='projroot'>" +
+                                    "<input class='txtProj' id='projBox' type='text' placeholder='Add Project' onkeypress='addProj(event, this)' /><br />" +
+                                    "</div>" +
+                                    "</div>";
+                                    
+                var projroot = obj.parentElement;
+                projroot.appendChild(busroot);
+            }
+
+            return false;
+        }
+
+        function addProj(e, obj) {
+            if (e.keyCode === 13) {
+
+                var newInput = document.createElement('input');
+                var br = document.createElement('br');
+
+                newInput.type = 'text';
+                newInput.className = 'txtProj';
+                newInput.placeholder = 'Add Project';
+                newInput.id = 'projBox';
+                newInput.setAttribute('onkeypress', 'addProj(event, this)');
+                
+
+                var projroot = obj.parentElement;
+                projroot.appendChild(newInput);
+                projroot.appendChild(br);
+
+                var newInput2 = document.createElement('input');
+                newInput2.type = 'button';
+                newInput2.className = 'btnStrat';
+                //newInput2.setAttribute('value', "hello");
+                
+                newInput2.setAttribute('value', obj.value);
+                newInput2.setAttribute('onclick', 'showModal()');
+                
+
+                                                
+                var placeholder1 = document.getElementById("PlaceHolder1")
+                placeholder1.appendChild(newInput2);
+               
+
+            }
+
+            return false;
+        }
+        function on_click() {
+            var newInput2 = document.createElement('input');
+            newInput2.type = 'text';
+            newInput2.setAttribute('onkeypress', 'addProj(event, this)');
+
+            var placeholder1 = document.getElementById("PlaceHolder1")
+            placeholder1.appendChild(newInput2);
+        }
+
+
+    </script>
+    <!-- /#Data Input-->
    
     </form>
 </body>
