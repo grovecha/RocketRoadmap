@@ -14,6 +14,10 @@ namespace WebApp.DB
         private DateTime mEndDate;
         private string mBusinessValue;
 
+        private List<Issue> mIssues;
+        private List<Link> mLinks;
+        private List<Project> mDependencies;
+
         private WebApp.DB.Database mDatabase =  new Database();
         private SqlDataReader mReader;
 
@@ -22,6 +26,30 @@ namespace WebApp.DB
             mName = name;
             mDescription = description;
             mBusinessValue = businessvalue;
+
+            mDatabase.connect();
+
+            mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issue] WHERE ProjectName='" + mName + "'");
+            while (mReader.Read())
+            {
+                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName));
+            }
+            mReader.Close();
+
+            mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "'");
+            while (mReader.Read())
+            {
+                mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString()));
+            }
+            mReader.Close();
+
+            mReader = mDatabase.executeread("SELECT ProjectName2, Description, BusinessValue FROM [dbo].[Project_Project], [dbo].[Project] WHERE ProjectName='" + mName + "' AND ProjectName2=Name");
+            while (mReader.Read())
+            {
+                mDependencies.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mReader.GetString(2).ToString()));
+            }
+            mReader.Close();
+
         }
 
         #region Getter's and Setters
