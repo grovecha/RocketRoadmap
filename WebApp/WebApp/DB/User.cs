@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace WebApp.DB
 {
@@ -15,6 +17,51 @@ namespace WebApp.DB
             mPassword = password;
         }
 
+        public bool EditName(string name)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("UPDATE [dbo].[User] SET Name = '" + name + "' WHERE ID = '" + mUserName + "'"))
+            {
+                mName = name;
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool EditEmail(string mail)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("UPDATE [dbo].[User] SET Email = '" + mail + "' WHERE ID = '" + mUserName + "'"))
+            {
+                mEmail = mail;
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool EditPassword(string pass)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("UPDATE [dbo].[User] SET Password = '" + pass + "' WHERE ID = '" + mUserName + "'"))
+            {
+                mPassword = pass;
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
         public string GetName(){ return mName; }
         public string GetUserName() { return mUserName; }
         public string GetEmail() { return mEmail; }
@@ -24,6 +71,9 @@ namespace WebApp.DB
         private string mUserName;
         private string mEmail;
         private string mPassword;
+
+        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private SqlDataReader mReader;
     }
 
 }

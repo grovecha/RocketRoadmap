@@ -21,7 +21,6 @@ namespace WebApp.DB.Tests
             Assert.IsTrue(users.CreateUser(newuser));
 
             Assert.IsTrue(users.DeleteUser(newuser.GetUserName()));
-
         }
 
         [TestMethod()]

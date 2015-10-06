@@ -57,7 +57,7 @@ namespace WebApp.DB
         }
 
         /**
-        * Create a new user 
+        * Create a new roadmap 
         **/
         public bool CreateRoadMap(string name, string description, string userid )
         {
@@ -66,10 +66,35 @@ namespace WebApp.DB
 
             if (mDatabase.executewrite("INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( '" + name + "', '" +  description + "', GETDATE(), '" + userid + "')"))
             {
+                //create a new timeline
+                RoadMap map = new RoadMap(name);
+                map.CreateTimeLine();
+
                 toReturn = true;
             }
-
             mDatabase.close();
+
+            return toReturn;
+        }
+
+        /**
+        * Delete a roadmap 
+        **/
+        public bool DeleteRoadMap(string name, string description, string userid)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[RoadMap] WHERE Name = '" + name + "')"))
+            {
+                //create a new timeline
+                RoadMap map = new RoadMap(name);
+                map.DeleteTimeLine();
+
+                toReturn = true;
+            }
+            mDatabase.close();
+
             return toReturn;
         }
 
