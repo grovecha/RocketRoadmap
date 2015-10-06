@@ -52,9 +52,6 @@ namespace WebApp.DB.Tests
 
             Assert.IsTrue(map.EditDescription("TEST"));
             Assert.AreEqual("TEST", map.GetDecription());
-
-
-            m
         }
 
         }

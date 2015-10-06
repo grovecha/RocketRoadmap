@@ -14,7 +14,7 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void TimeLineTest()
         {
-            TimeLine timeline = new TimeLine("test");
+            TimeLine timeline = new TimeLine("Test");
             TickMark tick = new TickMark("Test", 0);
 
             Assert.AreEqual(1, timeline.GetID());
@@ -39,7 +39,7 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void EditTimeLineTest()
         {
-            TimeLine timeline = new TimeLine("test");
+            TimeLine timeline = new TimeLine("Test");
 
             DateTime test = DateTime.Now;
             
