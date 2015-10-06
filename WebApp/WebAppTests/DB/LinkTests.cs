@@ -20,7 +20,7 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void SetDescriptionTest()
         {
-            Link link = new Link("test", "test2", "www.test.com");
+            Link link = new Link("test2", "test2", "www.test.com");
 
             Assert.IsTrue(link.SetDescription("test2"));
         }
@@ -36,7 +36,7 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void SetProjectNameTest()
         {
-            Link link = new Link("test", "test2", "www.test.com");
+            Link link = new Link("test2", "test2", "www.test.com");
 
             Assert.IsTrue(link.SetProjectName("test2"));
         }
@@ -44,7 +44,7 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void GetProjectNameTest()
         {
-            Link link = new Link("test", "test2", "www.test.com");
+            Link link = new Link("test2", "test2", "www.test.com");
 
             Assert.IsTrue(link.GetProjectName()=="test2");
         }

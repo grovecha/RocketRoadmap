@@ -22,7 +22,7 @@ namespace WebApp.DB
             mName = name;
 
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[Projects] WHERE BusinessValueName='" + mName + "'");
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName='" + mName + "'");
             while (mReader.Read())
             {
                 mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName));

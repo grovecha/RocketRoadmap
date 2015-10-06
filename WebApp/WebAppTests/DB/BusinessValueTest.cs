@@ -16,7 +16,7 @@ namespace WebApp.DB.Tests
         {
             BusinessValue bv = new BusinessValue("test");
 
-            Assert.IsTrue(bv.InsertDB());
+            Assert.IsNotNull(bv);
         }
 
         [TestMethod()]
@@ -30,8 +30,9 @@ namespace WebApp.DB.Tests
         public void BusinessValueSetDescriptionTest()
         {
             BusinessValue bv = new BusinessValue("test");
-            bv.SetDescription("test2");
-            Assert.IsTrue(bv.GetDescription() == "test2");
+            bv.SetDescription("test1");
+            Assert.IsTrue(bv.GetDescription() == "test1");
+            bv.SetDescription("test");
         }
 
 
@@ -39,10 +40,8 @@ namespace WebApp.DB.Tests
         public void BusinessValueSetNameTest()
         {
             BusinessValue bv = new BusinessValue("test");
-            bv.SetName("test2");
-
-            BusinessValue bv2 = new BusinessValue("test2");
-            Assert.IsFalse(bv2.InsertDB());
+            Assert.IsTrue(bv.SetName("test3"));
+            bv.SetName("test");
         }
 
 
