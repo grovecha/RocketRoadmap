@@ -54,7 +54,8 @@
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#disModal">Open Modal</button>
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#inpModal">input Modal</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#inputModal">Input Modal</button>
+                 
                 </div>
                 <br />
                 <asp:Table ID="Table1" runat="server">
@@ -98,41 +99,75 @@
    
     
      <!-- Modal input -->
-        <div class="modal fade" id="inpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="banner">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="inpLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h2><u>Description</u></h2>
-                        <textarea>
-
-
-
-
+    <div id="inputModal" class="modal fade" role ="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Pull the project Title into here</h3>
+                </div>
+                <div class="modal-body">
+                    <h2><u>Description</u></h2>
+                        <textarea id="descText" rows="4" cols="75">
                         </textarea> 
                         <p></p>
                         <h2><u>Dependencies</u></h2>
-                        <p>Project ot Project dependencies</p>
+                        <div id="dependencyText">
+                        <input type="text" id="depenText1" size="60" /> <button type="button" class="btn btn-default" id="depButton" onclick="depClick">Add Dependecy</button>
+                        </div>
+                        <div id="dependencySelect">
+                        <select id="depenSelect">
+                            <option value="project1">Project1</option>
+                            <option value="project2">Project2</option>
+                            <option value="project3">Project3</option>
+                            <option value="project4">Project4</option>
+                        </select>
+                        <button type="button" id="dep2Button" class="btn btn-default" onclick="depClick2()">Add Dependecy</button>
+                       </div>
                         <p></p>
                         <h2><u>Risks</u></h2>
-                        <textarea>
+                        <textarea id="riskText" rows="4" cols="75">
+                        </textarea> 
 
-
-
-
-                      </textarea> 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+                        <h2><u>Links</u></h2>
+                     <div id="link">
+                        <input type="text" id="linkText" size="40"/> <button type="button" class="btn btn-default" id="linkButton" onclick="linkClick">New Link</button>
+                     </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-default" onclick="saveClick()">Save</button>
                 </div>
             </div>
         </div>
+    </div>
 
 
+
+
+
+<script type="text/javascript">
+    function testclick(){
+            //var count = 1;
+            //var newinput = $(document.createElement('div')).attr("id", 'DepTextbox' + count);
+            //newinput.after().html('<input type="text" id="depenText' + count + '" size = 60 /> <button type="button" id="depButton" onclick="depClick">Add Dependecy</button>');
+            //newinput.appendTo("#dependencyText");
+            //count++;
+            alert("This hsit sucks");
+
+     }
+
+
+</script>
+
+
+
+
+
+
+
+
+     <!-- jQuery -->
+<script src="js/InputModal.js"></script>
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 

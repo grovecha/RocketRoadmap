@@ -100,7 +100,8 @@
 
 
 
- 
+ <!-- jQuery -->
+<script src="js/InputModal.js"></script>
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
