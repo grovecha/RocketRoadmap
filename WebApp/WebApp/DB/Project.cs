@@ -14,9 +14,9 @@ namespace WebApp.DB
         private DateTime mEndDate;
         private string mBusinessValue;
 
-        private List<Issue> mIssues;
-        private List<Link> mLinks;
-        private List<Project> mDependencies;
+        private List<Issue> mIssues = new List<Issue>();
+        private List<Link> mLinks = new List<Link>();
+        private List<Project> mDependencies = new List<Project>();
 
         private WebApp.DB.Database mDatabase =  new Database();
         private SqlDataReader mReader;
