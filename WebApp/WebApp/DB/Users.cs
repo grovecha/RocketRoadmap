@@ -70,10 +70,12 @@ namespace WebApp.DB
             mReader.Read();
 
             if( mReader.HasRows ) {
+                mReader.Close();
                 return true;
             }
             else
             {
+                mReader.Close();
                 return false;
             }
         }

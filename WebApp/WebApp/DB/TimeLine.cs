@@ -7,7 +7,7 @@ using System.Configuration;
 
 namespace WebApp.DB
 {
-    public class TimeLine
+    public class TimeLine 
     {
         public TimeLine (string roadmapname)
         {
@@ -29,6 +29,86 @@ namespace WebApp.DB
                 mTicks.Add(tick);
             }
             mDatabase.close();
+        }
+
+        public bool NewTickMark(TickMark tick)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            //add Tickmark
+            mTicks.Add(tick);
+
+            if (mDatabase.executewrite("INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineID ) VALUES (" + "'" + tick.GetName() + "'" + ',' + "'" + tick.GetXPlacement() + "'" + ',' + "'" + mID + "')"))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool DeleteTickMark(TickMark tick)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            //delete Tickmark
+            mTicks.Remove(tick);
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[TickMark] WHERE Name = '" + tick.GetName() + "' AND TimelineID = '" + mID + "'"))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool ClearTicks()
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[TickMark] WHERE TimelineID = '" + mID + "'"))
+            {
+                //delete Tickmark
+                mTicks.Clear();
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool EditStartDate(DateTime date, string rname)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("UPDATE[dbo].[Timeline] SET StartDate = '" + date + "' WHERE RoadMapName = '" + rname + "'"))
+            {
+                mStartDate = date;
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool EditEndDate(DateTime date, string rname)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("UPDATE[dbo].[Timeline] SET EndDate = '" + date + "' WHERE RoadMapName = '" + rname + "'"))
+            {
+                mEndDate = date;
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
         }
 
         public int GetID() { return mID; }

@@ -19,5 +19,14 @@ namespace WebApp.DB.Tests
             Assert.AreEqual("test", sp.GetName());
             Assert.AreEqual("TEST", sp.GetDescription());
         }
+
+        [TestMethod()]
+        public void EditStrategyPointTest()
+        {
+            StrategyPoint sp = new StrategyPoint("Test", "TEST");
+
+            Assert.IsTrue(sp.EditDescription("NEW"));
+            Assert.AreEqual("NEW", sp.GetDescription());
+        }
     }
 }

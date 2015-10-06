@@ -15,7 +15,6 @@ namespace WebApp.DB.Tests
         public void TimeLineTest()
         {
             TimeLine timeline = new TimeLine("test");
-
             TickMark tick = new TickMark("Test", 0);
 
             Assert.AreEqual(1, timeline.GetID());
@@ -28,5 +27,37 @@ namespace WebApp.DB.Tests
             Assert.AreEqual(tick.GetName(), first.GetName());
             Assert.AreEqual(tick.GetXPlacement(), first.GetXPlacement());
         }
+
+        [TestMethod()]
+        public void CreateandDeleteTimeLineTest()
+        {
+            RoadMap map = new RoadMap("TEST");
+            Assert.IsTrue(map.CreateTimeLine());
+            Assert.IsTrue(map.DeleteTimeLine());
+        }
+
+        [TestMethod()]
+        public void EditTimeLineTest()
+        {
+            TimeLine timeline = new TimeLine("test");
+
+            DateTime test = DateTime.Now;
+            
+            timeline.EditStartDate(test, "test");
+            Assert.AreEqual(test.ToString(), timeline.GetStartDate().ToString());
+            timeline.EditEndDate(test, "test");
+            Assert.AreEqual(test.ToString(), timeline.GetEndDate().ToString());
+
+            TimeLine testtimeline = new TimeLine("test");
+
+            Assert.AreEqual(test.ToString(), testtimeline.GetStartDate().ToString());
+            Assert.AreEqual(test.ToString(), testtimeline.GetEndDate().ToString());
+
+            timeline.EditStartDate(Convert.ToDateTime("1/1/1900 12:00:00 AM"), "test");
+            Assert.AreEqual("1/1/1900 12:00:00 AM", timeline.GetStartDate().ToString());
+            timeline.EditEndDate(Convert.ToDateTime("1/1/1900 12:00:00 AM"), "test");
+            Assert.AreEqual("1/1/1900 12:00:00 AM", timeline.GetEndDate().ToString()); 
+        }
+
     }
 }

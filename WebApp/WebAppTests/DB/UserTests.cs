@@ -21,5 +21,24 @@ namespace WebApp.DB.Tests
             Assert.AreEqual("NewEmail", user.GetEmail());
             Assert.AreEqual("password", user.GetPassword());
         }
+
+        [TestMethod()]
+        public void EditUserTest()
+        {
+            Users users = new Users();
+            User user = users.GetUser("123");
+
+            Assert.IsTrue(user.EditName("TEST"));
+            Assert.IsTrue(user.EditEmail("TEST"));
+            Assert.IsTrue(user.EditPassword ("TEST"));
+
+            Assert.AreEqual("TEST", user.GetName());
+            Assert.AreEqual("TEST", user.GetEmail());
+            Assert.AreEqual("TEST", user.GetPassword());
+
+            Assert.IsTrue(user.EditName("Brian"));
+            Assert.IsTrue(user.EditEmail("bpchiv@gmail.com"));
+            Assert.IsTrue(user.EditPassword("password"));
+        }
     }
 }
