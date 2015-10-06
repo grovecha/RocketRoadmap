@@ -19,6 +19,10 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -45,16 +49,15 @@
 
             <li class="sidebar-brand">
                 <br />      
-                <asp:Table runat="server" ID="SideBarTable">
-                    <asp:TableRow ID="Strat1">
-                        
-                        <asp:TableCell>
+                <table id="sidebar">
+                    <tr>
+                        <td id="stratBu1">
                         <button type="button" id="button1" onclick="StratClick()"> Strategy Point</button>
-                        </asp:TableCell>
-                    </asp:TableRow>
 
+                        </td>
+                    </tr>
+                </table>
 
-                </asp:Table>
 
                 
                
@@ -124,6 +127,7 @@
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
+
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
