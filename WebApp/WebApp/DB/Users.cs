@@ -30,33 +30,55 @@ namespace WebApp.DB
         }
 
         /**
+        * Create a new user 
+        **/
+        public bool DeleteUser(string username)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[User] WHERE ID = '" + username + "'" ))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        /**
         * Get all the information for a user
         **/
         public User GetUser( string username )
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Email, Password FROM [dbo].[User] WHERE UserName = " + username );
+            mReader = mDatabase.executeread("SELECT Name, Email, Password FROM [dbo].[User] WHERE ID = '" + username + "'" );
             mReader.Read();
 
             User user = new User(mReader.GetString(0).ToString(), username, mReader.GetString(1).ToString(), mReader.GetString(2).ToString());
+            mDatabase.close();
             return user;
         }
 
         /**
         * Login a user 
         **/
-        public User Login( string username, string password )
+        public bool Login( string username, string password )
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Email FROM [dbo].[User] WHERE UserName = " + username + "Password = " + password );
+            mReader = mDatabase.executeread("SELECT Name, Email FROM [dbo].[User] WHERE ID = '" + username + "' AND " + "Password = '" + password + "'" );
             mReader.Read();
 
-            User user = new User(mReader.GetString(0).ToString(), username, mReader.GetString(1).ToString(), password);
-            return user;
+            if( mReader.HasRows ) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
-
     }
 }

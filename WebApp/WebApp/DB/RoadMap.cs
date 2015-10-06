@@ -9,28 +9,31 @@ namespace WebApp.DB
 {
     public class RoadMap
     {
-        public RoadMap(string name, DateTime time, string desc, string userid)
+        public RoadMap(string name )
         {
             mName = name;
-            mTimeStamp = time;
-            mDescription = desc;
-            mUserID = userid;
 
-            //Get the Timeline for the RoadMap
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT ID, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadMapName = " + name);
+            mReader = mDatabase.executeread("SELECT Timestamp, Description, UserID FROM [dbo].[Roadmap] WHERE Name = '" + name + "'");
             mReader.Read();
 
-            mTimeline = new TimeLine(Convert.ToInt32(mReader.GetString(0)), Convert.ToDateTime(mReader.GetString(1)), Convert.ToDateTime(mReader.GetString(2)));
+            mTimeStamp = mReader.GetDateTime(0);
+            mDescription = mReader.GetString(1);
+            mUserID = mReader.GetString(2);
+
+            mDatabase.close();
+
+            mTimeline = new TimeLine(mName);
 
             //Get the StrategyPoints
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadMapName = " + name);
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "'");
             while (mReader.Read())
             {
-                StrategyPoint sp = new StrategyPoint(mReader.GetString(0).ToString(), mReader.GetString(1).ToString());
+                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1));
                 mStrategyPoints.Add(sp);
             }
+            mDatabase.close();
         }
 
         //Getters if needed
@@ -39,15 +42,16 @@ namespace WebApp.DB
         public string GetDecription() { return mDescription; }
         public string GetUserID() { return mUserID; }
         public TimeLine GetTimeline() { return mTimeline; }
+        public List<StrategyPoint> GetStrategyPoints() { return mStrategyPoints; }
 
         private string mName;
         private DateTime mTimeStamp;
         private string mDescription;
         private string mUserID;
         private TimeLine mTimeline;
-        private List<StrategyPoint> mStrategyPoints;
+        private List<StrategyPoint> mStrategyPoints = new List<StrategyPoint>();
 
-        private WebApp.DB.Database mDatabase;
+        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
     }
 }

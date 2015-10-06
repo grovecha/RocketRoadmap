@@ -13,21 +13,27 @@ namespace WebApp.DB.Tests
     {
 
         [TestMethod()]
-        public void CreateUserTest()
+        public void CreateandDeleteUsersTest()
         {
             User newuser = new User("NewName", "NewUserName", "NewEmail", "password");
             Users users = new Users();
 
             Assert.IsTrue(users.CreateUser(newuser));
+
+            Assert.IsTrue(users.DeleteUser(newuser.GetUserName()));
+
         }
 
-   /*     [TestMethod()]
+        [TestMethod()]
         public void GetUserTest()
         {
             Users users = new Users();
-            User test = users.GetUser("bchivers");
+            User test = users.GetUser("123");
 
-            Assert.AreSame("Brian", test.GetName());
+            Assert.AreEqual("Brian", test.GetName());
+            Assert.AreEqual("bpchiv@gmail.com", test.GetEmail());
+            Assert.AreEqual("password", test.GetPassword());
+            Assert.AreEqual("123", test.GetUserName());
         }
 
         [TestMethod()]
@@ -35,12 +41,15 @@ namespace WebApp.DB.Tests
         {
             Users test = new Users();
 
-            User loggedin = test.Login("bchivers", "password");
-            Assert.IsNull(loggedin);
+            bool loggedin = test.Login("wrongusername", "password");
+            Assert.IsFalse(loggedin);
 
-            loggedin = test.Login("bchivers", "password");
-            Assert.AreSame("Brian", loggedin.GetName());
+            loggedin = test.Login("123", "wrongpassword");
+            Assert.IsFalse(loggedin);
+
+            loggedin = test.Login("123", "password");
+            Assert.IsTrue(loggedin);
         }
-        */
+        
     }
 }

@@ -14,31 +14,19 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void TimeLineTest()
         {
-            Assert.Fail();
-        }
+            TimeLine timeline = new TimeLine("test");
 
-        [TestMethod()]
-        public void GetIDTest()
-        {
-            Assert.Fail();
-        }
+            TickMark tick = new TickMark("Test", 0);
 
-        [TestMethod()]
-        public void GetStartDateTest()
-        {
-            Assert.Fail();
-        }
+            Assert.AreEqual(1, timeline.GetID());
+            Assert.AreEqual(Convert.ToDateTime("1/1/1900 12:00:00 AM"), timeline.GetStartDate());
+            Assert.AreEqual(Convert.ToDateTime("1/1/1900 12:00:00 AM"), timeline.GetEndDate());
 
-        [TestMethod()]
-        public void GetEndDateTest()
-        {
-            Assert.Fail();
-        }
+            Assert.AreEqual(1, timeline.GetTicks().Count());
 
-        [TestMethod()]
-        public void GetTicksTest()
-        {
-            Assert.Fail();
+            TickMark first = timeline.GetTicks().First();
+            Assert.AreEqual(tick.GetName(), first.GetName());
+            Assert.AreEqual(tick.GetXPlacement(), first.GetXPlacement());
         }
     }
 }

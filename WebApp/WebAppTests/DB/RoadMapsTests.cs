@@ -12,21 +12,37 @@ namespace WebApp.DB.Tests
     public class RoadMapsTests
     {
         [TestMethod()]
-        public void RoadMapsTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
         public void GetAllMapsTest()
         {
-            Assert.Fail();
+            RoadMaps Maps = new RoadMaps();
+
+            List<RoadMap> test = Maps.GetAllMaps();
+
+            RoadMap one = new RoadMap("Test");
+
+            Assert.AreEqual(one.GetName(), test.First().GetName());
         }
 
         [TestMethod()]
         public void GetUserMapsTest()
         {
-            Assert.Fail();
+            RoadMaps Maps = new RoadMaps();
+
+            List<RoadMap> test = Maps.GetUserMaps("123");
+
+            RoadMap one = new RoadMap("Test");
+
+            Assert.AreEqual(one.GetName(), test.First().GetName());
+        }
+
+        [TestMethod()]
+        public void Create_DeleteRoadMapsTest()
+        {
+            RoadMaps Maps = new RoadMaps();
+
+            Assert.IsTrue(Maps.CreateRoadMap("New", "NEW", "123"));
+
+            Assert.IsTrue(Maps.DeleteRoadMap("New"));
         }
     }
 }

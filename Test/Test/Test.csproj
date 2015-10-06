@@ -214,6 +214,13 @@
     <Compile Include="Roadmap.aspx.designer.cs">
       <DependentUpon>Roadmap.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Roadmap1.aspx.cs">
+      <DependentUpon>Roadmap1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Roadmap1.aspx.designer.cs">
+      <DependentUpon>Roadmap1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="UserInfoBoxControl.ascx.cs">
       <DependentUpon>UserInfoBoxControl.ascx</DependentUpon>
@@ -260,7 +267,9 @@
     <Content Include="js\jquery.js" />
     <Content Include="js\Login.js" />
     <Content Include="js\npm.js" />
+    <Content Include="js\Roadmap.js" />
     <Content Include="Roadmap.aspx" />
+    <Content Include="Roadmap1.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="UserInfoBoxControl.ascx" />

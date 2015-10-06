@@ -18,16 +18,18 @@ namespace WebApp.DB
         public List<RoadMap> GetAllMaps()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, TimeStamp, Description, UserID, TimelineID FROM [dbo].[RoadMap]");
+            mReader = mDatabase.executeread("SELECT Name TimelineID FROM [dbo].[RoadMap]");
 
             List<RoadMap> Maps = new List<RoadMap>();
 
             while (mReader.Read())
             {
                 //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0).ToString(), Convert.ToDateTime(mReader.GetString(1)), mReader.GetString(2).ToString(), mReader.GetString(3).ToString());
+                RoadMap map = new RoadMap(mReader.GetString(0));
                 Maps.Add(map);
             }
+
+            mDatabase.close();
             //return list of roadmaps
             return Maps;
         }
@@ -38,21 +40,54 @@ namespace WebApp.DB
         public List<RoadMap> GetUserMaps(string username)
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, TimeStamp, Description, UserID, TimelineID FROM [dbo].[RoadMap] WHERE UserID = " + username);
+            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[RoadMap] WHERE UserID = '" + username + "'");
 
-            List<RoadMap> Maps = new List<RoadMap>();
+            List<RoadMap> maps = new List<RoadMap>();
 
             while (mReader.Read())
             {
                 //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0).ToString(), Convert.ToDateTime(mReader.GetString(1)), mReader.GetString(2).ToString(), mReader.GetString(3).ToString());
-                Maps.Add(map);
+                RoadMap map = new RoadMap(mReader.GetString(0));
+                maps.Add(map);
             }
+
+            mDatabase.close();
             //return list of roadmaps
-            return Maps;
+            return maps;
         }
 
-        private WebApp.DB.Database mDatabase;
+        /**
+        * Create a new user 
+        **/
+        public bool CreateRoadMap(string name, string description, string userid )
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( '" + name + "', '" +  description + "', GETDATE(), '" + userid + "')"))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        public bool DeleteRoadMap(string name)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[RoadMap] WHERE Name = '" + name + "'"))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
+        }
+
+        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
     }
 }

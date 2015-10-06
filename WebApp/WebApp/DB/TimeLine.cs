@@ -9,20 +9,26 @@ namespace WebApp.DB
 {
     public class TimeLine
     {
-        public TimeLine (int id, DateTime start, DateTime end)
+        public TimeLine (string roadmapname)
         {
-            mID = id;
-            mStartDate = start;
-            mEndDate = end;
-
-            //grab all the tickmarks for the timeline
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE Timelineid = " + id);
+            mReader = mDatabase.executeread("SELECT ID, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
+            mReader.Read();
+
+            mID = mReader.GetInt32(0);
+            mStartDate = mReader.GetDateTime(1);
+            mEndDate = mReader.GetDateTime(2);
+
+            mDatabase.close();
+
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineID = '" + mID + "'");
             while (mReader.Read())
             {
-                TickMark tick = new TickMark(mReader.GetString(0).ToString(), Convert.ToInt32(mReader.GetString(0)));
+                TickMark tick = new TickMark(mReader.GetString(0).ToString(), mReader.GetInt32(1));
                 mTicks.Add(tick);
             }
+            mDatabase.close();
         }
 
         public int GetID() { return mID; }
@@ -33,9 +39,9 @@ namespace WebApp.DB
         private int mID;
         private DateTime mStartDate;
         private DateTime mEndDate;
-        private List<TickMark> mTicks;
+        private List<TickMark> mTicks = new List<TickMark>();
 
-        private WebApp.DB.Database mDatabase;
+        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;
     }
 }

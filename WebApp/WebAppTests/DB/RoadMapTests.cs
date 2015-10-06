@@ -14,37 +14,22 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void RoadMapTest()
         {
-            Assert.Fail();
-        }
+            RoadMap map = new RoadMap("Test");
 
-        [TestMethod()]
-        public void GetNameTest()
-        {
-            Assert.Fail();
-        }
+            Assert.AreEqual("TEST", map.GetDecription());
+            Assert.AreEqual("Test", map.GetName());
+            Assert.AreEqual("10/4/2015 12:33:45 PM", map.GetTimeStamp().ToString());
+            Assert.AreEqual("123", map.GetUserID());
 
-        [TestMethod()]
-        public void GetTimeStampTest()
-        {
-            Assert.Fail();
-        }
+            TimeLine timeline = new TimeLine("Test");
+            TimeLine test = map.GetTimeline();
 
-        [TestMethod()]
-        public void GetDecriptionTest()
-        {
-            Assert.Fail();
-        }
+            Assert.AreEqual( timeline.GetID(), test.GetID());
 
-        [TestMethod()]
-        public void GetUserIDTest()
-        {
-            Assert.Fail();
-        }
+            StrategyPoint sp = new StrategyPoint("test", "TEST");
+            List<StrategyPoint> spTest = map.GetStrategyPoints();
 
-        [TestMethod()]
-        public void GetTimelineTest()
-        {
-            Assert.Fail();
+            Assert.AreEqual(sp.GetName(), spTest.First().GetName());
         }
     }
 }
