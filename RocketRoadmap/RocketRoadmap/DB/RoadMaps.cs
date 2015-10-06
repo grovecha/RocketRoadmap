@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class RoadMaps
     {
@@ -77,27 +77,6 @@ namespace WebApp.DB
             return toReturn;
         }
 
-        /**
-        * Delete a roadmap 
-        **/
-        public bool DeleteRoadMap(string name, string description, string userid)
-        {
-            mDatabase.connect();
-            bool toReturn = false;
-
-            if (mDatabase.executewrite("DELETE FROM [dbo].[RoadMap] WHERE Name = '" + name + "')"))
-            {
-                //create a new timeline
-                RoadMap map = new RoadMap(name);
-                map.DeleteTimeLine();
-
-                toReturn = true;
-            }
-            mDatabase.close();
-
-            return toReturn;
-        }
-
         public bool DeleteRoadMap(string name)
         {
             mDatabase.connect();
@@ -112,7 +91,7 @@ namespace WebApp.DB
             return toReturn;
         }
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
     }
 }

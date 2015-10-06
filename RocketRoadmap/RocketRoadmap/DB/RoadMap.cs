@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class RoadMap
     {
@@ -31,7 +31,13 @@ namespace WebApp.DB
 
             mDatabase.close();
 
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT ID, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + mName + "'");
+            mReader.Read();
+
             mTimeline = new TimeLine(mName);
+
+            mDatabase.close();
 
             //Get the StrategyPoints
             mDatabase.connect();
@@ -51,6 +57,7 @@ namespace WebApp.DB
 
             if (mDatabase.executewrite("INSERT INTO [dbo].[Timeline] (StartDate, EndDate, RoadmapName ) VALUES (" + "'" + DateTime.Now + "'" + ',' + "'" + DateTime.Now.AddYears(1) + "'" + ',' + "'" + mName + "')"))
             {
+                mTimeline = new TimeLine(mName);
                 toReturn = true;
             }
 
@@ -65,10 +72,7 @@ namespace WebApp.DB
 
             if (mDatabase.executewrite("DELETE FROM [dbo].[Timeline] WHERE RoadmapName = '" + mName + "'"))
             {
-                //remove all the tick marks
-                TimeLine tline = new TimeLine(mName);
-                tline.ClearTicks();
-
+                mTimeline.ClearTicks();
                 toReturn = true;
             }
 
@@ -121,7 +125,7 @@ namespace WebApp.DB
         private TimeLine mTimeline;
         private List<StrategyPoint> mStrategyPoints = new List<StrategyPoint>();
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
     
     }

@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class TickMark
     {
@@ -51,7 +51,7 @@ namespace WebApp.DB
         private string mName;
         private int mXPlacement;
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
     }
 }

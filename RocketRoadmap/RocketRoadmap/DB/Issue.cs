@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class Issue
     {
         private string mDescription;
         private string mProjectName;
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
 
         public Issue(string description, string projname)

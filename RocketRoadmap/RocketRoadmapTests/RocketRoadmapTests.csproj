@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B8C61D4-F081-437E-A321-E3E80754D2E7}</ProjectGuid>
+    <ProjectGuid>{4DB4C578-98BB-4383-A6ED-029C534C72ED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebAppTests</RootNamespace>
-    <AssemblyName>WebAppTests</AssemblyName>
+    <RootNamespace>RocketRoadmapTests</RootNamespace>
+    <AssemblyName>RocketRoadmapTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DB\BusinessValueTest.cs" />
     <Compile Include="DB\IssueTests.cs" />
     <Compile Include="DB\LinkTests.cs" />
     <Compile Include="DB\ProjectTests.cs" />
@@ -64,9 +65,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApp\WebApp.csproj">
-      <Project>{56BFC717-B726-43F1-9492-71573C700AFF}</Project>
-      <Name>WebApp</Name>
+    <ProjectReference Include="..\RocketRoadmap\RocketRoadmap.csproj">
+      <Project>{47D7045E-E683-43B5-B3EA-74C3E79E463F}</Project>
+      <Name>RocketRoadmap</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

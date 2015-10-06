@@ -31,9 +31,9 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void CreateandDeleteTimeLineTest()
         {
-          //  RoadMap map = new RoadMap("TEST");
-          //  Assert.IsTrue(map.CreateTimeLine());
-          //  Assert.IsTrue(map.DeleteTimeLine());
+            RoadMap map = new RoadMap("TEST");
+            Assert.IsTrue(map.CreateTimeLine());
+            Assert.IsTrue(map.DeleteTimeLine());
         }
 
         [TestMethod()]

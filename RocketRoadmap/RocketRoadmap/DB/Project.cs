@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class Project
     {
@@ -18,7 +18,7 @@ namespace WebApp.DB
         private List<Link> mLinks = new List<Link>();
         private List<Project> mDependencies = new List<Project>();
 
-        private WebApp.DB.Database mDatabase =  new Database();
+        private RocketRoadmap.DB.Database mDatabase =  new Database();
         private SqlDataReader mReader;
 
         public Project(string name, string description, string businessvalue)

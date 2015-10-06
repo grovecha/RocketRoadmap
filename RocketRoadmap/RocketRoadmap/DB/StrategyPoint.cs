@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class StrategyPoint
     {
@@ -64,7 +64,7 @@ namespace WebApp.DB
         private string mDescription;
         private List<BusinessValue> mValues = new List<BusinessValue>();
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
     }
 }

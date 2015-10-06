@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class TimeLine 
     {
@@ -121,7 +121,7 @@ namespace WebApp.DB
         private DateTime mEndDate;
         private List<TickMark> mTicks = new List<TickMark>();
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
     }
 }

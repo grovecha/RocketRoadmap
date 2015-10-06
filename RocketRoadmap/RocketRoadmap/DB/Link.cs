@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 
-namespace WebApp.DB
+namespace RocketRoadmap.DB
 {
     public class Link
     {
@@ -12,7 +12,7 @@ namespace WebApp.DB
         private string mDescription;
         private string mLink;
 
-        private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
+        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
 
         public Link(string descrip, string projname, string link)
