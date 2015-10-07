@@ -9,11 +9,17 @@ namespace RocketRoadmap.DB
 {
     public class TimeLine 
     {
-        public TimeLine (int id, DateTime start, DateTime end, string roadmapname)
+        public TimeLine (string roadmapname)
         {
-            mID = id;
-            mStartDate = start;
-            mEndDate = end;
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT ID, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
+            mReader.Read();
+
+            mID = mReader.GetInt32(0);
+            mStartDate = mReader.GetDateTime(1);
+            mEndDate = mReader.GetDateTime(2);
+
+            mDatabase.close();
 
             mDatabase.connect();
             mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineID = '" + mID + "'");

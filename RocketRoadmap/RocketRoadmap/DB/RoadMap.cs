@@ -35,7 +35,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT ID, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + mName + "'");
             mReader.Read();
 
-            mTimeline = new TimeLine(mReader.GetInt32(0), mReader.GetDateTime(1), mReader.GetDateTime(2), mName);
+            mTimeline = new TimeLine(mName);
 
             mDatabase.close();
 
@@ -57,7 +57,7 @@ namespace RocketRoadmap.DB
 
             if (mDatabase.executewrite("INSERT INTO [dbo].[Timeline] (StartDate, EndDate, RoadmapName ) VALUES (" + "'" + DateTime.Now + "'" + ',' + "'" + DateTime.Now.AddYears(1) + "'" + ',' + "'" + mName + "')"))
             {
-                mTimeline = new TimeLine(DateTime.Now, DateTime.Now, mName);
+                mTimeline = new TimeLine(mName);
                 toReturn = true;
             }
 
