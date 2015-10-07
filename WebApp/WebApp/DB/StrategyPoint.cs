@@ -16,9 +16,10 @@ namespace WebApp.DB
 
             //Get the StrategyPoints
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT BuisnessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE StrategyPointName = '" + mName + "'");
+            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE StrategyPointName = '" + mName + "'");
             while (mReader.Read())
             {
+                string temp = mReader.GetString(0);
                 BusinessValue bv = new BusinessValue(mReader.GetString(0));
                 mValues.Add(bv);
             }
@@ -61,7 +62,7 @@ namespace WebApp.DB
 
         private string mName;
         private string mDescription;
-        private List<BusinessValue> mValues;
+        private List<BusinessValue> mValues = new List<BusinessValue>();
 
         private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;

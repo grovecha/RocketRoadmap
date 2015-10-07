@@ -11,7 +11,7 @@ namespace WebApp.DB
         private string mName;
         private string mDescription;
 
-        private List<Project> mProjects;
+        private List<Project> mProjects = new List<Project>();
 
         private WebApp.DB.Database mDatabase = new WebApp.DB.Database();
         private SqlDataReader mReader;

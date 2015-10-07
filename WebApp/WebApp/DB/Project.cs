@@ -30,21 +30,21 @@ namespace WebApp.DB
             mDatabase.connect();
 
             mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE ProjectName='" + mName + "'");
-            while (mReader.Read())
+            while (mReader.Read() )
             {
                 mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName));
             }
             mReader.Close();
 
             mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "'");
-            while (mReader.Read())
+            while (mReader.Read() )
             {
                 mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString()));
             }
             mReader.Close();
 
             mReader = mDatabase.executeread("SELECT DependantName, [dbo].[Project].Description, [dbo].[Project].BusinessValueName FROM [dbo].[Dependents], [dbo].[Project] WHERE ProjectName='" + mName + "' AND DependantName=Name");
-            while (mReader.Read())
+            while (mReader.Read() )
             {
                 mDependencies.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mReader.GetString(2).ToString()));
             }

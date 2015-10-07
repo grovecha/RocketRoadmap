@@ -18,7 +18,7 @@ namespace WebApp.DB.Tests
 
             Assert.AreEqual("TEST", map.GetDecription());
             Assert.AreEqual("Test", map.GetName());
-            Assert.AreEqual("10/4/2015 12:33:45 PM", map.GetTimeStamp().ToString());
+            Assert.AreEqual("10/6/2015 1:53:46 PM", map.GetTimeStamp().ToString());
             Assert.AreEqual("123", map.GetUser().GetUserName());
 
             TimeLine timeline = new TimeLine("Test");
@@ -29,7 +29,7 @@ namespace WebApp.DB.Tests
             StrategyPoint sp = new StrategyPoint("Test", "TEST");
             List<StrategyPoint> spTest = map.GetStrategyPoints();
 
-            Assert.AreEqual(sp.GetName(), spTest.First().GetName());
+            Assert.AreEqual(sp.GetName(), spTest.First().GetName()); 
         }
 
         [TestMethod()]
@@ -47,14 +47,11 @@ namespace WebApp.DB.Tests
             Assert.AreEqual("NEWNAME", map.GetName());
             Assert.AreEqual("CHANGED", map.GetDecription());
 
-            Assert.IsTrue(map.EditName("NEWNAME"));
+            Assert.IsTrue(map.EditName("Test"));
             Assert.AreEqual("Test", map.GetName());
 
             Assert.IsTrue(map.EditDescription("TEST"));
-            Assert.AreEqual("TEST", map.GetDecription());
-
-
-           
+            Assert.AreEqual("TEST", map.GetDecription());   
         }
 
         }

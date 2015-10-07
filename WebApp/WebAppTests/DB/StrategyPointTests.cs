@@ -14,10 +14,13 @@ namespace WebApp.DB.Tests
         [TestMethod()]
         public void StrategyPointTest()
         {
-            StrategyPoint sp = new StrategyPoint("test", "TEST");
+            StrategyPoint sp = new StrategyPoint("Test", "TEST");
 
-            Assert.AreEqual("test", sp.GetName());
+            Assert.AreEqual("Test", sp.GetName());
             Assert.AreEqual("TEST", sp.GetDescription());
+
+            List<BusinessValue> values = sp.GetBusinessValues();
+            Assert.AreEqual(1, values.Count());
         }
 
         [TestMethod()]
@@ -27,6 +30,16 @@ namespace WebApp.DB.Tests
 
             Assert.IsTrue(sp.EditDescription("NEW"));
             Assert.AreEqual("NEW", sp.GetDescription());
+
+            Assert.IsTrue(sp.EditName("NEW"));
+            Assert.AreEqual("NEW", sp.GetName());
+
+            StrategyPoint testsp = new StrategyPoint("NEW", "NEW");
+            Assert.AreEqual("NEW", sp.GetName());
+            Assert.AreEqual("NEW", sp.GetDescription());
+
+            Assert.IsTrue(sp.EditName("Test"));
+            Assert.IsTrue(sp.EditDescription("TEST"));
         }
     }
 }

@@ -21,10 +21,10 @@ namespace WebApp.DB.Tests
         }
 
         [TestMethod()]
-        public void NewTickMarkTest()
+        public void CreateandDeleteTickMarkTest()
         {
             TimeLine tline = new TimeLine("Test");
-            TickMark tick = new TickMark("NEWTEst", 0);
+            TickMark tick = new TickMark("NEWTest", 0);
             List<TickMark> ticklist = tline.GetTicks();
 
             Assert.AreEqual(1, ticklist.Count());
