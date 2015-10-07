@@ -18,7 +18,7 @@ namespace RocketRoadmap.DB.Tests
 
             List<RoadMap> test = Maps.GetAllMaps();
 
-            RoadMap one = new RoadMap("Test");
+            RoadMap one = new RoadMap("New");
 
             Assert.AreEqual(one.GetName(), test.First().GetName());
         }
@@ -30,7 +30,7 @@ namespace RocketRoadmap.DB.Tests
 
             List<RoadMap> test = Maps.GetUserMaps("123");
 
-            RoadMap one = new RoadMap("Test");
+            RoadMap one = new RoadMap("New");
 
             Assert.AreEqual(one.GetName(), test.First().GetName());
         }
