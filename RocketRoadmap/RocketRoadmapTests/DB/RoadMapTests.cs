@@ -24,7 +24,7 @@ namespace RocketRoadmap.DB.Tests
             TimeLine timeline = new TimeLine("Test");
             TimeLine test = map.GetTimeline();
 
-            Assert.AreEqual( timeline.GetID(), test.GetID());
+            Assert.AreEqual( timeline.GetName(), test.GetName());
 
             StrategyPoint sp = new StrategyPoint("Test", "TEST");
             List<StrategyPoint> spTest = map.GetStrategyPoints();

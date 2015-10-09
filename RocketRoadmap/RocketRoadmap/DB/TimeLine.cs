@@ -12,17 +12,17 @@ namespace RocketRoadmap.DB
         public TimeLine (string roadmapname)
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT ID, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
+            mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
             mReader.Read();
 
-            mID = mReader.GetInt32(0);
+            mName = mReader.GetString(0);
             mStartDate = mReader.GetDateTime(1);
             mEndDate = mReader.GetDateTime(2);
 
             mDatabase.close();
 
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineID = '" + mID + "'");
+            mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName = '" + mName + "'");
             while (mReader.Read())
             {
                 TickMark tick = new TickMark(mReader.GetString(0).ToString(), mReader.GetInt32(1));
@@ -39,7 +39,7 @@ namespace RocketRoadmap.DB
             //add Tickmark
             mTicks.Add(tick);
 
-            if (mDatabase.executewrite("INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineID ) VALUES (" + "'" + tick.GetName() + "'" + ',' + "'" + tick.GetXPlacement() + "'" + ',' + "'" + mID + "')"))
+            if (mDatabase.executewrite("INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineName ) VALUES (" + "'" + tick.GetName() + "'" + ',' + "'" + tick.GetXPlacement() + "'" + ',' + "'" + mName + "')"))
             {
                 toReturn = true;
             }
@@ -56,7 +56,7 @@ namespace RocketRoadmap.DB
             //delete Tickmark
             mTicks.Remove(tick);
 
-            if (mDatabase.executewrite("DELETE FROM [dbo].[TickMark] WHERE Name = '" + tick.GetName() + "' AND TimelineID = '" + mID + "'"))
+            if (mDatabase.executewrite("DELETE FROM [dbo].[TickMark] WHERE Name = '" + tick.GetName() + "' AND TimelineName = '" + mName + "'"))
             {
                 toReturn = true;
             }
@@ -70,7 +70,7 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("DELETE FROM [dbo].[TickMark] WHERE TimelineID = '" + mID + "'"))
+            if (mDatabase.executewrite("DELETE FROM [dbo].[TickMark] WHERE TimelineName = '" + mName + "'"))
             {
                 //delete Tickmark
                 mTicks.Clear();
@@ -111,12 +111,12 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public int GetID() { return mID; }
+        public String GetName() { return mName; }
         public DateTime GetStartDate() { return mStartDate; }
         public DateTime GetEndDate() { return mEndDate; }
         public List<TickMark> GetTicks() { return mTicks; }
 
-        private int mID;
+        private String mName;
         private DateTime mStartDate;
         private DateTime mEndDate;
         private List<TickMark> mTicks = new List<TickMark>();

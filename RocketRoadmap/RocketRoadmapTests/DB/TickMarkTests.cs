@@ -48,11 +48,11 @@ namespace RocketRoadmap.DB.Tests
             TickMark tick =  ticklist.First();
 
             Assert.AreEqual(0, tick.GetXPlacement());
-            tick.EditTickLocation(100, tline.GetID());
+            tick.EditTickLocation(100, tline.GetName());
             Assert.AreEqual(100, tick.GetXPlacement());
 
             Assert.AreEqual("Test", tick.GetName());
-            tick.EditTickName("NewName", tline.GetID());
+            tick.EditTickName("NewName", tline.GetName());
             Assert.AreEqual("NewName", tick.GetName());
 
             TimeLine testline = new TimeLine("Test");
@@ -62,8 +62,8 @@ namespace RocketRoadmap.DB.Tests
             Assert.AreEqual(100, testtick.GetXPlacement());
             Assert.AreEqual("NewName", testtick.GetName());
 
-            tick.EditTickName("Test", tline.GetID());
-            tick.EditTickLocation(0, tline.GetID());
+            tick.EditTickName("Test", tline.GetName());
+            tick.EditTickLocation(0, tline.GetName());
             Assert.AreEqual(0, tick.GetXPlacement());
             Assert.AreEqual("Test", tick.GetName());
         }

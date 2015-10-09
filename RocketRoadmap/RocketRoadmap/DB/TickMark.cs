@@ -15,12 +15,12 @@ namespace RocketRoadmap.DB
             mXPlacement = x;
         }
 
-        public bool EditTickName(string name, int id)
+        public bool EditTickName(string name, string tname)
         {
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE [dbo].[TickMark] SET Name = '" + name + "' WHERE TimeLineID = '" + id + "'" ))
+            if (mDatabase.executewrite("UPDATE [dbo].[TickMark] SET Name = '" + name + "' WHERE TimelineName = '" + tname + "'" ))
             {
                 mName = name;
                 toReturn = true;
@@ -30,12 +30,12 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public bool EditTickLocation(int X, int id)
+        public bool EditTickLocation(int X, string name)
         {
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE[dbo].[TickMark] SET XPlacement = '" + X + "' WHERE TimeLineID = '" + id + "'" ))
+            if (mDatabase.executewrite("UPDATE[dbo].[TickMark] SET XPlacement = '" + X + "' WHERE TimelineName = '" + name + "'" ))
             {
                 mXPlacement = X;
                 toReturn = true;
