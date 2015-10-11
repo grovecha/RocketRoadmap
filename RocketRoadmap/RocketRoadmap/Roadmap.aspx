@@ -91,6 +91,7 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal"> Input modal </button>
                 </div>
                 <br />
                 <table id="roadmap-table">
@@ -123,13 +124,15 @@
                     </div>
                     <div class="modal-body">
                         <h2><u>Description</u></h2>
-                       <p>It will be saying things about our object BLah BLah Blah</p> 
+                        <p> Pull the description</p>
                         <p></p>
                         <h2><u>Dependencies</u></h2>
-                        <p>Becky totally depends on Johnny</p>
+                        <p> Pul the dependecies list</p>
                         <p></p>
                         <h2><u>Risks</u></h2>
-                        <p>We are all risky</p>
+                        <p> List of risks</p>
+                        <h2><u>Links</u></h2>
+                       
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -138,7 +141,49 @@
             </div>
         </div>
 
-<!-- Boot strap modal asp button attempt -->
+     <!-- Modal input -->
+    <div id="inputModal" class="modal fade" role ="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal Content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Pull the project Title into here</h3>
+                </div>
+                <div class="modal-body">
+                    <h2><u>Description</u></h2>
+                        <textarea id="descText" rows="4" cols="75">
+                        </textarea> 
+                        <p></p>
+                        <h2><u>Dependencies</u></h2>
+                        <div id="dependencyText">
+                        <input type="text" id="depenText1" size="55" /> <button type="button" class="btn btn-default" id="depButton" onclick="depClick()">Add Dependency</button>
+                        </div>
+                        <div id="dependencySelect">
+                        <select id="depenSelect">
+                            <option value="project1">Project1</option>
+                            <option value="project2">Project2</option>
+                            <option value="project3">Project3</option>
+                            <option value="project4">Project4</option>
+                        </select>
+                        <button type="button" id="dep2Button" class="btn btn-default" onclick="depClick2()">Add Dependency</button>
+                       </div>
+                        <p></p>
+                        <h2><u>Risks</u></h2>
+                        <textarea id="riskText" rows="4" cols="75">
+                        </textarea> 
+
+                        <h2><u>Links</u></h2>
+                     <div id="link">
+                        <input type="text" id="linkText1" size="55"/> <button type="button" class="btn btn-default" id="linkButton" onclick="linkClick()">New Link</button>
+                     </div>
+                <div class="modal-footer">
+                     <button type="button" class="btn btn-default" onclick="saveClick()">Save</button>
+                </div>
+            </div>
+        </div> 
+    </div>
+  </div>
 
 
 
@@ -173,6 +218,53 @@
     function showModal() {                        
         $("#myModal").modal("show");
     }                    
+</script>
+<script>
+    function depClick() {
+      var count = 2;
+      var mainDiv = document.getElementById('dependencyText');
+      var mainroot = document.createElement("input");
+      mainroot.innerHTML= "<input type='text' id='depenText" + count.toString() + "/>"
+      mainDiv.appendChild(mainroot);
+      mainroot.style.width = "500px"
+      count++;
+    }
+</script>
+<script>
+    function depClick2() {
+      var count = 2;
+      var mainDiv = document.getElementById('dependencySelect');
+      var newSelect = document.createElement("select");
+      var newbreak = document.createElement("br");
+      //mainroot.innerHTML= "<input type='text' id='depenText" + count.toString() + "/>"
+      //option1
+      var newOption = document.createElement("option");
+      var newText = document.createTextNode("Project1");
+      newOption.appendChild(newText);
+      newSelect.appendChild(newOption);
+
+      //option2
+      var newOption = document.createElement("option");
+      var newText = document.createTextNode("Project2");
+      newOption.appendChild(newText);
+      newSelect.appendChild(newOption);
+
+
+      mainDiv.appendChild(newbreak);
+      mainDiv.appendChild(newSelect);
+      count++;
+    }
+</script>
+<script>
+    function linkClick(){
+    var count=2
+    var mainDiv = document.getElementById('link');
+    var mainroot = document.createElement("input");
+    //mainroot.innerHTML = "<input type='text' id='link" + count.toString() + "/>"
+    mainDiv.appendChild(mainroot);
+    mainroot.style.width = "500px";
+    count++;
+    }
 </script>
 
 
