@@ -9,6 +9,11 @@ namespace RocketRoadmap.DB
 {
     public class User
     {
+        public User(string username, string password)
+        {
+            mUserName = username;
+            mPassword = password;
+        }
        public User( string name, string username, string email, string password )
         {
             mName = name;
@@ -17,6 +22,21 @@ namespace RocketRoadmap.DB
             mPassword = password;
         }
 
+       public bool Login()
+       {
+           mDatabase.connect();
+           mReader = mDatabase.executeread("SELECT Password FROM [dbo].[User] WHERE ID='" + mUserName + "'");
+           if (mReader.HasRows)
+           {
+               mReader.Read();
+               if (mReader.GetString(0).ToString() == mPassword)
+               {
+                   return true;
+               }
+           }
+           mDatabase.close();
+           return false;
+       }
         public bool EditName(string name)
         {
             mDatabase.connect();
