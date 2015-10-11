@@ -75,6 +75,7 @@
     <Content Include="css\simple-sidebar.css" />
     <Content Include="css\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Home.html" />
     <Content Include="images\quicken-loans-logo.png" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
