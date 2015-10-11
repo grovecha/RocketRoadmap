@@ -29,7 +29,34 @@ namespace RocketRoadmap.DB.Tests
             StrategyPoint sp = new StrategyPoint("Test", "TEST");
             List<StrategyPoint> spTest = map.GetStrategyPoints();
 
-            Assert.AreEqual(sp.GetName(), spTest.First().GetName()); 
+            Assert.AreEqual(sp.GetName(), spTest.First().GetName());
+
+            BusinessValue bv = new BusinessValue("test");
+            List<BusinessValue> bvList = sp.GetBusinessValues();
+
+            Assert.AreEqual(bv.GetName(), bvList.First().GetName());
+
+            Project proj = new Project("Tested", "test", "test");
+            List<Project> projList = bvList.First().GetProjects();
+
+            Assert.AreEqual(proj.GetName(), projList.First().GetName());
+
+            Link link = new Link("tested", "Tested", "www.test.com");
+            List<Link> linkList = projList.First().GetLinks();
+
+            Assert.AreEqual(link.GetLink(), linkList.First().GetLink());
+
+            Issue issue = new Issue("Tested", "Tested");
+            List<Issue> issueList = projList.First().GetIssues();
+
+            Assert.AreEqual(issue.GetDescription(), issueList.First().GetDescription());
+
+            Project dep = new Project("Tested2", "TEST", "test");
+            List<Project> depList = projList.First().GetDependencies();
+
+            Assert.AreEqual(dep.GetName(), depList.First().GetName());
+
+
         }
 
         [TestMethod()]
