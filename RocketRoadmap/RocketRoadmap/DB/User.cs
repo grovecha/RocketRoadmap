@@ -25,14 +25,16 @@ namespace RocketRoadmap.DB
        public bool Login()
        {
            mDatabase.connect();
-           mReader = mDatabase.executeread("SELECT Password FROM [dbo].[User] WHERE Username='" + mUserName + "'");
+           mReader = mDatabase.executeread("SELECT Password FROM [dbo].[User] WHERE ID='" + mUserName + "'");
            if (mReader.HasRows)
            {
+               mReader.Read();
                if (mReader.GetString(0).ToString() == mPassword)
                {
                    return true;
                }
            }
+           mDatabase.close();
            return false;
        }
         public bool EditName(string name)

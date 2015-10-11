@@ -59,6 +59,9 @@
                 <li>
                     <a href="SidebarTest.html"> New Roadmap</a>
                 </li>
+                <li>
+                    <a><asp:Label ID="loginlabel" runat="server"></asp:Label></a>
+                </li>
 
             </ul>
         </div>

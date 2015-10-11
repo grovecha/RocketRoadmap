@@ -11,5 +11,23 @@ namespace WebApp {
     
     
     public partial class index {
+        
+        /// <summary>
+        /// username_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText username_ID;
+        
+        /// <summary>
+        /// password_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password_ID;
     }
 }
