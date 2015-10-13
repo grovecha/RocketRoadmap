@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="index.html">Login</a>
+                    <a href="index.aspx">Logout</a>
                 </li>
                 <li>
                     <a href="SidebarTest.html"> New Roadmap</a>
@@ -72,71 +72,28 @@
 </nav>
 
 <!-- Page Content -->
-
-<div class="row">
-    <div class="col-lg-12 text-center">
-        <h1>Current Roadmaps</h1>
-
-    </div>
-    </div>
-<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Description</th>
-        <th>Last Edited</th>
-
-    </tr>
-    </thead>
-
-    <tfoot>
-    <tr>
-        <th>Name</th>
-        <th>Author</th>
-        <th>Description</th>
-        <th>Last Edited</th>
-
-    </tr>
-    </tfoot>
-
-    <tbody>
-    <tr>
-        <td><a href="Roadmap.html">Proj1</a></td>
-        <td>Chase Grove</td>
-        <td>Huge project involving stuff</td>
-        <td>1/1/1</td>
-    </tr>
-    <tr>
-        <td><a href="Roadmap.html">Proj2</a></td>
-        <td>Brian Chivers</td>
-        <td>Huge project involving stuff</td>
-        <td>1/1/1</td>
-    </tr>
-    <tr>
-        <td><a href="Roadmap.html">Proj3</a></td>
-        <td>Emily Klopfer</td>
-        <td>Huge project involving stuff</td>
-        <td>1/1/1</td>
-    </tr>
-    <tr>
-        <td><a href="Roadmap.html">Proj4</a></td>
-        <td>Eric Nartker</td>
-        <td>Huge project involving stuff</td>
-        <td>1/1/1</td>
-    </tr>
-    <tr>
-        <td><a href="Roadmap.html">Proj5</a></td>
-        <td>Ben Toth</td>
-        <td>Huge project involving stuff</td>
-        <td>1/1/1</td>
-    </tr>
-
-
-
-
-    </tbody>
-</table>
+<header>
+    ROADMAPS
+</header>
+<asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
+      <asp:TableHeaderRow>
+            <asp:TableHeaderCell>Name</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Author</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Description</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
+        </asp:TableHeaderRow>
+</asp:Table> 
+<header>
+   USER ROADMAPS
+</header>
+<asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
+      <asp:TableHeaderRow>
+            <asp:TableHeaderCell>Name</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Author</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Description</asp:TableHeaderCell>
+            <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
+        </asp:TableHeaderRow>
+</asp:Table> 
 <!-- /.container -->
 
 <!-- jQuery Version 1.11.1 -->
