@@ -13,17 +13,24 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string name= Request.QueryString["n"];
+            Page.Title=Request.QueryString["n"];
         }
 
         [System.Web.Services.WebMethod]
-        public static void AddStrat(string name, string desc,string mapName)
+        public static void AddStrat(string id, string name,string mapName)
         {
-
+            
             RoadMap map = new RoadMap(mapName);
 
-            StrategyPoint point = new StrategyPoint(name, desc);
+            int n = map.GetStrategyPoints().Count;
+
+            StrategyPoint point = new StrategyPoint(id, name);
 
             map.AddStrategyPoint(point);
+
+
+            
             
             
         }

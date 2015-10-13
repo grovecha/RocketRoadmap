@@ -9,9 +9,9 @@ namespace RocketRoadmap.DB
 {
     public class StrategyPoint
     {
-        public StrategyPoint(string name,string desc) 
+        public StrategyPoint(string id,string desc) 
         {
-            mName = name;
+            mName = id;
             mDescription = desc;
 
             //Get the StrategyPoints
