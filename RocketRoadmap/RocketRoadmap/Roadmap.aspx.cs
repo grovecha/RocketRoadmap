@@ -26,7 +26,7 @@ namespace RocketRoadmap
             int n = map.GetStrategyPoints().Count;
 
             StrategyPoint point = new StrategyPoint(id, name);
-
+            string fart = point.GetName();
             map.AddStrategyPoint(point);
 
 

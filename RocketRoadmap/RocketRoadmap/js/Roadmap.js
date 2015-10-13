@@ -33,7 +33,8 @@
                 var mapName = url.substr(url.indexOf('?') + 1);
                 mapName = mapName.substr(2, mapName.length);
                 console.log(mapName);
-                PageMethods.AddStrat("test", "sadfsdf",mapName);
+
+                PageMethods.AddStrat("StratBut" + StratBoxCounter.toString(), "Chases button of doom",mapName);
      
                 //var t = "test";
                 //$.ajax({
@@ -191,18 +192,5 @@
         return false;
     }
 
-    function parse(val) {
-        var result = "Not found",
-            tmp = [];
-        location.search
-        //.replace ( "?", "" ) 
-        // this is better, there might be a question mark inside
-        .substr(1)
-            .split("&")
-            .forEach(function (item) {
-                tmp = item.split("=");
-                if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
-            });
-        return result;
-    }
+   
  

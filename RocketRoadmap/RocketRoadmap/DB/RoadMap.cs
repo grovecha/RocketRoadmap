@@ -115,14 +115,10 @@ namespace RocketRoadmap.DB
             mStrategyPoints.Add(point);
 
                         mDatabase.connect();
-            try
-            {
+
                 bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
                 mDatabase.close();
-            }
-            catch (Exception ex)
-            {
-            }
+
         }
 
         //Getters if needed
