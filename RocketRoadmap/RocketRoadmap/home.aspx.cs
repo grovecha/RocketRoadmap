@@ -28,9 +28,87 @@ namespace RocketRoadmap
                 {
                     Response.Redirect("index.aspx", false);
                 }
-                
+
+            }
+
+            RoadMaps umaps = new RoadMaps();
+            List<RoadMap> uall = new List<RoadMap>();
+
+            try
+            {
+                uall = umaps.GetUserMaps(mUser.GetUserName());
+
+                foreach (var umap in uall)
+                {
+                    TableRow urow = new TableRow();
+                    TableCell ucell_1 = new TableCell();
+                    TableCell ucell_2 = new TableCell();
+                    TableCell ucell_3 = new TableCell();
+                    TableCell ucell_4 = new TableCell();
+
+                    HyperLink link = new HyperLink();
+                    link.NavigateUrl = "Roadmap.aspx?n=" + umap.GetName();
+                    link.Text = umap.GetName();
+
+                    TableCell tCell1 = new TableCell();
+                    ucell_1.Controls.Add(link);
+
+                    ucell_2.Text = umap.GetUser().GetName();
+                    ucell_3.Text = umap.GetDecription();
+                    ucell_4.Text = umap.GetTimeStamp().ToString();
+
+                    urow.Cells.Add(ucell_1);
+                    urow.Cells.Add(ucell_2);
+                    urow.Cells.Add(ucell_3);
+                    urow.Cells.Add(ucell_4);
+
+                    userroadmaps.Rows.Add(urow);
+                }
+            }
+            catch (NullReferenceException nre)
+            {
+
+            }
+
+            RoadMaps maps = new RoadMaps();
+            List<RoadMap> all = new List<RoadMap>();
+
+            try
+            {
+                all = maps.GetAllMaps();
+
+                foreach (var map in all)
+                {
+                    TableRow row = new TableRow();
+                    TableCell cell_1 = new TableCell();
+                    TableCell cell_2 = new TableCell();
+                    TableCell cell_3 = new TableCell();
+                    TableCell cell_4 = new TableCell();
+
+                    HyperLink link = new HyperLink();
+                    link.NavigateUrl = "Roadmap.aspx?n=" + map.GetName(); 
+                    link.Text = map.GetName();
+
+                    TableCell tCell1 = new TableCell();
+                    cell_1.Controls.Add(link);
+
+                    cell_2.Text = map.GetUser().GetName();
+                    cell_3.Text = map.GetDecription();
+                    cell_4.Text = map.GetTimeStamp().ToString();
+
+                    row.Cells.Add(cell_1);
+                    row.Cells.Add(cell_2);
+                    row.Cells.Add(cell_3);
+                    row.Cells.Add(cell_4);
+
+                    allroadmaps.Rows.Add(row);
+                }
+            }
+            catch (NullReferenceException nre)
+            {
+
             }
 
         }
+        }
     }
-}
