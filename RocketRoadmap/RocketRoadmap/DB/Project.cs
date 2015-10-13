@@ -132,6 +132,9 @@ namespace RocketRoadmap.DB
             mDatabase.close();
             return bus;
         }
+        public List<Link> GetLinks() { return mLinks; }
+        public List<Issue> GetIssues() { return mIssues; }
+        public List<Project> GetDependencies() { return mDependencies; }
         #endregion
 
         public bool InsertDB()
