@@ -117,7 +117,7 @@ namespace RocketRoadmap.DB
                         mDatabase.connect();
             try
             {
-                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] (Name, Description, RoadMapName) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
+                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
                 mDatabase.close();
             }
             catch (Exception ex)
