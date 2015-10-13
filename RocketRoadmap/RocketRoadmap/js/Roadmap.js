@@ -29,9 +29,11 @@
                 element1.style.width = "200px";
                 cell1.appendChild(element1);
 
-                var RoadmapName = $_GET["n"];
-                console.log(RoadmapName);
-                PageMethods.AddStrat("test", "sadfsdf","Test");
+                var url = window.location.href;
+                var mapName = url.substr(url.indexOf('?') + 1);
+                mapName = mapName.substr(2, mapName.length);
+                console.log(mapName);
+                PageMethods.AddStrat("test", "sadfsdf",mapName);
      
                 //var t = "test";
                 //$.ajax({
@@ -187,5 +189,20 @@
         }
 
         return false;
+    }
+
+    function parse(val) {
+        var result = "Not found",
+            tmp = [];
+        location.search
+        //.replace ( "?", "" ) 
+        // this is better, there might be a question mark inside
+        .substr(1)
+            .split("&")
+            .forEach(function (item) {
+                tmp = item.split("=");
+                if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
     }
  
