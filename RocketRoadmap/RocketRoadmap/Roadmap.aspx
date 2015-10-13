@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Roadmap</title>
+    <title id="RoadmapTitle">Roadmap Name</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
 
 <body>
 <form id="form1" runat="server">
-                            <asp:ScriptManager runat="server"></asp:ScriptManager>
+<asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
 
 
 
@@ -118,7 +118,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
              d       <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>--%>
                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
                     <div class="modal-body">

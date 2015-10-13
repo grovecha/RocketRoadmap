@@ -9,6 +9,20 @@ namespace RocketRoadmap.DB
 {
     public class RoadMaps
     {
+
+        private static RoadMaps instance = null;
+  
+        private static RoadMaps Get
+        {
+            get
+            {
+                if(instance== null)
+                {
+                    instance = new RoadMaps();
+                }
+                return instance;
+            }
+        }
         //Constructor
         public RoadMaps() { }
         
@@ -121,6 +135,10 @@ namespace RocketRoadmap.DB
             mDatabase.close();
             //return list of roadmaps
             return maps;
+        }
+        public void Test()
+        {
+
         }
 
         private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();

@@ -9,7 +9,7 @@ namespace RocketRoadmap.DB
 {
     public class StrategyPoint
     {
-        public StrategyPoint(string name, string desc) 
+        public StrategyPoint(string name,string desc) 
         {
             mName = name;
             mDescription = desc;

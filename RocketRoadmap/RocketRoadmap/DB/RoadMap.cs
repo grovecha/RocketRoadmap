@@ -110,6 +110,11 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
+        public void AddStrategyPoint(StrategyPoint point)
+        {
+            mStrategyPoints.Add(point);
+        }
+
         //Getters if needed
         public string GetName() { return mName; }
         public DateTime GetTimeStamp() { return mTimeStamp; }

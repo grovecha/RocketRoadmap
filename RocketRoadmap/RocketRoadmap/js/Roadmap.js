@@ -5,8 +5,7 @@
     function addStrat(e,i) {
         if (e.keyCode === 13) {
 
-            if (i >= StratBoxCounter)
-            {
+            if (i >= StratBoxCounter) {
 
                 var table = document.getElementById("roadmap-table");
                 var row = table.insertRow(table.rows.length);
@@ -29,6 +28,25 @@
                 element1.style.height = "100px";
                 element1.style.width = "200px";
                 cell1.appendChild(element1);
+
+                var RoadmapName = $_GET["n"];
+                console.log(RoadmapName);
+                PageMethods.AddStrat("test", "sadfsdf","Test");
+     
+                //var t = "test";
+                //$.ajax({
+                //    url: "/Roadmap.aspx/Test",
+                //    type: "POST",
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType:"json",
+                //    data:JSON.stringify(t),
+                //        success: function (response) {
+                //            reponse ? alert("It worked!") : alert("Fuck");
+                //        }
+
+                //    });
+
+
 
                 var mainDiv = document.getElementById('sidebar-table');
 
