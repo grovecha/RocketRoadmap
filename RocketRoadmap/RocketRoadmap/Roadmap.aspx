@@ -28,6 +28,7 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <![endif]-->
 
 
@@ -157,7 +158,9 @@
                         <p></p>
                         <h2><u>Dependencies</u></h2>
                         <div id="dependencyText">
-                        <input type="text" id="depenText1" size="55" /> <button type="button" class="btn btn-default" id="depButton" onclick="depClick()">Add Dependency</button>
+                        <input type="text" id="depenText1" size="55" /> 
+                        <button type="button" class="btn btn-default" id="addButton" onclick="addClick()">Add</button>
+         
                         </div>
                         <div id="dependencySelect">
                         <select id="depenSelect">
@@ -166,7 +169,8 @@
                             <option value="project3">Project3</option>
                             <option value="project4">Project4</option>
                         </select>
-                        <button type="button" id="dep2Button" class="btn btn-default" onclick="depClick2()">Add Dependency</button>
+                        <button type="button" id="add2Button" class="btn btn-default" onclick="addClick2()">Add</button>
+                      
                        </div>
                         <p></p>
                         <h2><u>Risks</u></h2>
@@ -220,41 +224,38 @@
     }                    
 </script>
 <script>
-    function depClick() {
-      var count = 2;
-      var mainDiv = document.getElementById('dependencyText');
-      var mainroot = document.createElement("input");
-      mainroot.innerHTML= "<input type='text' id='depenText" + count.toString() + "/>"
-      mainDiv.appendChild(mainroot);
-      mainroot.style.width = "500px"
-      count++;
+    function addClick() {
+        var count = 2;
+        var mainDiv = document.getElementById('dependencyText');
+        var mainroot = document.createElement("input");
+        mainroot.innerHTML = "<input type='text' id='depenText" + count.toString() + "/>"
+        mainDiv.appendChild(mainroot);
+        mainroot.style.width = "450px"
+        count++;
     }
 </script>
 <script>
-    function depClick2() {
+    function addClick2() {
       var count = 2;
       var mainDiv = document.getElementById('dependencySelect');
       var newSelect = document.createElement("select");
       var newbreak = document.createElement("br");
-      //mainroot.innerHTML= "<input type='text' id='depenText" + count.toString() + "/>"
-      //option1
-      var newOption = document.createElement("option");
-      var newText = document.createTextNode("Project1");
-      newOption.appendChild(newText);
-      newSelect.appendChild(newOption);
 
-      //option2
-      var newOption = document.createElement("option");
-      var newText = document.createTextNode("Project2");
-      newOption.appendChild(newText);
-      newSelect.appendChild(newOption);
-
+        //creating option
+      var i, s;
+      for (i = 0; i < 5; i++) {
+          var newOption = document.createElement("option");
+          var newText = document.createTextNode("Project" + i);
+          newOption.appendChild(newText);
+          newSelect.appendChild(newOption);
+      }
 
       mainDiv.appendChild(newbreak);
       mainDiv.appendChild(newSelect);
       count++;
     }
 </script>
+
 <script>
     function linkClick(){
     var count=2
@@ -262,9 +263,17 @@
     var mainroot = document.createElement("input");
     //mainroot.innerHTML = "<input type='text' id='link" + count.toString() + "/>"
     mainDiv.appendChild(mainroot);
-    mainroot.style.width = "500px";
+    mainroot.style.width = "450px";
     count++;
     }
+</script>
+
+<script> 
+    function saveClick() {
+        //make the ajax calls in here?
+    }
+
+
 </script>
 
 
