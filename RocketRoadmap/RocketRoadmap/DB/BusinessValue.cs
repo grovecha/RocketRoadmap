@@ -68,6 +68,8 @@ namespace RocketRoadmap.DB
             mDatabase.close();
             return flag;
         }
+        public string GetName() { return mName; }
+        public List<Project> GetProjects() { return mProjects; }
         #endregion
 
 
