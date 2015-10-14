@@ -9,9 +9,9 @@ namespace RocketRoadmap.DB
 {
     public class StrategyPoint
     {
-        public StrategyPoint(string name, string desc) 
+        public StrategyPoint(string id,string desc) 
         {
-            mName = name;
+            mName = id;
             mDescription = desc;
 
             //Get the StrategyPoints
@@ -59,6 +59,33 @@ namespace RocketRoadmap.DB
             mDatabase.close();
             return toReturn;
         }
+
+        public BusinessValue GetVal(string id)
+        {
+            foreach(BusinessValue v in mValues)
+            {
+                if(v.GetName()== id)
+                {
+                    return v;
+                }
+            }
+            //oh no! Something went wrong! I blame brian.
+            //wat - brian
+            return null;
+        }
+
+        public void AddBusinessValue(BusinessValue bv)
+        {
+            mValues.Add(bv);
+            mDatabase.connect();
+
+            bool flag=mDatabase.executewrite("INSERT INTO [dbo].[BusinessValue] (Name, Description) VALUES ('" + bv.GetName() + "','" + bv.GetDescription() + "')");
+            bool flag2=mDatabase.executewrite("INSERT INTO [dbo].[SP_BV_Crosswalk] (StrategyPointName, BusinessValueName) VALUES ('" + mName + "','" + bv.GetName() + "')");
+
+            mDatabase.close();
+        }
+
+
 
         private string mName;
         private string mDescription;

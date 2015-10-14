@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>  
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,47 +32,12 @@
     <![endif]-->
 
 
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Enterprise Architecture Roadmap</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="index.aspx">Logout</a>
-                </li>
-                <li>
-                    <a href="SidebarTest.html"> New Roadmap</a>
-                </li>
-                <li>
-                    <a><asp:Label ID="loginlabel" runat="server"></asp:Label></a>
-                </li>
-
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-
-    </div>
-    <!-- /.container -->
-</nav>
-
 
 </head>
 
 <body>
 <form id="form1" runat="server">
-                            <asp:ScriptManager runat="server"></asp:ScriptManager>
+                            <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
 
 
 
@@ -84,6 +49,7 @@
 
         <!-- Data Input -->
         <div id="mainDiv">
+<<<<<<< HEAD
             <table id ="sidebar-table">
             <tr>
                 <td>
@@ -91,13 +57,32 @@
                     <br />
                     <br />
                     <input class="txtStrat"id="StratBox1" type="text" placeholder="Add Strategy Point" onkeypress="addStrat(event,1)" /> 
+=======
+           <table id ="sidebar-table">
+            <tr id="StratBox0Row">
+             <td>
+               
+                 <input id='StratBox0' class ='txtStrat' BusTotal=1  type ='text' placeholder='Add Strategy Point' onkeypress ='addStrat(event,this,1)'/><br/>
+                    <table id ="StratBox0Table" >
+                        <tr id="StratBox0BusBox0Row">
+                         <td>
+                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0' type ='text'placeholder='Add Business Value' onkeypress ='addBus(event, this,1)' />
+                                    <div id="projDiv">
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project' onkeypress ='addProj(event, this,1)' />
+                                         </div> 
+                          
+                        </td>
+                      </tr>
+                  </table>                                
+            
+>>>>>>> c442c0b86863ad4ebf8f4b6559c424edef1011a8
  
-                </td>
-            </tr>
-            </table>
+            </td>
+          </tr>
+        </table>
 
 
-           
+          </div> 
         </div>
         <!--
             <ul class="sidebar-nav">
@@ -130,7 +115,6 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal"> Input modal </button>
                 </div>
                 <br />
                 <table id="roadmap-table">
@@ -163,15 +147,13 @@
                     </div>
                     <div class="modal-body">
                         <h2><u>Description</u></h2>
-                        <p> Pull the description</p>
+                       <p>It will be saying things about our object BLah BLah Blah</p> 
                         <p></p>
                         <h2><u>Dependencies</u></h2>
-                        <p> Pul the dependecies list</p>
+                        <p>Becky totally depends on Johnny</p>
                         <p></p>
                         <h2><u>Risks</u></h2>
-                        <p> List of risks</p>
-                        <h2><u>Links</u></h2>
-                       
+                        <p>We are all risky</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -180,6 +162,7 @@
             </div>
         </div>
 
+<<<<<<< HEAD
      <!-- Modal input -->
     <div id="inputModal" class="modal fade" role ="dialog">
         <div class="modal-dialog modal-lg">
@@ -233,6 +216,9 @@
         </div> 
     </div>
   </div>
+=======
+<!-- Boot strap modal asp button attempt -->
+>>>>>>> c442c0b86863ad4ebf8f4b6559c424edef1011a8
 
 
 
@@ -268,6 +254,7 @@
         $("#myModal").modal("show");
     }                    
 </script>
+<<<<<<< HEAD
 <script>
     $(document).ready(function () {
         var max_fields = 15; //maximum input boxes allowed
@@ -340,6 +327,8 @@
 
     });
 </script>
+=======
+>>>>>>> c442c0b86863ad4ebf8f4b6559c424edef1011a8
 
 
 <!-- Data Input -->

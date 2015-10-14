@@ -110,6 +110,30 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
+        public void AddStrategyPoint(StrategyPoint point)
+        {
+            mStrategyPoints.Add(point);
+
+                        mDatabase.connect();
+
+                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
+                mDatabase.close();
+
+        }
+
+        public StrategyPoint GetPoint(string id)
+        {
+            foreach(StrategyPoint p in mStrategyPoints)
+            {
+                if(p.GetName()==id)
+                {
+                    return p;
+                }
+            }
+            // point doesn't exist, we gotta problem here cap'n
+            return null;
+        }
+
         //Getters if needed
         public string GetName() { return mName; }
         public DateTime GetTimeStamp() { return mTimeStamp; }
