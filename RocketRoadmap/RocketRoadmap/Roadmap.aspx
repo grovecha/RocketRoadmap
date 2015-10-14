@@ -36,7 +36,7 @@
 
 <body>
 <form id="form1" runat="server">
-                            <asp:ScriptManager runat="server"></asp:ScriptManager>
+                            <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
 
 
 

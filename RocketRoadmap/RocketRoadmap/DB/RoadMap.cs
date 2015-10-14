@@ -121,6 +121,19 @@ namespace RocketRoadmap.DB
 
         }
 
+        public StrategyPoint GetPoint(string id)
+        {
+            foreach(StrategyPoint p in mStrategyPoints)
+            {
+                if(p.GetName()==id)
+                {
+                    return p;
+                }
+            }
+            // point doesn't exist, we gotta problem here cap'n
+            return null;
+        }
+
         //Getters if needed
         public string GetName() { return mName; }
         public DateTime GetTimeStamp() { return mTimeStamp; }

@@ -30,6 +30,7 @@ function addStrat(e, obj, i) {
     else if (e.keyCode == 13) {
 
         PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BuxBox")[0]);
+        console.log(PreviousStratNum);
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
         //StratBoxCounter++;
@@ -37,6 +38,15 @@ function addStrat(e, obj, i) {
         var varr = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex + 1;
         newrow = mainDiv.insertRow(varr);
         newrow.setAttribute("id", 'StratBox' + StratBoxCounter.toString() + "Row");
+        
+        //adding to the database
+        //var url = window.location.href;
+        //var mapName = url.substr(url.indexOf('?') + 1);
+        //mapName = mapName.substr(2, mapName.length);
+        //var desc = document.getElementById("StratBox" + StratBoxCounter.toString()).value;
+        //PageMethods.AddStrat("StratBox" + StratBoxCounter.toString(), desc, mapName);
+        
+        //StratBoxCounter++;
 
         newrow.innerHTML = "<td>" +
                         "<input name='s' class='txtStrat' BusTotal=1 id='StratBox" + StratBoxCounter.toString() + "' type='text' placeholder='Add Strategy Point' ontext onkeypress='addStrat(event,this," + StratBoxCounter.toString() + ")'/><br />" +
@@ -65,7 +75,6 @@ function addStrat(e, obj, i) {
         document.getElementById("StratBox" + PreviousStratNum.toString() + 'BusBox0').select();
     }
     if (0) {
-
         PreviousStratNum = parseInt(obj.id.split('StratBox')[1]);
         CurrentStratNum = PreviousStratNum + 1;
 
@@ -184,6 +193,12 @@ function addBus(e, obj, i) {
         //newcell.style.backgroundColor = "yellow";
         //newcell.innerHTML = "Business Value";
 
+        //adding to the database
+        var url = window.location.href;
+        var mapName = url.substr(url.indexOf('?') + 1);
+        mapName = mapName.substr(2, mapName.length);
+        PageMethods.AddBusVal(CurrentBusId, "A new Business Value", mapName, StratId);
+
         PreviousBusId = parseInt(obj.id.split('StratBox')[1].split('ProjBox')[0]);
 
         //CurrentStratNum = PreviousStratNum + 1;
@@ -265,6 +280,12 @@ function addProj(e, obj, i) {
             newInput.placeholder = 'Add Project';
             newInput.id = BusId + "ProjBox" + String(CurrentProjCount + 1);
             newInput.setAttribute('onkeypress', 'addProj(event, this, 1)');
+
+            //adding to the database
+            var url = window.location.href;
+            var mapName = url.substr(url.indexOf('?') + 1);
+            mapName = mapName.substr(2, mapName.length);
+            PageMethods.addProj(BusId + "ProjBox" + String(CurrentProjCount + 1), "A new Project", mapName, StratId,BusId);
 
 
             var projroot = obj.parentElement;

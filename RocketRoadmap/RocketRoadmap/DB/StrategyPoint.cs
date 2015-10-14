@@ -60,6 +60,19 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
+        public BusinessValue GetVal(string id)
+        {
+            foreach(BusinessValue v in mValues)
+            {
+                if(v.GetName()== id)
+                {
+                    return v;
+                }
+            }
+            //oh no! Something went wrong! I blame brian.
+            return null;
+        }
+
 
 
         private string mName;
