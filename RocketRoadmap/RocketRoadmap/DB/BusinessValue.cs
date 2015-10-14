@@ -34,6 +34,7 @@ namespace RocketRoadmap.DB
         {
             mProjects.Add(proj);
             proj.InsertDB();
+            proj.SetBusinessValue(mName);
         }
 
         #region Getter's and Setter's

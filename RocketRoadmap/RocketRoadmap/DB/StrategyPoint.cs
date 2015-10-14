@@ -70,7 +70,19 @@ namespace RocketRoadmap.DB
                 }
             }
             //oh no! Something went wrong! I blame brian.
+            //wat - brian
             return null;
+        }
+
+        public void AddBusinessValue(BusinessValue bv)
+        {
+            mValues.Add(bv);
+            mDatabase.connect();
+
+            bool flag=mDatabase.executewrite("INSERT INTO [dbo].[BusinessValue] (Name, Description) VALUES ('" + bv.GetName() + "','" + bv.GetDescription() + "')");
+            bool flag2=mDatabase.executewrite("INSERT INTO [dbo].[SP_BV_Crosswalk] (StrategyPointName, BusinessValueName) VALUES ('" + mName + "','" + bv.GetName() + "')");
+
+            mDatabase.close();
         }
 
 
