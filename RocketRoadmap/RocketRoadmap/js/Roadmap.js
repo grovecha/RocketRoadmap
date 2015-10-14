@@ -3,6 +3,15 @@
 function deleteRow(e, obj) {
 
 }
+
+
+//var url = window.location.href;
+//var mapName = url.substr(url.indexOf('?') + 1);
+//mapName = mapName.substr(2, mapName.length);
+//console.log(mapName);
+
+//PageMethods.AddStrat("StratBut" + StratBoxCounter.toString(), "Chases button of doom", mapName);
+
 function addStrat(e, obj, i) {
     if (e.keyCode == 32) {
         var mainDiv = document.getElementById('sidebar-table');

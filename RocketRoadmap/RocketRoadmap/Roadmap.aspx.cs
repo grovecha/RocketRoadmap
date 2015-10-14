@@ -13,8 +13,6 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string name= Request.QueryString["n"];
-            Page.Title=Request.QueryString["n"];
         }
 
         [System.Web.Services.WebMethod]
