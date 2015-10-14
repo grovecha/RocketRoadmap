@@ -13,13 +13,13 @@ function deleteRow(e, obj) {
 //PageMethods.AddStrat("StratBut" + StratBoxCounter.toString(), "Chases button of doom", mapName);
 
 function addStrat(e, obj, i) {
-    if (e.keyCode == 32) {
+    if (0) {
         var mainDiv = document.getElementById('sidebar-table');
 
         PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BuxBox")[0]);
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
-        StratBoxCounter++;
+        //StratBoxCounter++;
         var mainDiv = document.getElementById('sidebar-table');
         var varr = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex;
 
@@ -30,21 +30,20 @@ function addStrat(e, obj, i) {
     else if (e.keyCode == 13) {
 
         PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BuxBox")[0]);
-        console.log(PreviousStratNum);
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
-        //StratBoxCounter++;
+        StratBoxCounter++;
         var mainDiv = document.getElementById('sidebar-table');
         var varr = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex + 1;
         newrow = mainDiv.insertRow(varr);
         newrow.setAttribute("id", 'StratBox' + StratBoxCounter.toString() + "Row");
         
         //adding to the database
-        //var url = window.location.href;
-        //var mapName = url.substr(url.indexOf('?') + 1);
-        //mapName = mapName.substr(2, mapName.length);
-        //var desc = document.getElementById("StratBox" + StratBoxCounter.toString()).value;
-        //PageMethods.AddStrat("StratBox" + StratBoxCounter.toString(), desc, mapName);
+        var url = window.location.href;
+        var mapName = url.substr(url.indexOf('?') + 1);
+        mapName = mapName.substr(2, mapName.length);
+        var desc = document.getElementById("StratBox" +PreviousStratNum.toString()).value;
+        PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), desc, mapName);
         
         //StratBoxCounter++;
 
@@ -148,7 +147,7 @@ function addStrat(e, obj, i) {
 
 function addBus(e, obj, i) {
     // add Business Value / Change Business Value text
-    if (e.keyCode == 32) {
+    if (0) {
         StratId = obj.id.split("BusBox")[0];
         var mainDiv = document.getElementById(StratId + "Table");
 
@@ -181,6 +180,8 @@ function addBus(e, obj, i) {
 
         //add 1 to current business count and total
         CurrentBusId = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal + 1);
+        PrevBusId = StratId.toString() + "BusBox" + CurrentBusCount.toString();
+
         //document.getElementById("StratBox" + CurrentStratCount.toString() + 'BusBox1BusTotal1');
 
         //var table = document.getElementById("roadmap-table");
@@ -197,10 +198,14 @@ function addBus(e, obj, i) {
         var url = window.location.href;
         var mapName = url.substr(url.indexOf('?') + 1);
         mapName = mapName.substr(2, mapName.length);
-        PageMethods.AddBusVal(CurrentBusId, "A new Business Value", mapName, StratId);
+
+        var desc = document.getElementById(PrevBusId).value;
+        PageMethods.AddBusVal(PrevBusId, desc, mapName, StratId.toString());
+
+
+
 
         PreviousBusId = parseInt(obj.id.split('StratBox')[1].split('ProjBox')[0]);
-
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
         StratBoxCounter++;
@@ -240,7 +245,7 @@ function addBus(e, obj, i) {
 
 function addProj(e, obj, i) {
 
-    if (e.keyCode == 32) {
+    if (0) {
         CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
         //PreviousStratNum = parseInt(obj.id.split('BusBox')[1].split("ProjBox")[0]);
         //CurrentStratNum = PreviousStratNum + 1;
@@ -265,7 +270,10 @@ function addProj(e, obj, i) {
 
         CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
         BusId = obj.id.split("ProjBox")[0];
+        StratId = obj.id.split("BusBox")[0];
         ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
+
+        
 
         if (CurrentProjCount + 1 >= ProjTotal) {
 
@@ -282,10 +290,13 @@ function addProj(e, obj, i) {
             newInput.setAttribute('onkeypress', 'addProj(event, this, 1)');
 
             //adding to the database
+            //sending to the database
             var url = window.location.href;
             var mapName = url.substr(url.indexOf('?') + 1);
             mapName = mapName.substr(2, mapName.length);
-            PageMethods.addProj(BusId + "ProjBox" + String(CurrentProjCount + 1), "A new Project", mapName, StratId,BusId);
+
+            var desc = document.getElementById(obj.id).value;
+            PageMethods.AddProject(obj.id, desc, mapName, StratId.toString(),BusId);
 
 
             var projroot = obj.parentElement;
