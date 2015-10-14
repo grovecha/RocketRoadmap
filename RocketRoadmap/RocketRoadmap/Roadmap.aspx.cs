@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 using RocketRoadmap.DB;
 
 namespace RocketRoadmap
@@ -13,11 +14,9 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string name= Request.QueryString["n"];
-            Page.Title=Request.QueryString["n"];
         }
 
-        [System.Web.Services.WebMethod]
+        [WebMethod]
         public static void AddStrat(string id, string name,string mapName)
         {
             
@@ -26,13 +25,36 @@ namespace RocketRoadmap
             int n = map.GetStrategyPoints().Count;
 
             StrategyPoint point = new StrategyPoint(id, name);
-
+            string fart = point.GetName();
             map.AddStrategyPoint(point);
 
+        }
+        [WebMethod]
+        public static void AddBusVal(string id,string name,string mapName,string stratID)
+        {
+            RoadMap map = new RoadMap(mapName);
+
+            StrategyPoint point = map.GetPoint(stratID);
+
+            BusinessValue newBusVal = new BusinessValue(id);
+
+            //point.AddBusinessValue(newBusVal);
+        }
+        [WebMethod]
+        public static void AddProject(string id,string name,string mapName,string stratID,string valID)
+        {
+            RoadMap map = new RoadMap(mapName);
+
+            StrategyPoint point = map.GetPoint(stratID);
+
+            BusinessValue val = point.GetVal(valID);
+
+            Project newProj = new Project(id, name, valID);
 
             
-            
-            
+
+
+            //val.addProject(newProj);
         }
 
 

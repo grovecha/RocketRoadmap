@@ -11,24 +11,24 @@ namespace RocketRoadmap.DB
     {
         public TimeLine (string roadmapname)
         {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
-            mReader.Read();
+            //mDatabase.connect();
+            //mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
+            //mReader.Read();
 
-            mName = mReader.GetString(0);
-            mStartDate = mReader.GetDateTime(1);
-            mEndDate = mReader.GetDateTime(2);
+            //mName = mReader.GetString(0);
+            //mStartDate = mReader.GetDateTime(1);
+            //mEndDate = mReader.GetDateTime(2);
 
-            mDatabase.close();
+            //mDatabase.close();
 
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName = '" + mName + "'");
-            while (mReader.Read())
-            {
-                TickMark tick = new TickMark(mReader.GetString(0).ToString(), mReader.GetInt32(1));
-                mTicks.Add(tick);
-            }
-            mDatabase.close();
+            //mDatabase.connect();
+            //mReader = mDatabase.executeread("SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName = '" + mName + "'");
+            //while (mReader.Read())
+            //{
+            //    TickMark tick = new TickMark(mReader.GetString(0).ToString(), mReader.GetInt32(1));
+            //    mTicks.Add(tick);
+            //}
+            //mDatabase.close();
         }
 
         public bool NewTickMark(TickMark tick)
