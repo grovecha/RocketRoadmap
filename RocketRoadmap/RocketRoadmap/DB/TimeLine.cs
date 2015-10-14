@@ -15,7 +15,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
             mReader.Read();
 
-            mName = mReader.GetString(0);
+           // mName = mReader.GetString(0);
             mStartDate = mReader.GetDateTime(1);
             mEndDate = mReader.GetDateTime(2);
 

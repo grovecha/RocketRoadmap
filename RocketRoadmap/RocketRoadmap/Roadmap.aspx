@@ -87,6 +87,9 @@
             <table id ="sidebar-table">
             <tr>
                 <td>
+                    <br />
+                    <br />
+                    <br />
                     <input class="txtStrat"id="StratBox1" type="text" placeholder="Add Strategy Point" onkeypress="addStrat(event,1)" /> 
  
                 </td>
@@ -154,7 +157,7 @@
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-             d       <div class="modal-header">
+                    <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
@@ -187,37 +190,44 @@
                     <h3 class="modal-title">Pull the project Title into here</h3>
                 </div>
                 <div class="modal-body">
+                     <!-- Description Text Box -->
                     <h2><u>Description</u></h2>
-                        <textarea id="descText" rows="4" cols="75">
-                        </textarea> 
-                        <p></p>
-                        <h2><u>Dependencies</u></h2>
-                        <div id="dependencyText">
-                        <input type="text" id="depenText1" size="55" /> 
-                        <button type="button" class="btn btn-default" id="addButton" onclick="addClick()">Add</button>
-         
-                        </div>
-                        <div id="dependencySelect">
-                        <select id="depenSelect">
+                       <textarea id="descText" rows="4" cols="75">
+                       </textarea> 
+                       <p></p>
+                    <!--Depedency Input -->
+                    <h2><u>Dependencies</u></h2>
+                       <input type="text" id="depenText1" size="60" />
+                       <button type="button" class="btn btn-default" id="addText">Add Input</button>
+                       <div class="depText">
+                       <div></div>
+                       </div>
+                     <!-- Selection Dependency - Need to loop for options -->
+                       <select id="depenSelect">
                             <option value="project1">Project1</option>
                             <option value="project2">Project2</option>
                             <option value="project3">Project3</option>
                             <option value="project4">Project4</option>
-                        </select>
-                        <button type="button" id="add2Button" class="btn btn-default" onclick="addClick2()">Add</button>
-                      
+                       </select>
+                       <button type="button" id="addSelect" class="btn btn-default">Add Selection</button> 
+                       <div class="depSelect">
+                       <div></div>
                        </div>
-                        <p></p>
-                        <h2><u>Risks</u></h2>
-                        <textarea id="riskText" rows="4" cols="75">
-                        </textarea> 
+                       <p></p>
+                   <!-- Risks Text Box -->
+                   <h2><u>Risks</u></h2>
+                       <textarea id="riskText" rows="4" cols="75">
+                       </textarea> 
+                   <!-- Links Input -->
+                   <h2><u>Links</u></h2>
+                       <input type="text" id="linkText1" size="60"/> 
+                       <button type="button" class="btn btn-default" id="addLink">Add Link</button>
+                       <div class="linkText">
+                       <div></div>
+                       </div>
 
-                        <h2><u>Links</u></h2>
-                     <div id="link">
-                        <input type="text" id="linkText1" size="55"/> <button type="button" class="btn btn-default" id="linkButton" onclick="linkClick()">New Link</button>
-                     </div>
-                <div class="modal-footer">
-                     <button type="button" class="btn btn-default" onclick="saveClick()">Save</button>
+                       <div class="modal-footer">
+                       <button type="button" class="btn btn-default" id ="saveButton">Save</button>
                 </div>
             </div>
         </div> 
@@ -259,56 +269,76 @@
     }                    
 </script>
 <script>
-    function addClick() {
-        var count = 2;
-        var mainDiv = document.getElementById('dependencyText');
-        var mainroot = document.createElement("input");
-        mainroot.innerHTML = "<input type='text' id='depenText" + count.toString() + "/>"
-        mainDiv.appendChild(mainroot);
-        mainroot.style.width = "450px"
-        count++;
-    }
-</script>
-<script>
-    function addClick2() {
-      var count = 2;
-      var mainDiv = document.getElementById('dependencySelect');
-      var newSelect = document.createElement("select");
-      var newbreak = document.createElement("br");
+    $(document).ready(function () {
+        var max_fields = 15; //maximum input boxes allowed
+        var dep_Text = $(".depText"); //Dependency input wrapper
+        var add_Text = $("#addText"); //Add dependency input
+        var dep_Select = $(".depSelect"); //Dependency Selection wrapper
+        var add_Select = $("#addSelect"); //Add dependency select
+        var link_Text = $(".linkText"); //Link input wrapper
+        var add_Link = $("#addLink"); //Add Link input
+        var dep_count = 1; //initlal dependency input counter
+        var select_count = 1; //initial select input counter
+        var link_count = 1; //initial link count
 
-        //creating option
-      var i, s;
-      for (i = 0; i < 5; i++) {
-          var newOption = document.createElement("option");
-          var newText = document.createTextNode("Project" + i);
-          newOption.appendChild(newText);
-          newSelect.appendChild(newOption);
-      }
+        //Dependency addition Functions
+        $(add_Text).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (dep_count < max_fields) { //max input box allowed
+                dep_count++; //text box increment
+                $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+            }
+        });
 
-      mainDiv.appendChild(newbreak);
-      mainDiv.appendChild(newSelect);
-      count++;
-    }
-</script>
+        $(dep_Text).on("click", ".remove_field", function (e) { //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
 
-<script>
-    function linkClick(){
-    var count=2
-    var mainDiv = document.getElementById('link');
-    var mainroot = document.createElement("input");
-    //mainroot.innerHTML = "<input type='text' id='link" + count.toString() + "/>"
-    mainDiv.appendChild(mainroot);
-    mainroot.style.width = "450px";
-    count++;
-    }
-</script>
 
-<script> 
-    function saveClick() {
+        //Selection addition Functions
+      
+        $(add_Select).click(function (e) { //on add input button click
+            e.preventDefault();
+
+            var options = "";
+            var i, max = 10;
+            for (i = 0; i < max; i++) {
+                options += "<option value='project" + i + ">Option" + i + "</option>";
+            }
+
+            if (select_count < max_fields) { //max input box allowed
+                select_count++; //text box increment
+                $(dep_Select).append('<div> <select id="depenSelect">' + options +'</select><a href="#" class="remove_field">X</a></div>'); //add input box
+            }
+        });
+
+        $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+  
+
+        //Links Addition Functions
+        $(add_Link).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (link_count < max_fields) { //max input box allowed
+                link_count++; //text box increment
+                $(link_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+            }
+        });
+
+        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+        })
+    });
+    
+    $(add_Link).click(function (e) {
         //make the ajax calls in here?
-    }
 
 
+
+
+
+    });
 </script>
 
 
@@ -358,3 +388,4 @@
 </body>
 
 </html>
+
