@@ -26,37 +26,35 @@ namespace RocketRoadmap.DB.Tests
 
             Assert.AreEqual( timeline.GetName(), test.GetName());
 
-            StrategyPoint sp = new StrategyPoint("Test", "TEST");
+            StrategyPoint sp = new StrategyPoint("Test", "TEST", "Test");
             List<StrategyPoint> spTest = map.GetStrategyPoints();
 
             Assert.AreEqual(sp.GetName(), spTest.First().GetName());
 
-            BusinessValue bv = new BusinessValue("test");
+            BusinessValue bv = new BusinessValue("test", "Test");
             List<BusinessValue> bvList = sp.GetBusinessValues();
 
             Assert.AreEqual(bv.GetName(), bvList.First().GetName());
 
-            Project proj = new Project("Tested", "test", "test");
+            Project proj = new Project("Tested", "test", "test", "Test");
             List<Project> projList = bvList.First().GetProjects();
 
             Assert.AreEqual(proj.GetName(), projList.First().GetName());
 
-            Link link = new Link("tested", "Tested", "www.test.com");
+            Link link = new Link("tested", "Tested", "www.test.com", "Test");
             List<Link> linkList = projList.First().GetLinks();
 
             Assert.AreEqual(link.GetLink(), linkList.First().GetLink());
 
-            Issue issue = new Issue("Tested", "Tested");
+            Issue issue = new Issue("Tested", "Tested", "Test");
             List<Issue> issueList = projList.First().GetIssues();
 
             Assert.AreEqual(issue.GetDescription(), issueList.First().GetDescription());
 
-            Project dep = new Project("Tested2", "TEST", "test");
+            Project dep = new Project("Tested2", "TEST", "test", "Test");
             List<Project> depList = projList.First().GetDependencies();
 
             Assert.AreEqual(dep.GetName(), depList.First().GetName());
-
-
         }
 
         [TestMethod()]
