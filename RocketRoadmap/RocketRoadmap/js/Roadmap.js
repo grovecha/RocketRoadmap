@@ -84,7 +84,18 @@ function addStrat(e, obj, i) {
             element1.style.backgroundColor = "red";
             element1.style.height = "100px";
             element1.style.width = "200px";
-            cell1.appendChild(element1);
+
+            var table1 = document.createElement("table");
+            cell1.appendChild(table1);
+            row1 = table1.insertRow(0);
+            cell2 = row1.insertCell(0);
+            div = document.createElement("div");
+            //cell1.appendChild(div);
+            cell2.appendChild(element1);
+
+            //row1.style.verticalAlign = "top";
+
+
         }
     }
 
@@ -185,16 +196,23 @@ function addBus(e, obj, i) {
         console.log(table.rows.count);
         var newcell = row.insertCell(1);
         var w = screen.width;
-        newcell.style.width = w.toString() + "px";
-        newcell.style.backgroundColor = "yellow";
+        row.style.width = w.toString() + "px";
+        row.style.backgroundColor = "yellow";
 
         //newcell.innerHTML =  "<p style='text-align: right;'>"+obj.value+"</p>"                    
+
+
+
+
 
         div = document.createElement("div");
         div.innerHTML = obj.value;
         div.style.textAlign = "right";
+        //newcell.innerHTML = obj.value;
+        //newcell.textAlign = "right";
         newcell.appendChild(div);
-
+        newcell.style.width = w.toString() + "px";
+        newcell.style.backgroundColor = "yellow";
 
 
         PreviousBusId = parseInt(obj.id.split('StratBox')[1].split('ProjBox')[0]);
@@ -310,12 +328,17 @@ function addProj(e, obj, i) {
 
             var table = document.getElementById("roadmap-table");
             var row = table.rows[CurrentStratCount];
-            var cell1 = row.cells[1];
-            div = document.createElement("div");
+            var table1 = document.createElement("table");
+         
+            var cell1 = row.insertCell(1);
+            cell1.appendChild(table1);
+            row1 = table1.insertRow(0);
+            cell2 = row1.insertCell(0);
+         
             //cell1.appendChild(div);
-            cell1.appendChild(element1);
+            cell2.appendChild(element1);
 
-            row.style.verticalAlign = "top";
+            row1.style.verticalAlign = "top";
 
 
 
