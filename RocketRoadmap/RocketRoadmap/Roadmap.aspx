@@ -49,15 +49,6 @@
 
         <!-- Data Input -->
         <div id="mainDiv">
-<<<<<<< HEAD
-            <table id ="sidebar-table">
-            <tr>
-                <td>
-                    <br />
-                    <br />
-                    <br />
-                    <input class="txtStrat"id="StratBox1" type="text" placeholder="Add Strategy Point" onkeypress="addStrat(event,1)" /> 
-=======
            <table id ="sidebar-table">
             <tr id="StratBox0Row">
              <td>
@@ -75,7 +66,7 @@
                       </tr>
                   </table>                                
             
->>>>>>> c442c0b86863ad4ebf8f4b6559c424edef1011a8
+
  
             </td>
           </tr>
@@ -115,6 +106,7 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="inputModal">Modal</button>
                 </div>
                 <br />
                 <table id="roadmap-table">
@@ -132,7 +124,6 @@
     </div>
     <!-- /#page-content-wrapper -->
 
-</div>
 
 
 <!-- /#wrapper -->
@@ -162,7 +153,7 @@
             </div>
         </div>
 
-<<<<<<< HEAD
+
      <!-- Modal input -->
     <div id="inputModal" class="modal fade" role ="dialog">
         <div class="modal-dialog modal-lg">
@@ -216,13 +207,6 @@
         </div> 
     </div>
   </div>
-=======
-<!-- Boot strap modal asp button attempt -->
->>>>>>> c442c0b86863ad4ebf8f4b6559c424edef1011a8
-
-
-
-
 
  <!-- jQuery -->
 <script src="js/InputModal.js"></script>
@@ -254,82 +238,6 @@
         $("#myModal").modal("show");
     }                    
 </script>
-<<<<<<< HEAD
-<script>
-    $(document).ready(function () {
-        var max_fields = 15; //maximum input boxes allowed
-        var dep_Text = $(".depText"); //Dependency input wrapper
-        var add_Text = $("#addText"); //Add dependency input
-        var dep_Select = $(".depSelect"); //Dependency Selection wrapper
-        var add_Select = $("#addSelect"); //Add dependency select
-        var link_Text = $(".linkText"); //Link input wrapper
-        var add_Link = $("#addLink"); //Add Link input
-        var dep_count = 1; //initlal dependency input counter
-        var select_count = 1; //initial select input counter
-        var link_count = 1; //initial link count
-
-        //Dependency addition Functions
-        $(add_Text).click(function (e) { //on add input button click
-            e.preventDefault();
-            if (dep_count < max_fields) { //max input box allowed
-                dep_count++; //text box increment
-                $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
-            }
-        });
-
-        $(dep_Text).on("click", ".remove_field", function (e) { //user click on remove text
-            e.preventDefault(); $(this).parent('div').remove(); x--;
-        })
-
-
-        //Selection addition Functions
-      
-        $(add_Select).click(function (e) { //on add input button click
-            e.preventDefault();
-
-            var options = "";
-            var i, max = 10;
-            for (i = 0; i < max; i++) {
-                options += "<option value='project" + i + ">Option" + i + "</option>";
-            }
-
-            if (select_count < max_fields) { //max input box allowed
-                select_count++; //text box increment
-                $(dep_Select).append('<div> <select id="depenSelect">' + options +'</select><a href="#" class="remove_field">X</a></div>'); //add input box
-            }
-        });
-
-        $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
-            e.preventDefault(); $(this).parent('div').remove(); x--;
-        })
-  
-
-        //Links Addition Functions
-        $(add_Link).click(function (e) { //on add input button click
-            e.preventDefault();
-            if (link_count < max_fields) { //max input box allowed
-                link_count++; //text box increment
-                $(link_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
-            }
-        });
-
-        $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-            e.preventDefault(); $(this).parent('div').remove(); x--;
-        })
-    });
-    
-    $(add_Link).click(function (e) {
-        //make the ajax calls in here?
-
-
-
-
-
-    });
-</script>
-=======
->>>>>>> c442c0b86863ad4ebf8f4b6559c424edef1011a8
-
 
 <!-- Data Input -->
         <style>
