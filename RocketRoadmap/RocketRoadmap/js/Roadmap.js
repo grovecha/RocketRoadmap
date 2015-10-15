@@ -1,22 +1,11 @@
 ﻿var StratBoxCounter = 0;
 
-function deleteRow(e, obj) {
-
-}
-
-
-//var url = window.location.href;
-//var mapName = url.substr(url.indexOf('?') + 1);
-//mapName = mapName.substr(2, mapName.length);
-//console.log(mapName);
-
-//PageMethods.AddStrat("StratBut" + StratBoxCounter.toString(), "Chases button of doom", mapName);
 
 function addStrat(e, obj, i) {
     if (0) {
         var mainDiv = document.getElementById('sidebar-table');
 
-        PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BuxBox")[0]);
+        PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
         //StratBoxCounter++;
@@ -29,7 +18,9 @@ function addStrat(e, obj, i) {
         //add new input boxes
     else if (e.keyCode == 13) {
 
-        PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BuxBox")[0]);
+        PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
+        var table = document.getElementById("roadmap-table");
+        var row = table.insertRow(PreviousStratNum);
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
         StratBoxCounter++;
@@ -37,18 +28,9 @@ function addStrat(e, obj, i) {
         var varr = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex + 1;
         newrow = mainDiv.insertRow(varr);
         newrow.setAttribute("id", 'StratBox' + StratBoxCounter.toString() + "Row");
-        
-        //adding to the database
-        var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
-        mapName = mapName.substr(2, mapName.length);
-        var desc = document.getElementById("StratBox" +PreviousStratNum.toString()).value;
-        PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), desc, mapName);
-        
-        //StratBoxCounter++;
 
         newrow.innerHTML = "<td>" +
-                        "<input name='s' class='txtStrat' BusTotal=1 id='StratBox" + StratBoxCounter.toString() + "' type='text' placeholder='Add Strategy Point' ontext onkeypress='addStrat(event,this," + StratBoxCounter.toString() + ")'/><br />" +
+                        "<input class='txtStrat' BusTotal=1 id='StratBox" + StratBoxCounter.toString() + "' type='text' placeholder='Add Strategy Point' ontext onkeypress='addStrat(event,this," + StratBoxCounter.toString() + ")'/><br />" +
                         '<table id ="StratBox' + StratBoxCounter.toString() + 'Table"' + ' >' +
                         '<tr id="StratBox' + StratBoxCounter.toString() + 'BusBox0Row" > ' +
                          '<td>' +
@@ -64,7 +46,48 @@ function addStrat(e, obj, i) {
         document.getElementById("StratBox" + StratBoxCounter.toString()).select();
 
 
+
+        PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
+        if (document.getElementById("StratBut" + PreviousStratNum.toString())) {
+
+            var but = document.getElementById("StratBut" + PreviousStratNum.toString());
+            var NewValue = document.getElementById("StratBox" + PreviousStratNum.toString()).value;
+            if (NewValue != "") {
+                but.value = NewValue;
+            }
+
+        }
+        else {
+            //add strategy point button
+            var table = document.getElementById("roadmap-table");
+
+            var row = table.rows[PreviousStratNum];
+
+
+            var row = table.insertRow(PreviousStratNum);
+
+            row.id = "StratRow" + PreviousStratNum.toString();
+            var element1 = document.createElement("button");
+
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "button";
+            element1.name = "Strat";
+            element1.id = "StratBut" + PreviousStratNum.toString();
+
+            var NewValue = obj.value;
+            if (NewValue != "") {
+                element1.value = NewValue;
+            }
+
+
+            element1.style.backgroundColor = "red";
+            element1.style.height = "100px";
+            element1.style.width = "200px";
+            cell1.appendChild(element1);
+        }
     }
+
         //add project point / change project point text
     else if (0) {
 
@@ -74,30 +97,9 @@ function addStrat(e, obj, i) {
         document.getElementById("StratBox" + PreviousStratNum.toString() + 'BusBox0').select();
     }
     if (0) {
+
         PreviousStratNum = parseInt(obj.id.split('StratBox')[1]);
         CurrentStratNum = PreviousStratNum + 1;
-
-        //var table = document.getElementById("roadmap-table");
-        //var row = table.insertRow(table.rows.length);
-        //row.id = "StratRow" + StratBoxCounter.toString();
-        //var button = document.createElement("button");
-
-        //var cell1 = row.insertCell(0);
-        //var element1 = document.createElement("input");
-        //element1.type = "button";
-        //element1.name = "Strat";
-        //element1.id = "StratBut" + StratBoxCounter.toString();
-
-        //var NewValue = document.getElementById("StratBox" + i.toString()).value;
-        //if (NewValue != "")
-        //{
-        //    element1.value = NewValue;
-        // }
-
-        //element1.style.backgroundColor = "red";
-        //element1.style.height = "100px";
-        //element1.style.width = "200px";
-        //cell1.appendChild(element1);
 
         var mainDiv = document.getElementById('sidebar-table');
 
@@ -134,12 +136,7 @@ function addStrat(e, obj, i) {
 
         //="<div><input class=\"txtStrat\"id=\"Strat1Box\" type=\"text\" placeholder=\"Add Strategy Point\" onkeypress=\"addStrat(event)\" /> </div>"
 
-        //else {
-        //    var but = document.getElementById("StratBut" + i.toString());
-        //    var NewValue = document.getElementById("StratBox" + i.toString()).value;
-        //    if (NewValue != "") {
-        //        but.value = NewValue;
-        //    }
+
     }
 
     return false;
@@ -147,7 +144,7 @@ function addStrat(e, obj, i) {
 
 function addBus(e, obj, i) {
     // add Business Value / Change Business Value text
-    if (0) {
+    if (e.keyCode == 32) {
         StratId = obj.id.split("BusBox")[0];
         var mainDiv = document.getElementById(StratId + "Table");
 
@@ -168,8 +165,8 @@ function addBus(e, obj, i) {
     else if (e.keyCode === 13) {
         CurrentBusCount = parseInt(obj.id.split("BusBox")[1].split('ProjBox')[0]);
         StratId = obj.id.split("BusBox")[0];
-        BusTotal = document.getElementById(StratId).getAttribute("BusTotal");
-
+        BusTotal = parseInt(document.getElementById(StratId).getAttribute("BusTotal"));
+        CurrentStratCount = obj.id.split("StratBox")[1].split('BusBox')[0];
         //if (parseInt(CurrentBusCount) >= parseInt(BusTotal)) {
 
         //add 1 to BusTotal
@@ -180,32 +177,28 @@ function addBus(e, obj, i) {
 
         //add 1 to current business count and total
         CurrentBusId = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal + 1);
-        PrevBusId = StratId.toString() + "BusBox" + CurrentBusCount.toString();
-
         //document.getElementById("StratBox" + CurrentStratCount.toString() + 'BusBox1BusTotal1');
 
-        //var table = document.getElementById("roadmap-table");
-        //var row = table.rows[i - 2];
+        var table = document.getElementById("roadmap-table");
+        var row = table.rows[CurrentStratCount];
 
-        //console.log(table.rows.count);
-        //var newcell = row.insertCell(1);
-        //var w = screen.width;
-        //newcell.style.width = w.toString()+"px";
-        //newcell.style.backgroundColor = "yellow";
-        //newcell.innerHTML = "Business Value";
+        console.log(table.rows.count);
+        var newcell = row.insertCell(1);
+        var w = screen.width;
+        newcell.style.width = w.toString() + "px";
+        newcell.style.backgroundColor = "yellow";
 
-        //adding to the database
-        var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
-        mapName = mapName.substr(2, mapName.length);
+        //newcell.innerHTML =  "<p style='text-align: right;'>"+obj.value+"</p>"                    
 
-        var desc = document.getElementById(PrevBusId).value;
-        PageMethods.AddBusVal(PrevBusId, desc, mapName, StratId.toString());
-
+        div = document.createElement("div");
+        div.innerHTML = obj.value;
+        div.style.textAlign = "right";
+        newcell.appendChild(div);
 
 
 
         PreviousBusId = parseInt(obj.id.split('StratBox')[1].split('ProjBox')[0]);
+
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
         StratBoxCounter++;
@@ -213,8 +206,6 @@ function addBus(e, obj, i) {
         var row = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
         newrow = mainDiv.insertRow(row);
         newrow.setAttribute("id", CurrentBusId + "Row");
-
-
         newrow.innerHTML = "<td>" +
                             "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeypress='addBus(event, this, 1)' /><br />" +
                             '<div id="projDiv">' +
@@ -245,7 +236,7 @@ function addBus(e, obj, i) {
 
 function addProj(e, obj, i) {
 
-    if (0) {
+    if (e.keyCode == 32) {
         CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
         //PreviousStratNum = parseInt(obj.id.split('BusBox')[1].split("ProjBox")[0]);
         //CurrentStratNum = PreviousStratNum + 1;
@@ -270,10 +261,7 @@ function addProj(e, obj, i) {
 
         CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
         BusId = obj.id.split("ProjBox")[0];
-        StratId = obj.id.split("BusBox")[0];
         ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
-
-        
 
         if (CurrentProjCount + 1 >= ProjTotal) {
 
@@ -289,14 +277,7 @@ function addProj(e, obj, i) {
             newInput.id = BusId + "ProjBox" + String(CurrentProjCount + 1);
             newInput.setAttribute('onkeypress', 'addProj(event, this, 1)');
 
-            //adding to the database
-            //sending to the database
-            var url = window.location.href;
-            var mapName = url.substr(url.indexOf('?') + 1);
-            mapName = mapName.substr(2, mapName.length);
 
-            var desc = document.getElementById(obj.id).value;
-            PageMethods.AddProject(obj.id, desc, mapName, StratId.toString(),BusId);
 
 
             var projroot = obj.parentElement;
@@ -306,6 +287,37 @@ function addProj(e, obj, i) {
             //Place cursor in next proj box
             document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).focus();
             document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).select();
+
+
+            //add visual project
+
+
+            var element1 = document.createElement("input");
+            element1.type = "button";
+            element1.name = "Proj";
+            element1.id = "projBut" + PreviousStratNum.toString();
+
+            var NewValue = obj.value;
+            if (NewValue != "") {
+                element1.value = NewValue;
+            }
+
+
+            element1.style.backgroundColor = "green";
+            element1.style.height = "33px";
+            element1.style.width = "150px";
+            element1.style.verticalAlign = "top";
+
+            var table = document.getElementById("roadmap-table");
+            var row = table.rows[CurrentStratCount];
+            var cell1 = row.cells[1];
+            div = document.createElement("div");
+            //cell1.appendChild(div);
+            cell1.appendChild(element1);
+
+            row.style.verticalAlign = "top";
+
+
 
         }
         //else {
