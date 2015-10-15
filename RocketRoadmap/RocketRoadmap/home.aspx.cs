@@ -15,7 +15,7 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "")
+            if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
             {
                 RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
                 bool flag = user.Login();
