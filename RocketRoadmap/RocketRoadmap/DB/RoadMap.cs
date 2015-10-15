@@ -110,7 +110,7 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public void AddStrategyPoint(StrategyPoint point)
+        public bool AddStrategyPoint(StrategyPoint point)
         {
             mStrategyPoints.Add(point);
 
@@ -119,6 +119,22 @@ namespace RocketRoadmap.DB
                 bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
                 mDatabase.close();
 
+            return flag;
+
+        }
+
+        public bool DeleteStrategyPoint( StrategyPoint Point)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + mName + "' AND Name = '" + Point.GetName() + "'"))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
         }
 
         public StrategyPoint GetPoint(string id)

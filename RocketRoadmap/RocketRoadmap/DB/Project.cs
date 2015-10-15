@@ -38,7 +38,7 @@ namespace RocketRoadmap.DB
             }
             mReader.Close();
 
-            mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName =" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName = '" + mRoadmapName + "'");
             while (mReader.Read() )
             {
                 mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString(), mRoadmapName));

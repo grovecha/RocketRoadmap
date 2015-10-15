@@ -42,6 +42,18 @@ namespace RocketRoadmap.DB.Tests
             Assert.IsTrue(sp.EditDescription("TEST"));
         }
 
+        [TestMethod()]
+        public void Create_DeleteStrategyPointTest()
+        {
+            RoadMap map = new RoadMap("Test");
+            StrategyPoint strat = new StrategyPoint("NEW","NEW", "Test");
+
+            Assert.IsTrue(map.AddStrategyPoint(strat));
+
+            Assert.IsTrue(map.DeleteStrategyPoint(strat));
+
+        }
+
 
         }
 }
