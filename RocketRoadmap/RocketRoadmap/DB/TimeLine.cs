@@ -17,8 +17,8 @@ namespace RocketRoadmap.DB
             mReader.Read();
 
            // mName = mReader.GetString(0);
-            mStartDate = mReader.GetDateTime(1);
-            mEndDate = mReader.GetDateTime(2);
+           // mStartDate = mReader.GetDateTime(1);
+           // mEndDate = mReader.GetDateTime(2);
 
             mDatabase.close();
 
