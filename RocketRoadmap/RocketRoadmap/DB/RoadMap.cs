@@ -123,6 +123,8 @@ namespace RocketRoadmap.DB
 
         public StrategyPoint GetPoint(string id)
         {
+
+            
             foreach(StrategyPoint p in mStrategyPoints)
             {
                 if(p.GetName()==id)

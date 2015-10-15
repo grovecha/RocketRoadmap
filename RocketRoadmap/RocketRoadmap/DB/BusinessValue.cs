@@ -30,7 +30,7 @@ namespace RocketRoadmap.DB
             mDatabase.close();
         }
 
-        private void AddProject(Project proj)
+        public void AddProject(Project proj)
         {
             mProjects.Add(proj);
             proj.InsertDB();
