@@ -34,14 +34,14 @@ namespace RocketRoadmap.DB
             mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
             while (mReader.Read() )
             {
-                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName));
+                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName,rname));
             }
             mReader.Close();
 
             mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName =" + mRoadmapName + "'");
             while (mReader.Read() )
             {
-                mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString()));
+                mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString(),rname));
             }
             mReader.Close();
 

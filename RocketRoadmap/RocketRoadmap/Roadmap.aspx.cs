@@ -32,7 +32,7 @@ namespace RocketRoadmap
 
             int n = map.GetStrategyPoints().Count;
 
-            StrategyPoint point = new StrategyPoint(id, name);
+            StrategyPoint point = new StrategyPoint(id, name,mapName);
    //         map.AddStrategyPoint(point);
 
         }
@@ -43,7 +43,7 @@ namespace RocketRoadmap
 
             StrategyPoint point = map.GetPoint(stratID);
 
-            BusinessValue newBusVal = new BusinessValue(id);
+            BusinessValue newBusVal = new BusinessValue(id,mapName);
 
            // point.AddBusinessValue(newBusVal);
             //function to add to database
@@ -57,9 +57,9 @@ namespace RocketRoadmap
 
             StrategyPoint point = map.GetPoint(stratID);
 
-            BusinessValue val = point.GetVal(valID);
+            BusinessValue val = point.GetBuisnessValue(valID);
 
-            Project newProj = new Project(id, name, valID);
+            Project newProj = new Project(id, name, valID, mapName);
 
            // val.AddProject(newProj);
 

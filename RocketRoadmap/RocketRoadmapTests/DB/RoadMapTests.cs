@@ -79,5 +79,17 @@ namespace RocketRoadmap.DB.Tests
             Assert.AreEqual("TEST", map.GetDecription());   
         }
 
+        [TestMethod()]
+        public void CHASERUNTHIS()
+        {
+            string name = "ROADMAPNAMEHERE"; //CHASE PUT THE ROADMAP NAME IN HERE
+            RocketRoadmap.DB.Database db = new Database();
+
+            db.connect();
+            bool flag=db.executewrite("DELETE FROM [dbo].[Roadmap] WHERE Name='" + name + ";");
+            db.close();
+            
+        }
+
         }
 }

@@ -35,7 +35,6 @@ namespace RocketRoadmap.DB
         public void AddProject(Project proj)
         {
             mProjects.Add(proj);
-            proj.InsertDB();
             proj.SetBusinessValue(mName);
         }
 
