@@ -22,13 +22,13 @@ namespace RocketRoadmap {
         protected global::System.Web.UI.WebControls.Label loginlabel;
         
         /// <summary>
-        /// allroadmaps control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table allroadmaps;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// userroadmaps control.
@@ -38,5 +38,14 @@ namespace RocketRoadmap {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Table userroadmaps;
+        
+        /// <summary>
+        /// allroadmaps control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table allroadmaps;
     }
 }

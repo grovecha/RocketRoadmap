@@ -10,11 +10,12 @@ namespace RocketRoadmap.DB
     {
         private string mDescription;
         private string mProjectName;
+        private string mRoadmapName;
 
         private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
 
-        public Issue(string description, string projname)
+        public Issue(string description, string projname, string name)
         {
             mDescription = description;
             mProjectName = projname;
@@ -23,14 +24,14 @@ namespace RocketRoadmap.DB
         public bool SetDescription(string description)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Issues] SET Description='" + description + "' WHERE Description='" + mDescription + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Issues] SET Description='" + description + "' WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mDatabase.close();
             return flag;
         }
         public string GetDescription()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE Description='" + mDescription + "'");
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mReader.Read();
             string descrip = mReader.GetString(0).ToString();
             mDatabase.close();
@@ -39,28 +40,20 @@ namespace RocketRoadmap.DB
         public bool SetProjectName(string projectname)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Issues] SET ProjectName='" + projectname + "' WHERE Description='" + mDescription + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Issues] SET ProjectName='" + projectname + "' WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mDatabase.close();
             return flag;
         }
         public string GetProjectName()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Issues] WHERE Description='" + mDescription+"'");
+            mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Issues] WHERE Description='" + mDescription+ "' AND RoadmapName '" + mRoadmapName + "'");
             mReader.Read();
             string proj = mReader.GetString(0).ToString();
             mDatabase.close();
             return proj;
         }
         #endregion
-
-        public bool InsertDB()
-        {
-            mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Issues] (Description, ProjectName) VALUES ('" + mDescription + "','" + mProjectName + "')");
-            mDatabase.close();
-            return flag;
-        }
 
     }
 }
