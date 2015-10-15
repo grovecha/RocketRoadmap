@@ -9,7 +9,7 @@ namespace RocketRoadmap.DB
 {
     public class RoadMap
     {
-        public RoadMap(string name )
+        public RoadMap( string name )
         {
             mName = name;
 
@@ -35,7 +35,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + mName + "'");
             mReader.Read();
 
-           // mTimeline = new TimeLine(mName);
+            mTimeline = new TimeLine(mName);
 
             mDatabase.close();
 

@@ -159,7 +159,7 @@ namespace RocketRoadmap.DB
         {
             //assume already created
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents] (ProjectName, Dependantname, Description, RoadmapName) VALUES ('" + mName + "','" + dependant.GetName() + "'," + dependant.GetDescription() + "','" + mRoadmapName + "')");
+            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents] (ProjectName, Dependantname, Description, RoadmapName) VALUES ('" + mName + "','" + dependant.GetName() + "','" + dependant.GetDescription() + "','" + mRoadmapName + "')");
 
             mDependencies.Add(dependant);
 
