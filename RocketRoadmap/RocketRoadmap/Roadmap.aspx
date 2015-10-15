@@ -28,7 +28,6 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <![endif]-->
 
 
@@ -37,7 +36,7 @@
 
 <body>
 <form id="form1" runat="server">
-                            <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
+                            <asp:ScriptManager runat="server"></asp:ScriptManager>
 
 
 
@@ -66,7 +65,6 @@
                       </tr>
                   </table>                                
             
-
  
             </td>
           </tr>
@@ -96,7 +94,7 @@
 
         </ul>
             -->
-    </div>
+    
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
@@ -106,7 +104,6 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="inputModal">Modal</button>
                 </div>
                 <br />
                 <table id="roadmap-table">
@@ -126,6 +123,7 @@
 
 
 
+</div>
 <!-- /#wrapper -->
 
     <!-- Modal -->
@@ -153,60 +151,11 @@
             </div>
         </div>
 
+<!-- Boot strap modal asp button attempt -->
 
-     <!-- Modal input -->
-    <div id="inputModal" class="modal fade" role ="dialog">
-        <div class="modal-dialog modal-lg">
-            <!-- Modal Content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h3 class="modal-title">Pull the project Title into here</h3>
-                </div>
-                <div class="modal-body">
-                     <!-- Description Text Box -->
-                    <h2><u>Description</u></h2>
-                       <textarea id="descText" rows="4" cols="75">
-                       </textarea> 
-                       <p></p>
-                    <!--Depedency Input -->
-                    <h2><u>Dependencies</u></h2>
-                       <input type="text" id="depenText1" size="60" />
-                       <button type="button" class="btn btn-default" id="addText">Add Input</button>
-                       <div class="depText">
-                       <div></div>
-                       </div>
-                     <!-- Selection Dependency - Need to loop for options -->
-                       <select id="depenSelect">
-                            <option value="project1">Project1</option>
-                            <option value="project2">Project2</option>
-                            <option value="project3">Project3</option>
-                            <option value="project4">Project4</option>
-                       </select>
-                       <button type="button" id="addSelect" class="btn btn-default">Add Selection</button> 
-                       <div class="depSelect">
-                       <div></div>
-                       </div>
-                       <p></p>
-                   <!-- Risks Text Box -->
-                   <h2><u>Risks</u></h2>
-                       <textarea id="riskText" rows="4" cols="75">
-                       </textarea> 
-                   <!-- Links Input -->
-                   <h2><u>Links</u></h2>
-                       <input type="text" id="linkText1" size="60"/> 
-                       <button type="button" class="btn btn-default" id="addLink">Add Link</button>
-                       <div class="linkText">
-                       <div></div>
-                       </div>
 
-                       <div class="modal-footer">
-                       <button type="button" class="btn btn-default" id ="saveButton">Save</button>
-                </div>
-            </div>
-        </div> 
-    </div>
-  </div>
+
+
 
  <!-- jQuery -->
 <script src="js/InputModal.js"></script>
@@ -238,6 +187,7 @@
         $("#myModal").modal("show");
     }                    
 </script>
+
 
 <!-- Data Input -->
         <style>
@@ -285,4 +235,3 @@
 </body>
 
 </html>
-
