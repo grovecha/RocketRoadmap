@@ -80,6 +80,7 @@ namespace RocketRoadmap.DB
             try
             {
                 bool flag = mDatabase.executewrite("INSERT INTO [dbo].[BusinessValue] (Name, Description, RoadmapName) VALUES ('" + name + "', '" + desc+ "','" + rname + "')");
+                flag = mDatabase.executewrite("INSERT INTO [dbo].[SP_BV_Crosswalk] (StrategyPointName, BusinessValueName, RoadmapName) VALUES ('" + mName + "','" + name + "','" + mRoadmapName + "')");
                 mDatabase.close();
                 return flag;
             }
