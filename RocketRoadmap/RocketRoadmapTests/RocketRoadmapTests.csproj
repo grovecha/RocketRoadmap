@@ -70,6 +70,10 @@
       <Name>RocketRoadmap</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\RocketRoadmapTests.dll" />
+    <Content Include="bin\Debug\RocketRoadmapTests.pdb" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

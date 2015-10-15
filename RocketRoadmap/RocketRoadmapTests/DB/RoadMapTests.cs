@@ -52,6 +52,7 @@ namespace RocketRoadmap.DB.Tests
             Assert.AreEqual(issue.GetDescription(), issueList.First().GetDescription());
 
             Project dep = new Project("Tested2", "TEST", "test", "Test");
+            proj.CreateDependant(dep);
             List<Project> depList = projList.First().GetDependencies();
 
             Assert.AreEqual(dep.GetName(), depList.First().GetName());

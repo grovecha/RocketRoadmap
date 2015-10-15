@@ -14,14 +14,14 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void IssueConstructorTest()
         {
-            Issue issue = new Issue("test","test2");
+            Issue issue = new Issue("test","test2", "Test");
            
             Assert.IsNotNull(issue);
         }
         [TestMethod()]
         public void SetDescriptionTest()
         {
-            Issue issue = new Issue("test", "test2");
+            Issue issue = new Issue("test", "test2", "Test");
 
 
             Assert.IsTrue(issue.SetDescription("test"));
@@ -30,7 +30,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void GetDescriptionTest()
         {
-            Issue issue = new Issue("test", "test2");
+            Issue issue = new Issue("test", "test2", "Test");
 
             Assert.IsTrue(issue.GetDescription()=="test");
         }
@@ -38,7 +38,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void SetProjectNameTest()
         {
-            Issue issue = new Issue("test", "test2");
+            Issue issue = new Issue("test", "test2", "Test");
 
             Assert.IsTrue(issue.SetProjectName("test2"));
         }
@@ -46,7 +46,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void GetProjectNameTest()
         {
-            Issue issue = new Issue("test", "test2");
+            Issue issue = new Issue("test", "test2", "Test");
 
             Assert.IsTrue(issue.GetProjectName()=="test2");
         }

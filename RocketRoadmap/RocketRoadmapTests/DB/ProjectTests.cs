@@ -14,28 +14,28 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void ConstructorTest()
         {
-            Project proj = new Project("test", "test proj", "test2");
+            Project proj = new Project("test", "test proj", "test2", "Test");
             
             Assert.IsNotNull(proj);
         }
         [TestMethod()]
         public void SetNameTest()
         {
-            Project proj = new Project("test", "test proj", "test2");
+            Project proj = new Project("test", "test proj", "test2", "Test");
             Assert.Inconclusive("Will throw primary key error if ran");
         }
 
         [TestMethod()]
         public void GetNameTest()
         {
-            Project proj = new Project("test2", "test proj", "test2");
+            Project proj = new Project("test2", "test proj", "test2", "Test");
             Assert.IsTrue(proj.GetName()=="test2");
         }
 
         [TestMethod()]
         public void SetDescriptionTest()
         {
-            Project proj = new Project("test2", "test proj", "test2");
+            Project proj = new Project("test2", "test proj", "test2", "Test");
             
             Assert.IsTrue(proj.SetDescription("weee"));
         }
@@ -43,15 +43,14 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void GetDescriptionTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
-            proj.InsertDB();
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
             Assert.IsTrue(proj.GetDescription()=="test proj3");
         }
 
         [TestMethod()]
         public void SetStartDateTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
             DateTime startdate = new DateTime(2012, 10, 5);
             Assert.IsTrue(proj.SetStartDate(startdate));
         }
@@ -59,7 +58,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void GetStartDateTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
             DateTime startdate = new DateTime(2012, 10, 5);
 
             Assert.IsTrue(proj.GetStartDate()==startdate);
@@ -68,7 +67,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void SetEndDateTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
             DateTime enddate = new DateTime(2012, 10, 5);
 
             Assert.IsTrue(proj.SetEndDate(enddate));
@@ -77,7 +76,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void GetEndDateTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
             DateTime enddate = new DateTime(2012, 10, 5);
             Assert.IsTrue(proj.GetEndDate() == enddate);
         }
@@ -85,7 +84,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void SetBusinessValueTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
 
             
             Assert.IsTrue(proj.SetBusinessValue("test2"));
@@ -94,7 +93,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void GetBusinessValueTest()
         {
-            Project proj = new Project("test3", "test proj3", "test2");
+            Project proj = new Project("test3", "test proj3", "test2", "Test");
 
             Assert.IsTrue(proj.GetBusinessValue()=="test2");
         }

@@ -34,14 +34,14 @@ namespace RocketRoadmap.DB
             mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
             while (mReader.Read() )
             {
-                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName));
+                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName, mRoadmapName));
             }
             mReader.Close();
 
             mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName =" + mRoadmapName + "'");
             while (mReader.Read() )
             {
-                mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString()));
+                mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString(), mRoadmapName));
             }
             mReader.Close();
 
@@ -151,6 +151,18 @@ namespace RocketRoadmap.DB
         {
             mDatabase.connect();
             bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Issues] (Description, ProjectName, RoadmapName) VALUES ('" + i.GetDescription() + "','" + i.GetProjectName() + "'," + mRoadmapName + "')");
+            mDatabase.close();
+            return flag;
+        }
+
+        public bool CreateDependant(Project dependant)
+        {
+            //assume already created
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents] (ProjectName, Dependantname, Description, RoadmapName) VALUES ('" + mName + "','" + dependant.GetName() + "'," + dependant.GetDescription() + "','" + mRoadmapName + "')");
+
+            mDependencies.Add(dependant);
+
             mDatabase.close();
             return flag;
         }
