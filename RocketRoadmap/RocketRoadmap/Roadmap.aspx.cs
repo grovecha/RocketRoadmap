@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Services;
+using System.Web.UI.HtmlControls;
 using RocketRoadmap.DB;
 
 namespace RocketRoadmap
@@ -14,6 +15,13 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            string url = Request.Url.AbsoluteUri;
+
+            
+
+
+           
         }
 
         [WebMethod]
@@ -58,6 +66,17 @@ namespace RocketRoadmap
 
             //val.addProject(newProj);
         }
+
+        //[WebMethod]
+        //public static string GetProjectDescription(string ProjectID,string RoadmapName)
+        //{
+        //    //RoadMap map = new RoadMap(RoadmapName);
+
+
+        //    //Project proj;
+
+        //    //return proj.GetDescription();
+        //}
 
 
 
