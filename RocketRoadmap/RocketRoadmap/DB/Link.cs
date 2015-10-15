@@ -11,29 +11,31 @@ namespace RocketRoadmap.DB
         private string mProjectName;
         private string mDescription;
         private string mLink;
+        private string mRoadmapName;
 
         private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
 
-        public Link(string descrip, string projname, string link)
+        public Link(string descrip, string projname, string link, string RoadmapName)
         {
             mProjectName = projname;
             mLink = link;
             mDescription = descrip;
+            mRoadmapName = RoadmapName;
         }
 
         #region Getter's and Setter's
         public bool SetDescription(string description)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET Description='" + description + "' WHERE Description='" + mDescription + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET Description='" + description + "' WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mDatabase.close();
             return flag;
         }
         public string GetDescription()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Link] WHERE Description='" + mDescription + "'");
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Link] WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mReader.Read();
             string descrip = mReader.GetString(0).ToString();
             mDatabase.close();
@@ -42,14 +44,14 @@ namespace RocketRoadmap.DB
         public bool SetProjectName(string projectname)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET ProjectName='" + projectname + "' WHERE Description='" + mDescription + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET ProjectName='" + projectname + "' WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mDatabase.close();
             return flag;
         }
         public string GetProjectName()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Link] WHERE Description='" + mDescription + "'");
+            mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Link] WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
 
             string name="";
             if (mReader.HasRows)
@@ -63,27 +65,19 @@ namespace RocketRoadmap.DB
         public bool SetLink(string link)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET Address='" + link + "' WHERE Description='" + mDescription + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Link] SET Address='" + link + "' WHERE Description='" + mDescription + "' AND RoadmapName '" + mRoadmapName + "'");
             mDatabase.close();
             return flag;
         }
         public string GetLink()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Address FROM [dbo].[Link] WHERE Description='" + mDescription+"'");
+            mReader = mDatabase.executeread("SELECT Address FROM [dbo].[Link] WHERE Description='" + mDescription+ "' AND RoadmapName '" + mRoadmapName + "'");
             mReader.Read();
             string link = mReader.GetString(0).ToString();
             mDatabase.close();
             return link;
         }
         #endregion
-
-        public bool InsertDB()
-        {
-            mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Link] (Description, ProjectName, Address) VALUES ('" + mDescription + "','" + mProjectName + "','" + mLink + "')");
-            mDatabase.close();
-            return flag;
-        }
     }
 }

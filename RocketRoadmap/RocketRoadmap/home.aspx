@@ -57,7 +57,7 @@
                     <a href="index.aspx">Logout</a>
                 </li>
                 <li>
-                    <a href="SidebarTest.html"> New Roadmap</a>
+                    <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
                 </li>
                 <li>
                     <a><asp:Label ID="loginlabel" runat="server"></asp:Label></a>
@@ -71,9 +71,38 @@
     <!-- /.container -->
 </nav>
 
+    <div class="modal fade" id="roadModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="roadmapmodal">New Roadmap</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h2><u>Roadmap Name:</u></h2>
+                        <input type="text" id="roadmap_Name" size="60" />
+                        <p></p>
+                        <h2><u>Roadmap Description</u></h2>
+                        <textarea id="roadmap_Desc">
+                        </textarea>
+                        <p></p>
+                       
+                    </div>
+                    <div class="modal-footer">
+                        <a href="Roadmap.aspx" class="btn btn-default" data-dismiss="modal">Create</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 <!-- Page Content -->
 <header>
-    ROADMAPS
+    <a><asp:Label ID="Label1" runat="server"></asp:Label></a>
+</header>
+<asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
+</asp:Table>
+<header>
 </header>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
@@ -83,17 +112,7 @@
             <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
         </asp:TableHeaderRow>
 </asp:Table> 
-<header>
-   USER ROADMAPS
-</header>
-<asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
-      <asp:TableHeaderRow>
-            <asp:TableHeaderCell>Name</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Author</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Description</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
-        </asp:TableHeaderRow>
-</asp:Table> 
+ 
 <!-- /.container -->
 
 <!-- jQuery Version 1.11.1 -->

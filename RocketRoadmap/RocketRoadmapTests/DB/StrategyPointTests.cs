@@ -14,7 +14,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void StrategyPointTest()
         {
-            StrategyPoint sp = new StrategyPoint("Test", "TEST");
+            StrategyPoint sp = new StrategyPoint("Test", "TEST", "Test");
 
             Assert.AreEqual("Test", sp.GetName());
             Assert.AreEqual("TEST", sp.GetDescription());
@@ -26,7 +26,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void EditStrategyPointTest()
         {
-            StrategyPoint sp = new StrategyPoint("Test", "TEST");
+            StrategyPoint sp = new StrategyPoint("Test", "TEST", "Test");
 
             Assert.IsTrue(sp.EditDescription("NEW"));
             Assert.AreEqual("NEW", sp.GetDescription());
@@ -34,7 +34,7 @@ namespace RocketRoadmap.DB.Tests
             Assert.IsTrue(sp.EditName("NEW"));
             Assert.AreEqual("NEW", sp.GetName());
 
-            StrategyPoint testsp = new StrategyPoint("NEW", "NEW");
+            StrategyPoint testsp = new StrategyPoint("NEW", "NEW", "NEW");
             Assert.AreEqual("NEW", sp.GetName());
             Assert.AreEqual("NEW", sp.GetDescription());
 

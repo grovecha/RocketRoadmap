@@ -35,7 +35,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + mName + "'");
             mReader.Read();
 
-            mTimeline = new TimeLine(mName);
+           // mTimeline = new TimeLine(mName);
 
             mDatabase.close();
 
@@ -123,6 +123,8 @@ namespace RocketRoadmap.DB
 
         public StrategyPoint GetPoint(string id)
         {
+
+            
             foreach(StrategyPoint p in mStrategyPoints)
             {
                 if(p.GetName()==id)
