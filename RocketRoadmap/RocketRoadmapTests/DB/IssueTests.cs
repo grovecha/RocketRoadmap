@@ -21,34 +21,34 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void SetDescriptionTest()
         {
-            Issue issue = new Issue("test", "test2", "Test");
+            Issue issue = new Issue("Tested", "Tested", "Test");
 
 
-            Assert.IsTrue(issue.SetDescription("test"));
+            Assert.IsTrue(issue.SetDescription("Tested"));
         }
 
         [TestMethod()]
         public void GetDescriptionTest()
         {
-            Issue issue = new Issue("test", "test2", "Test");
+            Issue issue = new Issue("Tested", "Tested", "Test");
 
-            Assert.IsTrue(issue.GetDescription()=="test");
+            Assert.IsTrue(issue.GetDescription()=="Tested");
         }
 
         [TestMethod()]
         public void SetProjectNameTest()
         {
-            Issue issue = new Issue("test", "test2", "Test");
+            Issue issue = new Issue("Tested", "Tested", "Test");
 
-            Assert.IsTrue(issue.SetProjectName("test2"));
+            Assert.IsTrue(issue.SetProjectName("Tested"));
         }
 
         [TestMethod()]
         public void GetProjectNameTest()
         {
-            Issue issue = new Issue("test", "test2", "Test");
+            Issue issue = new Issue("Tested", "Tested", "Test");
 
-            Assert.IsTrue(issue.GetProjectName()=="test2");
+            Assert.IsTrue(issue.GetProjectName()=="Tested");
         }
     }
 }

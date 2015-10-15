@@ -38,7 +38,7 @@ namespace RocketRoadmap.DB
             }
             mReader.Close();
 
-            mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName =" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + mRoadmapName + "'");
             while (mReader.Read() )
             {
                 mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString(), mRoadmapName));
@@ -57,14 +57,14 @@ namespace RocketRoadmap.DB
         #region Getter's and Setters
         public bool SetName(string name) {
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET Name='" + name + "' WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName+ "'");
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET Name='" + name + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName+ "'");
             mName = name;
             mDatabase.close();
             return flag;
         }
         public string GetName() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName '" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
             mReader.Read();
             string name = mReader.GetString(0).ToString();
             mDatabase.close();
@@ -73,14 +73,14 @@ namespace RocketRoadmap.DB
 
         public bool SetDescription(string description) {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName '" + mRoadmapName + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
             mDescription = description;
             return flag;
         }
         public string GetDescription() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mReader.Read();
             string descrip = mReader.GetString(0).ToString();
             mDatabase.close();
@@ -89,14 +89,14 @@ namespace RocketRoadmap.DB
 
         public bool SetStartDate(DateTime startdate) {
             mDatabase.connect();
-            bool flag= mDatabase.executewrite("UPDATE [dbo].[Project] SET StartDate='" + startdate + "' WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            bool flag= mDatabase.executewrite("UPDATE [dbo].[Project] SET StartDate='" + startdate + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
             mStartDate = startdate;
             return flag;
         }
         public DateTime GetStartDate() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT StartDate FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT StartDate FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mReader.Read();
             DateTime start = mReader.GetDateTime(0);
             mDatabase.close();
@@ -105,14 +105,14 @@ namespace RocketRoadmap.DB
 
         public bool SetEndDate(DateTime enddate) {
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET EndDate='" + enddate + "' WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET EndDate='" + enddate + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
             mEndDate = enddate;
             return flag;
         }
         public DateTime GetEndDate() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT EndDate FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT EndDate FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mReader.Read();
             DateTime end = mReader.GetDateTime(0);
             mDatabase.close();
@@ -121,14 +121,14 @@ namespace RocketRoadmap.DB
 
         public bool SetBusinessValue(string businessvalue) {
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET BusinessValueName='" + businessvalue + "' WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET BusinessValueName='" + businessvalue + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
             mBusinessValue = businessvalue;
             return flag;
         }
         public string GetBusinessValue() {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName '" + mRoadmapName + "'");
+            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
             mReader.Read();
             string bus = mReader.GetString(0).ToString();
             mDatabase.close();
