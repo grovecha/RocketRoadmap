@@ -98,7 +98,11 @@
 
 <!-- Page Content -->
 <header>
-    ROADMAPS
+    <a><asp:Label ID="Label1" runat="server"></asp:Label></a>
+</header>
+<asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
+</asp:Table>
+<header>
 </header>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
@@ -108,17 +112,7 @@
             <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
         </asp:TableHeaderRow>
 </asp:Table> 
-<header>
-   USER ROADMAPS
-</header>
-<asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
-      <asp:TableHeaderRow>
-            <asp:TableHeaderCell>Name</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Author</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Description</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
-        </asp:TableHeaderRow>
-</asp:Table> 
+ 
 <!-- /.container -->
 
 <!-- jQuery Version 1.11.1 -->

@@ -95,7 +95,7 @@ namespace RocketRoadmap.DB
             if (mDatabase.executewrite("INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( '" + name + "', '" +  description + "', GETDATE(), '" + userid + "')"))
             {
                 //create a new timeline
-                CreateTimeLine(name, name);
+                //CreateTimeLine(name, name);
 
                 toReturn = true;
             }

@@ -14,7 +14,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void BusinessValueConstructorTest()
         {
-            BusinessValue bv = new BusinessValue("test");
+            BusinessValue bv = new BusinessValue("test", "Test");
 
             Assert.IsNotNull(bv);
         }
@@ -22,14 +22,14 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void BusinessValueGetDescriptionTest()
         {
-            BusinessValue bv = new BusinessValue("test");
+            BusinessValue bv = new BusinessValue("test", "Test");
             Assert.IsTrue(bv.GetDescription() == "test");
         }
 
         [TestMethod()]
         public void BusinessValueSetDescriptionTest()
         {
-            BusinessValue bv = new BusinessValue("test");
+            BusinessValue bv = new BusinessValue("test", "Test");
             bv.SetDescription("test1");
             Assert.IsTrue(bv.GetDescription() == "test1");
             bv.SetDescription("test");
@@ -39,7 +39,7 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void BusinessValueSetNameTest()
         {
-            BusinessValue bv = new BusinessValue("test");
+            BusinessValue bv = new BusinessValue("test", "Test");
             Assert.IsTrue(bv.SetName("test3"));
             bv.SetName("test");
         }

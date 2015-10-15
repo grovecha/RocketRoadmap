@@ -9,7 +9,7 @@ namespace RocketRoadmap.DB
 {
     public class RoadMap
     {
-        public RoadMap(string name )
+        public RoadMap( string name )
         {
             mName = name;
 
@@ -35,7 +35,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + mName + "'");
             mReader.Read();
 
-           // mTimeline = new TimeLine(mName);
+            mTimeline = new TimeLine(mName);
 
             mDatabase.close();
 
@@ -44,7 +44,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "'");
             while (mReader.Read())
             {
-                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1));
+                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), "Test");
                 mStrategyPoints.Add(sp);
             }
             mDatabase.close();
@@ -110,7 +110,7 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public void AddStrategyPoint(StrategyPoint point)
+        public bool AddStrategyPoint(StrategyPoint point)
         {
             mStrategyPoints.Add(point);
 
@@ -119,10 +119,28 @@ namespace RocketRoadmap.DB
                 bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
                 mDatabase.close();
 
+            return flag;
+
+        }
+
+        public bool DeleteStrategyPoint( StrategyPoint Point)
+        {
+            mDatabase.connect();
+            bool toReturn = false;
+
+            if (mDatabase.executewrite("DELETE FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + mName + "' AND Name = '" + Point.GetName() + "'"))
+            {
+                toReturn = true;
+            }
+
+            mDatabase.close();
+            return toReturn;
         }
 
         public StrategyPoint GetPoint(string id)
         {
+
+            
             foreach(StrategyPoint p in mStrategyPoints)
             {
                 if(p.GetName()==id)

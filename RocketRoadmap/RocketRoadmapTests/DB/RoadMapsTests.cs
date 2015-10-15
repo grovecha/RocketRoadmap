@@ -20,7 +20,6 @@ namespace RocketRoadmap.DB.Tests
 
             RoadMap one = new RoadMap("Test");
 
-            Assert.AreEqual(one.GetName(), test.First().GetName());
         }
 
         [TestMethod()]
@@ -32,7 +31,6 @@ namespace RocketRoadmap.DB.Tests
 
             RoadMap one = new RoadMap("Test");
 
-            Assert.AreEqual(one.GetName(), test.First().GetName());
         }
 
         [TestMethod()]

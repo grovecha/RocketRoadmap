@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Services;
+using System.Web.UI.HtmlControls;
 using RocketRoadmap.DB;
 
 namespace RocketRoadmap
@@ -14,6 +15,13 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            string url = Request.Url.AbsoluteUri;
+
+            
+
+
+           
         }
 
         [WebMethod]
@@ -24,8 +32,8 @@ namespace RocketRoadmap
 
             int n = map.GetStrategyPoints().Count;
 
-            StrategyPoint point = new StrategyPoint(id, name);
-            map.AddStrategyPoint(point);
+            StrategyPoint point = new StrategyPoint(id, name, mapName);
+   //         map.AddStrategyPoint(point);
 
         }
         [WebMethod]
@@ -35,8 +43,9 @@ namespace RocketRoadmap
 
             StrategyPoint point = map.GetPoint(stratID);
 
-            BusinessValue newBusVal = new BusinessValue(id);
+            BusinessValue newBusVal = new BusinessValue(id, mapName);
 
+           // point.AddBusinessValue(newBusVal);
             //function to add to database
 
             
@@ -48,15 +57,26 @@ namespace RocketRoadmap
 
             StrategyPoint point = map.GetPoint(stratID);
 
-            BusinessValue val = point.GetVal(valID);
+          //  BusinessValue val = point.GetVal(valID, mapName);
 
-            Project newProj = new Project(id, name, valID);
+            Project newProj = new Project(id, name, valID, mapName);
 
-
+           // val.AddProject(newProj);
 
 
             //val.addProject(newProj);
         }
+
+        //[WebMethod]
+        //public static string GetProjectDescription(string ProjectID,string RoadmapName)
+        //{
+        //    //RoadMap map = new RoadMap(RoadmapName);
+
+
+        //    //Project proj;
+
+        //    //return proj.GetDescription();
+        //}
 
 
 

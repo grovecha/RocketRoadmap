@@ -10,6 +10,7 @@ namespace RocketRoadmap.DB
     {
         private string mName;
         private string mDescription;
+        private string mRoadmapName;
 
         private List<Project> mProjects = new List<Project>();
 
@@ -17,23 +18,23 @@ namespace RocketRoadmap.DB
         private SqlDataReader mReader;
 
 
-        public BusinessValue(string name)
+        public BusinessValue(string name, string rname)
         {
             mName = name;
+            mRoadmapName = rname;
 
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName='" + mName + "'");
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName='" + mName + "' AND RoadmapName ='" + mRoadmapName + "'");
             while (mReader.Read())
             {
-                mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName));
+                mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName, mRoadmapName));
             }
             mDatabase.close();
         }
 
-        private void AddProject(Project proj)
+        public void AddProject(Project proj)
         {
             mProjects.Add(proj);
-            proj.InsertDB();
             proj.SetBusinessValue(mName);
         }
 
@@ -41,7 +42,7 @@ namespace RocketRoadmap.DB
         public string GetDescription()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "'");
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "' AND RoadmapName ='" + mRoadmapName + "'");
             mReader.Read();
             if (mReader.HasRows)
             {
@@ -55,7 +56,7 @@ namespace RocketRoadmap.DB
         {
             mDescription = descrip;
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[BusinessValue] SET Description='"+descrip+"' WHERE Name='"+mName+"'");
+            bool flag=mDatabase.executewrite("UPDATE [dbo].[BusinessValue] SET Description='"+descrip+"' WHERE Name='"+mName+"' AND RoadmapName ='" + mRoadmapName + "'");
             mDatabase.close();
             return flag;
 
@@ -64,7 +65,8 @@ namespace RocketRoadmap.DB
         public bool SetName(string name)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[BusinessValue] SET Name='" + name + "' WHERE Name='" + mName + "'");
+            bool flag1 = mDatabase.executewrite("UPDATE [dbo].[SP_BV_Crosswalk] SET BusinessValueName='" + name + "' WHERE BusinessValueName='" + mName + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[BusinessValue] SET Name='" + name + "' WHERE Name='" + mName + "'AND RoadmapName ='" + mRoadmapName + "'");
             mName = name;
             mDatabase.close();
             return flag;
@@ -73,13 +75,12 @@ namespace RocketRoadmap.DB
         public List<Project> GetProjects() { return mProjects; }
         #endregion
 
-
-        public bool InsertDB()
+        public bool CreateNewProject( Project proj)
         {
             mDatabase.connect();
             try
             {
-                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[BusinessValue] (Name) VALUES ('" + mName + "')");
+                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Project] (Name,Description, BusinessValueName, RoadmapName) VALUES ('" + proj.GetName() + "', '" + proj.GetDescription() + "','" + proj.GetBusinessValue() + "'," + mRoadmapName + "')");
                 mDatabase.close();
                 return flag;
             }

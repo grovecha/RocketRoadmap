@@ -28,13 +28,13 @@ namespace RocketRoadmap.DB.Tests
             Assert.AreEqual(tick.GetXPlacement(), first.GetXPlacement());
         }
 
-        [TestMethod()]
+     /*   [TestMethod()]
         public void CreateandDeleteTimeLineTest()
         {
-            RoadMap map = new RoadMap("Test");
+            RoadMap map = new RoadMap("");
             Assert.IsTrue(map.CreateTimeLine("NEW"));
-            //Assert.IsTrue(map.DeleteTimeLine());
-        }
+            Assert.IsTrue(map.DeleteTimeLine());
+        } */
 
         [TestMethod()]
         public void EditTimeLineTest()
