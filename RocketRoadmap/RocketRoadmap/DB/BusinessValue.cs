@@ -32,6 +32,13 @@ namespace RocketRoadmap.DB
             mDatabase.close();
         }
 
+        public void AddProject(Project proj)
+        {
+            mProjects.Add(proj);
+            proj.InsertDB();
+            proj.SetBusinessValue(mName);
+        }
+
         #region Getter's and Setter's
         public string GetDescription()
         {
