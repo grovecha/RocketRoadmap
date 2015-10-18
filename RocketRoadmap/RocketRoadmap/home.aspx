@@ -62,7 +62,9 @@
                 <li>
                     <a><asp:Label ID="loginlabel" runat="server"></asp:Label></a>
                 </li>
-
+                <li>
+                    <a href="datapulltest.aspx?n=Test">Data Pull Test</a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
