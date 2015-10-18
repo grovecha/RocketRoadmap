@@ -52,7 +52,7 @@
             <tr id="StratBox0Row">
              <td>
                
-                 <input id='StratBox0' class ='txtStrat' BusTotal=1  type ='text' placeholder='Add Strategy Point'  onkeyup ='addStrat(event,this,1)'/><button class = 'btnDelete' type='button' id='StratDelete0' onclick='deleteStrat(event, this)'>X</button><br/>
+                 <input id='StratBox0' class ='txtStrat' BusTotal=1  type ='text' placeholder='Add Strategy Point'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                     <table id ="StratBox0Table" >
                         <tr id="StratBox0BusBox0Row">
                          <td>
@@ -73,43 +73,17 @@
 
           </div> 
         </div>
-        <!--
-            <ul class="sidebar-nav">
-
-            <li class="sidebar-brand">
-                <br />      
-                <table id="sidebar">
-                    <tr>
-                        <td id="stratBu1">
-                        <button type="button" id="button1" onclick="StratClick()"> Strategy Point</button>
-
-                        </td>
-                    </tr>
-                </table>
-
-
-                
-               
-            </li>
-
-        </ul>
-            -->
+       
     
     <!-- /#sidebar-wrapper -->
 
-
-
- <!-- /#page-content-wrapper -->
-
-
+    <!-- Page Content -->
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#inputModal"> Modal</button>
-
 
                 </div>
                 <br />
@@ -118,8 +92,15 @@
                 </table>
 
 
-　
 
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+
+
+</div>
 <!-- /#wrapper -->
  
  <!-- Modal -->
