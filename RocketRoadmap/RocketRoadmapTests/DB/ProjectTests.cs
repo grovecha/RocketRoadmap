@@ -60,6 +60,7 @@ namespace RocketRoadmap.DB.Tests
         {
             Project proj = new Project("Tested", "test", "test", "Test");
             DateTime startdate = new DateTime(2012, 10, 5);
+            proj.SetStartDate(startdate);
 
             Assert.IsTrue(proj.GetStartDate()==startdate);
         }
@@ -78,6 +79,7 @@ namespace RocketRoadmap.DB.Tests
         {
             Project proj = new Project("Tested", "test", "test", "Test");
             DateTime enddate = new DateTime(2012, 10, 5);
+            proj.SetEndDate(enddate);
             Assert.IsTrue(proj.GetEndDate() == enddate);
         }
 

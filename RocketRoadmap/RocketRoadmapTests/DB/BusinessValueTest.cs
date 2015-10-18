@@ -23,6 +23,7 @@ namespace RocketRoadmap.DB.Tests
         public void BusinessValueGetDescriptionTest()
         {
             BusinessValue bv = new BusinessValue("test", "Test");
+            bv.SetDescription("test");
             Assert.IsTrue(bv.GetDescription() == "test");
         }
 
