@@ -98,11 +98,12 @@
 
 <!-- Page Content -->
 <header>
-    <a><asp:Label ID="Label1" runat="server"></asp:Label></a>
+    <asp:Label ID="name" runat="server"></asp:Label>
 </header>
 <asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
 </asp:Table>
 <header>
+    ALL ROADMAPS
 </header>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
@@ -120,6 +121,7 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+
 
 </body>
 

@@ -23,6 +23,7 @@ namespace RocketRoadmap
                 {
                     mUser = user;
                     loginlabel.Text = "Logged in as: " + mUser.GetUserName();
+                    name.Text = mUser.GetUserName() + "'s ROADMAPS";
                 }
                 else
                 {
@@ -55,6 +56,13 @@ namespace RocketRoadmap
                         u2.Text = "Author";
                         u3.Text = "Description";
                         u4.Text = "Timestamp";
+
+                        uhead.Cells.Add(u1);
+                        uhead.Cells.Add(u2);
+                        uhead.Cells.Add(u3);
+                        uhead.Cells.Add(u4);
+
+                        userroadmaps.Rows.Add(uhead);
 
                         TableCell ucell_1 = new TableCell();
                         TableCell ucell_2 = new TableCell();
