@@ -29,9 +29,14 @@ namespace RocketRoadmap
             HtmlTable table = FindControl("roadmapTable") as HtmlTable;
 
             int count = 0;
+            HtmlTableRow lastRow;
             foreach (StrategyPoint p in strats)
             {
-                HtmlTableRow row = new HtmlTableRow();
+                HtmlTableRow row;
+
+                row = new HtmlTableRow();
+
+
                 row.ID = "StratVisual" + count.ToString() + "Row";
 
                 HtmlInputButton but = new HtmlInputButton();
@@ -42,27 +47,50 @@ namespace RocketRoadmap
                 but.Style.Add(HtmlTextWriterStyle.Width, "200px");
                 but.Value = p.GetDescription();
 
+                HtmlInputText textbox;
                 if (count == 0)
                 {
                     //StratBox0.Value = p.GetDescription();
+                    textbox = StratBox0;
                 }
+                else
+                {
+                    string find = "StratBox" + count.ToString();
+
+                    textbox = FindControl("StratBox1") as HtmlInputText;
+                }
+
+                textbox.Value = p.GetDescription();
 
 
                 HtmlTableCell cell = new HtmlTableCell();
 
                 row.Cells.Add(cell);
-
                 cell.Controls.Add(but);
-
                 table.Rows.Add(row);
 
+                count++;
+
+                lastRow = new HtmlTableRow();
+                lastRow.ID = "StratBox" + count.ToString() + "Row";
+
+                HtmlTableCell cell1 = new HtmlTableCell();
+
+                cell1.InnerHtml = "<input class='txtStrat' BusTotal=1 id='StratBox" + count.ToString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + count.ToString() + ")'/><button class = 'btnDelete' type='button' id='StratDelete" + count.ToString() + "' onclick='deleteStrat(event,this)'>X</button> <br />" +
+                                                         "<table id =\"StratBox" + count.ToString() + "Table\"" + " >" +
+                                                         "<tr id=\"StratBox" + count.ToString() + "BusBox0Row\" > " +
+                                                             "<td>" +
+                                                         "<input  class='txtBus' ProjTotal=1 id='StratBox" + count + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + count.ToString() + ")' /><button class = 'btnDelete' type='button' id='StratBox" + count.ToString() + "BusBox0Delete' onclick='deleteBus(event, this)'>X</button><br />" +
+                                                         "<input name='DynamicTextBox' id='StratBox" + count.ToString() + "BusBox0ProjBox0' class='txtProj' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + count.ToString() + ")' /><br />" +
+                                                             "</td>" +
+                                                         "</tr>" +
+                                                         "</table>";
+                lastRow.Cells.Add(cell1);
+                HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
+
+                sideTable.Rows.Add(lastRow);
+
             }
-
-
-
-
-
-
 
         }
 
@@ -77,7 +105,7 @@ namespace RocketRoadmap
             int n = map.GetStrategyPoints().Count;
 
             StrategyPoint point = new StrategyPoint(id, name, mapName);
-   //         map.AddStrategyPoint(point);
+            map.AddStrategyPoint(point);
 
         }
         [WebMethod]
@@ -89,7 +117,8 @@ namespace RocketRoadmap
 
             BusinessValue newBusVal = new BusinessValue(id, mapName);
 
-           // point.AddBusinessValue(newBusVal);
+            point.CreateBuisnessValue(id, name, mapName);
+
             //function to add to database
 
             
@@ -101,11 +130,11 @@ namespace RocketRoadmap
 
             StrategyPoint point = map.GetPoint(stratID);
 
-          //  BusinessValue val = point.GetVal(valID, mapName);
+            BusinessValue val = point.GetBusinessValue(id);
 
             Project newProj = new Project(id, name, valID, mapName);
 
-           // val.AddProject(newProj);
+            val.AddProject(newProj);
 
 
             //val.addProject(newProj);
