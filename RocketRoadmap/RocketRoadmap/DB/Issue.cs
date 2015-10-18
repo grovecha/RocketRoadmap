@@ -31,12 +31,7 @@ namespace RocketRoadmap.DB
         }
         public string GetDescription()
         {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE Description='" + mDescription + "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            string descrip = mReader.GetString(0).ToString();
-            mDatabase.close();
-            return descrip;
+            return mDescription;
         }
         public bool SetProjectName(string projectname)
         {
@@ -47,12 +42,7 @@ namespace RocketRoadmap.DB
         }
         public string GetProjectName()
         {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT ProjectName FROM [dbo].[Issues] WHERE Description='" + mDescription+ "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            string proj = mReader.GetString(0).ToString();
-            mDatabase.close();
-            return proj;
+            return mProjectName;
         }
         #endregion
 

@@ -63,12 +63,7 @@ namespace RocketRoadmap.DB
             return flag;
         }
         public string GetName() {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            string name = mReader.GetString(0).ToString();
-            mDatabase.close();
-            return name;
+            return mName;
         }
 
         public bool SetDescription(string description) {
@@ -79,12 +74,7 @@ namespace RocketRoadmap.DB
             return flag;
         }
         public string GetDescription() {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            string descrip = mReader.GetString(0).ToString();
-            mDatabase.close();
-            return descrip;
+            return mDescription;
         }
 
         public bool SetStartDate(DateTime startdate) {
@@ -95,12 +85,7 @@ namespace RocketRoadmap.DB
             return flag;
         }
         public DateTime GetStartDate() {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT StartDate FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            DateTime start = mReader.GetDateTime(0);
-            mDatabase.close();
-            return start;
+            return mStartDate;
         }
 
         public bool SetEndDate(DateTime enddate) {
@@ -111,12 +96,7 @@ namespace RocketRoadmap.DB
             return flag;
         }
         public DateTime GetEndDate() {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT EndDate FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            DateTime end = mReader.GetDateTime(0);
-            mDatabase.close();
-            return end;
+            return mEndDate;
         }
 
         public bool SetBusinessValue(string businessvalue) {
@@ -127,12 +107,7 @@ namespace RocketRoadmap.DB
             return flag;
         }
         public string GetBusinessValue() {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[Project] WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
-            mReader.Read();
-            string bus = mReader.GetString(0).ToString();
-            mDatabase.close();
-            return bus;
+            return mBusinessValue;
         }
         public List<Link> GetLinks() { return mLinks; }
         public List<Issue> GetIssues() { return mIssues; }

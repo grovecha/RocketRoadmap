@@ -49,6 +49,10 @@ namespace RocketRoadmap.DB
                 mTicks.Add(tick);
             }
             mDatabase.close();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 23ce0aa32ac8cc78d009de4b6acb88b92f6edbb9
             //mDatabase.connect();
             //mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
             //mReader.Read();

@@ -41,15 +41,7 @@ namespace RocketRoadmap.DB
         #region Getter's and Setter's
         public string GetDescription()
         {
-            mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "' AND RoadmapName ='" + mRoadmapName + "'");
-            mReader.Read();
-            if (mReader.HasRows)
-            {
-                mDescription = mReader.GetString(0).ToString();
-                return mDescription;
-            }
-            else return "";
+            return mDescription;
         }
 
         public bool SetDescription(string descrip)
