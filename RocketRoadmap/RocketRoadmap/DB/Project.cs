@@ -29,6 +29,7 @@ namespace RocketRoadmap.DB
             mBusinessValue = businessvalue;
             mRoadmapName = rname;
 
+
             mDatabase.connect();
 
             mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
@@ -51,6 +52,17 @@ namespace RocketRoadmap.DB
                 mDependencies.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mReader.GetString(2).ToString(), mRoadmapName));
             }
             mReader.Close();
+            mReader = mDatabase.executeread("SELECT StartDate,EndDate FROM [dbo].[Project] WHERE Name='" + mName + "'");
+            if(mReader.HasRows)
+            {
+                mReader.Read();
+                try { mStartDate = mReader.GetDateTime(0); }
+                catch (Exception ex) { }
+                try { mEndDate = mReader.GetDateTime(1); }
+                catch (Exception ex) { }
+            }
+            mReader.Close();
+            mDatabase.close();
 
         }
 

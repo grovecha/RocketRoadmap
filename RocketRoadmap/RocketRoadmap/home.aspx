@@ -62,7 +62,9 @@
                 <li>
                     <a><asp:Label ID="loginlabel" runat="server"></asp:Label></a>
                 </li>
-
+                <li>
+                    <a href="datapulltest.aspx?n=Test">Data Pull Test</a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -83,13 +85,13 @@
                         <input type="text" id="roadmap_Name" size="60" />
                         <p></p>
                         <h2><u>Roadmap Description</u></h2>
-                        <textarea id="roadmap_Desc">
+                        <textarea id="roadmap_Desc"rows="4" cols="75">
                         </textarea>
                         <p></p>
                        
                     </div>
                     <div class="modal-footer">
-                        <a href="Roadmap.aspx" class="btn btn-default" data-dismiss="modal">Create</a>
+                        <a href="Roadmap.aspx" class="btn btn-default">Create</a>
                     </div>
                 </div>
             </div>

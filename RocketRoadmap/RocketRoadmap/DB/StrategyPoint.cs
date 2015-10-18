@@ -61,7 +61,7 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public BusinessValue GetBuisnessValue(string id)
+        public BusinessValue GetBusinessValue(string id)
         {
             foreach(BusinessValue v in mValues)
             {
