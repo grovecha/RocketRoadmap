@@ -52,13 +52,13 @@
             <tr id="StratBox0Row">
              <td>
                
-                 <input id='StratBox0' class ='txtStrat' BusTotal=1  type ='text' placeholder='Add Strategy Point' onkeypress ='addStrat(event,this,1)'/><br/>
+                 <input id='StratBox0' class ='txtStrat' BusTotal=1  type ='text' placeholder='Add Strategy Point'  onkeyup ='addStrat(event,this,1)'/><button class = 'btnDelete' type='button' id='StratDelete0' onclick='deleteStrat(event, this)'>X</button><br/>
                     <table id ="StratBox0Table" >
                         <tr id="StratBox0BusBox0Row">
                          <td>
-                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0' type ='text'placeholder='Add Business Value' onkeypress ='addBus(event, this,1)' />
-                                    <div id="projDiv">
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project' onkeypress ='addProj(event, this,1)' />
+                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0' Visible="false" type ='text'placeholder='Add Business Value' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
+                                    <div id="projDiv" visible="false" >
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project' onkeyup ='addProj(event, this,1)' />
                                          </div> 
                           
                         </td>
@@ -104,14 +104,11 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+
                 </div>
                 <br />
-                <table id="roadmap-table">
-
-
-
-  
-
+                <table id="roadmap-table" style="width:100%">                
+                   
                 </table>
 
 
@@ -192,13 +189,17 @@
 <!-- Data Input -->
         <style>
         .txtStrat {
-            width: 250px;
+            width: 220px;
             height: 30px;
             margin-left: 0px;
         }
 
+        .btnDelete {
+            height: 32px;
+            width: 28px;
+        }
         .txtBus {
-            width: 230px;
+            width: 200px;
             height: 30px;
             margin-left: 20px;
         }
@@ -211,20 +212,22 @@
         .btnStrat{
             height:200px;
             width:200px;
+        }   
+        .proj1 {
+            position: relative;
+              top: -50%;             
         }
-        
-        .busroot {
-           
+        .proj2 {
+            position: relative;
+              top: 0%; 
+              left: 150px;             
         }
-        .mainroot {
-           
+        .proj3 {
+            position: relative;
+              top: 50%;           
+              left: 300px;  
         }
-        .projroot {
-         
-        }
-        .mainDiv {
 
-        }
         
    
     </style>
