@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
 using RocketRoadmap.DB;
+using System.Web.UI.HtmlControls;
 
 namespace RocketRoadmap
 {
@@ -17,12 +18,48 @@ namespace RocketRoadmap
         {
 
             string url = Request.Url.AbsoluteUri;
+            int index = url.IndexOf("=");
+            string name = url.Substring(index+1);
 
-            
+            RoadMap roadmap = new RoadMap(name);
+
+            List<StrategyPoint> strats = roadmap.GetStrategyPoints();
+
+            HtmlTable table = FindControlRecursive(this, "roadmap-table") as HtmlTable;
+
+            int count = 0;
+            foreach (StrategyPoint p in strats)
+            {
+                HtmlTableRow row = new HtmlTableRow();
+                row.ID = "StratVisual" + count.ToString() + "Row";
+
+                HtmlInputButton but = new HtmlInputButton();
+                but.Name = "Strat";
+                but.ID = "StratBut" + count.ToString();
+                but.Style.Add(HtmlTextWriterStyle.BackgroundColor, "red");
+                but.Style.Add(HtmlTextWriterStyle.Height, "100px");
+                but.Style.Add(HtmlTextWriterStyle.Width, "200px");
 
 
-           
+                HtmlTableCell cell = new HtmlTableCell();
+
+                row.Cells.Add(cell);
+
+                cell.Controls.Add(but);
+
+                table.Rows.Add(row);
+
+            }
+
+
+
+
+
+
+
         }
+
+
 
         [WebMethod]
         public static void AddStrat(string id, string name,string mapName)
@@ -124,13 +161,32 @@ namespace RocketRoadmap
         //    //return proj.GetDescription();
         //}
 
+        public Control FindControlRecursive(Control control, string id)
+        {
+            if (control == null) return null;
+            //try to find the control at the current level
+            Control ctrl = control.FindControl(id);
 
+            if (ctrl == null)
+            {
+                //search the children
+                foreach (Control child in control.Controls)
+                {
+                    ctrl = FindControlRecursive(child, id);
 
+                    if (ctrl != null) break;
+                }
+            }
+            return ctrl;
+        }
     }
+
+}
+
+
 
     public class Point
     {
         public string id { get; set; }
         public string name { get; set; }
     }
-}
