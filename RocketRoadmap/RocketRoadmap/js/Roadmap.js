@@ -2,18 +2,32 @@
 var StratBoxCounter = 0;
 $("#StratBox0BusBox0Row").hide();
 
-function deleteStrat(e, obj) {
+function deleteStrat(obj) {
+
     var mainDiv = document.getElementById('sidebar-table');
     var PreviousStratNum = parseInt(obj.id.split('StratDelete')[1].split("BusBox")[0]);
     var mainDiv = document.getElementById('sidebar-table');
     var RowIndex = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex;
     mainDiv.deleteRow(RowIndex);
 
+<<<<<<< HEAD
     //delete visual row 
     var table = document.getElementById("roadmapTable");
     //table.rows[PreviousStratNum].innerHTML = "";
     var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
     table.deleteRow(PreviousStratRow);
+=======
+    try {
+        //delete visual row 
+        var table = document.getElementById("roadmap-table");
+        //table.rows[PreviousStratNum].innerHTML = "";
+        var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
+        table.deleteRow(PreviousStratRow);
+    }
+    catch (err) {
+
+    }
+>>>>>>> 5ade2619a1ce2ae633f0ebac7f4a58f3afb12c5c
 
 }
 function deleteBus(e, obj) {
