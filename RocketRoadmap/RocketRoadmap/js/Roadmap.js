@@ -176,7 +176,6 @@ function addStrat(e, obj, i) {
 }
 
 function addBus(e, obj, i) {
-<<<<<<< HEAD
     // add Business Value / Change Business Value text
     //if (e.keyCode == 0) {
     //    StratId = obj.id.split("BusBox")[0];
@@ -191,7 +190,7 @@ function addBus(e, obj, i) {
 
     //    mainDiv.deleteRow(varr);
     //}
-=======
+
     //if (e.keyCode == 9) {
     //    document.getElementById(obj.id + "ProjBox0").select();
     //    document.getElementById(obj.id + "ProjBox0").focus();
@@ -214,7 +213,7 @@ function addBus(e, obj, i) {
         var varr = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
         mainDiv.deleteRow(varr);
     }
->>>>>>> 23ce0aa32ac8cc78d009de4b6acb88b92f6edbb9
+
 
     if (e.keyCode === 13 && e.shiftKey && obj.id.indexOf("Proj") <= 0) {
         addStrat(e, obj, i)
@@ -322,7 +321,7 @@ function addBus(e, obj, i) {
 }
 
 function addProj(e, obj, i) {
-<<<<<<< HEAD
+
 
     //if (e.keyCode == 0) {
         //CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
@@ -330,13 +329,13 @@ function addProj(e, obj, i) {
         //CurrentStratNum = PreviousStratNum + 1;
         //CurrentStratNum = StratBoxCounter;
         //StratBoxCounter++;
-=======
+
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
     BusId = obj.id.split("ProjBox")[0];
     ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
     if (0) {
         CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
->>>>>>> 23ce0aa32ac8cc78d009de4b6acb88b92f6edbb9
+
 
        // var varr = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
        // var projroot = obj.parentElement;
@@ -346,7 +345,7 @@ function addProj(e, obj, i) {
        // subtract 1 from ProjTotal
        // document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) - 1);
 
-    //}
+    }
 
     if (e.keyCode === 13 && e.shiftKey) {
         addBus(e, obj, i);
