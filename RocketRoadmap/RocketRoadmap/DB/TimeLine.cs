@@ -11,10 +11,7 @@ namespace RocketRoadmap.DB
     {
         public TimeLine (string roadmapname)
         {
-<<<<<<< HEAD
-=======
 
->>>>>>> f54738816ac2ed64ee82421f1037ccfc61b0434a
             mDatabase.connect();
             mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
             mReader.Read();
@@ -52,7 +49,6 @@ namespace RocketRoadmap.DB
                 mTicks.Add(tick);
             }
             mDatabase.close();
-<<<<<<< HEAD
             //mDatabase.connect();
             //mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
             //mReader.Read();
@@ -72,8 +68,7 @@ namespace RocketRoadmap.DB
             //}
             //mDatabase.close();
 
-=======
->>>>>>> f54738816ac2ed64ee82421f1037ccfc61b0434a
+
         }
 
         public bool NewTickMark(TickMark tick)

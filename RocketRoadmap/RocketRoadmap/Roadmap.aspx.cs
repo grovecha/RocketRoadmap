@@ -79,6 +79,51 @@ namespace RocketRoadmap
         //}
 
 
+        //[WebMethod]
+        //public static string GetProjectDependencyText(string ProjectID,string RoadmapName)
+        //{
+        //    //RoadMap map = new RoadMap(RoadmapName);
+
+
+        //    //Project proj;
+
+        //    //return proj.GetDescription();
+        //}
+
+
+        //[WebMethod]
+        //public static string GetProjectDependencyProject(string ProjectID,string RoadmapName)
+        //{
+        //    //RoadMap map = new RoadMap(RoadmapName);
+
+
+        //    //Project proj;
+
+        //    //return proj.GetDescription();
+        //}
+
+        //[WebMethod]
+        //public static string GetProjectRisk(string ProjectID,string RoadmapName)
+        //{
+        //    //RoadMap map = new RoadMap(RoadmapName);
+
+
+        //    //Project proj;
+
+        //    //return proj.GetDescription();
+        //}
+
+        //[WebMethod]
+        //public static string GetProjectLinks(string ProjectID,string RoadmapName)
+        //{
+        //    //RoadMap map = new RoadMap(RoadmapName);
+
+
+        //    //Project proj;
+
+        //    //return proj.GetDescription();
+        //}
+
 
 
     }
