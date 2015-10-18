@@ -19,13 +19,14 @@ namespace RocketRoadmap
 
             string url = Request.Url.AbsoluteUri;
             int index = url.IndexOf("=");
-            string name = url.Substring(index+1);
+            string name = url.Substring(index + 1);
 
             RoadMap roadmap = new RoadMap(name);
 
             List<StrategyPoint> strats = roadmap.GetStrategyPoints();
 
-            HtmlTable table = FindControlRecursive(this, "roadmap-table") as HtmlTable;
+
+            HtmlTable table = FindControl("roadmapTable") as HtmlTable;
 
             int count = 0;
             foreach (StrategyPoint p in strats)
@@ -39,6 +40,12 @@ namespace RocketRoadmap
                 but.Style.Add(HtmlTextWriterStyle.BackgroundColor, "red");
                 but.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 but.Style.Add(HtmlTextWriterStyle.Width, "200px");
+                but.Value = p.GetDescription();
+
+                if (count == 0)
+                {
+                    //StratBox0.Value = p.GetDescription();
+                }
 
 
                 HtmlTableCell cell = new HtmlTableCell();

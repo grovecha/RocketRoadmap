@@ -10,7 +10,7 @@ function deleteStrat(e, obj) {
     mainDiv.deleteRow(RowIndex);
 
     //delete visual row 
-    var table = document.getElementById("roadmap-table");
+    var table = document.getElementById("roadmapTable");
     //table.rows[PreviousStratNum].innerHTML = "";
     var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
     table.deleteRow(PreviousStratRow);
@@ -51,7 +51,7 @@ function addStrat(e, obj, i) {
         //otherwise add strategy point button
     else {
 
-        var table = document.getElementById("roadmap-table");
+        var table = document.getElementById("roadmapTable");
         try {
             var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
             var row = table.rows[PreviousStratRow];
@@ -109,13 +109,13 @@ function addStrat(e, obj, i) {
 
 
         StratBoxCounter++;
-        var table = document.getElementById("roadmap-table");
+        var table = document.getElementById("roadmapTable");
         var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
         var row = table.insertRow(PreviousStratRow + 1);
         row.setAttribute("id", 'StratVisual' + StratBoxCounter.toString() + "Row");
 
         PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
-        //var table = document.getElementById("roadmap-table");
+        //var table = document.getElementById("roadmapTable");
         //var row = table.insertRow(PreviousStratNum);
 
         var mainDiv = document.getElementById('sidebar-table');
@@ -265,7 +265,7 @@ function addBus(e, obj, i) {
             //otherwise add the business value visual
         else {
             //add visual business value
-            var table = document.getElementById("roadmap-table");
+            var table = document.getElementById("roadmapTable");
             PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
             var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
             var row = table.rows[PreviousStratRow];
