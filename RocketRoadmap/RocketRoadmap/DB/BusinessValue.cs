@@ -67,6 +67,20 @@ namespace RocketRoadmap.DB
         public List<Project> GetProjects() { return mProjects; }
         #endregion
 
+        public Project GetProject(string id)
+        {
+            foreach (Project p in mProjects)
+            {
+                if (p.GetName() == id)
+                {
+                    return p;
+                }
+            }
+            //oh no! Something went wrong! I blame brian.
+            return null;
+        }
+   
+
         public bool CreateNewProject( Project proj)
         {
             mDatabase.connect();

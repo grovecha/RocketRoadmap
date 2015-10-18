@@ -67,62 +67,82 @@ namespace RocketRoadmap
             //val.addProject(newProj);
         }
 
-        //[WebMethod]
-        //public static string GetProjectDescription(string ProjectID,string RoadmapName)
-        //{
-        //    //RoadMap map = new RoadMap(RoadmapName);
+        [WebMethod]
+        public static string GetProjectDescription(string ProjectID, string RoadmapName)
+        {
+            int pointindex = ProjectID.IndexOf("Bus");
+            int valindex = ProjectID.IndexOf("Proj");
+            string point = ProjectID.Substring(0, pointindex);
+            string val = ProjectID.Substring(pointindex, valindex);
+            string pro = ProjectID.Substring(valindex, -1);
+            RoadMap map = new RoadMap(RoadmapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(val);
+            Project newproj = newval.GetProject(pro);
+
+            return newproj.GetDescription();
+        }
 
 
-        //    //Project proj;
+        [WebMethod]
+        public static List<Project> GetProjectDependencyText(string ProjectID, string RoadmapName)
+        {
+            int pointindex = ProjectID.IndexOf("Bus");
+            int valindex = ProjectID.IndexOf("Proj");
+            string point = ProjectID.Substring(0, pointindex);
+            string val = ProjectID.Substring(pointindex, valindex);
+            string pro = ProjectID.Substring(valindex, -1);
+            RoadMap map = new RoadMap(RoadmapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(val);
+            Project newproj = newval.GetProject(pro);
 
-        //    //return proj.GetDescription();
-        //}
+            return newproj.GetDependencies();
+        }
 
-
-        //[WebMethod]
-        //public static string GetProjectDependencyText(string ProjectID,string RoadmapName)
-        //{
-        //    //RoadMap map = new RoadMap(RoadmapName);
-
-
-        //    //Project proj;
-
-        //    //return proj.GetDescription();
-        //}
-
-
-        //[WebMethod]
-        //public static string GetProjectDependencyProject(string ProjectID,string RoadmapName)
-        //{
-        //    //RoadMap map = new RoadMap(RoadmapName);
-
-
-        //    //Project proj;
-
-        //    //return proj.GetDescription();
-        //}
-
-        //[WebMethod]
-        //public static string GetProjectRisk(string ProjectID,string RoadmapName)
-        //{
-        //    //RoadMap map = new RoadMap(RoadmapName);
-
-
-        //    //Project proj;
-
-        //    //return proj.GetDescription();
-        //}
 
         //[WebMethod]
-        //public static string GetProjectLinks(string ProjectID,string RoadmapName)
+        //public static string GetProjectDependencyProject(string ProjectID, string RoadmapName)
         //{
-        //    //RoadMap map = new RoadMap(RoadmapName);
+        //    RoadMap map = new RoadMap(RoadmapName);
 
 
-        //    //Project proj;
+        //    Project proj;
 
-        //    //return proj.GetDescription();
+        //    return proj.GetDescription();
         //}
+
+        [WebMethod]
+        public static List<Issue> GetProjectRisk(string ProjectID, string RoadmapName)
+        {
+            int pointindex = ProjectID.IndexOf("Bus");
+            int valindex = ProjectID.IndexOf("Proj");
+            string point = ProjectID.Substring(0, pointindex);
+            string val = ProjectID.Substring(pointindex, valindex);
+            string pro = ProjectID.Substring(valindex, -1);
+            RoadMap map = new RoadMap(RoadmapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(val);
+            Project newproj = newval.GetProject(pro);
+
+            return newproj.GetIssues();
+        }
+
+        [WebMethod]
+        public static List<Link> GetProjectLinks(string ProjectID, string RoadmapName)
+        {
+            int pointindex = ProjectID.IndexOf("Bus");
+            int valindex = ProjectID.IndexOf("Proj");
+            string point = ProjectID.Substring(0, pointindex);
+            string val = ProjectID.Substring(pointindex, valindex);
+            string pro = ProjectID.Substring(valindex, -1);
+            RoadMap map = new RoadMap(RoadmapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(val);
+            Project newproj = newval.GetProject(pro);
+
+            return newproj.GetLinks();
+        }
 
 
 
