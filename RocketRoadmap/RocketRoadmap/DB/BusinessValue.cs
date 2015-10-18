@@ -29,7 +29,15 @@ namespace RocketRoadmap.DB
             {
                 mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName, mRoadmapName));
             }
+            mReader.Close();
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "'");
+            if (mReader.HasRows)
+            {
+                mReader.Read();
+                mDescription = mReader.GetString(0).ToString();
+            }
             mDatabase.close();
+
         }
 
         public void AddProject(Project proj)
@@ -66,6 +74,20 @@ namespace RocketRoadmap.DB
         public string GetName() { return mName; }
         public List<Project> GetProjects() { return mProjects; }
         #endregion
+
+        public Project GetProject(string id)
+        {
+            foreach (Project p in mProjects)
+            {
+                if (p.GetName() == id)
+                {
+                    return p;
+                }
+            }
+            //oh no! Something went wrong! I blame brian.
+            return null;
+        }
+   
 
         public bool CreateNewProject( Project proj)
         {

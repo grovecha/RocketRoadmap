@@ -97,53 +97,25 @@
     
     <!-- /#sidebar-wrapper -->
 
-    <!-- Page Content -->
-<<<<<<< HEAD
-<div id="page-content-wrapper">
 
- <div class="container-fluid">
-
- <div class="row">
-
- <div class="col-lg-12">
-
- <h1>Roadmap</h1>
-
- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-
- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#inputModal"> Modal</button>
-
- </div>
-
- <br />
-
- <table id="roadmap-table">
- 
- </table>
-
- </div>
-
- </div>
-
- </div>
 
  <!-- /#page-content-wrapper -->
 
-=======
+
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#inputModal"> Modal</button>
+
 
                 </div>
                 <br />
                 <table id="roadmap-table" style="width:100%">                
                    
                 </table>
->>>>>>> 23ce0aa32ac8cc78d009de4b6acb88b92f6edbb9
-
 
 
 　
@@ -335,7 +307,7 @@
     function showModal() {                        
         $("#myModal").modal("show");
     }                    
-</script>\
+</script>
     <script>
         $(document).ready(function () {
             var max_fields = 15; //maximum input boxes allowed
@@ -359,7 +331,9 @@
             });
 
             $(dep_Text).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault(); $(this).parent('div').remove(); x--;
+                e.preventDefault(); $(this).parent('div').remove();
+                dep_count--;
+
             })
 
 
@@ -381,7 +355,8 @@
             });
 
             $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault(); $(this).parent('div').remove(); x--;
+                e.preventDefault(); $(this).parent('div').remove();
+                select_count--;
             })
 
 
@@ -395,7 +370,8 @@
             });
 
             $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                e.preventDefault(); $(this).parent('div').remove(); x--;
+                e.preventDefault(); $(this).parent('div').remove();
+                link_count--;
             })
 
 
