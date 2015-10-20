@@ -35,11 +35,12 @@
 </head>
 
 <body>
+    <form id="form1" runat="server">
+                            <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <%--  --%>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -82,16 +83,15 @@
                     </div>
                     <div class="modal-body">
                         <h2><u>Roadmap Name:</u></h2>
-                        <input type="text" id="roadmap_Name" size="60" />
+                        <input type="text" id="roadmap_Name" size="60" runat="server" />
                         <p></p>
                         <h2><u>Roadmap Description</u></h2>
-                        <textarea id="roadmap_Desc"rows="4" cols="75">
-                        </textarea>
+                        <textarea id="roadmap_Desc" rows="4" cols="75" runat="server"></textarea>
                         <p></p>
                        
                     </div>
                     <div class="modal-footer">
-                        <a href="Roadmap.aspx" class="btn btn-default">Create</a>
+                        <asp:button type="button" class="btn btn-default" onclick="newroadmap" runat="server" Text="Create"></asp:button>
                     </div>
                 </div>
             </div>
@@ -127,6 +127,7 @@
 <script src="js/bootstrap.min.js"></script>
 
 
+</form>
 </body>
 
 </html>

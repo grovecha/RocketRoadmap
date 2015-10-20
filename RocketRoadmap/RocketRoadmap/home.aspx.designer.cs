@@ -13,6 +13,15 @@ namespace RocketRoadmap {
     public partial class home {
         
         /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        
+        /// <summary>
         /// loginlabel control.
         /// </summary>
         /// <remarks>
@@ -20,6 +29,24 @@ namespace RocketRoadmap {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label loginlabel;
+        
+        /// <summary>
+        /// roadmap_Name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText roadmap_Name;
+        
+        /// <summary>
+        /// roadmap_Desc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea roadmap_Desc;
         
         /// <summary>
         /// name control.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.Services;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using RocketRoadmap.DB;
@@ -11,28 +12,36 @@ namespace RocketRoadmap
 {
     public partial class home : System.Web.UI.Page
     {
+        private User mUser;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            mUser = new User((string)ViewState["username"], (string)ViewState["password"]);
+            mUser = new DB.User((string)ViewState["username"], (string)ViewState["password"]);
+            loginlabel.Text = "Logged in as: " + mUser.GetUserName();
+            name.Text = mUser.GetUserName() + "'s ROADMAPS";
             if (!IsPostBack)
             {
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
                     RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
-                    mUser = user;
+                    bool flag = user.Login();
                     ViewState["username"] = user.GetUserName();
                     ViewState["password"] = user.GetPassword();
-                    bool flag = user.Login();
                     if (flag)
                     {
-                        loginlabel.Text = "Logged in as: " + mUser.GetUserName();
-                        name.Text = mUser.GetUserName() + "'s ROADMAPS";
+                        mUser = new DB.User((string)ViewState["username"], (string)ViewState["password"]);
+                        loginlabel.Text = "Logged in as: " + user.GetUserName();
+                        name.Text = user.GetUserName() + "'s ROADMAPS";
                     }
                     else
                     {
                         Response.Redirect("index.aspx", false);
                     }
 
+                }
+                else
+                {
+                    Response.Redirect("index.aspx", false);
                 }
 
                 if (mUser != null)
@@ -44,28 +53,28 @@ namespace RocketRoadmap
                     try
                     {
                         uall = umaps.GetUserMaps(mUser.GetUserName());
+                        TableHeaderRow uhead = new TableHeaderRow();
 
+                        TableHeaderCell u1 = new TableHeaderCell();
+                        TableHeaderCell u2 = new TableHeaderCell();
+                        TableHeaderCell u3 = new TableHeaderCell();
+                        TableHeaderCell u4 = new TableHeaderCell();
+
+                        u1.Text = "Name";
+                        u2.Text = "Author";
+                        u3.Text = "Description";
+                        u4.Text = "Timestamp";
+
+                        uhead.Cells.Add(u1);
+                        uhead.Cells.Add(u2);
+                        uhead.Cells.Add(u3);
+                        uhead.Cells.Add(u4);
+
+                        userroadmaps.Rows.Add(uhead);
                         foreach (var umap in uall)
                         {
                             TableRow urow = new TableRow();
-                            TableHeaderRow uhead = new TableHeaderRow();
 
-                            TableHeaderCell u1 = new TableHeaderCell();
-                            TableHeaderCell u2 = new TableHeaderCell();
-                            TableHeaderCell u3 = new TableHeaderCell();
-                            TableHeaderCell u4 = new TableHeaderCell();
-
-                            u1.Text = "Name";
-                            u2.Text = "Author";
-                            u3.Text = "Description";
-                            u4.Text = "Timestamp";
-
-                            uhead.Cells.Add(u1);
-                            uhead.Cells.Add(u2);
-                            uhead.Cells.Add(u3);
-                            uhead.Cells.Add(u4);
-
-                            userroadmaps.Rows.Add(uhead);
 
                             TableCell ucell_1 = new TableCell();
                             TableCell ucell_2 = new TableCell();
@@ -138,13 +147,17 @@ namespace RocketRoadmap
 
             }
         }
-
-        protected void testbutton_Click(object sender, EventArgs e)
+        public void newroadmap(object sender, EventArgs e)
         {
-            string name = mUser.GetUserName();
+            RoadMaps nRoadmap = new RoadMaps();
+            if(roadmap_Name.Value == null)
+            {
+                roadmap_Name.Value = "Allbriansfault";
+            }
+
+            nRoadmap.CreateRoadMap(roadmap_Name.Value.ToString(), roadmap_Desc.Value.ToString(), mUser.GetUserName());
+            Response.Redirect("Roadmap.aspx?n="+roadmap_Name.Value, false);
+
         }
-        private User mUser;
-
     }
-
     }
