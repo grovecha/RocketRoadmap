@@ -84,6 +84,7 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <button type="button" class="btn" data-toggle="modal" data-target="#inputModal">Test Modal</button>
 
                 </div>
                 <br />
@@ -102,57 +103,8 @@
 
 </div>
 <!-- /#wrapper -->
- 
- <!-- Modal -->
-
- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-
-    <div class="modal-dialog" role="document">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-
-            </div>
-
-        <div class="modal-body">
-
-            <h2><u>Description</u></h2>
-
-            <p>It will be saying things about our object BLah BLah Blah</p> 
-
-            <p></p>
-
-            <h2><u>Dependencies</u></h2>
-
-            <p>Becky totally depends on Johnny</p>
-
-            <p></p>
-
-            <h2><u>Risks</u></h2>
-
-            <p>We are all risky</p>
-
-        </div>
-
-        <div class="modal-footer">
-
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
-
-      </div>
-
-    </div>
-
- </div>
 
 
- 
  <!-- Modal input -->
 
  <div id="inputModal" class="modal fade" role ="dialog">
@@ -245,7 +197,7 @@
  
             <div class="modal-footer">
 
-        <button type="button" class="btn btn-default" id ="saveButton">Save</button>
+        <button type="button" class="btn btn-default" id ="save">Save</button>
 
     </div>
 
@@ -256,7 +208,6 @@
  </div>
 
  </div>
-
 
 
  <!-- jQuery -->
@@ -287,17 +238,21 @@
 <script>
     function showModal() {                        
         $("#myModal").modal("show");
-    }                    
+    }
 </script>
     <script>
         $(document).ready(function () {
             var max_fields = 15; //maximum input boxes allowed
             var dep_Text = $(".depText"); //Dependency input wrapper
             var add_Text = $("#addText"); //Add dependency input
+            var dep_arr = []; // dependecy string array
             var dep_Select = $(".depSelect"); //Dependency Selection wrapper
             var add_Select = $("#addSelect"); //Add dependency select
+            var select_arr = []; //select array
             var link_Text = $(".linkText"); //Link input wrapper
             var add_Link = $("#addLink"); //Add Link input
+            var link_arr = []; //link array
+            var save = $("#save"); //Save button
             var dep_count = 1; //initlal dependency input counter
             var select_count = 1; //initial select input counter
             var link_count = 1; //initial link count
@@ -307,7 +262,7 @@
                 e.preventDefault();
                 if (dep_count < max_fields) { //max input box allowed
                     dep_count++; //text box increment
-                    $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+                    $(dep_Text).append("<div><input type='text' size=60 id='depenText'"+dep_count+"/><a href='#' class='remove_field'>X</a></div>"); //add input box
                 }
             });
 
@@ -331,11 +286,11 @@
 
                 if (select_count < max_fields) { //max input box allowed
                     select_count++; //text box increment
-                    $(dep_Select).append('<div> <select id="depenSelect">' + options + '</select><a href="#" class="remove_field">X</a></div>'); //add input box
+                    $(dep_Select).append("<div> <select id='depenSelect'"+select_count+">" + options + "</select><a href='#' class='remove_field2'>X</a></div>"); //add input box
                 }
             });
 
-            $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
+            $(dep_Select).on("click", ".remove_field2", function (e) { //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove();
                 select_count--;
             })
@@ -346,22 +301,53 @@
                 e.preventDefault();
                 if (link_count < max_fields) { //max input box allowed
                     link_count++; //text box increment
-                    $(link_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+                    $(link_Text).append("<div><input type='text' size=60 id='linkText'"+link_count+"/><a href='#' class='remove_field3'>X</a></div>"); //add input box
                 }
             });
 
-            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+            $(wrapper).on("click", ".remove_field3", function (e) { //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove();
                 link_count--;
             })
 
 
-            $(add_Link).click(function (e) {
-                //make the ajax calls in here?
+            $(save).click(function (e) {
+                //Taking the value of the description
+                var description_val = document.getElementById("descText").value.toString();
+                PageMethods.SetProjectDescription(description_val);
+
+                //Taking the string dependecy
+                var x=0;
+                for (x = 0; x < dep_count; x++) {
+
+                }
+
+
+
+
+
 
             })
+
+            ////Inserting boxes when reloading the modal depending on the project it will be connected to 
+            $('#inputModal').on('show.bs.modal', function (e) {
+                
+                var i, max = 5;
+                for (i = 1; i < max; i++) {
+                    $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+                }
+
+                for (i = 2; i < max; i++) {
+                     $(dep_Select).append('<div> <select id="depenSelect"></select><a href="#" class="remove_field">X</a></div>'); //add input box
+                }
+            })
+
+
         });
     </script>
+
+
+
 
 
 <!-- Data Input -->
