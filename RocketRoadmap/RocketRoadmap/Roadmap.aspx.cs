@@ -17,21 +17,24 @@ namespace RocketRoadmap
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            string url = Request.Url.AbsoluteUri;
-            int index = url.IndexOf("=");
-            string name = url.Substring(index + 1);
+                string url = Request.Url.AbsoluteUri;
+                int index = url.IndexOf("=");
+                string name = url.Substring(index + 1);
 
-            RoadMap roadmap = new RoadMap(name);
+                RoadMap roadmap = new RoadMap(name);
 
-            List<StrategyPoint> strats = roadmap.GetStrategyPoints();
+                List<StrategyPoint> strats = roadmap.GetStrategyPoints();
 
 
-            HtmlTable table = FindControl("roadmapTable") as HtmlTable;
+                HtmlTable table = FindControl("roadmapTable") as HtmlTable;
 
-            int count = 0;
-            HtmlTableRow lastRow;
-            foreach (StrategyPoint p in strats)
+                int count = 0;
+                HtmlInputText lasttext = new HtmlInputText();
+
+                foreach (StrategyPoint p in strats)
             {
+
+                #region Strategy Visual Creation
                 HtmlTableRow row;
 
                 row = new HtmlTableRow();
@@ -50,16 +53,17 @@ namespace RocketRoadmap
                 HtmlInputText textbox;
                 if (count == 0)
                 {
-                    //StratBox0.Value = p.GetDescription();
                     textbox = StratBox0;
                 }
                 else
                 {
-                    string find = "StratBox" + count.ToString();
-
-                    textbox = FindControl("StratBox1") as HtmlInputText;
+                    textbox = lasttext;
                 }
 
+                #endregion
+
+
+                #region Strategy Text Box Creation
                 textbox.Value = p.GetDescription();
 
 
@@ -71,24 +75,92 @@ namespace RocketRoadmap
 
                 count++;
 
-                lastRow = new HtmlTableRow();
+                HtmlTableRow lastRow = new HtmlTableRow();
                 lastRow.ID = "StratBox" + count.ToString() + "Row";
 
                 HtmlTableCell cell1 = new HtmlTableCell();
 
-                cell1.InnerHtml = "<input class='txtStrat' BusTotal=1 id='StratBox" + count.ToString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + count.ToString() + ")'/><button class = 'btnDelete' type='button' id='StratDelete" + count.ToString() + "' onclick='deleteStrat(event,this)'>X</button> <br />" +
-                                                         "<table id =\"StratBox" + count.ToString() + "Table\"" + " >" +
-                                                         "<tr id=\"StratBox" + count.ToString() + "BusBox0Row\" > " +
-                                                             "<td>" +
-                                                         "<input  class='txtBus' ProjTotal=1 id='StratBox" + count + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + count.ToString() + ")' /><button class = 'btnDelete' type='button' id='StratBox" + count.ToString() + "BusBox0Delete' onclick='deleteBus(event, this)'>X</button><br />" +
-                                                         "<input name='DynamicTextBox' id='StratBox" + count.ToString() + "BusBox0ProjBox0' class='txtProj' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + count.ToString() + ")' /><br />" +
-                                                             "</td>" +
-                                                         "</tr>" +
-                                                         "</table>";
+                HtmlInputText text = new HtmlInputText();
+                lasttext = text;
+
+                text.ID = "StratBox" + count.ToString();
+
+
+                text.Attributes.Add("class", "txtStrat");
+                text.Attributes.Add("BusTotal", "1");
+                text.Attributes.Add("placeholder", "Add Strategy Point");
+                text.Attributes.Add("runat", "server");
+                text.Attributes.Add("onkeyup", "addStrat(event,this," + count.ToString() + ")");
+
+                cell1.Controls.Add(text);
+
+                HtmlButton deletebutton = new HtmlButton();
+
+                deletebutton.Attributes.Add("class", "btnDelete");
+                deletebutton.ID = "StratDelete" + count.ToString();
+                deletebutton.Attributes.Add("onclick", "deleteStrat(event,this)");
+                deletebutton.InnerText = "X";
+
+                cell1.Controls.Add(deletebutton);
+
+                cell1.Controls.Add(new LiteralControl("<br />"));
+
+                HtmlTable newtable = new HtmlTable();
+
+                newtable.ID = "StratBox" + count.ToString() + "Table";
+
+                cell1.Controls.Add(newtable);
+
+                //HtmlTableRow stratTableRow = new HtmlTableRow();
+
+                //stratTableRow.ID = "StratBox" + count.ToString() + "BusBox0Row";
+
+                //newtable.Rows.Add(stratTableRow);
+
+                //HtmlTableCell stratCell = new HtmlTableCell();
+
+                //stratTableRow.Cells.Add(stratCell);
+
+
+                //HtmlInputText busVal = new HtmlInputText();
+
+                //busVal.Attributes.Add("class", "txtBus");
+                //busVal.Attributes.Add("ProjTotal", "1");
+                //busVal.ID = "StratBox" + count.ToString() + "BusBox0";
+                //busVal.Attributes.Add("placeholder", "Add Business Value");
+                //busVal.Attributes.Add("runat", "server");
+                //busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
+
+                //stratCell.Controls.Add(busVal);
+
+                //HtmlButton busDelete = new HtmlButton();
+                //busDelete.Attributes.Add("class", "btnDelete");
+                //busDelete.ID = "StratBox" + count.ToString() + "BusBox0Delete";
+                //busDelete.Attributes.Add("onclick", "deleteBus(event,this)");
+                //busDelete.InnerText = "X";
+
+                //stratCell.Controls.Add(busDelete);
+
+                //HtmlInputText projText = new HtmlInputText();
+
+                //projText.Name = "DynmaicTextBox";
+                //projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
+                //projText.Attributes.Add("class", "txtProj");
+                //projText.Attributes.Add("placeholder", "Add Project");
+                //projText.Attributes.Add("runat", "server");
+                //projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
+                //stratCell.Controls.Add(projText);
+                //stratCell.Controls.Add(new LiteralControl("<br />"));
+
                 lastRow.Cells.Add(cell1);
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
 
                 sideTable.Rows.Add(lastRow);
+
+                #endregion
+
+
+
 
             }
 
@@ -236,6 +308,9 @@ namespace RocketRoadmap
             return ctrl;
         }
     }
+
+
+
 
 }
 
