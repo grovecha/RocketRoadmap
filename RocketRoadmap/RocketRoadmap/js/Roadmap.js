@@ -394,7 +394,7 @@ function addProj(e, obj, i) {
             mapName = mapName.substr(2, mapName.length);
 
 
-            PageMethods.AddProject(BusId.toString() + "ProjBox" + CurrentProjCount.toString(),document.getElementById(BusId.toString() + "ProjBox" + CurrentProjCount.toString()).value, mapName,StratId.toString(),BusId.toString() );
+            PageMethods.AddProject(BusId.toString() + "ProjBox" + CurrentProjCount.toString(),document.getElementById(BusId.toString() + "ProjBox" + CurrentProjCount.toString()).value, mapName.toString(),StratId.toString(),BusId.toString() );
 
             //add 1 to ProjTotal
             document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);

@@ -206,7 +206,7 @@ namespace RocketRoadmap
 
             StrategyPoint point = map.GetPoint(stratID);
 
-            BusinessValue val = point.GetBusinessValue(id);
+            BusinessValue val = point.GetBusinessValue(valID);
 
             Project newProj = new Project(id, name, valID, mapName);
 
