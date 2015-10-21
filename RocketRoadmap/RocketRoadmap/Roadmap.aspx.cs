@@ -182,6 +182,7 @@ namespace RocketRoadmap
             map.AddStrategyPoint(point);
 
         }
+
         [WebMethod]
         public static void AddBusVal(string id,string name,string mapName,string stratID)
         {
@@ -194,6 +195,7 @@ namespace RocketRoadmap
             point.CreateBuisnessValue(id, name, mapName);
 
             //function to add to database
+            
 
             
         }
