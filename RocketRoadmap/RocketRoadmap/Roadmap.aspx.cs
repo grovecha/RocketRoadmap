@@ -96,12 +96,13 @@ namespace RocketRoadmap
 
                 HtmlButton deletebutton = new HtmlButton();
 
-                deletebutton.Attributes.Add("class", "btnDelete");
-                deletebutton.ID = "StratDelete" + count.ToString();
-                deletebutton.Attributes.Add("onclick", "deleteStrat(event,this)");
-                deletebutton.InnerText = "X";
+                //deletebutton.Attributes.Add("class", "btnDelete");
+                //deletebutton.ID = "StratDelete" + count.ToString();
+                //deletebutton.Attributes.Add("onclick", "deleteStrat(event,this)");
+                //deletebutton.InnerText = "X";
 
-                cell1.Controls.Add(deletebutton);
+
+                //cell1.Controls.Add(deletebutton);
 
                 cell1.Controls.Add(new LiteralControl("<br />"));
 
@@ -111,27 +112,27 @@ namespace RocketRoadmap
 
                 cell1.Controls.Add(newtable);
 
-                //HtmlTableRow stratTableRow = new HtmlTableRow();
+                HtmlTableRow stratTableRow = new HtmlTableRow();
 
-                //stratTableRow.ID = "StratBox" + count.ToString() + "BusBox0Row";
+                stratTableRow.ID = "StratBox" + count.ToString() + "BusBox0Row";
 
-                //newtable.Rows.Add(stratTableRow);
+                newtable.Rows.Add(stratTableRow);
 
-                //HtmlTableCell stratCell = new HtmlTableCell();
+                HtmlTableCell stratCell = new HtmlTableCell();
 
-                //stratTableRow.Cells.Add(stratCell);
+                stratTableRow.Cells.Add(stratCell);
 
 
-                //HtmlInputText busVal = new HtmlInputText();
+                HtmlInputText busVal = new HtmlInputText();
 
-                //busVal.Attributes.Add("class", "txtBus");
-                //busVal.Attributes.Add("ProjTotal", "1");
-                //busVal.ID = "StratBox" + count.ToString() + "BusBox0";
-                //busVal.Attributes.Add("placeholder", "Add Business Value");
-                //busVal.Attributes.Add("runat", "server");
-                //busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
+                busVal.Attributes.Add("class", "txtBus");
+                busVal.Attributes.Add("ProjTotal", "1");
+                busVal.ID = "StratBox" + count.ToString() + "BusBox0";
+                busVal.Attributes.Add("placeholder", "Add Business Value");
+                busVal.Attributes.Add("runat", "server");
+                busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
 
-                //stratCell.Controls.Add(busVal);
+                stratCell.Controls.Add(busVal);
 
                 //HtmlButton busDelete = new HtmlButton();
                 //busDelete.Attributes.Add("class", "btnDelete");
@@ -141,16 +142,16 @@ namespace RocketRoadmap
 
                 //stratCell.Controls.Add(busDelete);
 
-                //HtmlInputText projText = new HtmlInputText();
+                HtmlInputText projText = new HtmlInputText();
 
-                //projText.Name = "DynmaicTextBox";
-                //projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
-                //projText.Attributes.Add("class", "txtProj");
-                //projText.Attributes.Add("placeholder", "Add Project");
-                //projText.Attributes.Add("runat", "server");
-                //projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
-                //stratCell.Controls.Add(projText);
-                //stratCell.Controls.Add(new LiteralControl("<br />"));
+                projText.Name = "DynmaicTextBox";
+                projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
+                projText.Attributes.Add("class", "txtProj");
+                projText.Attributes.Add("placeholder", "Add Project");
+                projText.Attributes.Add("runat", "server");
+                projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
+                stratCell.Controls.Add(projText);
+                stratCell.Controls.Add(new LiteralControl("<br />"));
 
                 lastRow.Cells.Add(cell1);
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
