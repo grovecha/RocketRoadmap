@@ -210,7 +210,7 @@ namespace RocketRoadmap
 
             Project newProj = new Project(id, name, valID, mapName);
 
-            val.AddProject(newProj);
+            val.CreateNewProject(newProj);
 
 
             //val.addProject(newProj);
