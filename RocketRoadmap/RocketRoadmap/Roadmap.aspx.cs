@@ -60,15 +60,15 @@ namespace RocketRoadmap
                     textbox = lasttext;
                 }
 
-<<<<<<< HEAD
+
                 //textbox.Value = p.GetDescription();
-=======
+
                 #endregion
 
 
                 #region Strategy Text Box Creation
                 textbox.Value = p.GetDescription();
->>>>>>> b109e5455ba460b8b52ea2ea3e863d91ca455be8
+
 
 
                 HtmlTableCell cell = new HtmlTableCell();
