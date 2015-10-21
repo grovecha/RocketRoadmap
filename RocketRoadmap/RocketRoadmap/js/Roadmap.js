@@ -388,6 +388,14 @@ function addProj(e, obj, i) {
 
         if (CurrentProjCount + 1 >= ProjTotal) {
 
+
+            var url = window.location.href;
+            var mapName = url.substr(url.indexOf('?') + 1);
+            mapName = mapName.substr(2, mapName.length);
+
+
+            PageMethods.AddProject(BusId.toString() + "ProjBox" + CurrentProjCount.toString(),document.getElementById(BusId.toString() + "ProjBox" + CurrentProjCount.toString()).value, mapName,StratId.toString(),BusId.toString() );
+
             //add 1 to ProjTotal
             document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);
 
