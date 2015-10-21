@@ -56,7 +56,7 @@
                     <table id ="StratBox0Table" >
                         <tr id="StratBox0BusBox0Row">
                          <td>
-                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0' Visible="false" type ='text'placeholder='Add Business Value' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
+                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0'  Visible="false" type ='text'placeholder='Add Business Value' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
                                     <div id="projDiv" visible="false" >
                                          <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
                                          </div> 

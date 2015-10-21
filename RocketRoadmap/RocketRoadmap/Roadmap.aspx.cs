@@ -17,21 +17,21 @@ namespace RocketRoadmap
         protected void Page_Load(object sender, EventArgs e)
         {
 
-                string url = Request.Url.AbsoluteUri;
-                int index = url.IndexOf("=");
-                string name = url.Substring(index + 1);
+            string url = Request.Url.AbsoluteUri;
+            int index = url.IndexOf("=");
+            string name = url.Substring(index + 1);
 
-                RoadMap roadmap = new RoadMap(name);
+            RoadMap roadmap = new RoadMap(name);
 
-                List<StrategyPoint> strats = roadmap.GetStrategyPoints();
+            List<StrategyPoint> strats = roadmap.GetStrategyPoints();
 
 
-                HtmlTable table = FindControl("roadmapTable") as HtmlTable;
+            HtmlTable table = FindControl("roadmapTable") as HtmlTable;
 
-                int count = 0;
-                HtmlInputText lasttext = new HtmlInputText();
+            int count = 0;
+            HtmlInputText lasttext = new HtmlInputText();
 
-                foreach (StrategyPoint p in strats)
+            foreach (StrategyPoint p in strats)
             {
 
                 #region Strategy Visual Creation
@@ -160,20 +160,114 @@ namespace RocketRoadmap
                 sideTable.Rows.Add(lastRow);
 
                 #endregion
+                int valcount = 0;
+
+                HtmlTable StratVisTable = new HtmlTable();
+                StratVisTable.ID = p.GetName() + "VisualTable";
+
+                HtmlInputText lastBusVal = new HtmlInputText();
+                foreach (BusinessValue b in p.GetBusinessValues())
+                {
+                    if(valcount==0)
+                    {
+                        HtmlTableCell sCell = new HtmlTableCell();
+                        sCell.Style.Add(HtmlTextWriterStyle.Width,"3000px");
+                        sCell.Style.Add(HtmlTextWriterStyle.BackgroundColor, "yellow");
+
+                        row.Cells.Add(sCell);
 
 
+                        sCell.Controls.Add(StratVisTable);
+
+                        HtmlTableRow visRow = new HtmlTableRow();
+
+                        visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
+                        StratVisTable.Rows.Add(visRow);
+
+                        HtmlTableCell bc1 = new HtmlTableCell();
+                        bc1.ID = b.GetName() + "td";
+                        bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
+
+                        visRow.Cells.Add(bc1);
+                        visRow.Cells.Add(new HtmlTableCell());
+                        visRow.Cells.Add(new HtmlTableCell());
+
+                        HtmlTableCell bc2 = new HtmlTableCell();
+
+                        bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
+                        bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
+
+                        bc2.InnerText = b.GetDescription();
+
+                        visRow.Cells.Add(bc2);
+
+
+                    }
+                    else {
+
+                        HtmlTableRow newPRow = new HtmlTableRow();
+                        StratVisTable.Rows.Add(newPRow);
+                        newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
+
+                         HtmlTableCell bc1 = new HtmlTableCell();
+                        bc1.ID = b.GetName() + "td";
+
+                        newPRow.Cells.Add(bc1);
+
+                        newPRow.Cells.Add(new HtmlTableCell());
+                        newPRow.Cells.Add(new HtmlTableCell());
+
+                        HtmlTableCell bc2 = new HtmlTableCell();
+
+                        bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
+                        bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
+
+                        bc2.InnerText = b.GetDescription();
+
+                        newPRow.Cells.Add(bc2);
+
+                        int h = valcount * 100 + 100;
+                        but.Style.Add(HtmlTextWriterStyle.Height, h.ToString()+"px");
+
+
+
+                    }
+
+                    HtmlInputText bustextbox;
+                    //if (count==1 && valcount==0)
+                    //{
+                    //    bustextbox = new HtmlInputText();
+                    //}
+                    //else if(valcount==0)
+                    //{
+                    //    bustextbox = busVal;
+                    //}
+                    //else
+                    //{
+                    //    bustextbox = lastBusVal;
+                    //}
+
+                    //bustextbox.Value = b.GetDescription();
+                    valcount++;
+
+
+
+
+
+                    //LoadBusVal(b, p,table);
+                }
 
 
             }
 
         }
 
-
+        #region Adding functions
 
         [WebMethod]
-        public static void AddStrat(string id, string name,string mapName)
+        public static void AddStrat(string id, string name, string mapName)
         {
-            
+
             RoadMap map = new RoadMap(mapName);
 
             int n = map.GetStrategyPoints().Count;
@@ -184,7 +278,7 @@ namespace RocketRoadmap
         }
 
         [WebMethod]
-        public static void AddBusVal(string id,string name,string mapName,string stratID)
+        public static void AddBusVal(string id, string name, string mapName, string stratID)
         {
             RoadMap map = new RoadMap(mapName);
 
@@ -195,12 +289,12 @@ namespace RocketRoadmap
             point.CreateBuisnessValue(id, name, mapName);
 
             //function to add to database
-            
 
-            
+
+
         }
         [WebMethod]
-        public static void AddProject(string id,string name,string mapName,string stratID,string valID)
+        public static void AddProject(string id, string name, string mapName, string stratID, string valID)
         {
             RoadMap map = new RoadMap(mapName);
 
@@ -215,6 +309,10 @@ namespace RocketRoadmap
 
             //val.addProject(newProj);
         }
+
+        #endregion
+
+        #region Modal Getters
         //Get Project Description
         [WebMethod]
         public static string GetProjectDescription(string ProjectID, string RoadmapName)
@@ -282,6 +380,9 @@ namespace RocketRoadmap
             return newproj.GetLinks();
         }
 
+        #endregion
+
+        #region Modal Setters
         [WebMethod]
         public static void SetProjectDescription(string ProjectID, string RoadmapName, string desc)
         {
@@ -310,7 +411,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(pro);
 
-            for(int i = 0; i < dep.Count(); i++)
+            for (int i = 0; i < dep.Count(); i++)
             {
                 string strdep = dep[i].ToString();
                 //newproj.CreateStrDependant(strdep);
@@ -330,7 +431,7 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(pro);
 
             for (int i = 0; i < dep.Count(); i++)
-            { 
+            {
                 newproj.CreateDependant(dep[i]);
             }
         }
@@ -349,7 +450,7 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(pro);
 
             newproj.CreateIssue(risk);
-            
+
         }
 
         //Setting Project Risk
@@ -369,45 +470,12 @@ namespace RocketRoadmap
 
         }
 
+        #endregion
 
-
-
-
-
-
-
-
-
-
-        public Control FindControlRecursive(Control control, string id)
-        {
-            if (control == null) return null;
-            //try to find the control at the current level
-            Control ctrl = control.FindControl(id);
-
-            if (ctrl == null)
-            {
-                //search the children
-                foreach (Control child in control.Controls)
-                {
-                    ctrl = FindControlRecursive(child, id);
-
-                    if (ctrl != null) break;
-                }
-            }
-            return ctrl;
-        }
     }
-
-
-
 
 }
 
 
 
-    public class Point
-    {
-        public string id { get; set; }
-        public string name { get; set; }
-    }
+
