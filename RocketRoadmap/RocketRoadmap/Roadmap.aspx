@@ -237,7 +237,7 @@
 
 <script>
     function showModal() {                        
-        $("#myModal").modal("show");
+        $("#inputModal").modal("show");
     }
 </script>
     <script>
@@ -286,11 +286,11 @@
 
                 if (select_count < max_fields) { //max input box allowed
                     select_count++; //text box increment
-                    $(dep_Select).append("<div> <select id='depenSelect'"+select_count+">" + options + "</select><a href='#' class='remove_field2'>X</a></div>"); //add input box
+                    $(dep_Select).append("<div> <select id='depenSelect'"+select_count+">" + options + "</select><a href='#' class='remove_field'>X</a></div>"); //add input box
                 }
             });
 
-            $(dep_Select).on("click", ".remove_field2", function (e) { //user click on remove text
+            $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove();
                 select_count--;
             })
@@ -301,11 +301,11 @@
                 e.preventDefault();
                 if (link_count < max_fields) { //max input box allowed
                     link_count++; //text box increment
-                    $(link_Text).append("<div><input type='text' size=60 id='linkText'"+link_count+"/><a href='#' class='remove_field3'>X</a></div>"); //add input box
+                    $(link_Text).append("<div><input type='text' size=60 id='linkText'"+link_count+"/><a href='#' class='remove_field'>X</a></div>"); //add input box
                 }
             });
 
-            $(wrapper).on("click", ".remove_field3", function (e) { //user click on remove text
+            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove();
                 link_count--;
             })
@@ -332,14 +332,14 @@
             ////Inserting boxes when reloading the modal depending on the project it will be connected to 
             $('#inputModal').on('show.bs.modal', function (e) {
                 
-                var i, max = 5;
-                for (i = 1; i < max; i++) {
-                    $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
-                }
+           //    var i, max = 5;
+           //    for (i = 1; i < max; i++) {
+           //         $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+           //     }
 
-                for (i = 2; i < max; i++) {
-                     $(dep_Select).append('<div> <select id="depenSelect"></select><a href="#" class="remove_field">X</a></div>'); //add input box
-                }
+           //     for (i = 2; i < max; i++) {
+           //          $(dep_Select).append('<div> <select id="depenSelect"></select><a href="#" class="remove_field">X</a></div>'); //add input box
+           //     }
             })
 
 
