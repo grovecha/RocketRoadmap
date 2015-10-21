@@ -30,7 +30,7 @@ namespace RocketRoadmap.DB
                 mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName, mRoadmapName));
             }
             mReader.Close();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "'");
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "' AND RoadmapName='"+rname+"'");
             if (mReader.HasRows)
             {
                 mReader.Read();

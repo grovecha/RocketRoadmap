@@ -17,7 +17,7 @@ namespace RocketRoadmap.DB
 
             //Get the StrategyPoints
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE StrategyPointName = '" + mName + "' AND RoadmapName ='" + rname + "'");
+            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName = '" + rname + "' AND StrategyPointName ='" + mName + "'");
             while (mReader.Read())
             {
                 string temp = mReader.GetString(0);
