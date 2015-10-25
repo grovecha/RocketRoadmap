@@ -15,6 +15,7 @@ namespace RocketRoadmap.DB
         private string mBusinessValue;
         private string mRoadmapName;
 
+        private List<string> mDependantString = new List<string>();
         private List<Issue> mIssues = new List<Issue>();
         private List<Link> mLinks = new List<Link>();
         private List<Project> mDependencies = new List<Project>();
@@ -64,6 +65,13 @@ namespace RocketRoadmap.DB
             mReader.Close();
             mDatabase.close();
 
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            while (mReader.Read())
+            {
+                mDependantString.Add(mReader.GetString(0).ToString());
+            }
+            mReader.Close();
+
         }
 
         #region Getter's and Setters
@@ -96,6 +104,24 @@ namespace RocketRoadmap.DB
             mStartDate = startdate;
             return flag;
         }
+
+        public bool UpdateDependantStrings(List<string> Dependants)
+        {
+
+                mDatabase.connect();
+                bool flag = mDatabase.executewrite("DELETE FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+
+                foreach (string element in Dependants)
+                {
+                     flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName) VALUES ( '" + mName + "','" + element + "','" + mRoadmapName + "')");
+                }
+
+
+            mDatabase.close();
+            return flag;
+
+        }
+
         public DateTime GetStartDate() {
             return mStartDate;
         }
