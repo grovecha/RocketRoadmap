@@ -424,7 +424,8 @@ function addProj(e, obj, i) {
             element1.style.verticalAlign = "top";
 
 
-            element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
+            element1.setAttribute("class", "proj" + String(CurrentProjCount + 1));
+            element1.setAttribute("onclick", "showModal()");
 
             var cell = document.getElementById(BusId + "td");
             cell.appendChild(element1);
