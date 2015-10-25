@@ -56,7 +56,7 @@
                     <table id ="StratBox0Table" >
                         <tr id="StratBox0BusBox0Row">
                          <td>
-                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0' Visible="false" type ='text'placeholder='Add Business Value' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
+                           <input  class ='txtBus' ProjTotal=1 id ='StratBox0BusBox0'  Visible="false" type ='text'placeholder='Add Business Value' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
                                     <div id="projDiv" visible="false" >
                                          <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
                                          </div> 
@@ -183,7 +183,11 @@
 </script>
 
 <script>
+<<<<<<< HEAD
     function showModal( ) {                        
+=======
+    function showModal() {                        
+>>>>>>> d71d48ab238acb874f9263e88dd08fde9328fbd8
         $("#inputModal").modal("show");
     }
     var button_id;
@@ -241,6 +245,7 @@
                 options += "<option value='" + nselect_arr[options_x].val + ">" + nselect_arr[options_x].val + "</option>";
             }
 
+<<<<<<< HEAD
             if (select_count < max_fields) { //max input box allowed
                 select_count++; //text box increment
                 $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>"); //add input box
@@ -267,22 +272,50 @@
             link_count--;
         })
 
+=======
+                if (select_count < max_fields) { //max input box allowed
+                    select_count++; //text box increment
+                    $(dep_Select).append("<div> <select id='depenSelect'"+select_count+">" + options + "</select><a href='#' class='remove_field'>X</a></div>"); //add input box
+                }
+            });
+
+            $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove();
+                select_count--;
+            })
+>>>>>>> d71d48ab238acb874f9263e88dd08fde9328fbd8
 
         $(save).click(function (e) {
             //Taking the value of the description
             //var description_val = document.getElementById("descText").value.toString();
             //PageMethods.SetProjectDescription("Need project name", "need roadmap name", description_val);
 
+<<<<<<< HEAD
             //Taking the string dependecy- in a list of string??
             $('input[name=dep_input]').each(function () {
                 if ($(this).val() != null) {
                     //test_count++;
                     dep_arr.push($(this).val());
+=======
+            //Links Addition Functions
+            $(add_Link).click(function (e) { //on add input button click
+                e.preventDefault();
+                if (link_count < max_fields) { //max input box allowed
+                    link_count++; //text box increment
+                    $(link_Text).append("<div><input type='text' size=60 id='linkText'"+link_count+"/><a href='#' class='remove_field'>X</a></div>"); //add input box
+>>>>>>> d71d48ab238acb874f9263e88dd08fde9328fbd8
                 }
 
             });
 
+<<<<<<< HEAD
             //PageMethods.SetProjectStrDependency("Need project name", "need roadmap name",dep_arr[]);
+=======
+            $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove();
+                link_count--;
+            })
+>>>>>>> d71d48ab238acb874f9263e88dd08fde9328fbd8
 
             //Select Dependecy value
             $('input[name=select_input]').each(function () {
@@ -406,6 +439,7 @@
                 $(this).remove();
             });
 
+<<<<<<< HEAD
             //remove risk text
             $('#riskText').val('');
 
@@ -414,6 +448,20 @@
                 $(this).remove();
             });
         });
+=======
+            ////Inserting boxes when reloading the modal depending on the project it will be connected to 
+            $('#inputModal').on('show.bs.modal', function (e) {
+                
+           //    var i, max = 5;
+           //    for (i = 1; i < max; i++) {
+           //         $(dep_Text).append('<div><input type="text" size=60/><a href="#" class="remove_field">X</a></div>'); //add input box
+           //     }
+
+           //     for (i = 2; i < max; i++) {
+           //          $(dep_Select).append('<div> <select id="depenSelect"></select><a href="#" class="remove_field">X</a></div>'); //add input box
+           //     }
+            })
+>>>>>>> d71d48ab238acb874f9263e88dd08fde9328fbd8
 
 
     });

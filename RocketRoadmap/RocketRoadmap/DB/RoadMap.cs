@@ -44,7 +44,7 @@ namespace RocketRoadmap.DB
             mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "'");
             while (mReader.Read())
             {
-                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), "Test");
+                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), name);
                 mStrategyPoints.Add(sp);
             }
             mDatabase.close();
@@ -114,10 +114,11 @@ namespace RocketRoadmap.DB
         {
             mStrategyPoints.Add(point);
 
-                        mDatabase.connect();
+            mDatabase.connect();
 
-                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
-                mDatabase.close();
+            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
+
+            mDatabase.close();
 
             return flag;
 

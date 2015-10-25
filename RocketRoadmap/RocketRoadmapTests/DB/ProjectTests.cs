@@ -99,5 +99,13 @@ namespace RocketRoadmap.DB.Tests
 
             Assert.IsTrue(proj.GetBusinessValue()=="test");
         }
+        [TestMethod()]
+        public void AddProjTest()
+        {
+            BusinessValue test = new BusinessValue("test", "Test");
+            Project proj = new Project("Tested25", "test", "test", "Test");
+            test.AddProject(proj);
+
+        }
     }
 }

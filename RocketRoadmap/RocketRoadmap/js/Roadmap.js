@@ -124,7 +124,7 @@ function addStrat(e, obj, i) {
         var mapName = url.substr(url.indexOf('?') + 1);
         mapName = mapName.substr(2, mapName.length);
         
-        PageMethods.AddStrat("StratBut"+PreviousStratNum.toString(),document.getElementById("StratBox" + PreviousStratNum.toString()).value,mapName)
+        PageMethods.AddStrat("StratBox"+PreviousStratNum.toString(),document.getElementById("StratBox" + PreviousStratNum.toString()).value,mapName)
 
         StratBoxCounter++;
         var table = document.getElementById("roadmapTable");
@@ -196,6 +196,7 @@ function addStrat(e, obj, i) {
 }
 
 function addBus(e, obj, i) {
+
     // add Business Value / Change Business Value text
     //if (e.keyCode == 0) {
     //    StratId = obj.id.split("BusBox")[0];
@@ -240,6 +241,7 @@ function addBus(e, obj, i) {
     }
         //add business value and project
     else if (e.keyCode === 13) {
+
         CurrentBusCount = parseInt(obj.id.split("BusBox")[1].split('ProjBox')[0]);
         StratId = obj.id.split("BusBox")[0];
         BusTotal = parseInt(document.getElementById(StratId).getAttribute("BusTotal"));
@@ -250,8 +252,14 @@ function addBus(e, obj, i) {
         //BusTotal = obj.id.split("BusBox")[1].split("BusTotal")[1];
         //if (CurrentBusCount >= BusTotal) {
 
+        var url = window.location.href;
+        var mapName = url.substr(url.indexOf('?') + 1);
+        mapName = mapName.substr(2, mapName.length);
+
         //add 1 to current business count
         CurrentBusId = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal);
+        var PrevBusID = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal-1);
+        PageMethods.AddBusVal(PrevBusID,document.getElementById(PrevBusID).value,mapName,StratId);
 
         var mainDiv = document.getElementById(StratId + "Table");
         var RowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
@@ -380,6 +388,14 @@ function addProj(e, obj, i) {
 
         if (CurrentProjCount + 1 >= ProjTotal) {
 
+
+            var url = window.location.href;
+            var mapName = url.substr(url.indexOf('?') + 1);
+            mapName = mapName.substr(2, mapName.length);
+
+
+            PageMethods.AddProject(BusId.toString() + "ProjBox" + CurrentProjCount.toString(),document.getElementById(BusId.toString() + "ProjBox" + CurrentProjCount.toString()).value, mapName.toString(),StratId.toString(),BusId.toString() );
+
             //add 1 to ProjTotal
             document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);
 
@@ -422,6 +438,7 @@ function addProj(e, obj, i) {
             element1.style.height = "33px";
             element1.style.width = "150px";
             element1.style.verticalAlign = "top";
+            element1.setAttribute("onclick", "showModal()");
 
 
             element1.setAttribute("class", "proj" + String(CurrentProjCount + 1));

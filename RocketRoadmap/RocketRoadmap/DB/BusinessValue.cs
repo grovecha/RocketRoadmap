@@ -30,7 +30,7 @@ namespace RocketRoadmap.DB
                 mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName, mRoadmapName));
             }
             mReader.Close();
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "'");
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + mName + "' AND RoadmapName='"+rname+"'");
             if (mReader.HasRows)
             {
                 mReader.Read();
@@ -75,7 +75,7 @@ namespace RocketRoadmap.DB
         public List<Project> GetProjects() { return mProjects; }
         #endregion
 
-        public Project GetProject(string id)
+        public Project GetProject(string id )
         {
             foreach (Project p in mProjects)
             {
@@ -94,7 +94,7 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             try
             {
-                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Project] (Name,Description, BusinessValueName, RoadmapName) VALUES ('" + proj.GetName() + "', '" + proj.GetDescription() + "','" + proj.GetBusinessValue() + "'," + mRoadmapName + "')");
+                bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName) VALUES ('" + proj.GetName() + "', '" + proj.GetDescription() + "','" + proj.GetBusinessValue() + "','" + mRoadmapName + "')");
                 mDatabase.close();
                 return flag;
             }
