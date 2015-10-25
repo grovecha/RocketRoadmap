@@ -312,13 +312,13 @@
 
 
             $(save).click(function (e) {
-                //Taking the value of the description
-                var description_val = document.getElementById("descText").value.toString();
-                PageMethods.SetProjectDescription(description_val);
+                ////Taking the value of the description
+                //var description_val = document.getElementById("descText").value.toString();
+                //PageMethods.SetProjectDescription(description_val);
 
-                //Taking the string dependecy
-                var x=0;
-                for (x = 0; x < dep_count; x++) {
+                ////Taking the string dependecy
+                //var x=0;
+                //for (x = 0; x < dep_count; x++) {
 
                 }
 
