@@ -123,8 +123,8 @@ namespace RocketRoadmap.DB
             {
                 mReader.Read();
                 nextdesc = mReader.GetString(0);
+                mReader.Close();
             }
-            mReader.Close();
             mDatabase.close();
 
 
@@ -137,6 +137,7 @@ namespace RocketRoadmap.DB
                 nextdummy.SetName(nextID);
                 ReorderBusinessValue(nextID, nextdesc, false);
             }
+            mDatabase.close();
         }
 
         public void ReloadBusinessValues()
@@ -150,6 +151,7 @@ namespace RocketRoadmap.DB
                 BusinessValue bv = new BusinessValue(mReader.GetString(0), mRoadmapName);
                 mValues.Add(bv);
             }
+            mReader.Close();
             mDatabase.close();
 
             foreach(BusinessValue bv in mValues){
