@@ -180,8 +180,6 @@ namespace RocketRoadmap.DB
                 nextdummy.EditName(nextID);
                 ReOrderStrategyPoint(nextID, nextdesc, false);
             }
-            
-
         }
 
         public void ReloadStrategyPoints()

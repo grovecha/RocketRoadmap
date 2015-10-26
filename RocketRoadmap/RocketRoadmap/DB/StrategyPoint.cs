@@ -25,6 +25,19 @@ namespace RocketRoadmap.DB
                 mValues.Add(bv);
             }
             mDatabase.close();
+
+            foreach (BusinessValue bv in mValues)
+            {
+                mDatabase.connect();
+                mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + bv.GetName() + "' AND RoadmapName='" + mRoadmapName + "'");
+                if (mReader.HasRows)
+                {
+                    mReader.Read();
+                    bv.SetDescription(mReader.GetString(0).ToString());
+                    mReader.Close();
+                }
+            }
+            mDatabase.close();
         }
 
         public string GetName() { return mName; }
@@ -82,6 +95,9 @@ namespace RocketRoadmap.DB
                 bool flag = mDatabase.executewrite("INSERT INTO [dbo].[BusinessValue] (Name, Description, RoadmapName) VALUES ('" + name + "', '" + desc+ "','" + rname + "')");
                 flag = mDatabase.executewrite("INSERT INTO [dbo].[SP_BV_Crosswalk] (StrategyPointName, BusinessValueName, RoadmapName) VALUES ('" + mName + "','" + name + "','" + rname + "')");
                 mDatabase.close();
+                BusinessValue bis = new BusinessValue(name, rname);
+                bis.SetDescription(desc);
+                mValues.Add(bis);
                 return flag;
             }
             catch (Exception ex)
@@ -90,6 +106,65 @@ namespace RocketRoadmap.DB
             }
         }
 
+        public void ReorderBusinessValue(string currname, string desc, bool isFirst)
+        {
+            BusinessValue current = new BusinessValue(currname, mRoadmapName);
+            current.SetDescription(desc);
+            int index = (int)Char.GetNumericValue(currname[15]) + 1;
+            string nextID = currname.Substring(0,15) + index.ToString();
+            string nextdesc = null;
+
+            string selectname = null;
+            if (isFirst) selectname = currname;
+            else selectname = nextID;
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + selectname + "' AND RoadmapName='" + mRoadmapName + "'");
+            if (mReader.HasRows)
+            {
+                mReader.Read();
+                nextdesc = mReader.GetString(0);
+            }
+            mReader.Close();
+            mDatabase.close();
+
+
+            BusinessValue next = new BusinessValue(nextID, mRoadmapName);
+            next.SetDescription(nextdesc);
+            BusinessValue nextdummy = new BusinessValue(currname, mRoadmapName);
+            nextdummy.SetDescription(nextdesc);
+            if (nextdesc != null)
+            {
+                nextdummy.SetName(nextID);
+                ReorderBusinessValue(nextID, nextdesc, false);
+            }
+        }
+
+        public void ReloadBusinessValues()
+        {
+            mValues = new List<BusinessValue>();
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName = '" + mRoadmapName + "' AND StrategyPointName ='" + mName + "'");
+            while (mReader.Read())
+            {
+                string temp = mReader.GetString(0);
+                BusinessValue bv = new BusinessValue(mReader.GetString(0), mRoadmapName);
+                mValues.Add(bv);
+            }
+            mDatabase.close();
+
+            foreach(BusinessValue bv in mValues){
+                mDatabase.connect();
+                mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + bv.GetName() + "' AND RoadmapName='" + mRoadmapName + "'");
+                if (mReader.HasRows)
+                {
+                    mReader.Read();
+                    bv.SetDescription(mReader.GetString(0).ToString());
+                    mReader.Close();
+                }
+            }
+            mDatabase.close();
+
+        }
         private string mName;
         private string mDescription;
         private string mRoadmapName;
