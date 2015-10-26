@@ -108,8 +108,8 @@ namespace RocketRoadmap.DB.Tests
             StrategyPoint strat3 = new StrategyPoint("StratBox2", "third", "stratboxtest");
             newroadmap.ReOrderStrategyPoint("StratBox2", "third", true);
             newroadmap.AddStrategyPoint(strat3);
+            newroadmap.ReloadStrategyPoints();
             List<StrategyPoint> list = newroadmap.GetStrategyPoints();
-            list = list.OrderByDescending(x => x.GetName()[8]).ToList();
             Assert.IsTrue(list.Last().GetName() == "StratBox3");
             maps.DeleteRoadMap("stratboxtest");
         }

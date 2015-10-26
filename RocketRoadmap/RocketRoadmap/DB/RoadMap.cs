@@ -41,7 +41,7 @@ namespace RocketRoadmap.DB
 
             //Get the StrategyPoints
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "' ORDER BY NAME DESC");
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "' ORDER BY NAME ASC");
             while (mReader.Read())
             {
                 StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), name);
@@ -182,6 +182,19 @@ namespace RocketRoadmap.DB
             }
             
 
+        }
+
+        public void ReloadStrategyPoints()
+        {
+            mStrategyPoints = new List<StrategyPoint>();
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + mName + "' ORDER BY NAME ASC");
+            while (mReader.Read())
+            {
+                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), mName);
+                mStrategyPoints.Add(sp);
+            }
+            mDatabase.close();
         }
 
         //Getters if needed
