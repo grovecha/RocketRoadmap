@@ -320,6 +320,23 @@ namespace RocketRoadmap
         #endregion
 
         #region Modal Getters
+        //Get Project Name
+        [WebMethod]
+        public static string GetProjectName(string ProjectID, string RoadmapName)
+        {
+            int pointindex = ProjectID.IndexOf("Bus");
+            int valindex = ProjectID.IndexOf("Proj");
+            string point = ProjectID.Substring(0, pointindex);
+            string val = ProjectID.Substring(0, valindex);
+            RoadMap map = new RoadMap(RoadmapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(val);
+            Project newproj = newval.GetProject(ProjectID);
+
+            return newproj.GetDescription();
+        }
+
+
         //Get Project Description
         [WebMethod]
         public static string GetProjectDescription(string ProjectID, string RoadmapName)
@@ -328,33 +345,33 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
 
             return newproj.GetDescription();
+
         }
 
         //Get String Dependecies
         [WebMethod]
         public static List<string> GetProjectDependencyText(string ProjectID, string RoadmapName)
         {
-            List<string> Project_Names = new List<string>();
+            List<string> Dep_Names = new List<string>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
-            
+            Project newproj = newval.GetProject(ProjectID);
+            //Project_Names = newproj.GetStrDependencies();
 
-            return Project_Names;
+
+            return Dep_Names;
         }
         
         //Get Project Depencies
@@ -362,6 +379,7 @@ namespace RocketRoadmap
         public static List<string> GetProjectDependency(string ProjectID, string RoadmapName)
         {
             List<string> Project_Names = new List<string>();
+            List<Project> Project_List = new List<Project>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -371,7 +389,14 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(pro);
+            Project_List = newproj.GetDependencies();
+            int count = 0;
 
+            foreach (Project p in Project_List)
+            {
+                Project_Names[count] = p.GetName();
+                count++;
+            }
 
             return Project_Names;
         }
@@ -397,9 +422,10 @@ namespace RocketRoadmap
 
         //Get Project Links
         [WebMethod]
-        public static List<Link> GetProjectLinks(string ProjectID, string RoadmapName)
+        public static List<string> GetProjectLinks(string ProjectID, string RoadmapName)
         {
             List<string> Project_Links = new List<string>();
+            List<Link> link_list = new List<Link>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -409,17 +435,23 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(pro);
+            link_list =  newproj.GetLinks();
+            int count = 0;
 
-            return newproj.GetLinks();
+            foreach(Link l in link_list){
+                Project_Links[count] = l.GetLink().ToString();
+                count++;
+            }
+            return Project_Links;
         }
 
-<<<<<<< HEAD
+
         //Set Project Description
-=======
+
         #endregion
 
         #region Modal Setters
->>>>>>> d71d48ab238acb874f9263e88dd08fde9328fbd8
+
         [WebMethod]
         public static void SetProjectDescription(string ProjectID, string RoadmapName, string desc)
         {
@@ -439,6 +471,8 @@ namespace RocketRoadmap
         //Set String Dependency
         public static void SetProjectStrDependency(string ProjectID, string RoadmapName, List<string> dep)
         {
+            List<string> Dep_Names = new List<string>();
+
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -448,15 +482,33 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(pro);
+            //Dep_Names = newproj.GetStrDependencies();
 
-            for (int i = 0; i < dep.Count(); i++)
+            foreach (string s in dep)
             {
-                string strdep = dep[i].ToString();
-                //newproj.CreateStrDependant(strdep);
+                if (!Dep_Names.Contains(s))
+                {
+                    Dep_Names.Add(s);
+                }
             }
+
+            foreach (string s in Dep_Names)
+            {
+                if (!dep.Contains(s))
+                {
+                    Dep_Names.Remove(s);
+                }
+            }
+
+            //newproj.SetProjectStrDependency();
+
+
         }
+            
+                //newproj.CreateStrDependant(strdep);
+           
         //Set Project Dependency 
-        public static void SetProjectDependency(string ProjectID, string RoadmapName, List<Project> dep)
+        public static void SetProjectDependency(string ProjectID, string RoadmapName, List<string> dep)
         {
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
@@ -470,12 +522,12 @@ namespace RocketRoadmap
 
             for (int i = 0; i < dep.Count(); i++)
             {
-                newproj.CreateDependant(dep[i]);
+               // newproj.CreateDependant(dep[i]);
             }
         }
 
         //Set Project Risk
-        public static void SetProjectRisk(string ProjectID, string RoadmapName, Issue risk)
+        public static void SetProjectRisk(string ProjectID, string RoadmapName, string risk)
         {
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
@@ -487,13 +539,15 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(pro);
 
-            newproj.CreateIssue(risk);
+            //newproj.SetRisk(risk);
 
         }
 
         //Set Project Link
-        public static void SetProjectLink(string ProjectID, string RoadmapName, Link link)
+        public static void SetProjectLink(string ProjectID, string RoadmapName, List<string> link)
         {
+            List<Link> link_list = new List<Link>();
+            List<string> linkstr_list = new List<string>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -503,8 +557,25 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(pro);
+            linkstr_list = GetProjectLinks(ProjectID, RoadmapName);
 
-            newproj.CreateLink(link);
+            //need to take the list and check for new ones and create links
+            //foreach (string l  in link)
+            //{
+            //    if (!linkstr_list.Contains(l))
+            //    {
+
+            //        Dep_Names.Add(l);
+            //    }
+            //}
+
+            //foreach (string s in Dep_Names)
+            //{
+            //    if (!dep.Contains(s))
+            //    {
+            //        Dep_Names.Remove(s);
+            //    }
+            //}
 
         }
 
