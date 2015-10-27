@@ -445,6 +445,7 @@ namespace RocketRoadmap
             return Project_Links;
         }
 
+<<<<<<< HEAD
 
         //Set Project Description
 
@@ -452,6 +453,12 @@ namespace RocketRoadmap
 
         #region Modal Setters
 
+=======
+        //Set Project Description
+        #endregion
+
+        #region Modal Setters
+>>>>>>> b0b2116023d738625d034b5ec6c39d418c4650f0
         [WebMethod]
         public static void SetProjectDescription(string ProjectID, string RoadmapName, string desc)
         {

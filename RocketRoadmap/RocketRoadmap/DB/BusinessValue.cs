@@ -35,6 +35,8 @@ namespace RocketRoadmap.DB
             {
                 mReader.Read();
                 mDescription = mReader.GetString(0).ToString();
+                mReader.Close();
+
             }
             mDatabase.close();
 

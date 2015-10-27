@@ -91,5 +91,27 @@ namespace RocketRoadmap.DB.Tests
             
         }
 
+        [TestMethod()]
+        public void ReOrderTest()
+        {
+            RoadMaps maps = new RoadMaps();
+            maps.CreateRoadMap("stratboxtest", "test123", "test");
+            RoadMap newroadmap = new RoadMap("stratboxtest");
+            StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "stratboxtest");
+            StrategyPoint strat2 = new StrategyPoint("StratBox1", "second", "stratboxtest");
+            StrategyPoint strat4 = new StrategyPoint("StratBox2", "fourth", "stratboxtest");
+
+            newroadmap.AddStrategyPoint(strat1);
+            newroadmap.AddStrategyPoint(strat2);
+            newroadmap.AddStrategyPoint(strat4);
+
+            StrategyPoint strat3 = new StrategyPoint("StratBox2", "third", "stratboxtest");
+            newroadmap.ReOrderStrategyPoint("StratBox2", "third", true);
+            newroadmap.AddStrategyPoint(strat3);
+            newroadmap.ReloadStrategyPoints();
+            List<StrategyPoint> list = newroadmap.GetStrategyPoints();
+            Assert.IsTrue(list.Last().GetName() == "StratBox3");
+            maps.DeleteRoadMap("stratboxtest");
+        }
         }
 }

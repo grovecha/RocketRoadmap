@@ -54,6 +54,29 @@ namespace RocketRoadmap.DB.Tests
 
         }
 
+                [TestMethod()]
+        public void ReOrderTest()
+        {
+            RoadMaps maps = new RoadMaps();
+            maps.CreateRoadMap("busboxtest", "test123", "test");
+            RoadMap newroadmap = new RoadMap("busboxtest");
+            StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "busboxtest");
 
+            newroadmap.AddStrategyPoint(strat1);
+
+            BusinessValue bis1 = new BusinessValue("StratBox0BusBox0","busboxtest");
+            BusinessValue bis2 = new BusinessValue("StratBox0BusBox1","busboxtest");
+            BusinessValue bis3 = new BusinessValue("StratBox0BusBox2","busboxtest");
+
+            strat1.CreateBuisnessValue("StratBox0BusBox0","first","busboxtest");
+            strat1.CreateBuisnessValue("StratBox0BusBox1","second","busboxtest");
+            strat1.CreateBuisnessValue("StratBox0BusBox2","fourth","busboxtest");
+
+            strat1.ReorderBusinessValue("StratBox0BusBox2","third",true);
+            strat1.ReloadBusinessValues();
+            List<BusinessValue> list = strat1.GetBusinessValues();
+            Assert.IsTrue(list.Last().GetName() == "StratBox0BusBox3");
+            maps.DeleteRoadMap("busboxtest");
         }
-}
+        }
+        }
