@@ -65,6 +65,7 @@ namespace RocketRoadmap.DB
             mReader.Close();
             mDatabase.close();
 
+            
             mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
             while (mReader.Read())
             {

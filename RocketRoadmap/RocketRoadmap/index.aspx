@@ -23,7 +23,7 @@
         <input type="text" id="username_ID" placeholder="Username" runat="server" data-icon="U"> <!-- to make required required title="Password required" -->
         <input type="password" id="password_ID"  placeholder="Password" runat="server" data-icon="x">
 
-        <input type="submit" class="submit" runat="server">Submit</a>
+        <input type="submit" class="submit" runat="server"></a>
     </form>
 </section>
 
