@@ -18,7 +18,7 @@ namespace RocketRoadmap
         protected void Page_Load(object sender, EventArgs e)
         {
             mUser = new DB.User((string)ViewState["username"], (string)ViewState["password"]);
-            loginlabel.Text = "Logged in as: " + mUser.GetUserName();
+            //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.Text = mUser.GetUserName() + "'s ROADMAPS";
             if (true)
             {
@@ -32,7 +32,7 @@ namespace RocketRoadmap
                     if (flag)
                     {
                         mUser = new DB.User((string)ViewState["username"], (string)ViewState["password"]);
-                        loginlabel.Text = "Logged in as: " + user.GetUserName();
+                        //loginlabel.Text = "Logged in as: " + user.GetUserName();
                         name.Text = user.GetUserName() + "'s ROADMAPS";
                     }
                     else

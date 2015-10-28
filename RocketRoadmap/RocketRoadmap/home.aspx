@@ -62,12 +62,6 @@
                 <li>
                     <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
                 </li>
-                <li>
-                    <a><asp:Label ID="loginlabel" runat="server"></asp:Label></a>
-                </li>
-                <li>
-                    <a href="datapulltest.aspx?n=Test">Data Pull Test</a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
