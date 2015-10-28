@@ -36,7 +36,9 @@
 
 <body>
     <form id="form1" runat="server">
-                            <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
+<input type =hidden name ="__EVENTTARGET" value ="">
+<input type =hidden name ="__EVENTARGUMENT" value ="">
+                                    <asp:ScriptManager runat="server" EnablePageMethods="true"></asp:ScriptManager>
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -102,8 +104,7 @@
 <header>
     <asp:Label ID="name" runat="server"></asp:Label>
 </header>
-
-<asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
+    <asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
 </asp:Table>
 <header>
     ALL ROADMAPS
