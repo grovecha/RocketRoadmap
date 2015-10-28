@@ -117,7 +117,6 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <button type="button" class="btn" id="test" data-toggle="modal" onclick="showModal(this.id)">Test Modal</button>
 
                 </div>
                 <br />
@@ -420,32 +419,27 @@
             var desc_Value = "";
             var risk_Value = "";
 
-            alert("Show " + button_id +  " show " + map_Name);
+            //alert("Show " + button_id +  " show " + map_Name);
 
 
             //Add Modal Title
-            //var data = '{"ProjectID":' + button_id + ',"RoadmapName":' + map_Name + '}';
-            //var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
-            //$.ajax({
-            //    type: "GET",
-            //    async: false,
-            //    url: "Roadmap.aspx/GetProjectName",
-            //    data: pr,
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    success: function (response) {
-            //        console.log(response)
-            //    },
-            //    error: function (xhr) {
-            //        console.log("Nothing")
-            //    },
-            //    always: function (e) {
-            //        console.log("Always")
-            //    }
-            //});
+            $.ajax({
+                type: "GET",
+                async: false,
+                url: "Roadmap.aspx/GetProjectName",
+                data: JSON.stringify({ProjectID: button_id, RoadmapName: map_Name}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (title_Value) {
+                    $('#input_title').html(title_Value)
+                },
+                error: function (xhr) {
+                    console.log("Nothing")
+                }
+            });
 
-                title_Value = PageMethods.GetDescription(button_id, map_Name);
-                $('#input_title').html(title_Value);
+                //title_Value = PageMethods.GetProjectName(button_id, map_Name);
+                //;
 
                 ////adding the text to the description
                 //desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);

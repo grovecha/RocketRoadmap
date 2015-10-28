@@ -357,7 +357,7 @@ namespace RocketRoadmap
 
         #region Modal Getters
         //Get Project Name
-        [WebMethod (EnableSession=false)]
+        [WebMethod]
         public static string GetProjectName(string ProjectID, string RoadmapName)
         {
             int pointindex = ProjectID.IndexOf("Bus");
