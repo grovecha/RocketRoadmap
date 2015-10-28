@@ -67,7 +67,7 @@ namespace RocketRoadmap.DB
         public bool SetName(string name)
         {
             mDatabase.connect();
-            bool flag1 = mDatabase.executewrite("UPDATE [dbo].[SP_BV_Crosswalk] SET BusinessValueName='" + name + "' WHERE BusinessValueName='" + mName + "'");
+            bool flag1 = mDatabase.executewrite("UPDATE [dbo].[SP_BV_Crosswalk] SET BusinessValueName='" + name + "' WHERE BusinessValueName='" + mName + "' AND RoadmapName='"+mRoadmapName+"'");
             bool flag = mDatabase.executewrite("UPDATE [dbo].[BusinessValue] SET Name='" + name + "' WHERE Name='" + mName + "'AND RoadmapName ='" + mRoadmapName + "'");
             mName = name;
             mDatabase.close();

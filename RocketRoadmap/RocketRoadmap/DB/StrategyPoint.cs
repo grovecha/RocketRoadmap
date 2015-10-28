@@ -106,6 +106,30 @@ namespace RocketRoadmap.DB
             }
         }
 
+        public void DeleteBusinessValue(string name)
+        {
+            foreach (BusinessValue bv in mValues.ToList())
+            {
+                if (bv.GetName() == name) mValues.Remove(bv);
+            }
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE FROM [dbo].[BusinessValue] WHERE Name='" + name + "' AND RoadmapName='" + mRoadmapName + "'");
+            bool flag3 = mDatabase.executewrite("DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE BusinessValueName='" + name + "' AND StrategyPointName='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            mDatabase.close();
+
+            int index = (int)Char.GetNumericValue(name[15]);
+
+            foreach (BusinessValue bv in mValues.ToList())
+            {
+                if ((int)Char.GetNumericValue(bv.GetName()[15]) > index)
+                {
+                    int newindex = (int)Char.GetNumericValue(bv.GetName()[15]) - 1;
+                    string newname = bv.GetName().Substring(0, 15) + newindex.ToString();
+                    bv.SetName(newname);
+                }
+            }
+        }
+
         public void ReorderBusinessValue(string currname, string desc, bool isFirst)
         {
             BusinessValue current = new BusinessValue(currname, mRoadmapName);
