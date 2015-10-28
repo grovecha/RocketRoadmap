@@ -320,6 +320,15 @@ namespace RocketRoadmap
 
         }
 
+
+
+        [WebMethod]
+        public static void EditStrat(string id, string name, string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+            map.GetPoint(id).EditDescription(name);
+        }
+
         [WebMethod]
         public static void AddBusVal(string id, string name, string mapName, string stratID)
         {
@@ -328,14 +337,22 @@ namespace RocketRoadmap
             StrategyPoint point = map.GetPoint(stratID);
 
             BusinessValue newBusVal = new BusinessValue(id, mapName);
-
             point.CreateBuisnessValue(id, name, mapName);
 
             //function to add to database
-
-
-
         }
+
+        [WebMethod]
+        public static void EditBusVal(string id, string name, string mapName, string stratID)
+        {
+            int pointindex = id.IndexOf("Bus");
+            string point = id.Substring(0, pointindex);
+            RoadMap map = new RoadMap(mapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(id);
+            newval.SetDescription(name);
+        }
+
         [WebMethod]
         public static void AddProject(string id, string name, string mapName, string stratID, string valID)
         {
@@ -351,6 +368,29 @@ namespace RocketRoadmap
 
 
             //val.addProject(newProj);
+        }
+
+        [WebMethod]
+        public static void EditProject(string id, string name, string mapName, string stratID, string valID)
+        {
+            int pointindex = id.IndexOf("Bus");
+            int valindex = id.IndexOf("Proj");
+            string point = id.Substring(0, pointindex);
+            //string val = id.Substring(pointindex, valindex);
+            //string pro = id.Substring(valindex, -1);
+            RoadMap map = new RoadMap(mapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(valID);
+            Project newproj = newval.GetProject(id);
+            newproj.SetDescription(name);
+        }
+
+        [WebMethod]
+        public static string GetValue(string id, string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+            return map.GetPoint(id).GetDescription();
+
         }
 
         #endregion
@@ -482,10 +522,7 @@ namespace RocketRoadmap
             return Project_Links;
         }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 87b152c67668f0364dfb078460792fe2822b4166
 
 
 
