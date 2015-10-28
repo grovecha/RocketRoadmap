@@ -113,5 +113,16 @@ namespace RocketRoadmap.DB.Tests
             Assert.IsTrue(list.Last().GetName() == "StratBox3");
             maps.DeleteRoadMap("stratboxtest");
         }
+
+        [TestMethod()]
+        public void GetAllProjects()
+        {
+            RoadMap map = new RoadMap("test");
+            List<List<string>> projs = map.GetAllProjects();
+
+            Assert.AreEqual(1, projs.Count());
+            Assert.AreEqual(projs.First()[0], "Tested");
         }
+
+    }
 }

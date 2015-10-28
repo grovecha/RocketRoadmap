@@ -195,6 +195,27 @@ namespace RocketRoadmap.DB
             mDatabase.close();
         }
 
+        public List<List<string>> GetAllProjects()
+        {
+            List<List<string>> projects = new List<List<string>>();
+
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[Project] WHERE RoadmapName = '" + mName + "' ORDER BY NAME ASC");
+            while (mReader.Read())
+            {
+                List<string> temp = new List<string>();
+
+                temp.Add(mReader.GetString(0));
+                temp.Add(mReader.GetString(1));
+
+                projects.Add(temp);
+            }
+            mDatabase.close();
+
+            return projects;
+        }
+
+
         //Getters if needed
         public string GetName() { return mName; }
         public DateTime GetTimeStamp() { return mTimeStamp; }

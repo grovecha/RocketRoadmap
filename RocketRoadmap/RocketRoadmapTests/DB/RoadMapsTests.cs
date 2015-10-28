@@ -43,10 +43,5 @@ namespace RocketRoadmap.DB.Tests
             Assert.IsTrue(Maps.DeleteRoadMap("New"));
         }
 
-        public void DeletePoints()
-        {
-
-
-        }
     }
 }

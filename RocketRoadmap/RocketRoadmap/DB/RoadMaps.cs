@@ -70,6 +70,54 @@ namespace RocketRoadmap.DB
             return maps;
         }
 
+        public List<List<string>> GetUserMapsInfo(string username)
+        {
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID = '" + username + "'");
+
+            List<List<string>> maps = new List<List<string>>();
+
+            while (mReader.Read())
+            {
+                List<string> temp = new List<string>();
+                temp.Add(mReader.GetString(0));
+                temp.Add(username);
+                temp.Add(mReader.GetString(1));
+                temp.Add(mReader.GetDateTime(2).ToString());
+
+
+                maps.Add(temp);
+            }
+
+            mDatabase.close();
+            //return list of roadmaps
+            return maps;
+        }
+
+        public List<List<string>> GetAllMapsInfo()
+        {
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap]");
+
+            List<List<string>> maps = new List<List<string>>();
+
+            while (mReader.Read())
+            {
+                List<string> temp = new List<string>();
+                temp.Add(mReader.GetString(0));
+                temp.Add(mReader.GetString(1));
+                temp.Add(mReader.GetString(2));
+                temp.Add(mReader.GetDateTime(3).ToString());
+
+
+                maps.Add(temp);
+            }
+
+            mDatabase.close();
+            //return list of roadmaps
+            return maps;
+        }
+
         public bool CreateTimeLine(string name, string rname)
         {
             mDatabase.connect();
