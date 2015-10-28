@@ -1,5 +1,5 @@
 ﻿
-var StratBoxCounter = 0;
+
 //$("#StratBox0BusBox0Row").hide();
 
 function deleteStrat(obj) {
@@ -72,7 +72,7 @@ function addStrat(e, obj, i) {
         }
         catch (err) {
             var row = table.insertRow(PreviousStratNum);
-            row.setAttribute("id", 'StratVisual' + StratBoxCounter.toString() + "Row");
+            row.setAttribute("id", 'StratVisual' + PreviousStratNum.toString() + "Row");
         }
 
         //row.id = "StratRow" + PreviousStratNum.toString();
@@ -124,41 +124,46 @@ function addStrat(e, obj, i) {
         var mapName = url.substr(url.indexOf('?') + 1);
         mapName = mapName.substr(2, mapName.length);
         
-        PageMethods.AddStrat("StratBox"+PreviousStratNum.toString(),document.getElementById("StratBox" + PreviousStratNum.toString()).value,mapName)
+        if (obj.getAttribute("firstadd") == "1") {
 
-        StratBoxCounter++;
-        var table = document.getElementById("roadmapTable");
-        var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
-        var row = table.insertRow(PreviousStratRow + 1);
-        row.setAttribute("id", 'StratVisual' + StratBoxCounter.toString() + "Row");
+            PageMethods.EditStrat("StratBox" + PreviousStratNum.toString(), document.getElementById("StratBox" + PreviousStratNum.toString()).value, mapName);
+        }
+        else {
+            PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), document.getElementById("StratBox" + PreviousStratNum.toString()).value, mapName);
+            obj.setAttribute("firstadd", "1");
+            PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
+            NewStratCount = PreviousStratNum + 1;
+            var table = document.getElementById("roadmapTable");
+            var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
+            var row = table.insertRow(PreviousStratRow + 1);
+            row.setAttribute("id", 'StratVisual' + NewStratCount.toString() + "Row");
 
-        PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
-        //var table = document.getElementById("roadmapTable");
-        //var row = table.insertRow(PreviousStratNum);
+            
+            //var table = document.getElementById("roadmapTable");
+            //var row = table.insertRow(PreviousStratNum);
 
-        var mainDiv = document.getElementById('sidebarTable');
-        var varr = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex + 1;
-        newrow = mainDiv.insertRow(varr);
-        newrow.setAttribute("id", 'StratBox' + StratBoxCounter.toString() + "Row");
+            var mainDiv = document.getElementById('sidebarTable');
+            var varr = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex + 1;
+            newrow = mainDiv.insertRow(varr);
+            
+            newrow.setAttribute("id", 'StratBox' + NewStratCount.toString() + "Row");
 
-
-
-        newrow.innerHTML = "<td>" +
-                        "<input class='txtStrat' BusTotal=1 id='StratBox" + StratBoxCounter.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + StratBoxCounter.toString() + ")'/><button class = 'btnDelete' type='button' id='StratDelete" + StratBoxCounter.toString() + "' onclick='deleteStrat(event,this)'>X</button> <br />" +
-                        '<table id ="StratBox' + StratBoxCounter.toString() + 'Table"' + ' >' +
-                        '<tr id="StratBox' + StratBoxCounter.toString() + 'BusBox0Row" > ' +
-                            '<td>' +
-                        "<input  class='txtBus' ProjTotal=1 id='StratBox" + StratBoxCounter.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + StratBoxCounter.toString() + ")' /><button class = 'btnDelete' type='button' id='StratBox" + StratBoxCounter.toString() + "BusBox0Delete' onclick='deleteBus(event, this)'>X</button><br />" +
-                        "<input name='DynamicTextBox' id='StratBox" + StratBoxCounter.toString() + "BusBox0ProjBox0' class='txtProj' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + StratBoxCounter.toString() + ")' /><br />" +
-                            '</td>' +
-                        '</tr>' +
-                        '</table>' +
-                        "</td>";
-       // $("#StratBox" + StratBoxCounter.toString() + "BusBox0Row").hide();
-        //place cursor in next strat point
-        //document.getElementById("StratBox" + StratBoxCounter.toString()).focus();
-        document.getElementById("StratBox" + StratBoxCounter.toString()).select();
-
+            newrow.innerHTML = "<td>" +
+                            "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><button class = 'btnDelete' type='button' id='StratDelete" + NewStratCount.toString() + "' onclick='deleteStrat(event,this)'>X</button> <br />" +
+                            '<table id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
+                            '<tr id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
+                                '<td>' +
+                            "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><button class = 'btnDelete' type='button' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' onclick='deleteBus(event, this)'>X</button><br />" +
+                            "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProj' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' /><br />" +
+                                '</td>' +
+                            '</tr>' +
+                            '</table>' +
+                            "</td>";
+            // $("#StratBox" + StratBoxCounter.toString() + "BusBox0Row").hide();
+            //place cursor in next strat point
+            //document.getElementById("StratBox" + StratBoxCounter.toString()).focus();
+            document.getElementById("StratBox" + NewStratCount.toString()).select();
+        }
 
     }
 
@@ -255,27 +260,32 @@ function addBus(e, obj, i) {
         var url = window.location.href;
         var mapName = url.substr(url.indexOf('?') + 1);
         mapName = mapName.substr(2, mapName.length);
+        var PrevBusID = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal - 1);
+        if (obj.getAttribute("firstadd") == "1") {
+            PageMethods.EditBusVal(obj.id, obj.value, mapName, StratId);
+        }
+        else {
+            PageMethods.AddBusVal(obj.id, obj.value, mapName, StratId);
+            obj.setAttribute("firstadd", "1");
 
-        //add 1 to current business count
-        CurrentBusId = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal);
-        var PrevBusID = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal-1);
-        PageMethods.AddBusVal(PrevBusID,document.getElementById(PrevBusID).value,mapName,StratId);
-
-        var mainDiv = document.getElementById(StratId + "Table");
-        var RowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
-        newrow = mainDiv.insertRow(RowIndex);
-        newrow.setAttribute("id", CurrentBusId + "Row");
-        newrow.innerHTML = "<td>" +
-                            "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><button class = 'btnDelete' type='button' id='" + CurrentBusId + "Delete' onclick='deleteBus(event, this)'>X</button><br />" +
-                            '<div id="projDiv">' +
-                            "<input class='txtProj' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' /><br />" +
-                            "</div>"
-        "</td>";
+            //add 1 to current business count
+            CurrentBusId = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal);
+            var mainDiv = document.getElementById(StratId + "Table");
+            var RowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
+            newrow = mainDiv.insertRow(RowIndex);
+            newrow.setAttribute("id", CurrentBusId + "Row");
+            newrow.innerHTML = "<td>" +
+                                "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><button class = 'btnDelete' type='button' id='" + CurrentBusId + "Delete' onclick='deleteBus(event, this)'>X</button><br />" +
+                                '<div id="projDiv">' +
+                                "<input class='txtProj' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' /><br />" +
+                                "</div>"
+            "</td>";
 
 
-        //place cursor in next Bus box            
-        //document.getElementById(CurrentBusId).focus();
-        document.getElementById(CurrentBusId).select();
+            //place cursor in next Bus box            
+            //document.getElementById(CurrentBusId).focus();
+            document.getElementById(CurrentBusId).select();
+        }
     }
     else if (0) {
         CurrentBusCount = parseInt(obj.id.split("BusBox")[1]);
@@ -352,11 +362,11 @@ function addProj(e, obj, i) {
 
 
     //if (e.keyCode == 0) {
-        //CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
-        //PreviousStratNum = parseInt(obj.id.split('BusBox')[1].split("ProjBox")[0]);
-        //CurrentStratNum = PreviousStratNum + 1;
-        //CurrentStratNum = StratBoxCounter;
-        //StratBoxCounter++;
+    //CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
+    //PreviousStratNum = parseInt(obj.id.split('BusBox')[1].split("ProjBox")[0]);
+    //CurrentStratNum = PreviousStratNum + 1;
+    //CurrentStratNum = StratBoxCounter;
+    //StratBoxCounter++;
 
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
     BusId = obj.id.split("ProjBox")[0];
@@ -365,13 +375,13 @@ function addProj(e, obj, i) {
         CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
 
 
-       // var varr = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
-       // var projroot = obj.parentElement;
-       // BusId = obj.id.split("ProjBox")[0];
-       // ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
-       // projroot.removeChild(projroot.childNodes[ProjTotal]);
-       // subtract 1 from ProjTotal
-       // document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) - 1);
+        // var varr = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
+        // var projroot = obj.parentElement;
+        // BusId = obj.id.split("ProjBox")[0];
+        // ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
+        // projroot.removeChild(projroot.childNodes[ProjTotal]);
+        // subtract 1 from ProjTotal
+        // document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) - 1);
 
     }
 
@@ -384,17 +394,17 @@ function addProj(e, obj, i) {
         //add project input box
     else if (e.keyCode === 13) {
 
+        //if (CurrentProjCount + 1 >= ProjTotal) {
+        var url = window.location.href;
+        var mapName = url.substr(url.indexOf('?') + 1);
+        mapName = mapName.substr(2, mapName.length);
+        if (obj.getAttribute("firstadd") == "1") {
+            PageMethods.EditProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
+        }
+        else {
+            PageMethods.AddProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
+            obj.setAttribute("firstadd", "1");
 
-
-        if (CurrentProjCount + 1 >= ProjTotal) {
-
-
-            var url = window.location.href;
-            var mapName = url.substr(url.indexOf('?') + 1);
-            mapName = mapName.substr(2, mapName.length);
-
-
-            PageMethods.AddProject(BusId.toString() + "ProjBox" + CurrentProjCount.toString(),document.getElementById(BusId.toString() + "ProjBox" + CurrentProjCount.toString()).value, mapName.toString(),StratId.toString(),BusId.toString() );
 
             //add 1 to ProjTotal
             document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);
@@ -416,6 +426,7 @@ function addProj(e, obj, i) {
             //document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).focus();
             document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).select();
         }
+        //}
     }
     else {
         //add visual project
@@ -440,8 +451,7 @@ function addProj(e, obj, i) {
             element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
 
-            element1.setAttribute("class", "proj" + String(CurrentProjCount + 1));
-            
+            element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
 
             var cell = document.getElementById(BusId + "td");
             cell.appendChild(element1);
