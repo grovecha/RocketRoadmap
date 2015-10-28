@@ -65,13 +65,16 @@ namespace RocketRoadmap.DB
             mReader.Close();
             mDatabase.close();
 
-            
-            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
-            while (mReader.Read())
-            {
-                mDependantString.Add(mReader.GetString(0).ToString());
-            }
-            mReader.Close();
+<<<<<<< HEAD
+=======
+            //mDatabase.connect();
+>>>>>>> b0b2116023d738625d034b5ec6c39d418c4650f0
+            //mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            //while (mReader.Read())
+            //{
+            //    mDependantString.Add(mReader.GetString(0).ToString());
+            //}
+            //mReader.Close();
 
         }
 

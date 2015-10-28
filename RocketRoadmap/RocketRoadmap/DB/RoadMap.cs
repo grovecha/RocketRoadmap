@@ -41,7 +41,7 @@ namespace RocketRoadmap.DB
 
             //Get the StrategyPoints
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "'");
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + name + "' ORDER BY NAME ASC");
             while (mReader.Read())
             {
                 StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), name);
@@ -151,6 +151,48 @@ namespace RocketRoadmap.DB
             }
             // point doesn't exist, we gotta problem here cap'n
             return null;
+        }
+
+        public void ReOrderStrategyPoint(string currname,string desc, bool isFirst)
+        {
+            StrategyPoint current = new StrategyPoint(currname, desc, mName);
+            int index = (int)Char.GetNumericValue(currname[8]) + 1;
+            string nextID = "StratBox"+index.ToString();
+            string nextdesc=null;
+
+            string selectname = null;
+            if (isFirst) selectname = currname;
+            else selectname = nextID;
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Description FROM [dbo].[StrategyPoint] WHERE Name='"+selectname+"' AND RoadmapName='"+mName+"'");
+            if(mReader.HasRows){
+                mReader.Read();
+                nextdesc=mReader.GetString(0);
+            }
+            mReader.Close();
+            mDatabase.close();
+
+
+            StrategyPoint next = new StrategyPoint(nextID, nextdesc, mName);
+            StrategyPoint nextdummy = new StrategyPoint(currname, nextdesc, mName);
+            if (nextdesc != null)
+            {
+                nextdummy.EditName(nextID);
+                ReOrderStrategyPoint(nextID, nextdesc, false);
+            }
+        }
+
+        public void ReloadStrategyPoints()
+        {
+            mStrategyPoints = new List<StrategyPoint>();
+            mDatabase.connect();
+            mReader = mDatabase.executeread("SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + mName + "' ORDER BY NAME ASC");
+            while (mReader.Read())
+            {
+                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), mName);
+                mStrategyPoints.Add(sp);
+            }
+            mDatabase.close();
         }
 
         //Getters if needed
