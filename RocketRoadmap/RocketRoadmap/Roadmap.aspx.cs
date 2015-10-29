@@ -522,14 +522,7 @@ namespace RocketRoadmap
             return Project_Links;
         }
 
-<<<<<<< HEAD
-=======
 
-
-
-
-
->>>>>>> db840166df8c037976fe45a5b9563f47c87de353
         //Set Project Description
         #endregion
 
