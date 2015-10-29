@@ -12,6 +12,7 @@ namespace RocketRoadmap
 {
     public partial class home : System.Web.UI.Page
     {
+
         private User mUser;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -19,11 +20,12 @@ namespace RocketRoadmap
             mUser = new DB.User((string)ViewState["username"], (string)ViewState["password"]);
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.Text = mUser.GetUserName() + "'s ROADMAPS";
-            if (!IsPostBack)
+            if (true)
             {
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
                     RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
+
                     bool flag = user.Login();
                     ViewState["username"] = user.GetUserName();
                     ViewState["password"] = user.GetPassword();
@@ -86,11 +88,15 @@ namespace RocketRoadmap
                             link.Text = umap.GetName();
 
                             TableCell tCell1 = new TableCell();
+
+                 
                             ucell_1.Controls.Add(link);
 
                             ucell_2.Text = umap.GetUser().GetName();
                             ucell_3.Text = umap.GetDecription();
                             ucell_4.Text = umap.GetTimeStamp().ToString();
+                            
+                            
 
                             urow.Cells.Add(ucell_1);
                             urow.Cells.Add(ucell_2);
@@ -147,6 +153,8 @@ namespace RocketRoadmap
 
             }
         }
+
+
         public void newroadmap(object sender, EventArgs e)
         {
             RoadMaps nRoadmap = new RoadMaps();
@@ -159,5 +167,7 @@ namespace RocketRoadmap
             Response.Redirect("Roadmap.aspx?n="+roadmap_Name.Value, false);
 
         }
+
+
     }
     }
