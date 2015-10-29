@@ -89,9 +89,9 @@
                     <table id ="StratBox0Table" runat='server' >
                         <tr id="StratBox0BusBox0Row">
                          <td>
-                           <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
+                           <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
                                     <div id="projDiv" visible="false" >
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' /><a href="#" id='StratBox0BusBox0Proj0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_proj"> X</a>
                                          </div> 
                           
                         </td>
@@ -322,6 +322,17 @@
 
         })
 
+        $(wrapper).on("click", ".remove_strat", function (e) { //user click on remove text
+
+            deleteStrat(this);
+
+        })
+
+        $(wrapper).on("click", ".remove_bus", function (e) { //user click on remove text
+
+            deleteBus(this);
+
+        })
 
         //Selection addition Functions
 
@@ -641,6 +652,11 @@
 
         .txtProj {
             width: 210px;
+            height: 30px;
+            margin-left: 40px;
+        }
+        .txtProjDel {
+            width: 180px;
             height: 30px;
             margin-left: 40px;
         }
