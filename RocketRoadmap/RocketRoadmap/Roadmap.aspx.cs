@@ -397,7 +397,7 @@ namespace RocketRoadmap
 
         #region Modal Getters
         //Get Project Name
-        [WebMethod (EnableSession=false)]
+        [WebMethod]
         public static string GetProjectName(string ProjectID, string RoadmapName)
         {
             int pointindex = ProjectID.IndexOf("Bus");
@@ -427,7 +427,8 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            return newproj.GetDescription();
+            // return newproj.GetModalDescription();
+            return point;
 
         }
 
@@ -521,10 +522,6 @@ namespace RocketRoadmap
             }
             return Project_Links;
         }
-
-
-
-
 
 
         //Set Project Description

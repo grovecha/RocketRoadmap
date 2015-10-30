@@ -89,9 +89,9 @@
                     <table id ="StratBox0Table" runat='server' >
                         <tr id="StratBox0BusBox0Row">
                          <td>
-                           <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
-                                    <div id="projDiv" visible="false" >
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
+                           <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
+                                    <div id="StratBox0BusBox0projDiv" visible="false" >
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
                                          </div> 
                           
                         </td>
@@ -117,7 +117,6 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <button type="button" class="btn" id="test" data-toggle="modal" onclick="showModal(this.id)">Test Modal</button>
 
                 </div>
                 <br />
@@ -160,7 +159,7 @@
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
                     <textarea id="descText" rows="4" cols="75"></textarea> 
-                    <p></p>
+                    <br />
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -174,7 +173,7 @@
                     <div class="depSelect">
                         <div></div>
                     </div>
-                    <p></p>
+                    <br />
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -219,7 +218,7 @@
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
                     <textarea id="disdescText" rows="4" cols="75"></textarea> 
-                    <p></p>
+                    <br />
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -231,7 +230,7 @@
                     <div class="disdepSelect">
                         <div></div>
                     </div>
-                    <p></p>
+                    <br />
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -322,6 +321,23 @@
 
         })
 
+        $(wrapper).on("click", ".remove_strat", function (e) { //user click on remove text
+
+            deleteStrat(this);
+
+        })
+
+        $(wrapper).on("click", ".remove_bus", function (e) { //user click on remove text
+
+            deleteBus(this);
+
+        })
+
+        $(wrapper).on("click", ".remove_proj", function (e) { //user click on remove text
+
+            deleteProj(this);
+
+        })
 
         //Selection addition Functions
 
@@ -420,89 +436,113 @@
             var desc_Value = "";
             var risk_Value = "";
 
-            alert("Show " + button_id +  " show " + map_Name);
+<<<<<<< HEAD
+           
+
+
+           // Add Modal Title
+            var data = '{"ProjectID":' + button_id + ',"RoadmapName":' + map_Name + '}';
+            var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
+=======
+            //alert("Show " + button_id +  " show " + map_Name);
 
 
             //Add Modal Title
-            //var data = '{"ProjectID":' + button_id + ',"RoadmapName":' + map_Name + '}';
-            //var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
-            //$.ajax({
-            //    type: "GET",
-            //    async: false,
-            //    url: "Roadmap.aspx/GetProjectName",
-            //    data: pr,
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    success: function (response) {
-            //        console.log(response)
-            //    },
-            //    error: function (xhr) {
-            //        console.log("Nothing")
-            //    },
-            //    always: function (e) {
-            //        console.log("Always")
-            //    }
-            //});
+>>>>>>> 50f35a284063ddcf5ab184e9987b2b53cca465d8
+            $.ajax({
+                type: "GET",
+                async: false,
+                url: "Roadmap.aspx/GetProjectName",
+<<<<<<< HEAD
+                data: pr,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $('#input_title').html(response);
+                },
+                error: function (xhr) {
+                    console.log("Nothing")
+                },
+                always: function (e) {
+                    console.log("Always")
+                }
+            });
 
+            //HERE IS HOW I TRIED IT BEFORE
                 title_Value = PageMethods.GetDescription(button_id, map_Name);
                 $('#input_title').html(title_Value);
+=======
+                data: JSON.stringify({ProjectID: button_id, RoadmapName: map_Name}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (title_Value) {
+                    $('#input_title').html(title_Value)
+                },
+                error: function (xhr) {
+                    console.log("Nothing")
+                }
+            });
 
-                ////adding the text to the description
-                //desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
-                //$('#descText').val(desc_Value);
+                //title_Value = PageMethods.GetProjectName(button_id, map_Name);
+                //;
+>>>>>>> 50f35a284063ddcf5ab184e9987b2b53cca465d8
 
-                ////Find the number of input boxes to load
-                //idep_arr = PageMethods.GetProjectDependencyText();
-                //dep_total = idep_arr.length;
+                //adding the text to the description
+                desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
+                $('#descText').val(desc_Value);
 
-                ////Add all of thre input boxes
-                //for (dep_x = 0; dep_x < dep_total; dep_x++) {
-                //    $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-                //};
+                //Find the number of input boxes to load
+                idep_arr = PageMethods.GetProjectDependencyText();
+                dep_total = idep_arr.length;
 
-                ////fill the inputboxes with their values
-                //$('input[name=dep_input]').each(function () {
-                //    $(this).val(idep_arr[load_dep_count]);
-                //    load_dep_count++;
-                //});
+                //Add all of thre input boxes
+                for (dep_x = 0; dep_x < dep_total; dep_x++) {
+                    $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                };
 
-                ////Grab the list of project name string
-                //iselect_arr = PageMethods.GetProjectDependency(button_id,map_Name);
-                //select_total = nselect_arr.length;
-                ////Create the options list
-                //for (options_x = 0; options_x < select_total; options_x++) {
-                //    options += "<option value='" + iselect_arr[options_x].val + ">" + iselect_arr[options_x].val + "</option>";
-                //};
+                //fill the inputboxes with their values
+                $('input[name=dep_input]').each(function () {
+                    $(this).val(idep_arr[load_dep_count]);
+                    load_dep_count++;
+                });
 
-                ////Insert the correct number of selects
-                //for (select_x = 0; select_x < select_total; select_x++) {
-                //    $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>");
-                //};
+                //Grab the list of project name string
+                iselect_arr = PageMethods.GetProjectDependency(button_id,map_Name);
+                select_total = nselect_arr.length;
+                //Create the options list
+                for (options_x = 0; options_x < select_total; options_x++) {
+                    options += "<option value='" + iselect_arr[options_x].val + ">" + iselect_arr[options_x].val + "</option>";
+                };
 
-                ////fill the inputboxes with their values
-                //$('input[name=select_input]').each(function () {
-                //    $(this).val(iselect_arr[load_select_count]);
-                //    load_select_count++;
-                //});
+                //Insert the correct number of selects
+                for (select_x = 0; select_x < select_total; select_x++) {
+                    $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>");
+                };
 
-                ////Fill in the Risks text area
-                //risk_Value = PageMethods.GetProjectRisk(button_id,map_Name);
-                //$('#riskText').val(risk_Value);
+                //fill the inputboxes with their values
+                $('input[name=select_input]').each(function () {
+                    $(this).val(iselect_arr[load_select_count]);
+                    load_select_count++;
+                });
 
-                ////Get link list size
-                //ilink_arr = PageMethods.GetProjectLinks(button_id, map_Name);
-                //link_total = ilink_arr.length;
+                //Fill in the Risks text area
+                risk_Value = PageMethods.GetProjectRisk(button_id,map_Name);
+                $('#riskText').val(risk_Value);
 
-                ////Add all of thre input boxes
-                //for (link_x = 0; link_x < link_total; link_x++) {
-                //    $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-                //};
+                //Get link list size
+                ilink_arr = PageMethods.GetProjectLinks(button_id, map_Name);
+                link_total = ilink_arr.length;
 
-                ////fill the inputboxes with their values
-                //$('input[name=link_input]').each(function () {
-                //    $(this).val(ilink_arr[load_link_count]);
-                //    load_dep_count++;
-                //});
+                //Add all of thre input boxes
+                for (link_x = 0; link_x < link_total; link_x++) {
+                    $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                };
+
+                //fill the inputboxes with their values
+                $('input[name=link_input]').each(function () {
+                    $(this).val(ilink_arr[load_link_count]);
+                    load_dep_count++;
+                });
 
 
         });
@@ -641,6 +681,11 @@
 
         .txtProj {
             width: 210px;
+            height: 30px;
+            margin-left: 40px;
+        }
+        .txtProjDel {
+            width: 180px;
             height: 30px;
             margin-left: 40px;
         }
