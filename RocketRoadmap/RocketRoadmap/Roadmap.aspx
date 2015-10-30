@@ -89,9 +89,9 @@
                     <table id ="StratBox0Table" runat='server' >
                         <tr id="StratBox0BusBox0Row">
                          <td>
-                           <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><button class = 'btnDelete' type='button' id='StratBox0BusBox0Delete' onclick='deleteBus(event, this)'>X</button>
-                                    <div id="projDiv" visible="false" >
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProj' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
+                           <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
+                                    <div id="StratBox0BusBox0projDiv" visible="false" >
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
                                          </div> 
                           
                         </td>
@@ -117,7 +117,6 @@
                 <div class="col-lg-12">
                     <h1>Roadmap</h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                    <button type="button" class="btn" id="test" data-toggle="modal" onclick="showModal(this.id)">Test Modal</button>
 
                 </div>
                 <br />
@@ -160,7 +159,7 @@
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
                     <textarea id="descText" rows="4" cols="75"></textarea> 
-                    <p></p>
+                    <br />
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -174,7 +173,7 @@
                     <div class="depSelect">
                         <div></div>
                     </div>
-                    <p></p>
+                    <br />
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -219,7 +218,7 @@
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
                     <textarea id="disdescText" rows="4" cols="75"></textarea> 
-                    <p></p>
+                    <br />
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -231,7 +230,7 @@
                     <div class="disdepSelect">
                         <div></div>
                     </div>
-                    <p></p>
+                    <br />
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -322,6 +321,23 @@
 
         })
 
+        $(wrapper).on("click", ".remove_strat", function (e) { //user click on remove text
+
+            deleteStrat(this);
+
+        })
+
+        $(wrapper).on("click", ".remove_bus", function (e) { //user click on remove text
+
+            deleteBus(this);
+
+        })
+
+        $(wrapper).on("click", ".remove_proj", function (e) { //user click on remove text
+
+            deleteProj(this);
+
+        })
 
         //Selection addition Functions
 
@@ -420,16 +436,24 @@
             var desc_Value = "";
             var risk_Value = "";
 
+<<<<<<< HEAD
            
 
 
            // Add Modal Title
             var data = '{"ProjectID":' + button_id + ',"RoadmapName":' + map_Name + '}';
             var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
+=======
+            //alert("Show " + button_id +  " show " + map_Name);
+
+
+            //Add Modal Title
+>>>>>>> 50f35a284063ddcf5ab184e9987b2b53cca465d8
             $.ajax({
                 type: "GET",
                 async: false,
                 url: "Roadmap.aspx/GetProjectName",
+<<<<<<< HEAD
                 data: pr,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -447,6 +471,21 @@
             //HERE IS HOW I TRIED IT BEFORE
                 title_Value = PageMethods.GetDescription(button_id, map_Name);
                 $('#input_title').html(title_Value);
+=======
+                data: JSON.stringify({ProjectID: button_id, RoadmapName: map_Name}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (title_Value) {
+                    $('#input_title').html(title_Value)
+                },
+                error: function (xhr) {
+                    console.log("Nothing")
+                }
+            });
+
+                //title_Value = PageMethods.GetProjectName(button_id, map_Name);
+                //;
+>>>>>>> 50f35a284063ddcf5ab184e9987b2b53cca465d8
 
                 //adding the text to the description
                 desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
@@ -642,6 +681,11 @@
 
         .txtProj {
             width: 210px;
+            height: 30px;
+            margin-left: 40px;
+        }
+        .txtProjDel {
+            width: 180px;
             height: 30px;
             margin-left: 40px;
         }
