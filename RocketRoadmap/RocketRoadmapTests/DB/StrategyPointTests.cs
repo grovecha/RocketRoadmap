@@ -73,6 +73,7 @@ namespace RocketRoadmap.DB.Tests
             strat1.CreateBuisnessValue("StratBox0BusBox2","fourth","busboxtest");
 
             strat1.ReorderBusinessValue("StratBox0BusBox2","third",true);
+            strat1.CreateBuisnessValue("StratBox0BusBOx2", "third", "busboxtest");
             strat1.ReloadBusinessValues();
             List<BusinessValue> list = strat1.GetBusinessValues();
             Assert.IsTrue(list.Last().GetName() == "StratBox0BusBox3");
@@ -96,6 +97,7 @@ namespace RocketRoadmap.DB.Tests
                     strat1.ReloadBusinessValues();
                     List<BusinessValue> bvlist = strat1.GetBusinessValues();
                     Assert.IsTrue(strat1.GetBusinessValues().Last().GetName() == "StratBox0BusBox1");
+                    maps.DeleteRoadMap("busboxtest");
                 }
 
         }

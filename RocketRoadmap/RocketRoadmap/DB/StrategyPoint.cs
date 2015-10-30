@@ -106,16 +106,26 @@ namespace RocketRoadmap.DB
             }
         }
 
-        public void DeleteBusinessValue(string name)
+        public bool DeleteBusinessValue(string name)
         {
+            bool flag = false;
             foreach (BusinessValue bv in mValues.ToList())
             {
-                if (bv.GetName() == name) mValues.Remove(bv);
+                if (bv.GetName() == name)
+                {
+                    flag = true;
+                    mValues.Remove(bv);
+                    break;
+                }
             }
+            if (!flag) return false;
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("DELETE FROM [dbo].[BusinessValue] WHERE Name='" + name + "' AND RoadmapName='" + mRoadmapName + "'");
+            bool flag2 = mDatabase.executewrite("DELETE FROM [dbo].[BusinessValue] WHERE Name='" + name + "' AND RoadmapName='" + mRoadmapName + "'");
             bool flag3 = mDatabase.executewrite("DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE BusinessValueName='" + name + "' AND StrategyPointName='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
+
+            if (!flag2) return false;
+            if (!flag3) return false;
 
             int index = (int)Char.GetNumericValue(name[15]);
 
@@ -128,6 +138,7 @@ namespace RocketRoadmap.DB
                     bv.SetName(newname);
                 }
             }
+            return true;
         }
 
         public void ReorderBusinessValue(string currname, string desc, bool isFirst)
