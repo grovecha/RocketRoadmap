@@ -12,6 +12,14 @@ namespace RocketRoadmap.DB.Tests
     public class RoadMapTests
     {
         [TestMethod()]
+        public void GetAllProjects()
+        {
+
+
+
+
+        }
+        [TestMethod()]
         public void RoadMapTest()
         {
             RoadMap map = new RoadMap("Test");

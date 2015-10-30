@@ -552,12 +552,11 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
             //Dep_Names = newproj.GetStrDependencies();
 
             foreach (string s in dep)
@@ -589,12 +588,11 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
 
             for (int i = 0; i < dep.Count(); i++)
             {
@@ -608,12 +606,11 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
 
             //newproj.SetRisk(risk);
 
@@ -627,12 +624,11 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
             linkstr_list = GetProjectLinks(ProjectID, RoadmapName);
 
             //need to take the list and check for new ones and create links
