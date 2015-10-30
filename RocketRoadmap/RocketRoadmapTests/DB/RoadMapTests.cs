@@ -12,7 +12,7 @@ namespace RocketRoadmap.DB.Tests
     public class RoadMapTests
     {
         [TestMethod()]
-        public void GetAllProjects()
+        public void GetAll2Projects()
         {
 
 

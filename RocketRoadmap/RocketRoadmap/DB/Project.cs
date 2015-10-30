@@ -17,7 +17,7 @@ namespace RocketRoadmap.DB
         private string mRoadmapName;
 
         private List<string> mDependantString = new List<string>();
-        private List<Issue> mIssues = new List<Issue>();
+        private string mRisks;
         private List<Link> mLinks = new List<Link>();
         private List<Project> mDependencies = new List<Project>();
 
@@ -110,6 +110,20 @@ namespace RocketRoadmap.DB
             return mDescription;
         }
 
+
+        public bool SetModalDescription(string description)
+        {
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            mDatabase.close();
+            mModalDescription = description;
+            return flag;
+        }
+        public string GetModalDescription()
+        {
+            return mModalDescription;
+        }
+
         public bool SetStartDate(DateTime startdate) {
             mDatabase.connect();
             bool flag= mDatabase.executewrite("UPDATE [dbo].[Project] SET StartDate='" + startdate + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
@@ -133,6 +147,11 @@ namespace RocketRoadmap.DB
             mDatabase.close();
             return flag;
 
+        }
+
+        public List<string> GetDependantStrings()
+        {
+            return mDependantString;
         }
 
         public DateTime GetStartDate() {
