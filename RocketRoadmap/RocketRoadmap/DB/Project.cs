@@ -186,7 +186,7 @@ namespace RocketRoadmap.DB
             return mBusinessValue;
         }
         public List<Link> GetLinks() { return mLinks; }
-        public List<Issue> GetIssues() { return mIssues; }
+        //public List<Issue> GetIssues() { return mIssues; }
         public List<Project> GetDependencies() { return mDependencies; }
         #endregion
 

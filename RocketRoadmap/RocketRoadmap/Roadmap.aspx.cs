@@ -630,22 +630,22 @@ namespace RocketRoadmap
             linkstr_list = GetProjectLinks(ProjectID, RoadmapName);
 
             //need to take the list and check for new ones and create links
-            foreach (string l in link)
-                {
-                    if (!linkstr_list.Contains(l))
-                    {
+            //foreach (string l in link)
+            //    {
+            //        if (!linkstr_list.Contains(l))
+            //        {
 
-                        Dep_Names.Add(l);
-                    }
-                }
+            //            Dep_Names.Add(l);
+            //        }
+            //    }
 
-            foreach (string s in Dep_Names)
-            {
-                if (!dep.Contains(s))
-                {
-                    Dep_Names.Remove(s);
-                }
-            }
+            //foreach (string s in Dep_Names)
+            //{
+            //    if (!dep.Contains(s))
+            //    {
+            //        Dep_Names.Remove(s);
+            //    }
+            //}
 
         }
 
