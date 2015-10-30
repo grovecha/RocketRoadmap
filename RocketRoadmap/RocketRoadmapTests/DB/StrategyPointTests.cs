@@ -45,12 +45,24 @@ namespace RocketRoadmap.DB.Tests
         [TestMethod()]
         public void Create_DeleteStrategyPointTest()
         {
-            RoadMap map = new RoadMap("Test");
-            StrategyPoint strat = new StrategyPoint("NEW","NEW", "Test");
+            RoadMaps maps = new RoadMaps();
+            maps.CreateRoadMap("ZZZ", "test123", "test");
+            RoadMap newroadmap = new RoadMap("ZZZ");
+            StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "ZZZ");
+            StrategyPoint strat2 = new StrategyPoint("StratBox1", "second", "ZZZ");
+            StrategyPoint strat3 = new StrategyPoint("StratBox2", "third", "ZZZ");
+            StrategyPoint strat4 = new StrategyPoint("StratBox3", "fourth", "ZZZ");
 
-            Assert.IsTrue(map.AddStrategyPoint(strat));
+            newroadmap.AddStrategyPoint(strat1);
+            newroadmap.AddStrategyPoint(strat2);
+            newroadmap.AddStrategyPoint(strat3);
+            newroadmap.AddStrategyPoint(strat4);
 
-            Assert.IsTrue(map.DeleteStrategyPoint(strat));
+            newroadmap.DeleteStrategyPoint("StratBox2");
+
+            newroadmap.ReloadStrategyPoints();
+            List<StrategyPoint> sts = newroadmap.GetStrategyPoints();
+            Assert.IsTrue(sts.Last().GetName() == "StratBox2");
 
         }
 

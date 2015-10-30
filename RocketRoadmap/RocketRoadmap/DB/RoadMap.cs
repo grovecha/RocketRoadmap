@@ -65,6 +65,20 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
+        public bool AddStrategyPoint(StrategyPoint point)
+        {
+            mStrategyPoints.Add(point);
+
+            mDatabase.connect();
+
+            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','" + point.GetDescription() + "','" + mName + "')");
+
+            mDatabase.close();
+
+            return flag;
+
+        }
+
         public bool DeleteTimeLine()
         {
             mDatabase.connect();
@@ -103,34 +117,6 @@ namespace RocketRoadmap.DB
             if (mDatabase.executewrite("UPDATE [dbo].[Roadmap] SET Description = '" + desc + "' WHERE Name = '" + mName + "'"))
             {
                 mDescription = desc;
-                toReturn = true;
-            }
-
-            mDatabase.close();
-            return toReturn;
-        }
-
-        public bool AddStrategyPoint(StrategyPoint point)
-        {
-            mStrategyPoints.Add(point);
-
-            mDatabase.connect();
-
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES ('" + point.GetName() + "','"+point.GetDescription()+"','"+mName+"')");
-
-            mDatabase.close();
-
-            return flag;
-
-        }
-
-        public bool DeleteStrategyPoint( StrategyPoint Point)
-        {
-            mDatabase.connect();
-            bool toReturn = false;
-
-            if (mDatabase.executewrite("DELETE FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + mName + "' AND Name = '" + Point.GetName() + "'"))
-            {
                 toReturn = true;
             }
 
@@ -215,9 +201,34 @@ namespace RocketRoadmap.DB
             return projects;
         }
 
+        public bool DeleteStrategyPoint(string name)
+        {
+            foreach (StrategyPoint sp in mStrategyPoints.ToList())
+            {
+                if (sp.GetName() == name) mStrategyPoints.Remove(sp);
+            }
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE FROM [dbo].[StrategyPoint] WHERE RoadmapName = '" + mName + "' AND Name = '" + name + "'");
+            mDatabase.close();
+
+            int index = (int)Char.GetNumericValue(name[8]);
+
+            foreach (StrategyPoint sp in mStrategyPoints.ToList())
+            {
+                if ((int)Char.GetNumericValue(sp.GetName()[8]) > index)
+                {
+                    int newindex = (int)Char.GetNumericValue(sp.GetName()[8]) - 1;
+                    string newname = sp.GetName().Substring(0, 8) + newindex.ToString();
+                    sp.EditName(newname);
+                }
+            }
+
+            return flag;
+        }
 
         //Getters if needed
         public string GetName() { return mName; }
+        public void SetName(string name) { mName = name; }
         public DateTime GetTimeStamp() { return mTimeStamp; }
         public string GetDecription() { return mDescription; }
         public User GetUser() { return mUser; }
