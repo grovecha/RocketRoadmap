@@ -436,8 +436,6 @@
             var desc_Value = "";
             var risk_Value = "";
 
-            //alert("Show " + button_id +  " show " + map_Name);
-
 
             //Add Modal Title
             $.ajax({
@@ -455,65 +453,65 @@
                 }
             });
 
-                //title_Value = PageMethods.GetProjectName(button_id, map_Name);
-                //;
+                title_Value = PageMethods.GetProjectName(button_id, map_Name);
+                ;
 
-                ////adding the text to the description
-                //desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
-                //$('#descText').val(desc_Value);
+                //adding the text to the description
+                desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
+                $('#descText').val(desc_Value);
 
-                ////Find the number of input boxes to load
-                //idep_arr = PageMethods.GetProjectDependencyText();
-                //dep_total = idep_arr.length;
+                //Find the number of input boxes to load
+                idep_arr = PageMethods.GetProjectDependencyText();
+                dep_total = idep_arr.length;
 
-                ////Add all of thre input boxes
-                //for (dep_x = 0; dep_x < dep_total; dep_x++) {
-                //    $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-                //};
+                //Add all of thre input boxes
+                for (dep_x = 0; dep_x < dep_total; dep_x++) {
+                    $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                };
 
-                ////fill the inputboxes with their values
-                //$('input[name=dep_input]').each(function () {
-                //    $(this).val(idep_arr[load_dep_count]);
-                //    load_dep_count++;
-                //});
+                //fill the inputboxes with their values
+                $('input[name=dep_input]').each(function () {
+                    $(this).val(idep_arr[load_dep_count]);
+                    load_dep_count++;
+                });
 
-                ////Grab the list of project name string
-                //iselect_arr = PageMethods.GetProjectDependency(button_id,map_Name);
-                //select_total = nselect_arr.length;
-                ////Create the options list
-                //for (options_x = 0; options_x < select_total; options_x++) {
-                //    options += "<option value='" + iselect_arr[options_x].val + ">" + iselect_arr[options_x].val + "</option>";
-                //};
+                //Grab the list of project name string
+                iselect_arr = PageMethods.GetProjectDependency(button_id,map_Name);
+                select_total = nselect_arr.length;
+                //Create the options list
+                for (options_x = 0; options_x < select_total; options_x++) {
+                    options += "<option value='" + iselect_arr[options_x].val + ">" + iselect_arr[options_x].val + "</option>";
+                };
 
-                ////Insert the correct number of selects
-                //for (select_x = 0; select_x < select_total; select_x++) {
-                //    $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>");
-                //};
+                //Insert the correct number of selects
+                for (select_x = 0; select_x < select_total; select_x++) {
+                    $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>");
+                };
 
-                ////fill the inputboxes with their values
-                //$('input[name=select_input]').each(function () {
-                //    $(this).val(iselect_arr[load_select_count]);
-                //    load_select_count++;
-                //});
+                //fill the inputboxes with their values
+                $('input[name=select_input]').each(function () {
+                    $(this).val(iselect_arr[load_select_count]);
+                    load_select_count++;
+                });
 
-                ////Fill in the Risks text area
-                //risk_Value = PageMethods.GetProjectRisk(button_id,map_Name);
-                //$('#riskText').val(risk_Value);
+                //Fill in the Risks text area
+                risk_Value = PageMethods.GetProjectRisk(button_id,map_Name);
+                $('#riskText').val(risk_Value);
 
-                ////Get link list size
-                //ilink_arr = PageMethods.GetProjectLinks(button_id, map_Name);
-                //link_total = ilink_arr.length;
+                //Get link list size
+                ilink_arr = PageMethods.GetProjectLinks(button_id, map_Name);
+                link_total = ilink_arr.length;
 
-                ////Add all of thre input boxes
-                //for (link_x = 0; link_x < link_total; link_x++) {
-                //    $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-                //};
+                //Add all of thre input boxes
+                for (link_x = 0; link_x < link_total; link_x++) {
+                    $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                };
 
-                ////fill the inputboxes with their values
-                //$('input[name=link_input]').each(function () {
-                //    $(this).val(ilink_arr[load_link_count]);
-                //    load_dep_count++;
-                //});
+                //fill the inputboxes with their values
+                $('input[name=link_input]').each(function () {
+                    $(this).val(ilink_arr[load_link_count]);
+                    load_dep_count++;
+                });
 
 
         });
