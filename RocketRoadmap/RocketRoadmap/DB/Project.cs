@@ -199,5 +199,17 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
+        public bool DeleteDependant(Project dependant)
+        {
+            //assume already created
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Dependents] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Dependantname = '" + dependant.GetName() + "')");
+
+            mDependencies.Remove(dependant);
+
+            mDatabase.close();
+            return flag;
+        }
+
     }
 }
