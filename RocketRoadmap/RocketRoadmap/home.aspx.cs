@@ -12,7 +12,6 @@ namespace RocketRoadmap
 {
     public partial class home : System.Web.UI.Page
     {
-
         private User mUser;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -20,12 +19,11 @@ namespace RocketRoadmap
             mUser = new DB.User((string)ViewState["username"], (string)ViewState["password"]);
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.Text = mUser.GetUserName() + "'s ROADMAPS";
-            if (true)
+            if (!IsPostBack)
             {
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
                     RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
-
                     bool flag = user.Login();
                     ViewState["username"] = user.GetUserName();
                     ViewState["password"] = user.GetPassword();
@@ -50,11 +48,10 @@ namespace RocketRoadmap
                 {
 
                     RoadMaps umaps = new RoadMaps();
-                    List<RoadMap> uall = new List<RoadMap>();
 
                     try
                     {
-                        uall = umaps.GetUserMaps(mUser.GetUserName());
+                        List<List<string>> uall = umaps.GetUserMapsInfo(mUser.GetUserName());
                         TableHeaderRow uhead = new TableHeaderRow();
 
                         TableHeaderCell u1 = new TableHeaderCell();
@@ -77,26 +74,21 @@ namespace RocketRoadmap
                         {
                             TableRow urow = new TableRow();
 
-
                             TableCell ucell_1 = new TableCell();
                             TableCell ucell_2 = new TableCell();
                             TableCell ucell_3 = new TableCell();
                             TableCell ucell_4 = new TableCell();
 
                             HyperLink link = new HyperLink();
-                            link.NavigateUrl = "Roadmap.aspx?n=" + umap.GetName();
-                            link.Text = umap.GetName();
+                            link.NavigateUrl = "Roadmap.aspx?n=" + umap[0];
+                            link.Text = umap[0];
 
                             TableCell tCell1 = new TableCell();
-
-                 
                             ucell_1.Controls.Add(link);
 
-                            ucell_2.Text = umap.GetUser().GetName();
-                            ucell_3.Text = umap.GetDecription();
-                            ucell_4.Text = umap.GetTimeStamp().ToString();
-                            
-                            
+                            ucell_2.Text = umap[1];
+                            ucell_3.Text = umap[2];
+                            ucell_4.Text = umap[3];
 
                             urow.Cells.Add(ucell_1);
                             urow.Cells.Add(ucell_2);
@@ -113,11 +105,10 @@ namespace RocketRoadmap
                 }
 
                 RoadMaps maps = new RoadMaps();
-                List<RoadMap> all = new List<RoadMap>();
 
                 try
                 {
-                    all = maps.GetAllMaps();
+                    List<List<string>> all = maps.GetAllMapsInfo();
 
                     foreach (var map in all)
                     {
@@ -128,15 +119,15 @@ namespace RocketRoadmap
                         TableCell cell_4 = new TableCell();
 
                         HyperLink link = new HyperLink();
-                        link.NavigateUrl = "Roadmap.aspx?n=" + map.GetName();
-                        link.Text = map.GetName();
+                        link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
+                        link.Text = map[0];
 
                         TableCell tCell1 = new TableCell();
                         cell_1.Controls.Add(link);
 
-                        cell_2.Text = map.GetUser().GetName();
-                        cell_3.Text = map.GetDecription();
-                        cell_4.Text = map.GetTimeStamp().ToString();
+                        cell_2.Text = map[1];
+                        cell_3.Text = map[2];
+                        cell_4.Text = map[3];
 
                         row.Cells.Add(cell_1);
                         row.Cells.Add(cell_2);
@@ -153,8 +144,6 @@ namespace RocketRoadmap
 
             }
         }
-
-
         public void newroadmap(object sender, EventArgs e)
         {
             RoadMaps nRoadmap = new RoadMaps();
@@ -167,7 +156,5 @@ namespace RocketRoadmap
             Response.Redirect("Roadmap.aspx?n="+roadmap_Name.Value, false);
 
         }
-
-
     }
     }

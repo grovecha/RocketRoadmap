@@ -10,6 +10,7 @@ namespace RocketRoadmap.DB
     {
         private string mName;
         private string mDescription;
+        private string mModalDescription;
         private DateTime mStartDate;
         private DateTime mEndDate;
         private string mBusinessValue;
@@ -30,6 +31,16 @@ namespace RocketRoadmap.DB
             mBusinessValue = businessvalue;
             mRoadmapName = rname;
 
+            try
+            {
+                mReader = mDatabase.executeread("SELECT ModalDescription FROM [dbo].[Project] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+                while (mReader.Read())
+                {
+                    mModalDescription = (mReader.GetString(0).ToString());
+                }
+                mReader.Close();
+            }
+            catch { ;  }
 
             mDatabase.connect();
 
@@ -65,14 +76,14 @@ namespace RocketRoadmap.DB
             mReader.Close();
             mDatabase.close();
 
-            //mDatabase.connect();
+            mDatabase.connect();
 
-            //mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
-            //while (mReader.Read())
-            //{
-            //    mDependantString.Add(mReader.GetString(0).ToString());
-            //}
-            //mReader.Close();
+            mReader = mDatabase.executeread("SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            while (mReader.Read())
+            {
+                mDependantString.Add(mReader.GetString(0).ToString());
+            }
+            mReader.Close();
 
         }
 
