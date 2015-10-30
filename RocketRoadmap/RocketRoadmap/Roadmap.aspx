@@ -436,23 +436,27 @@
             var desc_Value = "";
             var risk_Value = "";
 
-
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+           
 
 
            // Add Modal Title
             var data = '{"ProjectID":' + button_id + ',"RoadmapName":' + map_Name + '}';
             var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
-
+=======
             //alert("Show " + button_id +  " show " + map_Name);
 
+>>>>>>> 10a60d1f491421aaceba4a307752c038cdbb4859
 
             //Add Modal Title
-
+>>>>>>> 50f35a284063ddcf5ab184e9987b2b53cca465d8
             $.ajax({
                 type: "GET",
                 async: false,
                 url: "Roadmap.aspx/GetProjectName",
-
+<<<<<<< HEAD
                 data: pr,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -468,23 +472,28 @@
             });
 
             //HERE IS HOW I TRIED IT BEFORE
-            //    title_Value = PageMethods.GetDescription(button_id, map_Name);
-            //    $('#input_title').html(title_Value);
-            //
-            //    data: JSON.stringify({ProjectID: button_id, RoadmapName: map_Name}),
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    success: function (title_Value) {
-            //        $('#input_title').html(title_Value)
-            //    },
-            //    error: function (xhr) {
-            //        console.log("Nothing")
-            //    }
-            //});
+                title_Value = PageMethods.GetDescription(button_id, map_Name);
+                $('#input_title').html(title_Value);
+=======
+                data: JSON.stringify({ProjectID: button_id, RoadmapName: map_Name}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (title_Value) {
+                    $('#input_title').html(title_Value)
+                },
+                error: function (xhr) {
+                    console.log("Nothing")
+                }
+            });
 
+<<<<<<< HEAD
+                title_Value = PageMethods.GetProjectName(button_id, map_Name);
+                ;
+=======
                 //title_Value = PageMethods.GetProjectName(button_id, map_Name);
                 //;
-
+>>>>>>> 50f35a284063ddcf5ab184e9987b2b53cca465d8
+>>>>>>> 10a60d1f491421aaceba4a307752c038cdbb4859
 
                 //adding the text to the description
                 desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
