@@ -10,10 +10,12 @@ namespace RocketRoadmap.DB
     {
         private string mName;
         private string mDescription;
+        private string mModalDescription;
         private DateTime mStartDate;
         private DateTime mEndDate;
         private string mBusinessValue;
         private string mRoadmapName;
+        private string mRiskString;
 
         private List<string> mDependantString = new List<string>();
         private List<Issue> mIssues = new List<Issue>();
@@ -30,13 +32,28 @@ namespace RocketRoadmap.DB
             mBusinessValue = businessvalue;
             mRoadmapName = rname;
 
+            try
+            {
+                mReader = mDatabase.executeread("SELECT ModalDescription FROM [dbo].[Project] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+                while (mReader.Read())
+                {
+                    mModalDescription = (mReader.GetString(0).ToString());
+                }
+                mReader.Close();
+            }
+            catch { ;  }
 
             mDatabase.connect();
 
-            mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            mReader=mDatabase.executeread("SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='"+mBusinessValue+"'");
             while (mReader.Read() )
             {
-                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName, mRoadmapName));
+
+                try
+                {
+                    mRiskString = mReader.GetString(0).ToString();
+                }
+                catch (Exception ex) { }
             }
             mReader.Close();
 
@@ -65,14 +82,14 @@ namespace RocketRoadmap.DB
             mReader.Close();
             mDatabase.close();
 
-            //mDatabase.connect();
+            mDatabase.connect();
 
-            //mReader = mDatabase.executeread("SELECT Description FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
-            //while (mReader.Read())
-            //{
-            //    mDependantString.Add(mReader.GetString(0).ToString());
-            //}
-            //mReader.Close();
+            mReader = mDatabase.executeread("SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            while (mReader.Read())
+            {
+                mDependantString.Add(mReader.GetString(0).ToString());
+            }
+            mReader.Close();
 
         }
 
@@ -177,6 +194,18 @@ namespace RocketRoadmap.DB
             bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents] (ProjectName, Dependantname, Description, RoadmapName) VALUES ('" + mName + "','" + dependant.GetName() + "','" + dependant.GetDescription() + "','" + mRoadmapName + "')");
 
             mDependencies.Add(dependant);
+
+            mDatabase.close();
+            return flag;
+        }
+
+        public bool DeleteDependant(Project dependant)
+        {
+            //assume already created
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Dependents] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Dependantname = '" + dependant.GetName() + "')");
+
+            mDependencies.Remove(dependant);
 
             mDatabase.close();
             return flag;

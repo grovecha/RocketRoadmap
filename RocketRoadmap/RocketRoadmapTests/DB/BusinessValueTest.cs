@@ -45,6 +45,59 @@ namespace RocketRoadmap.DB.Tests
             bv.SetName("test");
         }
 
+        [TestMethod()]
+        public void ReOrderTest()
+        {
+            RoadMaps maps = new RoadMaps();
+            maps.CreateRoadMap("busboxtest", "test123", "test");
+            RoadMap newroadmap = new RoadMap("busboxtest");
+            StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "busboxtest");
+
+            newroadmap.AddStrategyPoint(strat1);
+
+            BusinessValue bis1 = new BusinessValue("StratBox0BusBox0", "busboxtest");
+            strat1.CreateBuisnessValue("StratBox0BusBox0", "first", "busboxtest");
+
+            Project proj1 = new Project("StratBox0BusBox0ProjBox0", "first", "StratBox0BusBox0", "busboxtest");
+            Project proj2 = new Project("StratBox0BusBox0ProjBox1", "second", "StratBox0BusBox0", "busboxtest");
+            Project proj4 = new Project("StratBox0BusBox0ProjBox2", "fourth", "StratBox0BusBox0", "busboxtest");
+            bis1.CreateNewProject(proj1);
+            bis1.CreateNewProject(proj2);
+            bis1.CreateNewProject(proj4);
+
+            bis1.ReorderProject("StratBox0BusBox0ProjBox2", "third", true);
+            Project proj3 = new Project("StratBox0BusBox0ProjBox2", "third", "StratBox0BusBox0","busboxtest");
+            bis1.CreateNewProject(proj3);
+            bis1.ReloadProjects();
+            List<Project> list = bis1.GetProjects();
+            Assert.IsTrue(list.Last().GetName() == "StratBox0BusBox0ProjBox3");
+            maps.DeleteRoadMap("busboxtest");
+        }
+        [TestMethod()]
+        public void DeleteProjTest()
+        {
+            RoadMaps maps = new RoadMaps();
+            maps.CreateRoadMap("busboxtest", "test123", "test");
+            RoadMap newroadmap = new RoadMap("busboxtest");
+            StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "busboxtest");
+
+            newroadmap.AddStrategyPoint(strat1);
+            strat1.CreateBuisnessValue("StratBox0BusBox0", "first", "busboxtest");
+            BusinessValue bis1 = new BusinessValue("StratBox0BusBox0", "busboxtest");
+
+            Project proj1 = new Project("StratBox0BusBox0ProjBox0", "first", "StratBox0BusBox0", "busboxtest");
+            Project proj2 = new Project("StratBox0BusBox0ProjBox1", "second", "StratBox0BusBox0", "busboxtest");
+            Project proj3 = new Project("StratBox0BusBox0ProjBox2", "third", "StratBox0BusBox0", "busboxtest");
+            bis1.CreateNewProject(proj1);
+            bis1.CreateNewProject(proj2);
+            bis1.CreateNewProject(proj3);
+
+            bis1.DeleteProject("StratBox0BusBox0ProjBox0");
+            bis1.ReloadProjects();
+            List<Project> projlist = bis1.GetProjects();
+            Assert.IsTrue(projlist.Last().GetName() == "StratBox0BusBox0ProjBox1");
+            maps.DeleteRoadMap("busboxtest");
+        }
 
     }
 }

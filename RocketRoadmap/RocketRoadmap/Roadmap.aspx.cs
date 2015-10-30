@@ -424,7 +424,8 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            return newproj.GetDescription();
+            // return newproj.GetModalDescription();
+            return point;
 
         }
 

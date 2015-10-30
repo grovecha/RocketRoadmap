@@ -170,7 +170,7 @@ function addStrat(e, obj, i) {
                             '<tr id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
                                 '<td id="StratBox' + NewStratCount.toString() + 'BuxBox0inputtd">' +
                             "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' style='color:white; font-size:20px; vertical-align:-3px;' class='remove_bus'> X</a><br />" +
-                            '<div id="' + CurrentBusId + 'projDiv">' +
+                            '<div id=""StratBox' + NewStratCount.toString() + 'BusBox0projDiv">' +
                             "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +
                             "</div>"
                               '</td>' +
