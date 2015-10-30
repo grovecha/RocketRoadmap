@@ -15,6 +15,7 @@ namespace RocketRoadmap.DB
         private DateTime mEndDate;
         private string mBusinessValue;
         private string mRoadmapName;
+        private string mRiskString;
 
         private List<string> mDependantString = new List<string>();
         private List<Issue> mIssues = new List<Issue>();
@@ -44,10 +45,15 @@ namespace RocketRoadmap.DB
 
             mDatabase.connect();
 
-            mReader=mDatabase.executeread("SELECT Description FROM [dbo].[Issues] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            mReader=mDatabase.executeread("SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='"+mBusinessValue+"'");
             while (mReader.Read() )
             {
-                mIssues.Add(new Issue(mReader.GetString(0).ToString(), mName, mRoadmapName));
+
+                try
+                {
+                    mRiskString = mReader.GetString(0).ToString();
+                }
+                catch (Exception ex) { }
             }
             mReader.Close();
 
