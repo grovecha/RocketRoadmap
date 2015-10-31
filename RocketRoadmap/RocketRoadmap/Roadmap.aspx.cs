@@ -213,7 +213,7 @@ namespace RocketRoadmap
                         bustextbox.Value = b.GetDescription();
                     }
 
-                    if(count==1)
+                    if (count == 1)
                     {
                         BusTable = StratBox0Table;
                     }
@@ -293,11 +293,6 @@ namespace RocketRoadmap
                 sideTable.Rows.Add(lastRow);
 
                 #endregion
-
-
-
-
-
             }
 
         }
@@ -424,8 +419,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            // return newproj.GetModalDescription();
-            return point;
+            return newproj.GetDescription();
 
         }
 
