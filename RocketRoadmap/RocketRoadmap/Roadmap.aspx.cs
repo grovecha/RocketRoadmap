@@ -99,13 +99,6 @@ namespace RocketRoadmap
 
                 HtmlButton deletebutton = new HtmlButton();
 
-                //deletebutton.Attributes.Add("class", "btnDelete");
-                //deletebutton.ID = "StratDelete" + count.ToString();
-                //deletebutton.Attributes.Add("onclick", "deleteStrat(event,this)");
-                //deletebutton.InnerText = "X";
-
-
-                //cell1.Controls.Add(deletebutton);
 
                 cell1.Controls.Add(new LiteralControl("<br />"));
 
@@ -246,6 +239,16 @@ namespace RocketRoadmap
                     NextInputCell.Controls.Add(NextBox);
 
                     HtmlInputText nextText = new HtmlInputText();
+
+
+                    int projCount = 0;
+                    foreach(Project proj in b.GetProjects())
+                    {
+
+
+
+                        projCount++;
+                    }
 
                     nextText.Name = "DynmaicTextBox";
                     nextText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
