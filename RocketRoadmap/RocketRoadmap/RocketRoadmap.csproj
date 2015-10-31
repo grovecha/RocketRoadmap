@@ -83,6 +83,7 @@
     <Content Include="index.aspx" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\DisplayModal.js" />
     <Content Include="js\InputModal.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\Login.js" />
