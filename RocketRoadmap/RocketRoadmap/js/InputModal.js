@@ -6,26 +6,28 @@ $(document).ready(function () {
     var max_fields = 10; //maximum input boxes allowed
     var dep_Text = $(".depText"); //Dependency input wrapper
     var add_Text = $("#addText"); //Add dependency input
-    var dep_arr = []; // dependecy string array
+    var ndep_arr = []; // dependecy string array
     var dep_Select = $(".depSelect"); //Dependency Selection wrapper
     var add_Select = $("#addSelect"); //Add dependency select
-    var select_arr = []; //select array
+    var nselect_arr = []; //select array
     var link_Text = $(".linkText"); //Link input wrapper
     var add_Link = $("#addLink"); //Add Link input
-    var link_arr = []; //link array
+    var nlink_arr = []; //link array
     var save = $("#save"); //Save button
     var dep_count = 0; //initlal dependency input counter
     var select_count = 0; //initial select input counter
     var link_count = 0; //initial link count
     var test_count = 0;
-
     var options; // used for the string of options a select has
     var select_total = 0;
+    var all_proj = [];
 
     //Getting roadmap name
     var roadmap_url = window.location.href;
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
     map_Name = map_Name.substr(2, map_Name.length);
+
+    
 
     //Dependency addition Functions
     $(add_Text).on("click", function (e) { //on add input button click
@@ -42,38 +44,25 @@ $(document).ready(function () {
 
     })
 
-    $(wrapper).on("click", ".remove_strat", function (e) { //user click on remove text
-
-        deleteStrat(this);
-
-    })
-
-    $(wrapper).on("click", ".remove_bus", function (e) { //user click on remove text
-
-        deleteBus(this);
-
-    })
-
-    $(wrapper).on("click", ".remove_proj", function (e) { //user click on remove text
-
-        deleteProj(this);
-
-    })
-
     //Selection addition Functions
 
     $(add_Select).on("click", function (e) { //on add input button click
         e.preventDefault();
 
+        //Getting all projects made
+        //all_proj = PageMethods.GetAllRoadmapProjects(map_Name);
+        //select_total = all_proj.length;
+
         //Grab the list of project name string
-        nselect_arr = PageMethods.GetProjectDependency(button_id, map_name);
-        select_total = nselect_arr.length;
+        //nselect_arr = PageMethods.GetProjectDependency(button_id, map_name);
+        //select_total = nselect_arr.length;
 
         //Create the options list
-        for (options_x = 0; options_x < select_total; options_x++) {
-            options += "<option value='" + nselect_arr[options_x].val + ">" + nselect_arr[options_x].val + "</option>";
-        }
-
+        options += "<option value='No Project'>Please Select a Project </option>";
+        //for (options_x = 0; options_x < select_total; options_x++) {
+        //        options += "<option value='" + nselect_arr[options_x].val + ">" + nselect_arr[options_x].val + "</option>";
+        //}
+        
         //Add a selection
         if (select_count < max_fields) { //max input box allowed
             select_count++; //text box increment
@@ -95,7 +84,7 @@ $(document).ready(function () {
             $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
         }
     });
-    //Removing the link inout box
+    //Removing the link input box
     $(link_Text).on("click", ".remove_field", function (e) { //user click on remove text
         e.preventDefault(); $(this).parent('div').remove();
         link_count--;
@@ -112,31 +101,31 @@ $(document).ready(function () {
         //Taking the string dependecy- in a list of string??
         $('input[name=dep_input]').each(function () {
             if ($(this).val() != null) {
-                dep_arr.push($(this).val());
+                ndep_arr.push($(this).val());
             }
         });
-        PageMethods.SetProjectStrDependency(button_id, map_Name, dep_arr);
+        PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
 
 
         //Select Dependecy value
         $('input[name=select_input]').each(function () {
             if ($(this).val() != null) {
-                select_arr.push($(this).text());
+                nselect_arr.push($(this).val());
             }
         });
-        PageMethods.SetProjectDependency(button_id, map_Name, select_arr);
+        PageMethods.SetProjectDependency(button_id, map_Name, nselect_arr);
 
         //Taking the value of the risks
         var risk_val = document.getElementById("riskText").value.toString();
-        PageMethods.SetProjectDescription(button_id, map_Name, risk_val);
+        PageMethods.SetProjectRisk(button_id, map_Name, risk_val);
 
         //Select Dependecy value
         $('input[name=link_input]').each(function () {
             if ($(this).val() != null) {
-                link_arr.push($(this).val());
+                nlink_arr.push($(this).val());
             }
         });
-        PageMethods.SetProjectLink(button_id, map_Name, link_arr);
+        PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
 
         alert("Here is the button id:" + button_id + "Here is the roadmap name" + map_Name);
 
@@ -272,5 +261,24 @@ $(document).ready(function () {
         $('.new_link').each(function () {
             $(this).remove();
         });
+    });
+
+    //Delete the Strategy Point 
+    $(wrapper).on("click", ".remove_strat", function (e) { //user click on remove text
+
+        deleteStrat(this);
+
+    });
+    //Delete the Business Value
+    $(wrapper).on("click", ".remove_bus", function (e) { //user click on remove text
+
+        deleteBus(this);
+
+    });
+    //Delete the Project
+    $(wrapper).on("click", ".remove_proj", function (e) { //user click on remove text
+
+        deleteProj(this);
+
     });
 });
