@@ -108,13 +108,6 @@ namespace RocketRoadmap
 
                 HtmlButton deletebutton = new HtmlButton();
 
-                //deletebutton.Attributes.Add("class", "btnDelete");
-                //deletebutton.ID = "StratDelete" + count.ToString();
-                //deletebutton.Attributes.Add("onclick", "deleteStrat(event,this)");
-                //deletebutton.InnerText = "X";
-
-
-                //cell1.Controls.Add(deletebutton);
 
                 cell1.Controls.Add(new LiteralControl("<br />"));
 
@@ -222,7 +215,7 @@ namespace RocketRoadmap
                         bustextbox.Value = b.GetDescription();
                     }
 
-                    if(count==1)
+                    if (count == 1)
                     {
                         BusTable = StratBox0Table;
                     }
@@ -255,6 +248,16 @@ namespace RocketRoadmap
                     NextInputCell.Controls.Add(NextBox);
 
                     HtmlInputText nextText = new HtmlInputText();
+
+
+                    int projCount = 0;
+                    foreach(Project proj in b.GetProjects())
+                    {
+
+
+
+                        projCount++;
+                    }
 
                     nextText.Name = "DynmaicTextBox";
                     nextText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
@@ -305,11 +308,6 @@ namespace RocketRoadmap
                 //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideExample();", true);
 
                 #endregion
-
-
-
-
-
             }
 
         }
@@ -436,8 +434,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            // return newproj.GetModalDescription();
-            return point;
+            return newproj.GetDescription();
 
         }
 
