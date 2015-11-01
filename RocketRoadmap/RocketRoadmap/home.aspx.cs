@@ -61,6 +61,8 @@ namespace RocketRoadmap
                             TableHeaderCell u2 = new TableHeaderCell();
                             TableHeaderCell u3 = new TableHeaderCell();
                             TableHeaderCell u4 = new TableHeaderCell();
+                            TableHeaderCell u5 = new TableHeaderCell();
+                            TableHeaderCell u6 = new TableHeaderCell();
 
                             u1.Text = "Name";
                             u2.Text = "Author";
@@ -71,8 +73,11 @@ namespace RocketRoadmap
                             uhead.Cells.Add(u2);
                             uhead.Cells.Add(u3);
                             uhead.Cells.Add(u4);
+                            uhead.Cells.Add(u5);
+                            uhead.Cells.Add(u6);
 
                             userroadmaps.Rows.Add(uhead);
+
                             foreach (var umap in uall)
                             {
                                 TableRow urow = new TableRow();
@@ -81,6 +86,8 @@ namespace RocketRoadmap
                                 TableCell ucell_2 = new TableCell();
                                 TableCell ucell_3 = new TableCell();
                                 TableCell ucell_4 = new TableCell();
+                                TableCell ucell_5 = new TableCell();
+                                TableCell ucell_6 = new TableCell();
 
                                 HyperLink link = new HyperLink();
                                 link.NavigateUrl = "Roadmap.aspx?n=" + umap[0];
@@ -92,13 +99,17 @@ namespace RocketRoadmap
                                 ucell_2.Text = umap[1];
                                 ucell_3.Text = umap[2];
                                 ucell_4.Text = umap[3];
+                                ucell_5.Text = "X";
+                                ucell_6.Text = "EDIT";
 
                                 urow.Cells.Add(ucell_1);
                                 urow.Cells.Add(ucell_2);
                                 urow.Cells.Add(ucell_3);
                                 urow.Cells.Add(ucell_4);
+                                urow.Cells.Add(ucell_5);
+                                urow.Cells.Add(ucell_6);
 
-                                userroadmaps.Rows.Add(urow);
+                            userroadmaps.Rows.Add(urow);
                             }
                         }
                         catch (NullReferenceException nre)
@@ -120,8 +131,10 @@ namespace RocketRoadmap
                             TableCell cell_2 = new TableCell();
                             TableCell cell_3 = new TableCell();
                             TableCell cell_4 = new TableCell();
+                            TableCell cell_5 = new TableCell();
+                            TableCell cell_6 = new TableCell();
 
-                            HyperLink link = new HyperLink();
+                        HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
@@ -131,13 +144,17 @@ namespace RocketRoadmap
                             cell_2.Text = map[1];
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
+                            cell_5.Text = "X";
+                            cell_6.Text = "EDIT";
 
                             row.Cells.Add(cell_1);
                             row.Cells.Add(cell_2);
                             row.Cells.Add(cell_3);
                             row.Cells.Add(cell_4);
+                            row.Cells.Add(cell_5);
+                            row.Cells.Add(cell_6);
 
-                            allroadmaps.Rows.Add(row);
+                        allroadmaps.Rows.Add(row);
                         }
                     }
                     catch (NullReferenceException nre)
