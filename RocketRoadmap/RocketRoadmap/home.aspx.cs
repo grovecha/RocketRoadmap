@@ -18,7 +18,7 @@ namespace RocketRoadmap
         {
             mUser = new DB.User((string)Session["username"], (string)Session["password"]);
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
-            name.Text = mUser.GetUserName() + "'s ROADMAPS";
+            name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
             if (!IsPostBack)
             {
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
@@ -32,7 +32,7 @@ namespace RocketRoadmap
                         Session["password"] = user.GetPassword();
                         mUser = new DB.User((string)Session["username"], (string)Session["password"]);
                         //loginlabel.Text = "Logged in as: " + user.GetUserName();
-                        name.Text = user.GetUserName() + "'s ROADMAPS";
+                        name.InnerText = user.GetUserName() + "'s Roadmaps";
                     }
                     else if (mUser.Login())
                     {
@@ -42,6 +42,10 @@ namespace RocketRoadmap
                     {
                         Response.Redirect("index.aspx", false);
                     }
+                }
+                else
+                {
+                    Response.Redirect("index.aspx", false);
                 }
                     if (mUser != null)
                     {
