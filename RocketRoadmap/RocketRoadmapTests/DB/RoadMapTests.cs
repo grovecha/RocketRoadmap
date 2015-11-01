@@ -130,6 +130,8 @@ namespace RocketRoadmap.DB.Tests
 
             Assert.AreEqual(1, projs.Count());
             Assert.AreEqual(projs.First()[0], "Tested");
+            Assert.AreEqual(projs[2], "TEST");
+            Assert.AreEqual(projs[3], "Test");
         }
 
     }
