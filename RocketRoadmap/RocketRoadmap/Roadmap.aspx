@@ -158,7 +158,7 @@
 
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
-                    <textarea id="descText" rows="4" cols="75"></textarea> 
+                    <textarea id="descText" rows="4" cols="75" ></textarea> 
                     <br />
 
                 <!--Depedency Input -->
@@ -258,30 +258,6 @@
 
     <script src="js/Roadmap.js"></script>
 <!-- Menu Toggle Script -->
-<script>
-    var panel_close = false;
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        if (panel_close == false) {
-            panel_close = true;
-        } else if (panel_close == true) {
-            panel_close = false;
-        }
-        $("#wrapper").toggleClass("toggled");
-    });
-
-    var button_id;
-    function showModal(id) {
-        button_id=id.substr(0,id.length-3)
-        if (panel_close == false) {
-            $("#inputModal").modal("show");
-        } else if (panel_close == true) {
-            $("#displayModal").modal("show");
-        }
-    }
-   
-    </script>
-
 
 
 

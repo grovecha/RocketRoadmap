@@ -402,6 +402,11 @@ namespace RocketRoadmap
 
         #endregion
 
+
+
+
+
+        //THIS IS ERIC"S STUFF
         #region Modal Getters
         //Get Project Name
         [WebMethod]
@@ -434,7 +439,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            return newproj.GetDescription();
+            return newproj.GetModalDescription();
 
         }
 
@@ -660,13 +665,56 @@ namespace RocketRoadmap
         }
         //Getting all projects
         [WebMethod]
-        public static List<List<string>> GetAllRoadmapProjects(string RoadmapName)
+        public static List<string> GetAllRoadmapProjectNames(string RoadmapName)
         {
             RoadMap map = new RoadMap(RoadmapName);
-            List<List<string>> test = new List<List<string>>();
-            test = map.GetAllProjects();
-            return test;
+
+            List<List<string>> Proj = new List<List<string>>();
+            Proj = map.GetAllProjects();
+            List<string> Proj_Names = new List<string>();
+
+            foreach(List<string> s in Proj)
+            {
+                Proj_Names.Add(s[0]);
+            }
+
+            return Proj_Names;
         }
+
+        [WebMethod]
+        public static List<string> GetAllRoadmapProjectDesc(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+
+            List<List<string>> Proj = new List<List<string>>();
+            Proj = map.GetAllProjects();
+            List<string> Proj_Desc = new List<string>();
+
+            foreach (List<string> s in Proj)
+            {
+                Proj_Desc.Add(s[1]);
+            }
+
+            return Proj_Desc;
+        }
+
+        [WebMethod]
+        public static List<string> GetAllRoadmapProjectBval(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+
+            List<List<string>> Proj = new List<List<string>>();
+            Proj = map.GetAllProjects();
+            List<string> Proj_Bval = new List<string>();
+
+            foreach (List<string> s in Proj)
+            {
+                Proj_Bval.Add(s[2]);
+            }
+
+            return Proj_Bval;
+        }
+
 
         #endregion
 

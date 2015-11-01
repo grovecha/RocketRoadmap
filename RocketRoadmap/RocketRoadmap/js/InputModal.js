@@ -2,6 +2,28 @@
 Created by Eric Nartker
 Contains input modal Onclick
 **/
+var panel_close = false;
+$("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    if (panel_close == false) {
+        panel_close = true;
+    } else if (panel_close == true) {
+        panel_close = false;
+    }
+    $("#wrapper").toggleClass("toggled");
+});
+
+var button_id;
+function showModal(id) {
+    button_id = id.substr(0, id.length - 3)
+    if (panel_close == false) {
+        $("#inputModal").modal("show");
+    } else if (panel_close == true) {
+        $("#displayModal").modal("show");
+    }
+}
+
+
 $(document).ready(function () {
     var max_fields = 10; //maximum input boxes allowed
     var dep_Text = $(".depText"); //Dependency input wrapper
@@ -27,6 +49,7 @@ $(document).ready(function () {
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
     map_Name = map_Name.substr(2, map_Name.length);
 
+
     
 
     //Dependency addition Functions
@@ -45,7 +68,6 @@ $(document).ready(function () {
     })
 
     //Selection addition Functions
-
     $(add_Select).on("click", function (e) { //on add input button click
         e.preventDefault();
 
@@ -53,14 +75,17 @@ $(document).ready(function () {
         //all_proj = PageMethods.GetAllRoadmapProjects(map_Name);
         //select_total = all_proj.length;
 
-        //Grab the list of project name string
+        //Grab the list of project name string, need to convert to an array
         //nselect_arr = PageMethods.GetProjectDependency(button_id, map_name);
         //select_total = nselect_arr.length;
 
         //Create the options list
         options += "<option value='No Project'>Please Select a Project </option>";
         //for (options_x = 0; options_x < select_total; options_x++) {
-        //        options += "<option value='" + nselect_arr[options_x].val + ">" + nselect_arr[options_x].val + "</option>";
+        //        
+
+
+        //options += "<option value='" + nselect_arr[options_x].val.toString + ">" + nselect_arr[options_x].val + "</option>";
         //}
         
         //Add a selection
@@ -104,7 +129,8 @@ $(document).ready(function () {
                 ndep_arr.push($(this).val());
             }
         });
-        PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
+        //Need Ajax Post Call here?
+        //PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
 
 
         //Select Dependecy value
@@ -113,7 +139,8 @@ $(document).ready(function () {
                 nselect_arr.push($(this).val());
             }
         });
-        PageMethods.SetProjectDependency(button_id, map_Name, nselect_arr);
+        //Need Ajax Call here 
+        //PageMethods.SetProjectDependency(button_id, map_Name, nselect_arr);
 
         //Taking the value of the risks
         var risk_val = document.getElementById("riskText").value.toString();
@@ -125,9 +152,12 @@ $(document).ready(function () {
                 nlink_arr.push($(this).val());
             }
         });
-        PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
+        //Need Ajax Call here
+        //PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
 
-        alert("Here is the button id:" + button_id + "Here is the roadmap name" + map_Name);
+        $('#inputModal').modal('hide');
+
+      
 
     });
 
@@ -148,20 +178,13 @@ $(document).ready(function () {
         var risk_Value = "";
 
 
-        // Add Modal Title
-        var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
-
-        //alert("Show " + button_id +  " show " + map_Name);
-
-
-
-        //Add Modal Title
-
+        ////Add Modal Title
+        //var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
+        //var br = { "RoadmapName": map_Name };
         //$.ajax({
         //    type: "GET",
         //    async: false,
         //    url: "Roadmap.aspx/GetProjectName",
-
         //    data: pr,
         //    contentType: "application/json; charset=utf-8",
         //    dataType: "json",
@@ -169,24 +192,53 @@ $(document).ready(function () {
         //        $('#input_title').html(response);
         //    },
         //    error: function (xhr) {
-        //        console.log("Nothing")
+        //        Alert("no Title");
         //    },
-        //    always: function (e) {
-        //        console.log("Always")
-        //    }
         //});
 
-        //title_Value = PageMethods.GetProjectName(button_id, map_Name);
 
         ////adding the text to the description
+        ////NEED AJAX TO GET DESCRIPTION
+
+        //$.ajax({
+        //    type: "GET",
+        //    async: false,
+        //    url: "Roadmap.aspx/GetProjectDescription",
+        //    data: pr,
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {
+        //        $('#descText').val(response);
+        //    },
+        //    error: function (xhr) {
+        //        Alert("no descritpion");
+        //    },
+        //});
+
         //desc_Value = PageMethods.GetProjectDescription(button_id,map_Name);
-        //$('#descText').val(desc_Value);
 
         ////Find the number of input boxes to load
-        //idep_arr = PageMethods.GetProjectDependencyText();
+        ////NEED AJAX CALL HERE TO GET THE LIST<STRING> INTO ARRAY
+
+        //$.ajax({
+        //    type: "GET",
+        //    async: false,
+        //    url: "Roadmap.aspx/GetProjectDependencyText",
+        //    data: pr,
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {   
+        //      //Need to make an array at this point
+
+        //    },
+        //    error: function (xhr) {
+        //        Alert("no dependecy Text List");
+        //    },
+        //});
+
         //dep_total = idep_arr.length;
 
-        ////Add all of thre input boxes
+        ////Add all of the input boxes
         //for (dep_x = 0; dep_x < dep_total; dep_x++) {
         //    $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
         //};
@@ -198,7 +250,41 @@ $(document).ready(function () {
         //});
 
         ////Grab the list of project name string
-        //iselect_arr = PageMethods.GetProjectDependency(button_id,map_Name);
+        ////NEED AJAX CALL HERE TO GET THE LIST of project dependecies already there
+
+        //$.ajax({
+        //    type: "GET",
+        //    async: false,
+        //    url: "Roadmap.aspx/GetProjectDependencyText",
+        //    data: pr,
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {   
+        //        //Need to make an array at this point
+
+        //    },
+        //    error: function (xhr) {
+        //        Alert("no dependecy Text List");
+        //    },
+        //});
+
+        ////NEED AJAX CALL HERE TO GET THE LIST of project Names 
+        //$.ajax({
+        //    type: "GET",
+        //    async: false,
+        //    url: "Roadmap.aspx/GetAllRoadmapProjectDesc",
+        //    data: rd,
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {   
+        //      //Need to make an array at this point
+
+        //    },
+        //    error: function (xhr) {
+        //        Alert("no dependecy Text List");
+        //    },
+        //});
+
         //select_total = nselect_arr.length;
         ////Create the options list
         //for (options_x = 0; options_x < select_total; options_x++) {
@@ -216,11 +302,40 @@ $(document).ready(function () {
         //    load_select_count++;
         //});
 
+
         ////Fill in the Risks text area
-        //risk_Value = PageMethods.GetProjectRisk(button_id,map_Name);
-        //$('#riskText').val(risk_Value);
+
+        //$.ajax({
+        //    type: "GET",
+        //    async: false,
+        //    url: "Roadmap.aspx/GetProjectRisk",
+        //    data: pr,
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {
+        //        $('#riskText').val(response);
+        //    },
+        //    error: function (xhr) {
+        //        Alert("no risk");
+        //    },
+        //});
+
 
         ////Get link list size
+        //$.ajax({
+        //    type: "GET",
+        //    async: false,
+        //    url: "Roadmap.aspx/GetProjectDescription",
+        //    data: pr,
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (response) {
+        //        //Need to get array here of values
+        //    },
+        //    error: function (xhr) {
+        //        Alert("no descritpion");
+        //    },
+        //});
         //ilink_arr = PageMethods.GetProjectLinks(button_id, map_Name);
         //link_total = ilink_arr.length;
 

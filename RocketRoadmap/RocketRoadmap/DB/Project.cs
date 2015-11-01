@@ -201,7 +201,7 @@ namespace RocketRoadmap.DB
         {
             //assume already created
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("DELETE [dbo].[Links] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Address = '" + link.GetLink() + "'");
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Links] WHERE RoadmapName = '" + mRoadmapName + "' AND ProjectName = '" + mName + "' AND Address = '" + link.GetLink() + "'");
 
             mLinks.Remove(link);
 
@@ -233,7 +233,7 @@ namespace RocketRoadmap.DB
         {
             //assume already created
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("DELETE [dbo].[Dependents] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Dependantname = '" + dependant.GetName() + "')");
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Dependents] WHERE RoadmapName = '" + mRoadmapName + "' AND ProjectName = '" + mName + "' AND Dependantname = '" + dependant.GetName() + "')");
 
             mDependencies.Remove(dependant);
 
