@@ -18,7 +18,6 @@ namespace RocketRoadmap.DB
         private string mRiskString;
 
         private List<string> mDependantString = new List<string>();
-        private List<Issue> mIssues = new List<Issue>();
         private List<Link> mLinks = new List<Link>();
         private List<Project> mDependencies = new List<Project>();
 
@@ -116,6 +115,20 @@ namespace RocketRoadmap.DB
             return mDescription;
         }
 
+
+        public bool SetModalDescription(string description)
+        {
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            mDatabase.close();
+            mModalDescription = description;
+            return flag;
+        }
+        public string GetModalDescription()
+        {
+            return mModalDescription;
+        }
+
         public bool SetStartDate(DateTime startdate) {
             mDatabase.connect();
             bool flag= mDatabase.executewrite("UPDATE [dbo].[Project] SET StartDate='" + startdate + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
@@ -139,6 +152,11 @@ namespace RocketRoadmap.DB
             mDatabase.close();
             return flag;
 
+        }
+
+        public List<string> GetDependantStrings()
+        {
+            return mDependantString;
         }
 
         public DateTime GetStartDate() {
@@ -167,7 +185,7 @@ namespace RocketRoadmap.DB
             return mBusinessValue;
         }
         public List<Link> GetLinks() { return mLinks; }
-        public List<Issue> GetIssues() { return mIssues; }
+        //public List<Issue> GetIssues() { return mIssues; }
         public List<Project> GetDependencies() { return mDependencies; }
         #endregion
 
@@ -175,6 +193,18 @@ namespace RocketRoadmap.DB
         {
             mDatabase.connect();
             bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Link] (Description, ProjectName, Address, RoadmapName) VALUES ('" + link.GetDescription() + "','" + link.GetProjectName() + "','" + link.GetLink() + "'" + mRoadmapName + ")");
+            mDatabase.close();
+            return flag;
+        }
+
+        public bool DeleteLink(Link link)
+        {
+            //assume already created
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Links] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Address = '" + link.GetLink() + "'");
+
+            mDependencies.Remove(link);
+
             mDatabase.close();
             return flag;
         }
@@ -197,6 +227,31 @@ namespace RocketRoadmap.DB
 
             mDatabase.close();
             return flag;
+        }
+
+        public bool DeleteDependant(Project dependant)
+        {
+            //assume already created
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Dependents] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Dependantname = '" + dependant.GetName() + "')");
+
+            mDependencies.Remove(dependant);
+
+            mDatabase.close();
+            return flag;
+        }
+
+        public bool SetProjectRisks(string risks)
+        {
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Risks='" + risks + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "' AND BusinessValueName ='"+ mBusinessValue+"'");
+            mDatabase.close();
+            mRiskString = risks;
+            return flag;
+        }
+        public string GetProjectRisks()
+        {
+            return mRiskString;
         }
 
     }

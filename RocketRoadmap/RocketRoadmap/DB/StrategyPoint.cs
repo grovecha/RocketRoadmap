@@ -41,6 +41,7 @@ namespace RocketRoadmap.DB
         }
 
         public string GetName() { return mName; }
+        public void SetName(string name) { mName = name; }
         public string GetDescription() { return mDescription; }
         public List<BusinessValue> GetBusinessValues() { return mValues; }
 
@@ -202,6 +203,7 @@ namespace RocketRoadmap.DB
             mDatabase.close();
 
         }
+
         private string mName;
         private string mDescription;
         private string mRoadmapName;
