@@ -17,7 +17,7 @@ namespace RocketRoadmap
             List<StrategyPoint> splist = map.GetStrategyPoints();
             List<BusinessValue> bvlist = splist.First().GetBusinessValues();
             List<Project> projlist = bvlist.First().GetProjects();
-            List<Issue> issuelist = projlist.First().GetIssues();
+            //List<Issue> issuelist = projlist.First().GetIssues();
             List<Link> linklist = projlist.First().GetLinks();
             List<Project> dependencylist = projlist.First().GetDependencies();
 
@@ -30,7 +30,7 @@ namespace RocketRoadmap
             ProjDescrip.Text = ProjDescrip.Text + " " + projlist.First().GetDescription();
             ProjStartDate.Text = ProjStartDate.Text + " " + projlist.First().GetStartDate().ToString();
             ProjEndDate.Text = ProjEndDate.Text + " " + projlist.First().GetEndDate().ToString();
-            IssueDescrip.Text = IssueDescrip.Text + " " + issuelist.First().GetDescription();
+            //IssueDescrip.Text = IssueDescrip.Text + " " + issuelist.First().GetDescription();
             Link.Text = Link.Text + " " + linklist.First().GetLink();
             Dependency.Text = Dependency.Text + " " + dependencylist.First().GetName();
 
