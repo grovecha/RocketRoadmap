@@ -138,8 +138,12 @@ namespace RocketRoadmap
                 HtmlTable BusTable = new HtmlTable();
                 foreach (BusinessValue b in p.GetBusinessValues())
                 {
+                    HtmlTableCell bc1 = new HtmlTableCell();
+                    HtmlTableCell bc2 = new HtmlTableCell();
+
                     if (valcount == 0)
                     {
+
                         HtmlTableCell sCell = new HtmlTableCell();
                         sCell.Style.Add(HtmlTextWriterStyle.Width, "3000px");
                         sCell.Style.Add(HtmlTextWriterStyle.BackgroundColor, "yellow");
@@ -154,7 +158,7 @@ namespace RocketRoadmap
                         visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
                         StratVisTable.Rows.Add(visRow);
 
-                        HtmlTableCell bc1 = new HtmlTableCell();
+
                         bc1.ID = b.GetName() + "td";
                         bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
 
@@ -162,7 +166,7 @@ namespace RocketRoadmap
                         visRow.Cells.Add(new HtmlTableCell());
                         visRow.Cells.Add(new HtmlTableCell());
 
-                        HtmlTableCell bc2 = new HtmlTableCell();
+                        bc2 = new HtmlTableCell();
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
@@ -180,7 +184,7 @@ namespace RocketRoadmap
                         StratVisTable.Rows.Add(newPRow);
                         newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
 
-                        HtmlTableCell bc1 = new HtmlTableCell();
+                        bc1 = new HtmlTableCell();
                         bc1.ID = b.GetName() + "td";
 
                         newPRow.Cells.Add(bc1);
@@ -188,7 +192,7 @@ namespace RocketRoadmap
                         newPRow.Cells.Add(new HtmlTableCell());
                         newPRow.Cells.Add(new HtmlTableCell());
 
-                        HtmlTableCell bc2 = new HtmlTableCell();
+
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
@@ -248,13 +252,34 @@ namespace RocketRoadmap
                     NextInputCell.Controls.Add(NextBox);
 
                     HtmlInputText nextText = new HtmlInputText();
-
+                    
 
                     int projCount = 0;
                     foreach(Project proj in b.GetProjects())
                     {
 
 
+
+                        //< input type = "button" id = "StratBox0BusBox0ProjBox0But" value = "proj1" onclick = "showModal(this.id)" class="proj1" style="height: 33px; width: 150px; vertical-align: top; background-color: green;">
+                        HtmlInputButton projBut = new HtmlInputButton();
+                        projBut.ID = proj.GetName() + "But";
+                        projBut.Attributes.Add("value", "proj"+(projCount+1).ToString());
+                        projBut.Attributes.Add("onclick", "showModal(this.id)");
+                        projBut.Attributes.Add("class", "proj"+ (projCount + 1).ToString());
+                        projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
+                        projBut.Value = proj.GetDescription();
+                        bc1.Controls.Add(projBut);
+
+                        HtmlInputText projTextBox = new HtmlInputText();
+
+                        if(count==1 && valcount==1 && projCount==0)
+                        {
+                            StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
+                        }
+                        else
+                        {
+                            projTextBox.Value = proj.GetDescription();
+                        }
 
                         projCount++;
                     }
