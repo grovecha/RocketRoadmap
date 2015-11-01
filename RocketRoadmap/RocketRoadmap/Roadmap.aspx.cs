@@ -292,6 +292,9 @@ namespace RocketRoadmap
 
                 sideTable.Rows.Add(lastRow);
 
+                //hide example
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideExample();", true);
+
                 #endregion
 
 
