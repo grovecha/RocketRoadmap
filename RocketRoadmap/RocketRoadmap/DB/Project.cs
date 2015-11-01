@@ -18,7 +18,6 @@ namespace RocketRoadmap.DB
         private string mRiskString;
 
         private List<string> mDependantString = new List<string>();
-        private string mRisks;
         private List<Link> mLinks = new List<Link>();
         private List<Project> mDependencies = new List<Project>();
 
@@ -198,6 +197,18 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
+        public bool DeleteLink(Link link)
+        {
+            //assume already created
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("DELETE [dbo].[Links] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Address = '" + link.GetLink() + "'");
+
+            mDependencies.Remove(link);
+
+            mDatabase.close();
+            return flag;
+        }
+
         public bool CreateIssue(Issue i)
         {
             mDatabase.connect();
@@ -228,6 +239,19 @@ namespace RocketRoadmap.DB
 
             mDatabase.close();
             return flag;
+        }
+
+        public bool SetProjectRisks(string risks)
+        {
+            mDatabase.connect();
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Risks='" + risks + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "' AND BusinessValueName ='"+ mBusinessValue+"'");
+            mDatabase.close();
+            mRiskString = risks;
+            return flag;
+        }
+        public string GetProjectRisks()
+        {
+            return mRiskString;
         }
 
     }

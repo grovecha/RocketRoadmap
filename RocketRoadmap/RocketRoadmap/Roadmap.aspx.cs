@@ -544,6 +544,7 @@ namespace RocketRoadmap
         }
 
         //Set String Dependency
+        [WebMethod]
         public static void SetProjectStrDependency(string ProjectID, string RoadmapName, List<string> dep)
         {
             List<string> Dep_Names = new List<string>();
@@ -578,8 +579,9 @@ namespace RocketRoadmap
 
 
         }
-           
+
         //Set Project Dependency 
+        [WebMethod]
         public static void SetProjectDependency(string ProjectID, string RoadmapName, List<string> dep)
         {
             int pointindex = ProjectID.IndexOf("Bus");
@@ -599,6 +601,7 @@ namespace RocketRoadmap
         }
 
         //Set Project Risk
+        [WebMethod]
         public static void SetProjectRisk(string ProjectID, string RoadmapName, string risk)
         {
             int pointindex = ProjectID.IndexOf("Bus");
@@ -610,11 +613,12 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            //newproj.SetRisk(risk);
+            newproj.SetProjectRisks(risk);
 
         }
 
         //Set Project Link
+        [WebMethod]
         public static void SetProjectLink(string ProjectID, string RoadmapName, List<string> link)
         {
             List<Link> link_list = new List<Link>();
@@ -647,6 +651,15 @@ namespace RocketRoadmap
             //    }
             //}
 
+        }
+        //Getting all projects
+        [WebMethod]
+        public static List<List<string>> GetAllRoadmapProjects(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+            List<List<string>> test = new List<List<string>>();
+            test = map.GetAllProjects();
+            return test;
         }
 
         #endregion
