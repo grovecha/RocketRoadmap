@@ -203,7 +203,7 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool flag = mDatabase.executewrite("DELETE [dbo].[Links] WHERE RoadmapName = '" + mRoadmapName + " AND ProjectName = '" + mName + "' AND Address = '" + link.GetLink() + "'");
 
-            mDependencies.Remove(link);
+            mLinks.Remove(link);
 
             mDatabase.close();
             return flag;

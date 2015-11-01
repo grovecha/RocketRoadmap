@@ -17,6 +17,14 @@ namespace RocketRoadmap
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            //User login check
+            DB.User user = new DB.User((string)Session["username"], (string)Session["password"]);
+            if (!user.Login())
+            {
+                Response.Redirect("index.aspx", false);
+            }
+           
+            
             string url = Request.Url.AbsoluteUri;
             int index = url.IndexOf("=");
             string name = url.Substring(index + 1);
