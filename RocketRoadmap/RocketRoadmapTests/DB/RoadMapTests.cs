@@ -12,6 +12,14 @@ namespace RocketRoadmap.DB.Tests
     public class RoadMapTests
     {
         [TestMethod()]
+        public void GetAll2Projects()
+        {
+
+
+
+
+        }
+        [TestMethod()]
         public void RoadMapTest()
         {
             RoadMap map = new RoadMap("Test");
@@ -47,9 +55,9 @@ namespace RocketRoadmap.DB.Tests
             Assert.AreEqual(link.GetLink(), linkList.First().GetLink());
 
             Issue issue = new Issue("Tested", "Tested", "Test");
-            List<Issue> issueList = projList.First().GetIssues();
+            //List<Issue> issueList = projList.First().GetIssues();
 
-            Assert.AreEqual(issue.GetDescription(), issueList.First().GetDescription());
+           // Assert.AreEqual(issue.GetDescription(), issueList.First().GetDescription());
 
             Project dep = new Project("Tested2", "TEST", "test", "Test");
             List<Project> depList = projList.First().GetDependencies();
@@ -113,5 +121,18 @@ namespace RocketRoadmap.DB.Tests
             Assert.IsTrue(list.Last().GetName() == "StratBox3");
             maps.DeleteRoadMap("stratboxtest");
         }
+
+        [TestMethod()]
+        public void GetAllProjects()
+        {
+            RoadMap map = new RoadMap("test");
+            List<List<string>> projs = map.GetAllProjects();
+
+            Assert.AreEqual(1, projs.Count());
+            Assert.AreEqual(projs.First()[0], "Tested");
+            Assert.AreEqual(projs[2], "TEST");
+            Assert.AreEqual(projs[3], "Test");
         }
+
+    }
 }

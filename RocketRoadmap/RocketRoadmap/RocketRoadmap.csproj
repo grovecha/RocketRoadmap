@@ -79,11 +79,11 @@
     <Content Include="datapulltest.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="home.aspx" />
-    <Content Include="Home.html" />
     <Content Include="images\quicken-loans-logo.png" />
     <Content Include="index.aspx" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\DisplayModal.js" />
     <Content Include="js\InputModal.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\Login.js" />
