@@ -76,17 +76,13 @@ namespace RocketRoadmap {
         protected global::System.Web.UI.HtmlControls.HtmlInputText StratBox0BusBox0;
         
         /// <summary>
-<<<<<<< HEAD
         /// StratBox0BusBox0projDiv control.
-=======
         /// roadmapnamelabel control.
->>>>>>> 6fb52b9819e344a061c5e4d458957376fff9d0e0
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-<<<<<<< HEAD
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl StratBox0BusBox0projDiv;
         
         /// <summary>
@@ -97,9 +93,7 @@ namespace RocketRoadmap {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText StratBox0BusBox0ProjBox0;
-=======
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl roadmapnamelabel;
->>>>>>> 6fb52b9819e344a061c5e4d458957376fff9d0e0
         
         /// <summary>
         /// roadmapTable control.
