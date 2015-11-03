@@ -119,7 +119,7 @@ namespace RocketRoadmap.DB
         public bool SetModalDescription(string description)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET ModalDescription='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
             mModalDescription = description;
             return flag;
