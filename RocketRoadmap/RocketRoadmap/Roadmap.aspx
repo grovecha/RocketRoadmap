@@ -30,11 +30,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="index.aspx">Logout</a>
-                </li>
-                <li>
                     <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
                 </li>
+                <li>
+                    <a href="index.aspx">Logout</a>
+                </li>
+           
             </ul>
         </div>
         <!-- /.navbar-collapse -->
