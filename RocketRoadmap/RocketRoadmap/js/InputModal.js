@@ -231,70 +231,70 @@ $(document).ready(function () {
             },
         });
 
-        //dep_total = idep_arr.length;
+        dep_total = idep_arr.length;
 
-        ////Add all of the input boxes
-        //for (dep_x = 0; dep_x < dep_total; dep_x++) {
-        //    $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-        //};
+        //Add all of the input boxes
+        for (dep_x = 0; dep_x < dep_total; dep_x++) {
+            $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+        };
 
-        ////fill the inputboxes with their values
-        //$('input[name=dep_input]').each(function () {
-        //    $(this).val(idep_arr[load_dep_count]);
-        //    load_dep_count++;
-        //});
+        //fill the inputboxes with their values
+        $('input[name=dep_input]').each(function () {
+            $(this).val(idep_arr[load_dep_count]);
+            load_dep_count++;
+        });
 
-        ////Grab the list of project name string
-        ////NEED AJAX CALL HERE TO GET THE LIST of project dependecies already there
+        //Grab the list of project name string
+        //NEED AJAX CALL HERE TO GET THE LIST of project dependecies already there
 
-        //$.ajax({
-        //    type: "POST",
-        //    async: false,
-        //    url: "Roadmap.aspx/GetProjectDependencyText",
-        //    data: JSON.stringify(br),
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (response) {   
-        //        console.log(response.d)
-        //    },
-        //    error: function (xhr) {
-        //        console.log("error");
-        //    },
-        //});
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "Roadmap.aspx/GetProjectDependency",
+            data: JSON.stringify(pr),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {   
+                console.log(response.d)
+            },
+            error: function (xhr) {
+                console.log("error");
+            },
+        });
 
-        ////NEED AJAX CALL HERE TO GET THE LIST of project Names 
-        //$.ajax({
-        //    type: "POST",
-        //    async: false,
-        //    url: "Roadmap.aspx/GetAllRoadmapProjectDesc",
-        //    data: JSON.stringify(pr),
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (response) {   
-        //        console.log(response.d)
+        //NEED AJAX CALL HERE TO GET THE LIST of project Names 
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "Roadmap.aspx/GetAllRoadmapProjectDesc",
+            data: JSON.stringify(pr),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {   
+                console.log(response.d)
 
-        //    },
-        //    error: function (xhr) {
-        //        console.log("error");
-        //    },
-        //});
+            },
+            error: function (xhr) {
+                console.log("error");
+            },
+        });
 
-        //select_total = nselect_arr.length;
-        ////Create the options list
-        //for (options_x = 0; options_x < select_total; options_x++) {
-        //    options += "<option value='" + iselect_arr[options_x].val + ">" + iselect_arr[options_x].val + "</option>";
-        //};
+        select_total = nselect_arr.length;
+        //Create the options list
+        for (options_x = 0; options_x < select_total; options_x++) {
+            options += "<option value='" + iselect_arr[options_x].val + ">" + iselect_arr[options_x].val + "</option>";
+        };
 
-        ////Insert the correct number of selects
-        //for (select_x = 0; select_x < select_total; select_x++) {
-        //    $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>");
-        //};
+        //Insert the correct number of selects
+        for (select_x = 0; select_x < select_total; select_x++) {
+            $(dep_Select).append("<div class='new_sel'><select name='select_input'>"+options+"</select><a href='#' class='remove_field'>X</a></div>");
+        };
 
-        ////fill the inputboxes with their values
-        //$('input[name=select_input]').each(function () {
-        //    $(this).val(iselect_arr[load_select_count]);
-        //    load_select_count++;
-        //});
+        //fill the inputboxes with their values
+        $('input[name=select_input]').each(function () {
+            $(this).val(iselect_arr[load_select_count]);
+            load_select_count++;
+        });
 
 
         //Fill in the Risks text area
@@ -314,33 +314,33 @@ $(document).ready(function () {
             },
         });
 
-        ////Get link list size
-        //$.ajax({
-        //    type: "POST",
-        //    async: false,
-        //    url: "Roadmap.aspx/GetProjectDescription",
-        //    data: JSON.stringify(pr),
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (response) {
-        //        console.log(response.d)
-        //    },
-        //    error: function (xhr) {
-        //        console.log("error");
-        //    },
-        //});
-        ////link_total = ilink_arr.length;
+        //Get link list size
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "Roadmap.aspx/GetProjectDescription",
+            data: JSON.stringify(pr),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                console.log(response.d)
+            },
+            error: function (xhr) {
+                console.log("error");
+            },
+        });
+        //link_total = ilink_arr.length;
 
-        ////Add all of thre input boxes
-        //for (link_x = 0; link_x < link_total; link_x++) {
-        //    $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-        //};
+        //Add all of thre input boxes
+        for (link_x = 0; link_x < link_total; link_x++) {
+            $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+        };
 
-        ////fill the inputboxes with their values
-        //$('input[name=link_input]').each(function () {
-        //    $(this).val(ilink_arr[load_link_count]);
-        //    load_dep_count++;
-        //});
+        //fill the inputboxes with their values
+        $('input[name=link_input]').each(function () {
+            $(this).val(ilink_arr[load_link_count]);
+            load_dep_count++;
+        });
     });
 
     //When the modal hides again it will erase all divs and have the modal shell
