@@ -257,13 +257,12 @@ namespace RocketRoadmap.DB
         public string QuickDBTest()
         {
             SqlCommand cmd = new SqlCommand();
-            string command = "SELECT Name FROM [dbo].[Project] WHERE Name=@Name AND BusinessValueName=@BVName AND RoadmapName=@RName";
-            SqlParameterCollection param = cmd.Parameters;
-            param.AddWithValue("@Name", "Tested");
-            param.AddWithValue("@BVName", "test");
-            param.AddWithValue("@Rname", "Test");
+            cmd.CommandText = "SELECT Name FROM [dbo].[Project] WHERE Name=@Name AND BusinessValueName=@BVName AND RoadmapName=@RName";
+            cmd.Parameters.AddWithValue("@Name", "Tested");
+            cmd.Parameters.AddWithValue("@BVName", "test");
+            cmd.Parameters.AddWithValue("@Rname", "Test");
 
-            mReader = mDatabase.executereadparams(command, param);
+            mReader = mDatabase.executereadparams(cmd);
             if (mReader.HasRows)
             {
                 mReader.Read();
