@@ -683,19 +683,19 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(ProjectID);
 
             P_list = newproj.GetDependencies();
-            //tot_list = map.GetAllProjects();
+            tot_list = map.GetAllProjects();
 
             //Create
             //foreach (Project s in tot_list)
             //{
-            //    for (int i = 0; i < dep.Count; i++)
+            //    for (int i = 0; ; i++)
             //    {
             //        if (dep[i] == s.GetDescription())
             //        {
             //            if (!P_list.Contains(s))
             //            {
             //                newproj.CreateDependant(s);
-                            
+
             //            }
 
             //        }
