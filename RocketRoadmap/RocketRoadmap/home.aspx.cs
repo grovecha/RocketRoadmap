@@ -134,7 +134,10 @@ namespace RocketRoadmap
                             TableCell cell_5 = new TableCell();
                             TableCell cell_6 = new TableCell();
 
-                        HyperLink link = new HyperLink();
+                            Button B1 = new Button();
+                            B1.Text = "X";
+
+                            HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
@@ -144,7 +147,8 @@ namespace RocketRoadmap
                             cell_2.Text = map[1];
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
-                            cell_5.Text = "X";
+
+                            cell_5.Controls.Add(B1);
                             cell_6.Text = "EDIT";
 
                             row.Cells.Add(cell_1);

@@ -126,10 +126,10 @@ namespace RocketRoadmap.DB.Tests
         public void GetAllProjects()
         {
             RoadMap map = new RoadMap("test");
-            List<List<string>> projs = map.GetAllProjects();
+            List<Project> projs = map.GetAllProjects();
 
             Assert.AreEqual(1, projs.Count());
-            Assert.AreEqual(projs.First()[0], "Tested");
+            Assert.AreEqual(projs[0], "Tested");
             Assert.AreEqual(projs[2], "TEST");
             Assert.AreEqual(projs[3], "Test");
         }
