@@ -608,64 +608,9 @@ namespace RocketRoadmap
         public static List<List<string>> GetAllRoadmapProjects(string RoadmapName)
         {
             RoadMap map = new RoadMap(RoadmapName);
-            return map.GetAllProjects();
+             return map.GetAllProjects();
         }
-
-        //Getting all projects
-        [WebMethod]
-        public static List<string> GetAllRoadmapProjectNames(string RoadmapName)
-        {
-            RoadMap map = new RoadMap(RoadmapName);
-
-            List<Project> Proj = new List<Project>();
-            Proj = map.GetAllProjects();
-            List<string> Proj_Names = new List<string>();
-
-            foreach (List<string> s in Proj)
-            {
-                Proj_Names.Add(s[0]);
-            }
-
-            return Proj_Names;
-        }
-
-        [WebMethod]
-        public static List<string> GetAllRoadmapProjectDesc(string RoadmapName)
-        {
-            RoadMap map = new RoadMap(RoadmapName);
-
-            List<Project> Proj = new List<Project>();
-            Proj = map.GetAllProjects();
-            List<string> Proj_Desc = new List<string>();
-
-            foreach (List<string> s in Proj)
-            {
-                Proj_Desc.Add(s[1]);
-            }
-
-            return Proj_Desc;
-        }
-
-        [WebMethod]
-        public static List<string> GetAllRoadmapProjectBval(string RoadmapName)
-        {
-            RoadMap map = new RoadMap(RoadmapName);
-
-            List<List<string>> Proj = new List<List<string>>();
-            Proj = map.GetAllProjects();
-            List<string> Proj_Bval = new List<string>();
-
-            foreach (List<string> s in Proj)
-            {
-                Proj_Bval.Add(s[2]);
-            }
-
-            return Proj_Bval;
-        }
-
-
-
-
+        
         #endregion
 
         #region Modal Setters
@@ -740,35 +685,35 @@ namespace RocketRoadmap
             P_list = newproj.GetDependencies();
             tot_list = map.GetAllProjects();
 
-            //Create
-            //foreach (Project s in tot_list)
-            //{
-            //    for (int i = 0; i < dep.Count; i++)
-            //    {
-            //        if (dep[i] == s.GetDescription())
-            //        {
-            //            if (!P_list.Contains(s))
-            //            {
-            //                newproj.CreateDependant(s);
-            //                dep_list.add(s);
-            //            }
+        //    //Create
+        //    foreach (Project s in tot_list)
+        //    {
+        //        for (int i = 0; i < dep.Count; i++)
+        //        {
+        //            if (dep[i] == s.GetDescription())
+        //            {
+        //                if (!P_list.Contains(s))
+        //                {
+        //                    newproj.CreateDependant(s);
+        //                    dep_list.add(s);
+        //                }
 
-            //        }
+        //            }
 
-            //    }
-            //}
+        //        }
+        //    }
 
-            ////Delete
-            //foreach (Project s in P_list)
-            //{
-            //    if (!dep_list.Contains(s))
-            //    {
-            //        newproj.DeleteDependant(s);
-            //    }
+        //    //Delete
+        //    foreach (Project s in P_list)
+        //    {
+        //        if (!dep_list.Contains(s))
+        //        {
+        //            newproj.DeleteDependant(s);
+        //        }
 
-            //}
+        //    }
 
-        }
+        //}
 
         //Set Project Risk
         [WebMethod]
@@ -804,34 +749,43 @@ namespace RocketRoadmap
 
             //need to take the list and check for new ones and create links
 
-            //foreach (Link l in link_list)
-            //    {
-            //    for(int x=0; x<link.Count; x++)
-            //    {
-            //        if(link[x] == l.GetLink() && !)
-            //        {
-            //            newproj.
-            //        }
-            //    }
-            //        if (!link_list.Contains(l))
-            //        {
-            //            newproj.CreateLink();
-            //        }
-            //    }
+            foreach (string str_link in link)
+            {
+                bool flag = false;
+                foreach (Link l_list in link_list)
+                {
+                    if (str_link == l_list.GetLink())
+                    {
+                        flag = true;
+                    }
+                }
+                if(flag == false)
+                {
+                    newproj.CreateLink(new Link("", ProjectID, str_link, RoadmapName));
+                }
+            }
 
-            //foreach (string s in Dep_Names)
-            //{
-            //    if (!dep.Contains(s))
-            //    {
-            //        Dep_Names.Remove(s);
-            //    }
-            //}
+
+            foreach (Link ll in link_list)
+            {
+                bool flag = false;
+                foreach (string l_list in link)
+                {
+                    if(ll.GetLink() == l_list)
+                    {
+                        flag = true;
+                    }
+                }
+                if (flag == false)
+                {
+                    newproj.DeleteLink(ll);
+                }
+
+            }
+
+            #endregion
 
         }
-
-        #endregion
-
-    }
 
 }
 
