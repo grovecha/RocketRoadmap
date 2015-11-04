@@ -243,17 +243,17 @@ namespace RocketRoadmap
 
                     HtmlTableRow NextRow = new HtmlTableRow();
 
-                    NextRow.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ROW";
+                    NextRow.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "Row";
 
                     NextInputCell = new HtmlTableCell();
 
-                    NextInputCell.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "inputtd";
+                    NextInputCell.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "inputtd";
 
                     HtmlInputText NextBox = new HtmlInputText();
 
                     NextBox.Attributes.Add("class", "txtBus");
                     NextBox.Attributes.Add("ProjTotal", "1");
-                    NextBox.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString();
+                    NextBox.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString();
                     NextBox.Attributes.Add("placeholder", "Add Business Value");
                     NextBox.Attributes.Add("runat", "server");
                     NextBox.Attributes.Add("onkeyup", "addBus(event,this," + valcount.ToString() + ")");
@@ -319,7 +319,7 @@ namespace RocketRoadmap
                         newprojText = new HtmlInputText();
 
                         newprojText.Name = "DynmaicTextBox";
-                        newprojText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox" + projCount.ToString();
+                        newprojText.ID = "StratBox" + (count-1).ToString() + "BusBox" + (valcount-1).ToString() + "ProjBox" + projCount.ToString();
                         newprojText.Attributes.Add("class", "txtProj");
                         newprojText.Attributes.Add("placeholder", "Add Project");
                         newprojText.Attributes.Add("runat", "server");
@@ -336,7 +336,7 @@ namespace RocketRoadmap
                     nextText = new HtmlInputText();
 
                     nextText.Name = "DynmaicTextBox";
-                    nextText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
+                    nextText.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
                     nextText.Attributes.Add("class", "txtProj");
                     nextText.Attributes.Add("placeholder", "Add Project");
                     nextText.Attributes.Add("runat", "server");
