@@ -43,6 +43,9 @@ namespace RocketRoadmap
             HtmlTable newtable = new HtmlTable();
             HtmlTable lastTable = new HtmlTable();
 
+            HtmlInputText projText = new HtmlInputText();
+            HtmlTableCell NextInputCell = new HtmlTableCell();
+
 
             foreach (StrategyPoint p in strats)
             {
@@ -136,10 +139,20 @@ namespace RocketRoadmap
                 StratVisTable.ID = p.GetName() + "VisualTable";
                 HtmlInputText lastBusVal = new HtmlInputText();
                 HtmlTable BusTable = new HtmlTable();
+
+
+
+                HtmlInputText nextText = new HtmlInputText();
+
+
                 foreach (BusinessValue b in p.GetBusinessValues())
                 {
+                    HtmlTableCell bc1 = new HtmlTableCell();
+                    HtmlTableCell bc2 = new HtmlTableCell();
+
                     if (valcount == 0)
                     {
+
                         HtmlTableCell sCell = new HtmlTableCell();
                         sCell.Style.Add(HtmlTextWriterStyle.Width, "3000px");
                         sCell.Style.Add(HtmlTextWriterStyle.BackgroundColor, "yellow");
@@ -154,7 +167,7 @@ namespace RocketRoadmap
                         visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
                         StratVisTable.Rows.Add(visRow);
 
-                        HtmlTableCell bc1 = new HtmlTableCell();
+
                         bc1.ID = b.GetName() + "td";
                         bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
 
@@ -162,7 +175,7 @@ namespace RocketRoadmap
                         visRow.Cells.Add(new HtmlTableCell());
                         visRow.Cells.Add(new HtmlTableCell());
 
-                        HtmlTableCell bc2 = new HtmlTableCell();
+                        bc2 = new HtmlTableCell();
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
@@ -180,7 +193,7 @@ namespace RocketRoadmap
                         StratVisTable.Rows.Add(newPRow);
                         newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
 
-                        HtmlTableCell bc1 = new HtmlTableCell();
+                        bc1 = new HtmlTableCell();
                         bc1.ID = b.GetName() + "td";
 
                         newPRow.Cells.Add(bc1);
@@ -188,7 +201,7 @@ namespace RocketRoadmap
                         newPRow.Cells.Add(new HtmlTableCell());
                         newPRow.Cells.Add(new HtmlTableCell());
 
-                        HtmlTableCell bc2 = new HtmlTableCell();
+
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
@@ -202,18 +215,20 @@ namespace RocketRoadmap
 
                     }
 
-                    HtmlInputText bustextbox;
+                    HtmlInputText bustextbox = new HtmlInputText();
 
                     if (count == 1 && valcount == 0)
                     {
                         bustextbox = StratBox0BusBox0;
-                        bustextbox.Value = b.GetDescription();
+
                     }
                     else
                     {
-                        bustextbox = busVal;
-                        bustextbox.Value = b.GetDescription();
+                         bustextbox = busVal;
+
                     }
+
+                    bustextbox.Value = b.GetDescription();
 
                     if (count == 1)
                     {
@@ -230,7 +245,7 @@ namespace RocketRoadmap
 
                     NextRow.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ROW";
 
-                    HtmlTableCell NextInputCell = new HtmlTableCell();
+                    NextInputCell = new HtmlTableCell();
 
                     NextInputCell.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "inputtd";
 
@@ -247,24 +262,85 @@ namespace RocketRoadmap
                     NextRow.Cells.Add(NextInputCell);
                     NextInputCell.Controls.Add(NextBox);
 
-                    HtmlInputText nextText = new HtmlInputText();
 
 
+                    #region Loading Projects
                     int projCount = 0;
-                    foreach(Project proj in b.GetProjects())
+                    HtmlTableCell lastCell = new HtmlTableCell();
+                    HtmlInputText newprojText = new HtmlInputText();
+                    foreach (Project proj in b.GetProjects())
                     {
 
 
 
+                        //< input type = "button" id = "StratBox0BusBox0ProjBox0But" value = "proj1" onclick = "showModal(this.id)" class="proj1" style="height: 33px; width: 150px; vertical-align: top; background-color: green;">
+                        HtmlInputButton projBut = new HtmlInputButton();
+                        projBut.ID = proj.GetName() + "But";
+                        projBut.Attributes.Add("value", "proj" + (projCount + 1).ToString());
+                        projBut.Attributes.Add("onclick", "showModal(this.id)");
+                        projBut.Attributes.Add("class", "proj" + (projCount + 1).ToString());
+                        projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
+                        projBut.Value = proj.GetDescription();
+                        bc1.Controls.Add(projBut);
+
+                        HtmlInputText projTextBox = new HtmlInputText();
+                        //lastCell = new HtmlTableCell();
+
+                        if (count == 1 && valcount == 1 && projCount == 0)
+                        {
+                            StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
+                            lastCell = StratBox0BusBox0Cell;
+                        }
+                        else if(valcount==1 && projCount==0)
+                        {
+                            projText.Value= proj.GetDescription();
+                            lastCell= projText.Parent as HtmlTableCell;
+
+                        }
+                        else if(projCount==0)
+                        {
+                            
+                           nextText.Value = proj.GetDescription();
+                           lastCell = nextText.Parent as HtmlTableCell;
+                           
+                        }
+                        else
+                        {
+                            newprojText.Value = proj.GetDescription();
+                        }
+                
+
+                        
                         projCount++;
+
+
+
+
+                        newprojText = new HtmlInputText();
+
+                        newprojText.Name = "DynmaicTextBox";
+                        newprojText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox" + projCount.ToString();
+                        newprojText.Attributes.Add("class", "txtProj");
+                        newprojText.Attributes.Add("placeholder", "Add Project");
+                        newprojText.Attributes.Add("runat", "server");
+                        newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
+                        lastCell.Controls.Add(newprojText);
+                        lastCell.Controls.Add(new LiteralControl("<br />"));
+
+
                     }
+                    #endregion
+
+
+
+                    nextText = new HtmlInputText();
 
                     nextText.Name = "DynmaicTextBox";
                     nextText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
                     nextText.Attributes.Add("class", "txtProj");
                     nextText.Attributes.Add("placeholder", "Add Project");
                     nextText.Attributes.Add("runat", "server");
-                    nextText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
+                    nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
                     NextInputCell.Controls.Add(new LiteralControl("<br />"));
 
@@ -272,6 +348,9 @@ namespace RocketRoadmap
                     busVal = NextBox;
 
                 }
+
+
+
                 #endregion
 
                 busVal = new HtmlInputText();
@@ -288,7 +367,7 @@ namespace RocketRoadmap
 
 
 
-                HtmlInputText projText = new HtmlInputText();
+                projText = new HtmlInputText();
 
                 projText.Name = "DynmaicTextBox";
                 projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
@@ -402,6 +481,11 @@ namespace RocketRoadmap
 
         #endregion
 
+
+
+
+
+        //THIS IS ERIC"S STUFF
         #region Modal Getters
         //Get Project Name
         [WebMethod]
@@ -434,7 +518,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
-            return newproj.GetDescription();
+            return newproj.GetModalDescription();
 
         }
 
@@ -466,12 +550,12 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
+
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
             Project_List = newproj.GetDependencies();
             int count = 0;
 
@@ -492,45 +576,96 @@ namespace RocketRoadmap
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
-            
-            string risks="";//= newproj.GetIssues(); 
+            Project newproj = newval.GetProject(ProjectID);
 
-            return risks;
+            return newproj.GetProjectRisks();
         }
 
         //Get Project Links
         [WebMethod]
-        public static List<string> GetProjectLinks(string ProjectID, string RoadmapName)
+        public static List<Link> GetProjectLinks(string ProjectID, string RoadmapName)
         {
             List<string> Project_Links = new List<string>();
             List<Link> link_list = new List<Link>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(pointindex, valindex);
-            string pro = ProjectID.Substring(valindex, -1);
+            string val = ProjectID.Substring(0, valindex);
             RoadMap map = new RoadMap(RoadmapName);
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(pro);
+            Project newproj = newval.GetProject(ProjectID);
             link_list =  newproj.GetLinks();
-            int count = 0;
+        
+            return link_list;
+        }
 
-            foreach(Link l in link_list){
-                Project_Links[count] = l.GetLink().ToString();
-                count++;
+        [WebMethod]
+        public static List<List<string>> GetAllRoadmapProjects(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+            return map.GetAllProjects();
+        }
+
+        //Getting all projects
+        [WebMethod]
+        public static List<string> GetAllRoadmapProjectNames(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+
+            List<Project> Proj = new List<Project>();
+            Proj = map.GetAllProjects();
+            List<string> Proj_Names = new List<string>();
+
+            foreach (List<string> s in Proj)
+            {
+                Proj_Names.Add(s[0]);
             }
-            return Project_Links;
+
+            return Proj_Names;
+        }
+
+        [WebMethod]
+        public static List<string> GetAllRoadmapProjectDesc(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+
+            List<Project> Proj = new List<Project>();
+            Proj = map.GetAllProjects();
+            List<string> Proj_Desc = new List<string>();
+
+            foreach (List<string> s in Proj)
+            {
+                Proj_Desc.Add(s[1]);
+            }
+
+            return Proj_Desc;
+        }
+
+        [WebMethod]
+        public static List<string> GetAllRoadmapProjectBval(string RoadmapName)
+        {
+            RoadMap map = new RoadMap(RoadmapName);
+
+            List<List<string>> Proj = new List<List<string>>();
+            Proj = map.GetAllProjects();
+            List<string> Proj_Bval = new List<string>();
+
+            foreach (List<string> s in Proj)
+            {
+                Proj_Bval.Add(s[2]);
+            }
+
+            return Proj_Bval;
         }
 
 
-        //Set Project Description
+
+
         #endregion
 
         #region Modal Setters
@@ -551,7 +686,7 @@ namespace RocketRoadmap
 
         //Set String Dependency
         [WebMethod]
-        public static void SetProjectStrDependency(string ProjectID, string RoadmapName, List<string> dep)
+        public static void SetProjectStrDependency(string ProjectID, string RoadmapName, string[] dep)
         {
             List<string> Dep_Names = new List<string>();
 
@@ -588,8 +723,11 @@ namespace RocketRoadmap
 
         //Set Project Dependency 
         [WebMethod]
-        public static void SetProjectDependency(string ProjectID, string RoadmapName, List<string> dep)
+        public static void SetProjectDependency(string ProjectID, string RoadmapName, string[] dep)
         {
+            List<List<string>> tot_list = new List<List<string>>();
+            List<Project> P_list = new List<Project>();
+            List<Project> dep_list = new List<Project>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -599,11 +737,37 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
 
+            P_list = newproj.GetDependencies();
+            tot_list = map.GetAllProjects();
 
-            for (int i = 0; i < dep.Count(); i++)
-            {
-               // newproj.CreateDependant(dep[i]);
-            }
+            //Create
+            //foreach (Project s in tot_list)
+            //{
+            //    for (int i = 0; i < dep.Count; i++)
+            //    {
+            //        if (dep[i] == s.GetDescription())
+            //        {
+            //            if (!P_list.Contains(s))
+            //            {
+            //                newproj.CreateDependant(s);
+            //                dep_list.add(s);
+            //            }
+
+            //        }
+
+            //    }
+            //}
+
+            ////Delete
+            //foreach (Project s in P_list)
+            //{
+            //    if (!dep_list.Contains(s))
+            //    {
+            //        newproj.DeleteDependant(s);
+            //    }
+
+            //}
+
         }
 
         //Set Project Risk
@@ -625,10 +789,9 @@ namespace RocketRoadmap
 
         //Set Project Link
         [WebMethod]
-        public static void SetProjectLink(string ProjectID, string RoadmapName, List<string> link)
+        public static void SetProjectLink(string ProjectID, string RoadmapName, string[] link)
         {
             List<Link> link_list = new List<Link>();
-            List<string> linkstr_list = new List<string>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -637,15 +800,22 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
-            linkstr_list = GetProjectLinks(ProjectID, RoadmapName);
+            link_list = GetProjectLinks(ProjectID, RoadmapName);
 
             //need to take the list and check for new ones and create links
-            //foreach (string l in link)
-            //    {
-            //        if (!linkstr_list.Contains(l))
-            //        {
 
-            //            Dep_Names.Add(l);
+            //foreach (Link l in link_list)
+            //    {
+            //    for(int x=0; x<link.Count; x++)
+            //    {
+            //        if(link[x] == l.GetLink() && !)
+            //        {
+            //            newproj.
+            //        }
+            //    }
+            //        if (!link_list.Contains(l))
+            //        {
+            //            newproj.CreateLink();
             //        }
             //    }
 
@@ -657,15 +827,6 @@ namespace RocketRoadmap
             //    }
             //}
 
-        }
-        //Getting all projects
-        [WebMethod]
-        public static List<Project> GetAllRoadmapProjects(string RoadmapName)
-        {
-            RoadMap map = new RoadMap(RoadmapName);
-            List<Project> test = new List<Project>();
-            test = map.GetAllProjects();
-            return test;
         }
 
         #endregion

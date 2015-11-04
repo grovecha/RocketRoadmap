@@ -3,7 +3,7 @@ function hideExample() {
     $("#StratBox0BusBox0Row").hide();
 };
  
-$("#StratBox0BusBox0Row").hide();
+//$("#StratBox0BusBox0Row").hide();
 
 function deleteStrat(obj) {
 
@@ -168,7 +168,7 @@ function addStrat(e, obj, i) {
                             '</tr>' +
                             '</table>' +
                             "</td>";
-                              $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
+                              //$("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
 
             //place cursor in  bus value
             document.getElementById(obj.id+"BusBox0").select();
