@@ -605,7 +605,7 @@ namespace RocketRoadmap
         }
 
         [WebMethod]
-        public static List<List<string>> GetAllRoadmapProjects(string RoadmapName)
+        public static List<Project> GetAllRoadmapProjects(string RoadmapName)
         {
             RoadMap map = new RoadMap(RoadmapName);
             return map.GetAllProjects();
