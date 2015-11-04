@@ -479,6 +479,28 @@ namespace RocketRoadmap
 
         }
 
+        [WebMethod]
+        public static void DeleteStrat(string id, string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+            map.DeleteStrategyPoint(id);
+
+        }
+
+        [WebMethod]
+        public static void DeleteBus(string BusId, string StratId, string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+            map.GetPoint(StratId).DeleteBusinessValue(BusId);
+        }
+
+        [WebMethod]
+        public static void DeleteProj(string ProjId, string BusId, string StratId, string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+            map.GetPoint(StratId).GetBusinessValue(BusId).DeleteProject(ProjId);
+        }
+
         #endregion
 
 
