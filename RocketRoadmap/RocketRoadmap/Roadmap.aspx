@@ -30,11 +30,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="index.aspx">Logout</a>
-                </li>
-                <li>
                     <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
                 </li>
+                <li>
+                    <a href="index.aspx">Logout</a>
+                </li>
+           
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -90,8 +91,8 @@
                         <tr id="StratBox0BusBox0Row">
                          <td>
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div id="StratBox0BusBox0projDiv" visible="false" >
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
+                                    <div id="StratBox0BusBox0projDiv" runat='server' visible="false" >
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
                                          </div> 
                           
                         </td>
@@ -158,7 +159,7 @@
 
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
-                    <textarea id="descText" rows="4" cols="75"></textarea> 
+                    <textarea id="descText" rows="4" cols="75" ></textarea> 
                     <br />
 
                 <!--Depedency Input -->
@@ -258,30 +259,6 @@
 
     <script src="js/Roadmap.js"></script>
 <!-- Menu Toggle Script -->
-<script>
-    var panel_close = false;
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        if (panel_close == false) {
-            panel_close = true;
-        } else if (panel_close == true) {
-            panel_close = false;
-        }
-        $("#wrapper").toggleClass("toggled");
-    });
-
-    var button_id;
-    function showModal(id) {
-        button_id=id.substr(0,id.length-3)
-        if (panel_close == false) {
-            $("#inputModal").modal("show");
-        } else if (panel_close == true) {
-            $("#displayModal").modal("show");
-        }
-    }
-   
-    </script>
-
 
 
 
@@ -289,8 +266,8 @@
 <!-- Data Input -->
         <style>
         .txtStrat {
-            width: 220px;
-            height: 30px;
+            width: 200px;
+            height:30px;
             margin-left: 0px;
         }
 
@@ -299,13 +276,13 @@
             width: 28px;
         }
         .txtBus {
-            width: 200px;
+            width: 180x;
             height: 30px;
             margin-left: 20px;
         }
 
         .txtProj {
-            width: 210px;
+            width: 160px;
             height: 30px;
             margin-left: 40px;
         }

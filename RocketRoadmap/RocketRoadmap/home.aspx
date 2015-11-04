@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>Rocket Roadmap</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -99,13 +99,11 @@
 
 <!-- Page Content -->
 <header>
-    <asp:Label ID="name" runat="server"></asp:Label>
+    <h1 ID="name" runat="server"></h1>
 </header>
     <asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
 </asp:Table>
-<header>
-    ALL ROADMAPS
-</header>
+<h1>All Roadmaps</h1>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
             <asp:TableHeaderCell>Name</asp:TableHeaderCell>
