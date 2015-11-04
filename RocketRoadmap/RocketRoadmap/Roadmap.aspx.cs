@@ -587,7 +587,7 @@ namespace RocketRoadmap
 
         //Get Project Links
         [WebMethod]
-        public static List<string> GetProjectLinks(string ProjectID, string RoadmapName)
+        public static List<Link> GetProjectLinks(string ProjectID, string RoadmapName)
         {
             List<string> Project_Links = new List<string>();
             List<Link> link_list = new List<Link>();
@@ -600,13 +600,8 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
             link_list =  newproj.GetLinks();
-            int count = 0;
-
-            foreach(Link l in link_list){
-                Project_Links[count] = l.GetLink().ToString();
-                count++;
-            }
-            return Project_Links;
+        
+            return link_list;
         }
 
         [WebMethod]
@@ -691,7 +686,7 @@ namespace RocketRoadmap
 
         //Set String Dependency
         [WebMethod]
-        public static void SetProjectStrDependency(string ProjectID, string RoadmapName, List<string> dep)
+        public static void SetProjectStrDependency(string ProjectID, string RoadmapName, string[] dep)
         {
             List<string> Dep_Names = new List<string>();
 
@@ -728,7 +723,7 @@ namespace RocketRoadmap
 
         //Set Project Dependency 
         [WebMethod]
-        public static void SetProjectDependency(string ProjectID, string RoadmapName, List<string> dep)
+        public static void SetProjectDependency(string ProjectID, string RoadmapName, string[] dep)
         {
             List<List<string>> tot_list = new List<List<string>>();
             List<Project> P_list = new List<Project>();
@@ -745,11 +740,11 @@ namespace RocketRoadmap
             P_list = newproj.GetDependencies();
             tot_list = map.GetAllProjects();
 
-            ////Create
+            //Create
             //foreach (Project s in tot_list)
             //{
             //    for (int i = 0; i < dep.Count; i++)
-            //        {
+            //    {
             //        if (dep[i] == s.GetDescription())
             //        {
             //            if (!P_list.Contains(s))
@@ -763,7 +758,7 @@ namespace RocketRoadmap
             //    }
             //}
 
-            //Delete
+            ////Delete
             //foreach (Project s in P_list)
             //{
             //    if (!dep_list.Contains(s))
@@ -773,15 +768,7 @@ namespace RocketRoadmap
 
             //}
 
-
-
-
-
-
-
-
-
-}
+        }
 
         //Set Project Risk
         [WebMethod]
@@ -802,10 +789,9 @@ namespace RocketRoadmap
 
         //Set Project Link
         [WebMethod]
-        public static void SetProjectLink(string ProjectID, string RoadmapName, List<string> link)
+        public static void SetProjectLink(string ProjectID, string RoadmapName, string[] link)
         {
             List<Link> link_list = new List<Link>();
-            List<string> linkstr_list = new List<string>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -814,14 +800,22 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
-            linkstr_list = GetProjectLinks(ProjectID, RoadmapName);
+            link_list = GetProjectLinks(ProjectID, RoadmapName);
 
             //need to take the list and check for new ones and create links
-            //foreach (string l in link)
+
+            //foreach (Link l in link_list)
             //    {
-            //        if (!linkstr_list.Contains(l))
+            //    for(int x=0; x<link.Count; x++)
+            //    {
+            //        if(link[x] == l.GetLink() && !)
             //        {
-            //            Dep_Names.Add(l);
+            //            newproj.
+            //        }
+            //    }
+            //        if (!link_list.Contains(l))
+            //        {
+            //            newproj.CreateLink();
             //        }
             //    }
 

@@ -50,6 +50,23 @@ namespace RocketRoadmap.DB
             return reader;
         }
 
+        public SqlDataReader executereadparams(string command, SqlParameterCollection param){
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader reader;
+
+            cmd.CommandText = command;
+            cmd.CommandType = System.Data.CommandType.Text;
+            for (int i = 0; i < param.Count; i++)
+            {
+                cmd.Parameters.Add(new SqlParameter(param[i].ParameterName, param[i].Value));
+            }
+                cmd.Connection = mConnection;
+
+            reader = cmd.ExecuteReader();
+
+            return reader;
+    }
+
         //Executes a write command (UPDATE, INSERT, DELETE....)
         public bool executewrite(string command)
         {

@@ -119,7 +119,7 @@ namespace RocketRoadmap.DB
         public bool SetModalDescription(string description)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET ModalDescription='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
             mDatabase.close();
             mModalDescription = description;
             return flag;
@@ -252,6 +252,25 @@ namespace RocketRoadmap.DB
         public string GetProjectRisks()
         {
             return mRiskString;
+        }
+        public string QuickDBTest()
+        {
+            SqlCommand cmd = new SqlCommand();
+            string command = "SELECT Name FROM [dbo].[Project] WHERE Name=@Name AND BusinessValueName=@BVName AND RoadmapName=@RName";
+            SqlParameterCollection param = cmd.Parameters;
+            param.AddWithValue("@Name", "Tested");
+            param.AddWithValue("@BVName", "test");
+            param.AddWithValue("@Rname", "Test");
+
+            mReader = mDatabase.executereadparams(command, param);
+            if (mReader.HasRows)
+            {
+                mReader.Read();
+                string temp = mReader.GetString(0).ToString();
+                mReader.Close();
+                return temp;
+            }
+            return "";
         }
 
     }
