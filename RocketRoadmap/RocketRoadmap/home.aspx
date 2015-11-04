@@ -22,7 +22,10 @@
         body {
             padding-top: 70px;
             /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-        }
+            cursor: url(\RocketRoadmap\Rocket.cur), pointer;
+            }
+
+
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
