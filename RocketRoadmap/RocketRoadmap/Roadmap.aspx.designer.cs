@@ -67,6 +67,15 @@ namespace RocketRoadmap {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow StratBox0BusBox0Row;
         
         /// <summary>
+        /// StratBox0BusBox0Cell control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell StratBox0BusBox0Cell;
+        
+        /// <summary>
         /// StratBox0BusBox0 control.
         /// </summary>
         /// <remarks>

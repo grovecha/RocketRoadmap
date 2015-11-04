@@ -43,6 +43,9 @@ namespace RocketRoadmap
             HtmlTable newtable = new HtmlTable();
             HtmlTable lastTable = new HtmlTable();
 
+            HtmlInputText projText = new HtmlInputText();
+            HtmlTableCell NextInputCell = new HtmlTableCell();
+
 
             foreach (StrategyPoint p in strats)
             {
@@ -136,6 +139,12 @@ namespace RocketRoadmap
                 StratVisTable.ID = p.GetName() + "VisualTable";
                 HtmlInputText lastBusVal = new HtmlInputText();
                 HtmlTable BusTable = new HtmlTable();
+
+
+
+                HtmlInputText nextText = new HtmlInputText();
+
+
                 foreach (BusinessValue b in p.GetBusinessValues())
                 {
                     HtmlTableCell bc1 = new HtmlTableCell();
@@ -206,18 +215,20 @@ namespace RocketRoadmap
 
                     }
 
-                    HtmlInputText bustextbox;
+                    HtmlInputText bustextbox = new HtmlInputText();
 
                     if (count == 1 && valcount == 0)
                     {
                         bustextbox = StratBox0BusBox0;
-                        bustextbox.Value = b.GetDescription();
+
                     }
                     else
                     {
-                        bustextbox = busVal;
-                        bustextbox.Value = b.GetDescription();
+                         bustextbox = busVal;
+
                     }
+
+                    bustextbox.Value = b.GetDescription();
 
                     if (count == 1)
                     {
@@ -234,7 +245,7 @@ namespace RocketRoadmap
 
                     NextRow.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ROW";
 
-                    HtmlTableCell NextInputCell = new HtmlTableCell();
+                    NextInputCell = new HtmlTableCell();
 
                     NextInputCell.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "inputtd";
 
@@ -251,11 +262,13 @@ namespace RocketRoadmap
                     NextRow.Cells.Add(NextInputCell);
                     NextInputCell.Controls.Add(NextBox);
 
-                    HtmlInputText nextText = new HtmlInputText();
-                    
 
+
+                    #region Loading Projects
                     int projCount = 0;
-                    foreach(Project proj in b.GetProjects())
+                    HtmlTableCell lastCell = new HtmlTableCell();
+                    HtmlInputText newprojText = new HtmlInputText();
+                    foreach (Project proj in b.GetProjects())
                     {
 
 
@@ -263,33 +276,71 @@ namespace RocketRoadmap
                         //< input type = "button" id = "StratBox0BusBox0ProjBox0But" value = "proj1" onclick = "showModal(this.id)" class="proj1" style="height: 33px; width: 150px; vertical-align: top; background-color: green;">
                         HtmlInputButton projBut = new HtmlInputButton();
                         projBut.ID = proj.GetName() + "But";
-                        projBut.Attributes.Add("value", "proj"+(projCount+1).ToString());
+                        projBut.Attributes.Add("value", "proj" + (projCount + 1).ToString());
                         projBut.Attributes.Add("onclick", "showModal(this.id)");
-                        projBut.Attributes.Add("class", "proj"+ (projCount + 1).ToString());
+                        projBut.Attributes.Add("class", "proj" + (projCount + 1).ToString());
                         projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
                         projBut.Value = proj.GetDescription();
                         bc1.Controls.Add(projBut);
 
                         HtmlInputText projTextBox = new HtmlInputText();
+                        //lastCell = new HtmlTableCell();
 
-                        if(count==1 && valcount==1 && projCount==0)
+                        if (count == 1 && valcount == 1 && projCount == 0)
                         {
                             StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
+                            lastCell = StratBox0BusBox0Cell;
+                        }
+                        else if(valcount==1 && projCount==0)
+                        {
+                            projText.Value= proj.GetDescription();
+                            lastCell= projText.Parent as HtmlTableCell;
+
+                        }
+                        else if(projCount==0)
+                        {
+                            
+                           nextText.Value = proj.GetDescription();
+                           lastCell = nextText.Parent as HtmlTableCell;
+                           
                         }
                         else
                         {
-                            projTextBox.Value = proj.GetDescription();
+                            newprojText.Value = proj.GetDescription();
                         }
+                
 
+                        
                         projCount++;
+
+
+
+
+                        newprojText = new HtmlInputText();
+
+                        newprojText.Name = "DynmaicTextBox";
+                        newprojText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox" + projCount.ToString();
+                        newprojText.Attributes.Add("class", "txtProj");
+                        newprojText.Attributes.Add("placeholder", "Add Project");
+                        newprojText.Attributes.Add("runat", "server");
+                        newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
+                        lastCell.Controls.Add(newprojText);
+                        lastCell.Controls.Add(new LiteralControl("<br />"));
+
+
                     }
+                    #endregion
+
+
+
+                    nextText = new HtmlInputText();
 
                     nextText.Name = "DynmaicTextBox";
                     nextText.ID = "StratBox" + count.ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
                     nextText.Attributes.Add("class", "txtProj");
                     nextText.Attributes.Add("placeholder", "Add Project");
                     nextText.Attributes.Add("runat", "server");
-                    nextText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
+                    nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
                     NextInputCell.Controls.Add(new LiteralControl("<br />"));
 
@@ -297,6 +348,9 @@ namespace RocketRoadmap
                     busVal = NextBox;
 
                 }
+
+
+
                 #endregion
 
                 busVal = new HtmlInputText();
@@ -313,7 +367,7 @@ namespace RocketRoadmap
 
 
 
-                HtmlInputText projText = new HtmlInputText();
+                projText = new HtmlInputText();
 
                 projText.Name = "DynmaicTextBox";
                 projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
