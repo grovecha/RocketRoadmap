@@ -23,8 +23,8 @@ namespace RocketRoadmap
             {
                 Response.Redirect("index.aspx", false);
             }
-           
-            
+
+
             string url = Request.Url.AbsoluteUri;
             int index = url.IndexOf("=");
             string name = url.Substring(index + 1);
@@ -224,7 +224,7 @@ namespace RocketRoadmap
                     }
                     else
                     {
-                         bustextbox = busVal;
+                        bustextbox = busVal;
 
                     }
 
@@ -291,26 +291,26 @@ namespace RocketRoadmap
                             StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
                             lastCell = StratBox0BusBox0Cell;
                         }
-                        else if(valcount==1 && projCount==0)
+                        else if (valcount == 1 && projCount == 0)
                         {
-                            projText.Value= proj.GetDescription();
-                            lastCell= projText.Parent as HtmlTableCell;
+                            projText.Value = proj.GetDescription();
+                            lastCell = projText.Parent as HtmlTableCell;
 
                         }
-                        else if(projCount==0)
+                        else if (projCount == 0)
                         {
-                            
-                           nextText.Value = proj.GetDescription();
-                           lastCell = nextText.Parent as HtmlTableCell;
-                           
+
+                            nextText.Value = proj.GetDescription();
+                            lastCell = nextText.Parent as HtmlTableCell;
+
                         }
                         else
                         {
                             newprojText.Value = proj.GetDescription();
                         }
-                
 
-                        
+
+
                         projCount++;
 
 
@@ -540,7 +540,7 @@ namespace RocketRoadmap
 
             return Dep_Names;
         }
-        
+
         //Get Project Depencies
         [WebMethod]
         public static List<string> GetProjectDependency(string ProjectID, string RoadmapName)
@@ -599,8 +599,8 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
-            link_list =  newproj.GetLinks();
-        
+            link_list = newproj.GetLinks();
+
             return link_list;
         }
 
@@ -608,9 +608,9 @@ namespace RocketRoadmap
         public static List<List<string>> GetAllRoadmapProjects(string RoadmapName)
         {
             RoadMap map = new RoadMap(RoadmapName);
-             return map.GetAllProjects();
+            return map.GetAllProjects();
         }
-        
+
         #endregion
 
         #region Modal Setters
@@ -670,7 +670,7 @@ namespace RocketRoadmap
         [WebMethod]
         public static void SetProjectDependency(string ProjectID, string RoadmapName, string[] dep)
         {
-            List<List<string>> tot_list = new List<List<string>>();
+            List<Project> tot_list = new List<Project>();
             List<Project> P_list = new List<Project>();
             List<Project> dep_list = new List<Project>();
             int pointindex = ProjectID.IndexOf("Bus");
@@ -683,37 +683,37 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(ProjectID);
 
             P_list = newproj.GetDependencies();
-            tot_list = map.GetAllProjects();
+            //tot_list = map.GetAllProjects();
 
-        //    //Create
-        //    foreach (Project s in tot_list)
-        //    {
-        //        for (int i = 0; i < dep.Count; i++)
-        //        {
-        //            if (dep[i] == s.GetDescription())
-        //            {
-        //                if (!P_list.Contains(s))
-        //                {
-        //                    newproj.CreateDependant(s);
-        //                    dep_list.add(s);
-        //                }
+            //Create
+            //foreach (Project s in tot_list)
+            //{
+            //    for (int i = 0; i < dep.Count; i++)
+            //    {
+            //        if (dep[i] == s.GetDescription())
+            //        {
+            //            if (!P_list.Contains(s))
+            //            {
+            //                newproj.CreateDependant(s);
+                            
+            //            }
 
-        //            }
+            //        }
 
-        //        }
-        //    }
+            //    }
+            //}
 
-        //    //Delete
-        //    foreach (Project s in P_list)
-        //    {
-        //        if (!dep_list.Contains(s))
-        //        {
-        //            newproj.DeleteDependant(s);
-        //        }
+            ////Delete
+            //foreach (Project s in P_list)
+            //{
+            //    if (!dep_list.Contains(s))
+            //    {
+            //        newproj.DeleteDependant(s);
+            //    }
 
-        //    }
+            //}
 
-        //}
+        }
 
         //Set Project Risk
         [WebMethod]
@@ -759,7 +759,7 @@ namespace RocketRoadmap
                         flag = true;
                     }
                 }
-                if(flag == false)
+                if (flag == false)
                 {
                     newproj.CreateLink(new Link("", ProjectID, str_link, RoadmapName));
                 }
@@ -771,7 +771,7 @@ namespace RocketRoadmap
                 bool flag = false;
                 foreach (string l_list in link)
                 {
-                    if(ll.GetLink() == l_list)
+                    if (ll.GetLink() == l_list)
                     {
                         flag = true;
                     }
@@ -787,6 +787,7 @@ namespace RocketRoadmap
 
         }
 
+    }
 }
 
 
