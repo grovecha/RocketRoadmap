@@ -204,6 +204,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 $('#descText').val(response.d);
+                console.log(response.d);
             },
             error: function (xhr) {
                 console.log("error");
