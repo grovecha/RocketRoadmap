@@ -14,7 +14,11 @@ namespace RocketRoadmap.DB
             mName = name;
 
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Timestamp, Description, UserID FROM [dbo].[Roadmap] WHERE Name = '" + name + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Timestamp, Description, UserID FROM [dbo].[Roadmap] WHERE Name =@Rname";
+            cmd.Parameters.AddWithValue("@Rname", name);
+
+            mReader = mDatabase.executereadparams(cmd);
             mReader.Read();
 
             mTimeStamp = mReader.GetDateTime(0);
@@ -24,7 +28,10 @@ namespace RocketRoadmap.DB
             mDatabase.close();
 
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Email, Password FROM [dbo].[User] WHERE ID = '" + UID + "'");
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = "SELECT Name, Email, Password FROM [dbo].[User] WHERE ID = @User";
+            cmd1.Parameters.AddWithValue("@User", UID);
+            mReader = mDatabase.executereadparams(cmd1);
             mReader.Read();
 
             mUser = new User(mReader.GetString(0), UID, mReader.GetString(1), mReader.GetString(2));
