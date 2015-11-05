@@ -147,6 +147,8 @@ namespace RocketRoadmap
 
                 foreach (BusinessValue b in p.GetBusinessValues())
                 {
+
+                    textbox.Attributes.Add("BusTotal", (valcount + 1).ToString());
                     HtmlTableCell bc1 = new HtmlTableCell();
                     HtmlTableCell bc2 = new HtmlTableCell();
 
@@ -270,7 +272,7 @@ namespace RocketRoadmap
                     HtmlInputText newprojText = new HtmlInputText();
                     foreach (Project proj in b.GetProjects())
                     {
-
+                        bustextbox.Attributes.Add("ProjTotal", (projCount + 1).ToString());
 
 
                         //< input type = "button" id = "StratBox0BusBox0ProjBox0But" value = "proj1" onclick = "showModal(this.id)" class="proj1" style="height: 33px; width: 150px; vertical-align: top; background-color: green;">
@@ -337,7 +339,7 @@ namespace RocketRoadmap
 
                     nextText.Name = "DynmaicTextBox";
                     nextText.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
-                    nextText.Attributes.Add("class", "txtProj");
+                    nextText.Attributes.Add("class", "txtProjDel");
                     nextText.Attributes.Add("placeholder", "Add Project");
                     nextText.Attributes.Add("runat", "server");
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
@@ -371,7 +373,7 @@ namespace RocketRoadmap
 
                 projText.Name = "DynmaicTextBox";
                 projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
-                projText.Attributes.Add("class", "txtProj");
+                projText.Attributes.Add("class", "txtProjDel");
                 projText.Attributes.Add("placeholder", "Add Project");
                 projText.Attributes.Add("runat", "server");
                 projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
