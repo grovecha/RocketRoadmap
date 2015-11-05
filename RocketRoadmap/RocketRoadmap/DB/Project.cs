@@ -6,19 +6,31 @@ using System.Data.SqlClient;
 
 namespace RocketRoadmap.DB
 {
+    //Project class
     public class Project
     {
+        //Name of Projecrt
         private string mName;
+        //Project Description
         private string mDescription;
+        //Modal Description
         private string mModalDescription;
+        //Start date of project (For timeline)
         private DateTime mStartDate;
+        //End date of project (For timeline)
         private DateTime mEndDate;
+        //Business value the project belongs to
         private string mBusinessValue;
+        //Roadmap the project belongs to
         private string mRoadmapName;
+        //Risk string
         private string mRiskString;
 
+        //Dependants (NON PROJECTS)
         private List<string> mDependantString = new List<string>();
+        //Links this project owns
         private List<Link> mLinks = new List<Link>();
+        //Dependences (PROJECTS)
         private List<Project> mDependencies = new List<Project>();
 
         private RocketRoadmap.DB.Database mDatabase =  new Database();
@@ -26,6 +38,7 @@ namespace RocketRoadmap.DB
 
         public Project(string name, string description, string businessvalue, string rname)
         {
+            //Set all member variables
             mName = name;
             mDescription = description;
             mBusinessValue = businessvalue;
@@ -33,7 +46,12 @@ namespace RocketRoadmap.DB
 
             try
             {
-                mReader = mDatabase.executeread("SELECT ModalDescription FROM [dbo].[Project] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+                //Set modal description in DB
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE ProjectName=@name AND RoadmapName =@Rname";
+                cmd.Parameters.AddWithValue("@name", mName);
+                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                mReader = mDatabase.executereadparams(cmd);
                 while (mReader.Read())
                 {
                     mModalDescription = (mReader.GetString(0).ToString());
@@ -42,9 +60,14 @@ namespace RocketRoadmap.DB
             }
             catch { ;  }
 
+            //Grab risks this project owns
             mDatabase.connect();
-
-            mReader=mDatabase.executeread("SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='"+mBusinessValue+"'");
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='" + mBusinessValue + "'";
+            cmd1.Parameters.AddWithValue("@name", mName);
+            cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
+            cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+            mReader=mDatabase.executereadparams(cmd1);
             while (mReader.Read() )
             {
 
@@ -56,20 +79,36 @@ namespace RocketRoadmap.DB
             }
             mReader.Close();
 
-            mReader = mDatabase.executeread("SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + mRoadmapName + "'");
+            //Get links this project owns
+            SqlCommand cmd2 = new SqlCommand();
+            cmd2.CommandText = "SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
+            cmd2.Parameters.AddWithValue("@Pname", mName);
+            cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+
+            mReader = mDatabase.executereadparams(cmd2);
             while (mReader.Read() )
             {
                 mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString(), mRoadmapName));
             }
             mReader.Close();
 
-            mReader = mDatabase.executeread("SELECT DependantName, [dbo].[Project].Description, [dbo].[Project].BusinessValueName FROM [dbo].[Dependents], [dbo].[Project] WHERE ProjectName='" + mName + "' AND DependantName=Name");
+            //Grab project dependencies
+            SqlCommand cmd3 = new SqlCommand();
+            cmd3.CommandText = "SELECT DependantName, [dbo].[Project].Description, [dbo].[Project].BusinessValueName FROM [dbo].[Dependents], [dbo].[Project] WHERE ProjectName=@Pname AND DependantName=Name";
+            cmd3.Parameters.AddWithValue("@Pname", mName);
+            mReader = mDatabase.executereadparams(cmd3);
             while (mReader.Read() )
             {
                 mDependencies.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mReader.GetString(2).ToString(), mRoadmapName));
             }
             mReader.Close();
-            mReader = mDatabase.executeread("SELECT StartDate,EndDate FROM [dbo].[Project] WHERE Name='" + mName + "'");
+
+            SqlCommand cmd4 = new SqlCommand();
+            cmd4.CommandText = "SELECT StartDate,EndDate FROM [dbo].[Project] WHERE Name=@name AND BusinessValueName=@BVName AND RoadmapName=@Rname";
+            cmd4.Parameters.AddWithValue("@name", mName);
+            cmd4.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd4.Parameters.AddWithValue("@BVName", mBusinessValue);
+            mReader = mDatabase.executereadparams(cmd4);
             if(mReader.HasRows)
             {
                 mReader.Read();
@@ -82,8 +121,12 @@ namespace RocketRoadmap.DB
             mDatabase.close();
 
             mDatabase.connect();
-
-            mReader = mDatabase.executeread("SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName ='" + rname + "'");
+            //Get Dependants NON PROJECT
+            SqlCommand cmd5 = new SqlCommand();
+            cmd5.CommandText = "SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
+            cmd5.Parameters.AddWithValue("@Pname", mName);
+            cmd5.Parameters.AddWithValue("@Rname", mRoadmapName);
+            mReader = mDatabase.executereadparams(cmd5);
             while (mReader.Read())
             {
                 mDependantString.Add(mReader.GetString(0).ToString());
@@ -95,9 +138,17 @@ namespace RocketRoadmap.DB
         #region Getter's and Setters
         public bool SetName(string name) {
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET Name='" + name + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName+ "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET Name=@Sname WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+            cmd.Parameters.AddWithValue("@Sname", name);
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+
+            bool flag=mDatabase.executewriteparam(cmd);
             mName = name;
             mDatabase.close();
+
             return flag;
         }
         public string GetName() {
@@ -106,7 +157,13 @@ namespace RocketRoadmap.DB
 
         public bool SetDescription(string description) {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Description='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET Description=@descrip WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+            cmd.Parameters.AddWithValue("@descrip", description);
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+            bool flag = mDatabase.executewriteparam(cmd);
             mDatabase.close();
             mDescription = description;
             return flag;
@@ -119,7 +176,13 @@ namespace RocketRoadmap.DB
         public bool SetModalDescription(string description)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET ModalDescription='" + description + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET ModalDescription=@descrip WHERE Name=@PName AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+            cmd.Parameters.AddWithValue("@descrip", description);
+            cmd.Parameters.AddWithValue("@PName", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+            bool flag = mDatabase.executewriteparam(cmd);
             mDatabase.close();
             mModalDescription = description;
             return flag;
@@ -131,7 +194,13 @@ namespace RocketRoadmap.DB
 
         public bool SetStartDate(DateTime startdate) {
             mDatabase.connect();
-            bool flag= mDatabase.executewrite("UPDATE [dbo].[Project] SET StartDate='" + startdate + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET StartDate=@sdate WHERE Name=@PName AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+            cmd.Parameters.AddWithValue("@sdate", startdate);
+            cmd.Parameters.AddWithValue("@PName", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+            bool flag= mDatabase.executewriteparam(cmd);
             mDatabase.close();
             mStartDate = startdate;
             return flag;
@@ -140,12 +209,26 @@ namespace RocketRoadmap.DB
         public bool UpdateDependantStrings(List<string> Dependants)
         {
 
+                //Delete all dependants
                 mDatabase.connect();
-                bool flag = mDatabase.executewrite("DELETE FROM [dbo].[Dependents_string] WHERE ProjectName='" + mName + "' AND RoadmapName='" + mRoadmapName + "'");
+                SqlCommand cmd1 = new SqlCommand();
+                cmd1.CommandText = "DELETE FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+                cmd1.Parameters.AddWithValue("@Pname", mName);
+                cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
+                bool flag = mDatabase.executewriteparam(cmd1);
 
+                //Add all back in
                 foreach (string element in Dependants)
                 {
-                     flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName) VALUES ( '" + mName + "','" + element + "','" + mRoadmapName + "')");
+                    SqlCommand cmd2 = new SqlCommand();
+                    cmd2.CommandText = "INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName,BusinessValueName) VALUES (@Pname,@element,@Rname,@BVName)";
+                    cmd2.Parameters.AddWithValue("@Pname", mName);
+                    cmd2.Parameters.AddWithValue("@element", element);
+                    cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd2.Parameters.AddWithValue("@BVName", mBusinessValue);
+
+                    flag = mDatabase.executewriteparam(cmd2);
                 }
 
 
@@ -165,7 +248,14 @@ namespace RocketRoadmap.DB
 
         public bool SetEndDate(DateTime enddate) {
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET EndDate='" + enddate + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET EndDate=@edate WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+            cmd.Parameters.AddWithValue("@edate", enddate);
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+
+            bool flag=mDatabase.executewriteparam(cmd);
             mDatabase.close();
             mEndDate = enddate;
             return flag;
@@ -176,7 +266,13 @@ namespace RocketRoadmap.DB
 
         public bool SetBusinessValue(string businessvalue) {
             mDatabase.connect();
-            bool flag=mDatabase.executewrite("UPDATE [dbo].[Project] SET BusinessValueName='" + businessvalue + "' WHERE Name='" + mName+ "' AND RoadmapName='" + mRoadmapName + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET BusinessValueName=@bname WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+            cmd.Parameters.AddWithValue("@bname", businessvalue);
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+            bool flag=mDatabase.executewriteparam(cmd);
             mDatabase.close();
             mBusinessValue = businessvalue;
             return flag;
@@ -186,13 +282,21 @@ namespace RocketRoadmap.DB
         }
 
         public List<Link> GetLinks() { return mLinks; }
+        //public List<Issue> GetIssues() { return mIssues; }
         public List<Project> GetDependencies() { return mDependencies; }
         #endregion
-
+        
+        //Create and delete links in list and DB
         public bool CreateLink(Link link)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Link] (ProjectName, Description, Address, RoadmapName) VALUES ('" + link.GetDescription() + "','" + link.GetProjectName() + "','" + link.GetLink() + "'" + mRoadmapName + ")");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO [dbo].[Link] (Description, ProjectName, Address, RoadmapName) VALUES (@descrip,@Pname, @addr,@Rname)";
+            cmd.Parameters.AddWithValue("@descrip", link.GetDescription());
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@addr", link.GetLink());
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            bool flag = mDatabase.executewriteparam(cmd);
             mDatabase.close();
             return flag;
         }
@@ -201,7 +305,12 @@ namespace RocketRoadmap.DB
         {
             //assume already created
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("DELETE [dbo].[Links] WHERE RoadmapName = '" + mRoadmapName + "' AND ProjectName = '" + mName + "' AND Address = '" + link.GetLink() + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "DELETE [dbo].[Links] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND Address = @addr";
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@addr", link.GetLink());
+            bool flag = mDatabase.executewriteparam(cmd);
 
             mLinks.Remove(link);
 
@@ -209,19 +318,33 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
+        //Create issue
         public bool CreateIssue(Issue i)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Issues] (Description, ProjectName, RoadmapName) VALUES ('" + i.GetDescription() + "','" + i.GetProjectName() + "'," + mRoadmapName + "')");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO [dbo].[Issues] (Description, ProjectName, RoadmapName) VALUES (@descrip,@Pname, @Rname)";
+            cmd.Parameters.AddWithValue("@descrip", i.GetDescription());
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            bool flag = mDatabase.executewriteparam(cmd);
             mDatabase.close();
+            
             return flag;
         }
 
+        //Create/delete dependents in list and DB
         public bool CreateDependant(Project dependant)
         {
             //assume already created
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Dependents] (ProjectName, Dependantname, Description, RoadmapName) VALUES ('" + mName + "','" + dependant.GetName() + "','" + dependant.GetDescription() + "','" + mRoadmapName + "')");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO [dbo].[Dependents] (ProjectName, Dependantname, Description, RoadmapName) VALUES (@Pname,@name,@descrip,@Rname)";
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@name", dependant.GetName());
+            cmd.Parameters.AddWithValue("@descrip", dependant.GetDescription());
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            bool flag = mDatabase.executewriteparam(cmd);
 
             mDependencies.Add(dependant);
 
@@ -233,7 +356,12 @@ namespace RocketRoadmap.DB
         {
             //assume already created
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("DELETE [dbo].[Dependents] WHERE RoadmapName = '" + mRoadmapName + "' AND ProjectName = '" + mName + "' AND Dependantname = '" + dependant.GetName() + "')");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "DELETE [dbo].[Dependents] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND Dependantname = @name)";
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@name", dependant.GetName());
+            bool flag = mDatabase.executewriteparam(cmd);
 
             mDependencies.Remove(dependant);
 
@@ -244,7 +372,13 @@ namespace RocketRoadmap.DB
         public bool SetProjectRisks(string risks)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("UPDATE [dbo].[Project] SET Risks='" + risks + "' WHERE Name='" + mName + "' AND RoadmapName='" + mRoadmapName + "' AND BusinessValueName ='"+ mBusinessValue+"'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[Project] SET Risks=@risks WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName =@BVName";
+            cmd.Parameters.AddWithValue("@risks", risks);
+            cmd.Parameters.AddWithValue("@Pname", mName);
+            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+            bool flag = mDatabase.executewriteparam(cmd);
             mDatabase.close();
             mRiskString = risks;
             return flag;
@@ -256,13 +390,12 @@ namespace RocketRoadmap.DB
         public string QuickDBTest()
         {
             SqlCommand cmd = new SqlCommand();
-            string command = "SELECT Name FROM [dbo].[Project] WHERE Name=@Name AND BusinessValueName=@BVName AND RoadmapName=@RName";
-            SqlParameterCollection param = cmd.Parameters;
-            param.AddWithValue("@Name", "Tested");
-            param.AddWithValue("@BVName", "test");
-            param.AddWithValue("@Rname", "Test");
+            cmd.CommandText = "SELECT Name FROM [dbo].[Project] WHERE Name=@Name AND BusinessValueName=@BVName AND RoadmapName=@RName";
+            cmd.Parameters.AddWithValue("@Name", "Tested");
+            cmd.Parameters.AddWithValue("@BVName", "test");
+            cmd.Parameters.AddWithValue("@Rname", "Test");
 
-            mReader = mDatabase.executereadparams(command, param);
+            mReader = mDatabase.executereadparams(cmd);
             if (mReader.HasRows)
             {
                 mReader.Read();
