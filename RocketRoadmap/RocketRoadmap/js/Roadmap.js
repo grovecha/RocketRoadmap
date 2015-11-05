@@ -321,7 +321,7 @@ function addProj(e, obj, i) {
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
     BusId = obj.id.split("ProjBox")[0];
     ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
-
+    StratId = obj.id.substr(0, obj.id.indexOf('Bus'));
     if (e.keyCode === 13 && e.shiftKey) {
         addBus(e, obj, i);
     }

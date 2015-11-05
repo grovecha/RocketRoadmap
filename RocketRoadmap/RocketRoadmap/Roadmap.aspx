@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Roadmap.aspx.cs" Inherits="RocketRoadmap.Roadmap" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Roadmap.aspx.cs" Inherits="RocketRoadmap.Roadmap" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,8 +85,7 @@
         <div id="mainDiv">
            <table id ="sidebarTable" runat ="server">
             <tr id="StratBox0Row">
-             <td>
-               
+             <td>  
                  <input id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                     <table id ="StratBox0Table" runat='server' >
                         <tr id="StratBox0BusBox0Row">
@@ -247,15 +247,12 @@
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 <script src="js/InputModal.js"></script>
+<script src="js/DisplayModal.js"></script>
 
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
-
-    <script src="js/Roadmap.js"></script>
-<!-- Menu Toggle Script -->
-
-
+<script src="js/Roadmap.js"></script>
 
 
 <!-- Data Input -->
@@ -265,7 +262,6 @@
             height:30px;
             margin-left: 0px;
         }
-
         .btnDelete {
             height: 32px;
             width: 28px;
@@ -275,7 +271,6 @@
             height: 30px;
             margin-left: 20px;
         }
-
         .txtProj {
             width: 160px;
             height: 30px;
@@ -304,7 +299,6 @@
               top: 50%;           
               left: 300px;  
         }
-
         
    
     </style>
