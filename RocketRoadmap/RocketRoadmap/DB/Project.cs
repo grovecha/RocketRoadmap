@@ -212,7 +212,7 @@ namespace RocketRoadmap.DB
                 //Delete all dependants
                 mDatabase.connect();
                 SqlCommand cmd1 = new SqlCommand();
-                cmd1.CommandText = "DELETE FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+                cmd1.CommandText = "DELETE FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName=@Rname";
                 cmd1.Parameters.AddWithValue("@Pname", mName);
                 cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
                 cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
@@ -356,7 +356,7 @@ namespace RocketRoadmap.DB
             //assume already created
             mDatabase.connect();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE [dbo].[Dependents] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND Dependantname = @name)";
+            cmd.CommandText = "DELETE [dbo].[Dependents] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND DependantName = @name)";
             cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
             cmd.Parameters.AddWithValue("@Pname", mName);
             cmd.Parameters.AddWithValue("@name", dependant.GetName());
