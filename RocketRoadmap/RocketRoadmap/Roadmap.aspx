@@ -160,7 +160,6 @@
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
                     <textarea id="descText" rows="4" cols="75" ></textarea> 
-                    <br />
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -174,7 +173,7 @@
                     <div class="depSelect">
                         <div></div>
                     </div>
-                    <br />
+
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -223,15 +222,12 @@
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
-                    <div class="disdepText">
-                        <div></div>
+                    <div class="disdepText">                        
                     </div> 
 
                 <!--Select Input-->
                     <div class="disdepSelect">
-                        <div></div>
                     </div>
-                    <br />
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -239,8 +235,7 @@
 
                 <!-- Links Input -->
                 <h2><u>Links</u></h2>
-                    <div class="dislinkText">     
-                        <div></div>
+                    <div class="dislinkText">
                     </div>
             </div>
         </div> 

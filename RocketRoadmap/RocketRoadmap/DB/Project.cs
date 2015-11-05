@@ -186,14 +186,13 @@ namespace RocketRoadmap.DB
         }
 
         public List<Link> GetLinks() { return mLinks; }
-        //public List<Issue> GetIssues() { return mIssues; }
         public List<Project> GetDependencies() { return mDependencies; }
         #endregion
 
         public bool CreateLink(Link link)
         {
             mDatabase.connect();
-            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Link] (Description, ProjectName, Address, RoadmapName) VALUES ('" + link.GetDescription() + "','" + link.GetProjectName() + "','" + link.GetLink() + "'" + mRoadmapName + ")");
+            bool flag = mDatabase.executewrite("INSERT INTO [dbo].[Link] (ProjectName, Description, Address, RoadmapName) VALUES ('" + link.GetDescription() + "','" + link.GetProjectName() + "','" + link.GetLink() + "'" + mRoadmapName + ")");
             mDatabase.close();
             return flag;
         }
