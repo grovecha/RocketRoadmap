@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Roadmap.aspx.cs" Inherits="RocketRoadmap.Roadmap" %>
+﻿
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Roadmap.aspx.cs" Inherits="RocketRoadmap.Roadmap" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,15 +84,14 @@
         <div id="mainDiv">
            <table id ="sidebarTable" runat ="server">
             <tr id="StratBox0Row">
-             <td>
-               
+             <td>  
                  <input id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                     <table id ="StratBox0Table" runat='server' >
                         <tr id="StratBox0BusBox0Row">
                          <td>
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div id="StratBox0BusBox0projDiv" visible="false" >
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text'placeholder ='Add Project'   onkeyup ='addProj(event, this,1)' />
+                                    <div id="StratBox0BusBox0projDiv" runat='server' visible="false" >
+                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
                                          </div> 
                           
                         </td>
@@ -115,7 +115,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Roadmap</h1>
+                    <h1 id="roadmapnamelabel" runat="server"></h1>
                     <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
 
                 </div>
@@ -158,7 +158,7 @@
 
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
-                    <textarea id="descText" rows="4" cols="75"></textarea> 
+                    <textarea id="descText" rows="4" cols="75" ></textarea> 
                     <br />
 
                 <!--Depedency Input -->
@@ -250,35 +250,33 @@
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
-     <!-- jQuery -->
 <script src="js/InputModal.js"></script>
+<script src="js/DisplayModal.js"></script>
 
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script src="js/Roadmap.js"></script>
 
-    <script src="js/Roadmap.js"></script>
 
 <!-- Data Input -->
         <style>
         .txtStrat {
-            width: 220px;
-            height: 30px;
+            width: 200px;
+            height:30px;
             margin-left: 0px;
         }
-
         .btnDelete {
             height: 32px;
             width: 28px;
         }
         .txtBus {
-            width: 200px;
+            width: 180x;
             height: 30px;
             margin-left: 20px;
         }
-
         .txtProj {
-            width: 210px;
+            width: 160px;
             height: 30px;
             margin-left: 40px;
         }
@@ -305,7 +303,6 @@
               top: 50%;           
               left: 300px;  
         }
-
         
    
     </style>

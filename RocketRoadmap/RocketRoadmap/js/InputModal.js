@@ -179,22 +179,22 @@ $(document).ready(function () {
 
 
         ////Add Modal Title
-        //var pr = { "ProjectID": button_id, "RoadmapName": map_Name };
-        //var br = { "RoadmapName": map_Name };
-        //$.ajax({
-        //    type: "GET",
-        //    async: false,
-        //    url: "Roadmap.aspx/GetProjectName",
-        //    data: pr,
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (response) {
-        //        $('#input_title').html(response);
-        //    },
-        //    error: function (xhr) {
-        //        Alert("no Title");
-        //    },
-        //});
+        var pr = '{ "ProjectID": button_id, "RoadmapName": map_Name }';
+        var br = { "RoadmapName": map_Name };
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: "Roadmap.aspx/GetProjectName",
+            data: pr,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                $('#input_title').html(response);
+            },
+            error: function (xhr) {
+                alert("no Title");
+            },
+        });
 
 
         ////adding the text to the description

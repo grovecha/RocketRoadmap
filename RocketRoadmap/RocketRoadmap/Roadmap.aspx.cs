@@ -28,8 +28,9 @@ namespace RocketRoadmap
             string url = Request.Url.AbsoluteUri;
             int index = url.IndexOf("=");
             string name = url.Substring(index + 1);
+            
 
-            roadmapnamelabel.InnerText = name;
+           // roadmapnamelabel.InnerText = name;
             RoadMap roadmap = new RoadMap(name);
 
             List<StrategyPoint> strats = roadmap.GetStrategyPoints();
