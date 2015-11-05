@@ -47,6 +47,8 @@ namespace RocketRoadmap
             HtmlInputText projText = new HtmlInputText();
             HtmlTableCell NextInputCell = new HtmlTableCell();
 
+            HyperLink delete = new HyperLink();
+
 
             foreach (StrategyPoint p in strats)
             {
@@ -109,6 +111,17 @@ namespace RocketRoadmap
                 text.Attributes.Add("onkeyup", "addStrat(event,this," + count.ToString() + ")");
 
                 cell1.Controls.Add(text);
+                //< a href = "#" id = 'StratDelete0' style = "color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
+                delete = new HyperLink();
+                delete.ID = "StratDelete" + count.ToString();
+                delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                delete.Attributes.Add("class", "remove_strat");
+                delete.Text = " X";
+                delete.Target="#";
+                cell1.Controls.Add(delete);
+
+                
+                
 
                 HtmlButton deletebutton = new HtmlButton();
 
@@ -265,6 +278,14 @@ namespace RocketRoadmap
                     NextRow.Cells.Add(NextInputCell);
                     NextInputCell.Controls.Add(NextBox);
 
+                    delete = new HyperLink();
+                    delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Delete";
+                    delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                    delete.Attributes.Add("class", "remove_strat");
+                    delete.Text = " X";
+                    delete.Target = "#";
+                    NextInputCell.Controls.Add(delete);
+
 
 
                     #region Loading Projects
@@ -289,6 +310,10 @@ namespace RocketRoadmap
                         HtmlInputText projTextBox = new HtmlInputText();
                         //lastCell = new HtmlTableCell();
 
+
+
+
+
                         if (count == 1 && valcount == 1 && projCount == 0)
                         {
                             StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
@@ -312,7 +337,15 @@ namespace RocketRoadmap
                             newprojText.Value = proj.GetDescription();
                         }
 
-
+                        //< a id = "StratBox0BusBox0ProjBox0Delete" href = "#" style = "color:white; font-size:20px; vertical-align:-3px" class="remove_proj"> X</a>
+                        delete = new HyperLink();
+                        delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + (valcount - 1).ToString() + "ProjBox" + projCount.ToString() + "Delete";
+                        delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                        delete.Attributes.Add("class", "remove_strat");
+                        delete.Text = " X";
+                        delete.Target = "#";
+                        lastCell.Controls.Add(delete);
+                        lastCell.Controls.Add(new LiteralControl("<br />"));
 
                         projCount++;
 
@@ -328,7 +361,9 @@ namespace RocketRoadmap
                         newprojText.Attributes.Add("runat", "server");
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
-                        lastCell.Controls.Add(new LiteralControl("<br />"));
+
+
+
 
 
                     }
@@ -345,7 +380,7 @@ namespace RocketRoadmap
                     nextText.Attributes.Add("runat", "server");
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
-                    NextInputCell.Controls.Add(new LiteralControl("<br />"));
+                    //NextInputCell.Controls.Add(new LiteralControl("<br />"));
 
 
                     busVal = NextBox;
@@ -367,6 +402,14 @@ namespace RocketRoadmap
                 busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
 
                 stratCell.Controls.Add(busVal);
+
+                //delete = new HyperLink();
+                //delete.ID = "StratBoxBusBox0Delete";
+                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                //delete.Attributes.Add("class", "remove_strat");
+                //delete.Text = "X";
+                //delete.Target = "#";
+                //stratCell.Controls.Add(delete);
 
 
 

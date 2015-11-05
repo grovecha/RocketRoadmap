@@ -91,9 +91,8 @@
                         <tr id="StratBox0BusBox0Row">
                          <td id ="StratBox0BusBox0Cell" runat="server">
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div id="StratBox0BusBox0projDiv" runat='server' >
                                          <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
-                                         </div> 
+
                           
                         </td>
                       </tr>
@@ -265,7 +264,7 @@
             width: 28px;
         }
         .txtBus {
-            width: 180x;
+            width: 160x;
             height: 30px;
             margin-left: 20px;
         }
@@ -275,7 +274,7 @@
             margin-left: 40px;
         }
         .txtProjDel {
-            width: 180px;
+            width: 160px;
             height: 30px;
             margin-left: 40px;
         }

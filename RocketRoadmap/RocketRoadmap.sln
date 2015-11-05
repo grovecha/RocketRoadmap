@@ -7,11 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketRoadmap", "RocketRoad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketRoadmapTests", "RocketRoadmapTests\RocketRoadmapTests.csproj", "{4DB4C578-98BB-4383-A6ED-029C534C72ED}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{96076C84-675F-40DF-9866-8F54F4A94F48}"
-	ProjectSection(SolutionItems) = preProject
-		Rocket.cur = Rocket.cur
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
