@@ -50,17 +50,10 @@ namespace RocketRoadmap.DB
             return reader;
         }
 
-        public SqlDataReader executereadparams(string command, SqlParameterCollection param){
-            SqlCommand cmd = new SqlCommand();
+        //Executes read command (Safe Parameters)
+        public SqlDataReader executereadparams(SqlCommand cmd){
             SqlDataReader reader;
-
-            cmd.CommandText = command;
-            cmd.CommandType = System.Data.CommandType.Text;
-            for (int i = 0; i < param.Count; i++)
-            {
-                cmd.Parameters.Add(new SqlParameter(param[i].ParameterName, param[i].Value));
-            }
-                cmd.Connection = mConnection;
+            cmd.Connection = mConnection;
 
             reader = cmd.ExecuteReader();
 
@@ -77,6 +70,16 @@ namespace RocketRoadmap.DB
             cmd.Connection = mConnection;
 
             return (cmd.ExecuteNonQuery() != 0);
+        }
+
+        //Execute write command with parameters
+        public bool executewriteparam(SqlCommand cmd)
+        {
+
+            cmd.Connection = mConnection;
+
+
+            return (cmd.ExecuteNonQuery()!=0);
         }
     }
 }
