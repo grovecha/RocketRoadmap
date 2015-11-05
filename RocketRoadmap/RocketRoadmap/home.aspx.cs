@@ -74,7 +74,7 @@ namespace RocketRoadmap
                             uhead.Cells.Add(u3);
                             uhead.Cells.Add(u4);
                             uhead.Cells.Add(u5);
-                            uhead.Cells.Add(u6);
+                            //uhead.Cells.Add(u6);
 
                             userroadmaps.Rows.Add(uhead);
 
@@ -113,7 +113,7 @@ namespace RocketRoadmap
                                 urow.Cells.Add(ucell_3);
                                 urow.Cells.Add(ucell_4);
                                 urow.Cells.Add(ucell_5);
-                                urow.Cells.Add(ucell_6);
+                             //   urow.Cells.Add(ucell_6);
 
                                 userroadmaps.Rows.Add(urow);
                             }
@@ -145,26 +145,32 @@ namespace RocketRoadmap
                             B1.CommandArgument = map[0];
                             B1.Click += new EventHandler(BtnHandler);
 
+                            Button B2 = new Button();
+                            B2.Text = "EDIT";
+                            B2.CommandArgument = map[0];
+                            B2.Click += new EventHandler(EditRoadmap);
+
                             HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
-                            TableCell tCell1 = new TableCell();
+                           TableCell tCell1 = new TableCell();
                             cell_1.Controls.Add(link);
+                            cell_1.Controls.Add(B2);
 
                             cell_2.Text = map[1];
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
 
                             cell_5.Controls.Add(B1);
-                            cell_6.Text = "EDIT";
+                            cell_6.Controls.Add(B2);
 
                             row.Cells.Add(cell_1);
                             row.Cells.Add(cell_2);
                             row.Cells.Add(cell_3);
                             row.Cells.Add(cell_4);
                             row.Cells.Add(cell_5);
-                            row.Cells.Add(cell_6);
+                           // row.Cells.Add(cell_6);
 
                         allroadmaps.Rows.Add(row);
                         }
@@ -201,7 +207,15 @@ namespace RocketRoadmap
             maps.DeleteRoadMap(btn.CommandArgument);
             Response.Redirect(Request.RawUrl);
         }
-  
+
+        protected void EditRoadmap(Object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            RoadMap map = new RoadMap(btn.CommandArgument);
+
+            
+            Response.Redirect(Request.RawUrl);
+        }
 
     }
     }
