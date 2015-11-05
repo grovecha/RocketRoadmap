@@ -16,11 +16,11 @@ namespace RocketRoadmap
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             mUser = new DB.User((string)Session["username"], (string)Session["password"]);
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
-            if (!IsPostBack)
-            {
+
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
                     RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
@@ -89,6 +89,11 @@ namespace RocketRoadmap
                                 TableCell ucell_5 = new TableCell();
                                 TableCell ucell_6 = new TableCell();
 
+                                Button B1 = new Button();
+                                B1.Text = "X";
+                                B1.CommandArgument = umap[0];
+                                B1.Click += new EventHandler(BtnHandler);
+
                                 HyperLink link = new HyperLink();
                                 link.NavigateUrl = "Roadmap.aspx?n=" + umap[0];
                                 link.Text = umap[0];
@@ -99,7 +104,8 @@ namespace RocketRoadmap
                                 ucell_2.Text = umap[1];
                                 ucell_3.Text = umap[2];
                                 ucell_4.Text = umap[3];
-                                ucell_5.Text = "X";
+
+                                ucell_5.Controls.Add(B1);
                                 ucell_6.Text = "EDIT";
 
                                 urow.Cells.Add(ucell_1);
@@ -109,7 +115,7 @@ namespace RocketRoadmap
                                 urow.Cells.Add(ucell_5);
                                 urow.Cells.Add(ucell_6);
 
-                            userroadmaps.Rows.Add(urow);
+                                userroadmaps.Rows.Add(urow);
                             }
                         }
                         catch (NullReferenceException nre)
@@ -136,6 +142,8 @@ namespace RocketRoadmap
 
                             Button B1 = new Button();
                             B1.Text = "X";
+                            B1.CommandArgument = map[0];
+                            B1.Click += new EventHandler(BtnHandler);
 
                             HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
@@ -166,9 +174,11 @@ namespace RocketRoadmap
 
                     }
 
-                }
+                
            
         }
+
+
         public void newroadmap(object sender, EventArgs e)
         {
             RoadMaps nRoadmap = new RoadMaps();
@@ -181,5 +191,17 @@ namespace RocketRoadmap
             Response.Redirect("Roadmap.aspx?n="+roadmap_Name.Value, false);
 
         }
+
+
+        protected void BtnHandler(Object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            RoadMaps maps = new RoadMaps();
+
+            maps.DeleteRoadMap(btn.CommandArgument);
+            Response.Redirect(Request.RawUrl);
+        }
+  
+
     }
     }

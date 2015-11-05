@@ -80,6 +80,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="home.aspx" />
     <Content Include="images\quicken-loans-logo.png" />
+    <Content Include="images\Rocket.cur" />
     <Content Include="index.aspx" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
