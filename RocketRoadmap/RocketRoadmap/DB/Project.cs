@@ -222,11 +222,10 @@ namespace RocketRoadmap.DB
                 foreach (string element in Dependants)
                 {
                     SqlCommand cmd2 = new SqlCommand();
-                    cmd2.CommandText = "INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName,BusinessValueName) VALUES (@Pname,@element,@Rname,@BVName)";
+                    cmd2.CommandText = "INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName) VALUES (@Pname,@element,@Rname)";
                     cmd2.Parameters.AddWithValue("@Pname", mName);
                     cmd2.Parameters.AddWithValue("@element", element);
                     cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
-                    cmd2.Parameters.AddWithValue("@BVName", mBusinessValue);
 
                     flag = mDatabase.executewriteparam(cmd2);
                 }
