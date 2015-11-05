@@ -118,7 +118,6 @@ namespace RocketRoadmap.DB
                 catch (Exception ex) { }
             }
             mReader.Close();
-            mDatabase.close();
 
             mDatabase.connect();
             //Get Dependants NON PROJECT
@@ -132,6 +131,7 @@ namespace RocketRoadmap.DB
                 mDependantString.Add(mReader.GetString(0).ToString());
             }
             mReader.Close();
+            mDatabase.close();
 
         }
 
