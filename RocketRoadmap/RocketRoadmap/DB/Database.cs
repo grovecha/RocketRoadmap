@@ -50,6 +50,16 @@ namespace RocketRoadmap.DB
             return reader;
         }
 
+        //Executes read command (Safe Parameters)
+        public SqlDataReader executereadparams(SqlCommand cmd){
+            SqlDataReader reader;
+            cmd.Connection = mConnection;
+
+            reader = cmd.ExecuteReader();
+
+            return reader;
+    }
+
         //Executes a write command (UPDATE, INSERT, DELETE....)
         public bool executewrite(string command)
         {
@@ -60,6 +70,16 @@ namespace RocketRoadmap.DB
             cmd.Connection = mConnection;
 
             return (cmd.ExecuteNonQuery() != 0);
+        }
+
+        //Execute write command with parameters
+        public bool executewriteparam(SqlCommand cmd)
+        {
+
+            cmd.Connection = mConnection;
+
+
+            return (cmd.ExecuteNonQuery()!=0);
         }
     }
 }

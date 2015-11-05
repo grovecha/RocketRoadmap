@@ -107,5 +107,13 @@ namespace RocketRoadmap.DB.Tests
             test.AddProject(proj);
 
         }
+
+
+        [TestMethod()]
+        public void DBTest()
+        {
+            Project proj = new Project("Tested", "", "test", "Test");
+            Assert.IsTrue("Tested" == proj.QuickDBTest());
+        }
     }
 }

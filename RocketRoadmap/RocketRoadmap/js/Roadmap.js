@@ -3,7 +3,7 @@ function hideExample() {
     $("#StratBox0BusBox0Row").hide();
 };
  
-$("#StratBox0BusBox0Row").hide();
+//$("#StratBox0BusBox0Row").hide();
 
 function deleteStrat(obj) {
 
@@ -30,6 +30,12 @@ function deleteStrat(obj) {
 
     }
 
+    //delete from database
+    var url = window.location.href;
+    var mapName = url.substr(url.indexOf('?') + 1);
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    PageMethods.DeleteStrat('StratBox' + (PreviousStratNum).toString(), mapName);
+
 }
 
 function deleteBus(obj) {
@@ -50,6 +56,11 @@ function deleteBus(obj) {
 
     }
 
+    //delete from database
+    var url = window.location.href;
+    var mapName = url.substr(url.indexOf('?') + 1);
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    PageMethods.DeleteBus(BusId, StratId, mapName);
 }
 
 function deleteProj(obj) {
@@ -61,6 +72,15 @@ function deleteProj(obj) {
     
     var ele = document.getElementById(id+"But");
     ele.parentNode.removeChild(ele);
+
+    //delete from database
+    var StratId = obj.id.split("BusBox")[0];
+    var BusId = obj.id.split("ProjBox")[0];
+    var ProjId = obj.id.split("Delete")[0];
+    var url = window.location.href;
+    var mapName = url.substr(url.indexOf('?') + 1);
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    PageMethods.DeleteProj(ProjId, BusId, StratId, mapName);
 
 }
 
@@ -132,7 +152,7 @@ function addStrat(e, obj, i) {
 
         var url = window.location.href;
         var mapName = url.substr(url.indexOf('?') + 1);
-        mapName = mapName.substr(2, mapName.length);
+        mapName = mapName.substr(2, mapName.length).split('#')[0];
         //if new strat input already created, just edit database
         if (obj.getAttribute("firstadd") == "1") {
 
@@ -168,7 +188,7 @@ function addStrat(e, obj, i) {
                             '</tr>' +
                             '</table>' +
                             "</td>";
-                              $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
+                            //  $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
 
             //place cursor in  bus value
             document.getElementById(obj.id+"BusBox0").select();
@@ -262,7 +282,7 @@ function addBus(e, obj, i) {
 
         var url = window.location.href;
         var mapName = url.substr(url.indexOf('?') + 1);
-        mapName = mapName.substr(2, mapName.length);
+        mapName = mapName.substr(2, mapName.length).split('#')[0];
         var PrevBusID = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal - 1);
         if (obj.getAttribute("firstadd") == "1") {
             PageMethods.EditBusVal(obj.id, obj.value, mapName, StratId);
@@ -310,36 +330,6 @@ function addProj(e, obj, i) {
     }
         //add project input box
     else if (e.keyCode === 13) {
-
-        var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
-        mapName = mapName.substr(2, mapName.length);
-        if (obj.getAttribute("firstadd") == "1") {
-            PageMethods.EditProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
-        }
-        else {
-            PageMethods.AddProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
-            obj.setAttribute("firstadd", "1");
-
-
-            //add 1 to ProjTotal
-            document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);
-
-            var newInput = document.createElement('input');
-            newInput.type = 'text';
-            newInput.className = 'txtProjDel';
-            newInput.placeholder = 'Add Project';
-            newInput.id = BusId + "ProjBox" + String(CurrentProjCount + 1);
-            newInput.setAttribute('onkeyup', 'addProj(event, this, 1)');
-            
-            var projroot = obj.parentElement;
-            projroot.appendChild(newInput);
-
-            //Place cursor in next proj box
-            document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).select();
-        }
-    
- 
         /////add visual project        
         //if the project exists, change the value
         if (document.getElementById(obj.id + "But")) {
@@ -368,14 +358,47 @@ function addProj(e, obj, i) {
             cell.appendChild(element1);
             var element2 = document.createElement('a');
             element2.innerHTML = " X";
-            element2.id=obj.id+"Delete";
-            element2.setAttribute("href","#");
+            element2.id = obj.id + "Delete";
+            element2.setAttribute("href", "#");
             element2.setAttribute("style", "color:white; font-size:20px; vertical-align:-3px")
             element2.className = 'remove_proj';
-            $("#"+BusId+"projDiv").append(element2);
+            $("#" + BusId + "projDiv").append(element2);
 
 
         }
+
+
+
+        var url = window.location.href;
+        var mapName = url.substr(url.indexOf('?') + 1);
+        mapName = mapName.substr(2, mapName.length).split('#')[0];
+        if (obj.getAttribute("firstadd") == "1") {
+            PageMethods.EditProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
+        }
+        else {
+            PageMethods.AddProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
+            obj.setAttribute("firstadd", "1");
+
+
+            //add 1 to ProjTotal
+            document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);
+
+            var newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.className = 'txtProjDel';
+            newInput.placeholder = 'Add Project';
+            newInput.id = BusId + "ProjBox" + String(CurrentProjCount + 1);
+            newInput.setAttribute('onkeyup', 'addProj(event, this, 1)');
+            
+            var projroot = obj.parentElement;
+            projroot.appendChild(newInput);
+
+            //Place cursor in next proj box
+            document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).select();
+        }
+    
+ 
+        
     }
     return false;
 }

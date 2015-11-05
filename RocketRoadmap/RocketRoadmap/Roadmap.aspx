@@ -31,11 +31,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="index.aspx">Logout</a>
-                </li>
-                <li>
                     <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
                 </li>
+                <li>
+                    <a href="index.aspx">Logout</a>
+                </li>
+           
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -49,7 +50,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <%--<!-- Custom CSS -->--%>
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
     <!-- Custom CSS -->
@@ -88,9 +89,9 @@
                  <input id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                     <table id ="StratBox0Table" runat='server' >
                         <tr id="StratBox0BusBox0Row">
-                         <td>
+                         <td id ="StratBox0BusBox0Cell" runat="server">
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div id="StratBox0BusBox0projDiv" runat='server' visible="false" >
+                                    <div id="StratBox0BusBox0projDiv" runat='server' >
                                          <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
                                          </div> 
                           
@@ -159,7 +160,6 @@
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
                     <textarea id="descText" rows="4" cols="75" ></textarea> 
-                    <br />
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -173,7 +173,7 @@
                     <div class="depSelect">
                         <div></div>
                     </div>
-                    <br />
+
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -222,15 +222,12 @@
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
-                    <div class="disdepText">
-                        <div></div>
+                    <div class="disdepText">                        
                     </div> 
 
                 <!--Select Input-->
                     <div class="disdepSelect">
-                        <div></div>
                     </div>
-                    <br />
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
@@ -238,8 +235,7 @@
 
                 <!-- Links Input -->
                 <h2><u>Links</u></h2>
-                    <div class="dislinkText">     
-                        <div></div>
+                    <div class="dislinkText">
                     </div>
             </div>
         </div> 
