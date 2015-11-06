@@ -20,7 +20,13 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("INSERT INTO [dbo].[User] ( Name, ID, Email, Password ) VALUES (" + "'" + newuser.GetName() + "'" + ',' + "'" + newuser.GetUserName() + "'" + ',' + "'" + newuser.GetEmail() + "'" + ',' + "'" + newuser.GetPassword() + "')"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO [dbo].[User] ( Name, ID, Email, Password ) VALUES (@Name,@User,@mail,@pass)";
+            cmd.Parameters.AddWithValue("@Name", newuser.GetName());
+            cmd.Parameters.AddWithValue("@User", newuser.GetUserName());
+            cmd.Parameters.AddWithValue("@mail", newuser.GetEmail());
+            cmd.Parameters.AddWithValue("@pass", newuser.GetPassword());
+            if (mDatabase.executewriteparam(cmd))
             {
                 toReturn = true;
             }
@@ -30,14 +36,17 @@ namespace RocketRoadmap.DB
         }
 
         /**
-        * Create a new user 
+        * Delete a  user 
         **/
         public bool DeleteUser(string username)
         {
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("DELETE FROM [dbo].[User] WHERE ID = '" + username + "'" ))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "DELETE FROM [dbo].[User] WHERE ID =@User";
+            cmd.Parameters.AddWithValue("@User", username);
+            if (mDatabase.executewriteparam(cmd))
             {
                 toReturn = true;
             }
@@ -52,7 +61,10 @@ namespace RocketRoadmap.DB
         public User GetUser( string username )
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Email, Password FROM [dbo].[User] WHERE ID = '" + username + "'" );
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name, Email, Password FROM [dbo].[User] WHERE ID =@User";
+            cmd.Parameters.AddWithValue("@User", username);
+            mReader = mDatabase.executereadparams(cmd);
             mReader.Read();
 
             User user = new User(mReader.GetString(0).ToString(), username, mReader.GetString(1).ToString(), mReader.GetString(2).ToString());
@@ -66,7 +78,11 @@ namespace RocketRoadmap.DB
         public bool Login( string username, string password )
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Email FROM [dbo].[User] WHERE ID = '" + username + "' AND " + "Password = '" + password + "'" );
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name, Email FROM [dbo].[User] WHERE ID =@User AND " + "Password =@pass";
+            cmd.Parameters.AddWithValue("@User", username);
+            cmd.Parameters.AddWithValue("@pass", password);
+            mReader = mDatabase.executereadparams(cmd);
             mReader.Read();
 
             if( mReader.HasRows ) {

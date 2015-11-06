@@ -20,7 +20,11 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE [dbo].[TickMark] SET Name = '" + name + "' WHERE TimelineName = '" + tname + "'" ))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[TickMark] SET Name =@name WHERE TimelineName = @Tname";
+            cmd.Parameters.AddWithValue("@Tname", tname);
+            cmd.Parameters.AddWithValue("@name", name);
+            if (mDatabase.executewriteparam(cmd))
             {
                 mName = name;
                 toReturn = true;
@@ -35,7 +39,11 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE[dbo].[TickMark] SET XPlacement = '" + X + "' WHERE TimelineName = '" + name + "'" ))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name";
+            cmd.Parameters.AddWithValue("@X", X);
+            cmd.Parameters.AddWithValue("@name", name);
+            if (mDatabase.executewriteparam(cmd))
             {
                 mXPlacement = X;
                 toReturn = true;
