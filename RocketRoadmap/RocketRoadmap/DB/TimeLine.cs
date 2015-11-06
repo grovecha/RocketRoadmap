@@ -116,7 +116,7 @@ namespace RocketRoadmap.DB
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE Name = @tName AND TimelineName =@timeline";
-            cmd.Parameters.AddWithValue("@tName", tick.GetName();
+            cmd.Parameters.AddWithValue("@tName", tick.GetName());
             cmd.Parameters.AddWithValue("@timeline", mName);
             if (mDatabase.executewriteparam(cmd))
             {

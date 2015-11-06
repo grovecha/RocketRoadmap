@@ -24,6 +24,7 @@ namespace RocketRoadmap.DB
 
        public bool Login()
        {
+           if (mUserName == null) return false;
            mDatabase.connect();
            SqlCommand cmd = new SqlCommand();
            cmd.CommandText = "SELECT Password FROM [dbo].[User] WHERE ID=@User";
