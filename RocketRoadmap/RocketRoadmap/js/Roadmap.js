@@ -143,9 +143,16 @@ function addStrat(e, obj, i) {
             }
 
 
-            element1.style.backgroundColor = "red";
+            element1.style.backgroundColor = "white";
             element1.style.height = "100px";
-            element1.style.width = "200px";
+            element1.style.width = "150px";
+            element1.style.borderRightStyle = "dashed";
+            element1.style.borderBottomStyle = "solid";
+            element1.style.borderLeftStyle = "none";
+            element1.style.borderTopStyle = "none";
+            element1.style.borderColor = "#D3D3D3";
+            
+
 
             var table1 = document.createElement("table");
             cell1.appendChild(table1);
@@ -234,12 +241,12 @@ function addBus(e, obj, i) {
 
             console.log(table.rows.count);
             tableid = StratId + "VisualTable";
-
+            
             if (document.getElementById(tableid)) {
                 table = document.getElementById(tableid);
                 var rowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
                 row = table.insertRow(rowIndex);
-                row.setAttribute("style", "height:100px; border-bottom: 1pt solid black;");
+                row.setAttribute("style", "height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3");
                 cell = row.insertCell(0);
                 cell.id = obj.id + "td";
 
@@ -261,7 +268,7 @@ function addBus(e, obj, i) {
                 tableid = StratId + "VisualTable";
                 projtd = obj.id + "td";
                 newcell.innerHTML = "<table id='" + tableid + "'>" +
-                                    "<tr  style = 'height:100px; border-bottom: 1pt solid black;'>" +
+                                    "<tr  style = 'height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3'>" +
                                         '<td id="' + projtd + '" style=" padding:0; width: 2500px;">' +                                                        
                                                                               
                                         '</td>' +
