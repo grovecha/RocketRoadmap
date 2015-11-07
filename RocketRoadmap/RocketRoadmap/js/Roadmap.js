@@ -1,4 +1,5 @@
-﻿
+﻿var changing = false;
+
 function hideExample() {
     $("#StratBox0BusBox0Row").hide();
 };
@@ -64,14 +65,20 @@ function deleteBus(obj) {
 }
 
 function deleteProj(obj) {
+
+    //delete slider
+    var id = obj.id.split("Delete")[0];
+    $("#" + id + "But").data("ionRangeSlider").destroy();
+
+    //delete visual and input box
     var ele = document.getElementById(obj.id);
     ele.parentNode.removeChild(ele);
-    var id = obj.id.split("Delete")[0];
+    
     var ele = document.getElementById(id);
     ele.parentNode.removeChild(ele);
     
     var ele = document.getElementById(id+"But");
-    ele.parentNode.removeChild(ele);
+    ele.parentNode.removeChild(ele); 
 
     //delete from database
     var StratId = obj.id.split("BusBox")[0];
@@ -81,6 +88,7 @@ function deleteProj(obj) {
     var mapName = url.substr(url.indexOf('?') + 1);
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteProj(ProjId, BusId, StratId, mapName);
+
 
 }
 
@@ -145,11 +153,7 @@ function addStrat(e, obj, i) {
             cell2 = row1.insertCell(0);
             div = document.createElement("div");
             cell2.appendChild(element1);
-
-
         }
-
-
         var url = window.location.href;
         var mapName = url.substr(url.indexOf('?') + 1);
         mapName = mapName.substr(2, mapName.length).split('#')[0];
@@ -175,7 +179,7 @@ function addStrat(e, obj, i) {
             
             newrow.setAttribute("id", 'StratBox' + NewStratCount.toString() + "Row");
 
-            newrow.innerHTML = "<td>" +
+            newrow.innerHTML = "<td>" +                             
                             "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "' style='color:white; font-size:20px; vertical-align:-3px;' class='remove_strat'> X</a> <br />" +
                             '<table id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
                             '<tr id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
@@ -192,12 +196,10 @@ function addStrat(e, obj, i) {
 
             //place cursor in  bus value
             document.getElementById(obj.id+"BusBox0").select();
+           
         }
 
     }
-
-    
-
     return false;
 }
 
@@ -244,7 +246,7 @@ function addBus(e, obj, i) {
                 row.insertCell(1);
                 row.insertCell(2);
                 cell1 = row.insertCell(3);
-                cell1.setAttribute("style", "width: 1000px; text-align:right; background-color: yellow; padding:0");
+                cell1.setAttribute("style", "width: 100px; text-align:right; background-color: white; padding:0");
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
                 currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
@@ -255,23 +257,21 @@ function addBus(e, obj, i) {
                 var newcell = row.insertCell(1);
                 var w = screen.width;
                 newcell.style.width = w.toString() + "px";
-                newcell.style.backgroundColor = "yellow";
+                newcell.style.backgroundColor = "white";
                 tableid = StratId + "VisualTable";
                 projtd = obj.id + "td";
                 newcell.innerHTML = "<table id='" + tableid + "'>" +
                                     "<tr  style = 'height:100px; border-bottom: 1pt solid black;'>" +
-                                        '<td id="' + projtd + '" style=" padding:0">' +
+                                        '<td id="' + projtd + '" style=" padding:0; width: 2500px;">' +                                                        
+                                                                              
                                         '</td>' +
                                         '<td ></td>' +
                                         '<td ></td>' +
-                                        '<td id="' + NextVisualId + '" style=" width: 1000px; text-align:right; background-color: yellow; padding:0">' + obj.value + '</td>' +
+                                        '<td id="' + NextVisualId + '" style=" width: 100px; text-align:right; background-color: white; padding:0">' + obj.value + '</td>' +
                                    '</tr>' +
                                 '</table>';
             }
         }
-
-
-
         ////////Add input boxes
         CurrentBusCount = parseInt(obj.id.split("BusBox")[1].split('ProjBox')[0]);
         StratId = obj.id.split("BusBox")[0];
@@ -303,10 +303,8 @@ function addBus(e, obj, i) {
                                 "<input class='txtProjDel' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' />" +
                                 "</div>"
             "</td>";
-
-
-            //place cursor in next Bus box         
-            document.getElementById(CurrentBusId).select();
+            //place cursor in proj box         
+            document.getElementById(obj.id +"ProjBox0").select();
         }
     }
  
@@ -336,26 +334,53 @@ function addProj(e, obj, i) {
             document.getElementById(obj.id + "But").value = obj.value;
         }
         else {
+            var div1 = document.createElement("div");
+
             var element1 = document.createElement("input");
-            element1.type = "button";
+            element1.type = "text";
 
             element1.id = obj.id + "But";
+            element1.className = 'range';
 
             var NewValue = obj.value;
             if (NewValue != "") {
                 element1.value = NewValue;
             }
-
-            element1.style.backgroundColor = "green";
-            element1.style.height = "33px";
-            element1.style.width = "150px";
-            element1.style.verticalAlign = "top";
+            //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
 
-            element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
+            //element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
+            element1.setAttribute("class", "range");
+            element1.name = "range";
+            element1.value = "";
 
             var cell = document.getElementById(BusId + "td");
             cell.appendChild(element1);
+
+            //convert range element into rangeslider
+            $(".range").ionRangeSlider({
+                hide_min_max: true,
+                hide_from_to: true,
+                keyboard: true,
+                min: 0,
+                max: 8000,
+                from: 0,
+                to: 2000,
+                type: 'double',
+                step: 1,
+                prefix: "$",
+                grid: false,
+                drag_interval: true,
+                onChange: function () {
+                    changing = true;
+                },
+                onFinish: function (data) {
+                    if (!changing) {
+                        showModal(data.input[0].id);
+                    }
+                    changing = false;
+                }
+            });
             var element2 = document.createElement('a');
             element2.innerHTML = " X";
             element2.id = obj.id + "Delete";
@@ -363,11 +388,7 @@ function addProj(e, obj, i) {
             element2.setAttribute("style", "color:white; font-size:20px; vertical-align:-3px")
             element2.className = 'remove_proj';
             $("#" + BusId + "projDiv").append(element2);
-
-
         }
-
-
 
         var url = window.location.href;
         var mapName = url.substr(url.indexOf('?') + 1);
