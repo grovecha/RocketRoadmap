@@ -46,8 +46,9 @@ namespace RocketRoadmap
                 else
                 {
                     Response.Redirect("index.aspx", false);
+                    return;
                 }
-                    if (mUser != null)
+                    if (mUser.Login())
                     {
 
                         RoadMaps umaps = new RoadMaps();
