@@ -14,6 +14,11 @@
 
     <title>Roadmap</title>
 
+    <!-- RangeSlider -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
+
     <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -56,6 +61,8 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -91,8 +98,9 @@
                         <tr id="StratBox0BusBox0Row">
                          <td id ="StratBox0BusBox0Cell" runat="server">
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
-
+                            <div id="StratBox0BusBox0projDiv">   
+                             <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
+                            </div>
                           
                         </td>
                       </tr>
@@ -120,8 +128,9 @@
 
                 </div>
                 <br />
+             
                 <table id="roadmapTable" style="width:100%" runat="server">                
-                   
+        
                 </table>
 
 
@@ -263,7 +272,7 @@
             width: 28px;
         }
         .txtBus {
-            width: 160x;
+            width: 180px;
             height: 30px;
             margin-left: 20px;
         }
@@ -302,6 +311,10 @@
     <!-- /#Data Input-->
    
     </form>
+
+<script src="js/ion.rangeSlider.js"></script>
+
+
 </body>
 
 </html>
