@@ -24,8 +24,12 @@ namespace RocketRoadmap.DB
 
        public bool Login()
        {
+           if (mUserName == null) return false;
            mDatabase.connect();
-           mReader = mDatabase.executeread("SELECT Password FROM [dbo].[User] WHERE ID='" + mUserName + "'");
+           SqlCommand cmd = new SqlCommand();
+           cmd.CommandText = "SELECT Password FROM [dbo].[User] WHERE ID=@User";
+           cmd.Parameters.AddWithValue("@User", mUserName);
+           mReader = mDatabase.executereadparams(cmd);
            if (mReader.HasRows)
            {
                mReader.Read();
@@ -42,7 +46,11 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE [dbo].[User] SET Name = '" + name + "' WHERE ID = '" + mUserName + "'"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[User] SET Name =@User WHERE ID =@oldname";
+            cmd.Parameters.AddWithValue("@User", name);
+            cmd.Parameters.AddWithValue("@oldname", mUserName);
+            if (mDatabase.executewriteparam(cmd))
             {
                 mName = name;
                 toReturn = true;
@@ -57,7 +65,11 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE [dbo].[User] SET Email = '" + mail + "' WHERE ID = '" + mUserName + "'"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[User] SET Email =@mail WHERE ID =@User";
+            cmd.Parameters.AddWithValue("@mail", mail);
+            cmd.Parameters.AddWithValue("@User", mUserName);
+            if (mDatabase.executewriteparam(cmd))
             {
                 mEmail = mail;
                 toReturn = true;
@@ -72,7 +84,11 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("UPDATE [dbo].[User] SET Password = '" + pass + "' WHERE ID = '" + mUserName + "'"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE [dbo].[User] SET Password = @pass WHERE ID = @User";
+            cmd.Parameters.AddWithValue("@pass", pass);
+            cmd.Parameters.AddWithValue("@User", mUserName);
+            if (mDatabase.executewriteparam(cmd))
             {
                 mPassword = pass;
                 toReturn = true;

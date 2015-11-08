@@ -11,8 +11,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Roadmap</title>
+    
+    <!-- Draggable -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <!-- RangeSlider -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
 
     <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -56,6 +66,10 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    
+<!--         <link rel="stylesheet" type="text/css" href="StyleSheet1.css"> -->
+
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,8 +93,9 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
+        <br />        
         <br />
-        <br />
+        <input style="width: 100px;" id="addtimelinetick" type="text" onkeyup="addTick(event,this)" placeholder='Add Timeline'/><input style="width: 120px;"  type="button" value="Toggle Timeline" onclick="showTime()">
         <!-- Data Input -->
         <div id="mainDiv">
            <table id ="sidebarTable" runat ="server">
@@ -91,9 +106,9 @@
                         <tr id="StratBox0BusBox0Row">
                          <td id ="StratBox0BusBox0Cell" runat="server">
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div id="StratBox0BusBox0projDiv" runat='server' >
-                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
-                                         </div> 
+                            <div id="StratBox0BusBox0projDiv">   
+                             <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
+                            </div>
                           
                         </td>
                       </tr>
@@ -121,8 +136,12 @@
 
                 </div>
                 <br />
+                <div id="containment-wrapper">
+                  
+                </div>
+
                 <table id="roadmapTable" style="width:100%" runat="server">                
-                   
+        
                 </table>
 
 
@@ -245,14 +264,11 @@
 
 
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
-<script src="js/InputModal.js"></script>
-<script src="js/Highlight.js"></script>
 
 
-<!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/Roadmap.js"></script>
+<script src="js/InputModal.js"></script>
 
 
 <!-- Data Input -->
@@ -267,7 +283,7 @@
             width: 28px;
         }
         .txtBus {
-            width: 180x;
+            width: 180px;
             height: 30px;
             margin-left: 20px;
         }
@@ -277,7 +293,7 @@
             margin-left: 40px;
         }
         .txtProjDel {
-            width: 180px;
+            width: 160px;
             height: 30px;
             margin-left: 40px;
         }
@@ -286,26 +302,65 @@
             width:200px;
         }   
         .proj1 {
-            position: relative;
-              top: -50%;             
+           
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue         
         }
         .proj2 {
-            position: relative;
-              top: 0%; 
-              left: 150px;             
+           
+              left: 100px;    
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue         
         }
         .proj3 {
-            position: relative;
-              top: 50%;           
-              left: 300px;  
+           
+                     
+              left: 200px;  
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue
         }
-        
+        .space {
+          
+              left: 200px;  
+              width: 90px; height: 10px;  cursor: e-resize; background-color:white
+        }
+       span {
+          display: inline-block;
+          vertical-align: middle;
+          line-height: normal;      
+        }
+
+       .timeline {
+    border-left: solid lightgrey;
+	border-left-style: dashed;
+	height: 2500px;
+	cursor: e-resize;
+    position: absolute;
+    top: -5px;
+}
+
+  #timelineborder {
+      
+      left: 150px;
+      
+  }
+
+.timelineText {
+    left: -10px;
+    top: -25px;
+	position: relative;
+    z-index: 5;
+	
+}
+
+#containment-wrapper {position: absolute; left: 150px; width: 100%;   }
    
     </style>
 
     <!-- /#Data Input-->
    
     </form>
+
+<script src="js/ion.rangeSlider.js"></script>
+
+
 </body>
 
 </html>

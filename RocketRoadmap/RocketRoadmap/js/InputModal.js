@@ -26,7 +26,7 @@ function showModal(id) {
 
 $(document).ready(function () {
     var max_fields = 10; //maximum input boxes allowed
-    var max_select; // maximum number oif selects allowed
+    var max_select; // maximum number of selects allowed
     var dep_Text = $(".depText"); //Dependency input wrapper
     var add_Text = $("#addText"); //Add dependency input
     var dep_Select = $(".depSelect"); //Dependency Selection wrapper
@@ -41,6 +41,9 @@ $(document).ready(function () {
     var load_options = "";
     var select_total = 0;
     var all_proj = [];
+    var ndep_arr=[];
+    var nselect_arr=[];
+    var nlink_arr=[];
 
     //Getting roadmap name
     var roadmap_url = window.location.href;
@@ -66,24 +69,19 @@ $(document).ready(function () {
     //Selection addition Functions
     $(add_Select).on("click", function (e) { //on add input button click
         e.preventDefault();
-        var br = { 'RoadmapName': map_Name };
-        var option_count = 0;
-        var option_arr = [];
         
-        //NEED AJAX CALL HERE TO GET THE LIST of project Names
-      
         //Add a selection
-        if (load_select_count < max_select ) { //max input box allowed
+        if (load_select_count < max_fields ) { //max input box allowed
             load_select_count++; //text box increment
             var add_sel = "<div class='new_sel'><select name='select_input'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
             $(dep_Select).append(add_sel); //add input box
-            load_options = "";
+
         }
     });
     //Removing the selection dependency box
     $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
         e.preventDefault(); $(this).parent('div').remove();
-        select_count--;
+        load_select_count--;
     })
 
 
@@ -164,54 +162,39 @@ $(document).ready(function () {
         //FILLING THE TITLE
         var pr = { 'ProjectID': button_id, 'RoadmapName': map_Name };
         var br = { 'RoadmapName': map_Name };
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectName",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            success: function (response) {
-                $('#input_title').html(response.d);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
 
-        //FILLING THE DESCRIPTION
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectDescription",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                $('#descText').val(response.d);
-                console.log(response.d);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
+         $.ajax({
+             type: "POST",
+             async: false,
+             url: "Roadmap.aspx/GetAll",
+             data: JSON.stringify(pr),
+             contentType: "application/json; charset=utf-8",
+             success: function (response) {
+                 $('#input_title').html(response.d[2][0]);//fill in title
+                 $('#descText').val(response.d[0][0]);//fill in description
+                 $('#riskText').val(response.d[1][0]);//fill in risk
+                 //Getting Dep String array   
+                 idep_arr = response.d[3];
+                 dep_total = idep_arr.length;
+                 fill_dep(idep_arr);
+                 //Getting Select Array
+                 iselect_arr = response.d[4];
+                 select_total = iselect_arr.length;               
+                 fill_select(iselect_arr);
+                 //Get Link Array
+                 ilink_arr = response.d[5];
+                 link_total = ilink_arr.length;          
+                 fill_link(ilink_arr);
+                 //Geting Options
+                 ioption_arr = response.d[6];
+                 option_total = ioption_arr.length;
+                 fill_options(ioption_arr);
+             },
+             error: function (xhr) {
+                 console.log("error");
+             },
+         });
 
-       //FILLING THE STRING DEPENDENCIES
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectDependencyText",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {   
-                idep_arr = response.d;
-                dep_total = idep_arr.length;
-                fill_dep(idep_arr);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
 
         function fill_dep(dep_array) {
             //Add all of the input boxes
@@ -226,26 +209,6 @@ $(document).ready(function () {
 
         }
 
-        //FILLING THE SELECT DEPENDENCIES
-        //Ajax call to get the array of project name strings 
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectDependency",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {   
-                iselect_arr = response.d;
-                select_total = iselect_arr.length;
-                
-                fill_select(iselect_arr);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
         function fill_options(option_array) {
             //Create the options list
             options += "<option value='No Project'>Please Select a Project </option>";
@@ -255,74 +218,19 @@ $(document).ready(function () {
             load_options = options;
             //Insert the correct number of selects
             for (select_x = 0; select_x < select_total; select_x++) {
-                $(dep_Select).append("<div class='new_sel'><select name='select_input'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");
-                
+                $(dep_Select).append("<div class='new_sel'><select name='select_input'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");               
             };
+            
         }
         
         function fill_select(select_array) {
-            //Ajax call to get all of the project names 
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: "Roadmap.aspx/GetAllRoadmapProjectDesc",
-                data: JSON.stringify(pr),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    ioption_arr = response.d;
-                    option_total = ioption_arr.length;
-                    fill_options(ioption_arr);
-
-                },
-                error: function (xhr) {
-                    console.log("error");
-                },
-            });
-            
             //fill the inputboxes with their values
             $('input[name=select_input]').each(function () {
                 $(this).val(select_array[load_select_count]);
+                $(this).text(select_array[load_select_count]);
                 load_select_count++;
             });
         }
-      
-
-        //Fill in the Risks text area
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectRisk",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                $('#riskText').val(response.d);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
-        //FILLING THE LINKS
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectLinksString",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                ilink_arr = response.d;
-                link_total = ilink_arr.length;          
-                fill_link(ilink_arr);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-        
-
         function fill_link(link_array){
             for (link_x = 0; link_x < link_total; link_x++) {
                 $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
@@ -367,127 +275,51 @@ $(document).ready(function () {
         var disdep_arr = [];
         var dissel_arr = [];
         var dislink_arr = [];
-        var distitle_Value = '';
-        var disdesc_Value = '';
-        var disdep_total, dissel_total, dislink_total;
+        var disdep_total, dissel_total, dislink_total, disoption_total;
         var disdep_x, dissel_x, dislink_x;
         var disrisk_Value = '';
 
 
-        //Add Modal Title
         var disvalue = { 'ProjectID': button_id, 'RoadmapName': map_Name };
-        var getvalue = { 'RoadmapName': map_Name };
-        var pr = { 'ProjectID': button_id, 'RoadmapName': map_Name };
-        var br = { 'RoadmapName': map_Name };
         $.ajax({
             type: "POST",
             async: false,
-            url: "Roadmap.aspx/GetProjectName",
+            url: "Roadmap.aspx/GetAll",
             data: JSON.stringify(disvalue),
             contentType: "application/json; charset=utf-8",
             success: function (response) {
-                $('#display_title').html(response.d);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
-        //FILLING THE DESCRIPTION
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectDescription",
-            data: JSON.stringify(disvalue),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                $('#disdescText').val(response.d);
-                console.log(response.d);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
-        //FILLING THE STRING DEPENDENCIES 
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectDependencyText",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                disdep_arr = response.d;
+                $('#display_title').html(response.d[2][0]);
+                $('#disdescText').val(response.d[0][0]);
+                $('#disriskText').val(response.d[1][0]);
+                //Getting Dep String array   
+                disdep_arr = response.d[3];
                 disdep_total = disdep_arr.length;
                 for (disdep_x = 0; disdep_x < disdep_total; disdep_x++) {
                     $('.disdepText').append("<div class='added_depstring'><p>" + disdep_arr[disdep_x] + "</p></div>");
                 }
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
-
-        //FILLING THE SELECT DEPENDENCIES
-        //Ajax call to get the array of project name strings 
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectDependency",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                dissel_arr = response.d;
-                dissel_total = dissel_arr.length;
+                //Getting Select Array
+                disselect_arr = response.d[4];
+                disselect_total = disselect_arr.length;
+                
                 for (dissel_x = 0; dissel_x < dissel_total; dissel_x++) {
                     $('.disdepSelect').append("<div class='added_select'><p>" + dissel_arr[dissel_x] + "</p></div>");
                 }
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
-
-        //Fill in the Risks text area
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectRisk",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                $('#disriskText').val(response.d);
-            },
-            error: function (xhr) {
-                console.log("error");
-            },
-        });
-
-        //FILLING THE LINKS
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "Roadmap.aspx/GetProjectLinksString",
-            data: JSON.stringify(pr),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                ilink_arr = response.d;
-                link_total = ilink_arr.length;
+                //Get Link Array
+                dislink_arr = response.d[5];
+                dislink_total = dislink_arr.length;
+                
                 for (dislink_x = 0; dislink_x < dislink_total; dislink_x++) {
-                    $('.dislinkText').append('<div class="added_link"><a href="' + dislink_arr[dislink_x] + '">' +dislink_arr[dislink_x]+ ' </a></div>');
+                    $('.dislinkText').append('<div class="added_link"><a href="' + dislink_arr[dislink_x] + '">' + dislink_arr[dislink_x] + ' </a></div>');
                 }
+                //Geting Options
+                disoption_arr = response.d[6];
+                disoption_total = disoption_arr.length;
             },
             error: function (xhr) {
                 console.log("error");
             },
         });
+
 
     });
 

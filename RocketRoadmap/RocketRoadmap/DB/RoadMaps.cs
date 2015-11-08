@@ -32,7 +32,10 @@ namespace RocketRoadmap.DB
         public List<RoadMap> GetAllMaps()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name TimelineID FROM [dbo].[RoadMap]");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name TimelineID FROM [dbo].[RoadMap]";
+
+            mReader = mDatabase.executereadparams(cmd);
 
             List<RoadMap> Maps = new List<RoadMap>();
 
@@ -54,7 +57,10 @@ namespace RocketRoadmap.DB
         public List<RoadMap> GetUserMaps(string username)
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[RoadMap] WHERE UserID = '" + username + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID = @User";
+            cmd.Parameters.AddWithValue("@User", username);
+            mReader = mDatabase.executereadparams(cmd);
 
             List<RoadMap> maps = new List<RoadMap>();
 
@@ -73,7 +79,10 @@ namespace RocketRoadmap.DB
         public List<List<string>> GetUserMapsInfo(string username)
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID = '" + username + "'");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID =@User";
+            cmd.Parameters.AddWithValue("@User", username);
+            mReader = mDatabase.executereadparams(cmd);
 
             List<List<string>> maps = new List<List<string>>();
 
@@ -97,7 +106,10 @@ namespace RocketRoadmap.DB
         public List<List<string>> GetAllMapsInfo()
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap]");
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap]";
+
+            mReader = mDatabase.executereadparams(cmd);
 
             List<List<string>> maps = new List<List<string>>();
 
@@ -122,8 +134,13 @@ namespace RocketRoadmap.DB
         {
             mDatabase.connect();
             bool toReturn = false;
-
-            if (mDatabase.executewrite("INSERT INTO [dbo].[Timeline] (Name, StartDate, EndDate, RoadmapName ) VALUES ( '" + name + "', '" + DateTime.Now + "'" + ',' + "'" + DateTime.Now.AddYears(1) + "'" + ',' + "'" + rname + "')"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, StartDate, EndDate, RoadmapName ) VALUES ( @Tname, @sdate,@edate,@Rname)";
+            cmd.Parameters.AddWithValue("@Tname", name);
+            cmd.Parameters.AddWithValue("@sdate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@edate", DateTime.Now.AddYears(1));
+            cmd.Parameters.AddWithValue("@Rname", rname);
+            if (mDatabase.executewriteparam(cmd))
             {
                 toReturn = true;
             }
@@ -140,7 +157,12 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( '" + name + "', '" +  description + "', GETDATE(), '" + userid + "')"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( @Rname, @descrip, GETDATE(), @User)";
+            cmd.Parameters.AddWithValue("@Rname", name);
+            cmd.Parameters.AddWithValue("@descrip", description);
+            cmd.Parameters.AddWithValue("@User", userid);
+            if (mDatabase.executewriteparam(cmd))
             {
                 //create a new timeline
                 //CreateTimeLine(name, name);
@@ -157,7 +179,10 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            if (mDatabase.executewrite("DELETE FROM [dbo].[RoadMap] WHERE Name = '" + name + "'"))
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "DELETE FROM [dbo].[RoadMap] WHERE Name =@name";
+            cmd.Parameters.AddWithValue("@name", name);
+            if (mDatabase.executewriteparam(cmd))
             {
                 toReturn = true;
             }
@@ -169,7 +194,10 @@ namespace RocketRoadmap.DB
         public List<RoadMap> Search( string key )
         {
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT Name FROM [dbo].[RoadMap] WHERE UserID LIKE '" + key + "', OR Name LIKE '" + key + "', OR Description LIKE '" + key + '"' );
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID LIKE @key  OR Name LIKE @key OR Description LIKE @key";
+            cmd.Parameters.AddWithValue("@key", key);
+            mReader = mDatabase.executereadparams(cmd);
 
             List<RoadMap> maps = new List<RoadMap>();
 

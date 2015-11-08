@@ -43,25 +43,25 @@ namespace RocketRoadmap.DB
             mDescription = description;
             mBusinessValue = businessvalue;
             mRoadmapName = rname;
-
+            mDatabase.connect();
             try
             {
-                //Set modal description in DB
+                //Get modal description in DB
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE ProjectName=@name AND RoadmapName =@Rname";
+                cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE Name=@name AND RoadmapName =@Rname AND BusinessValueName=@BVName";
                 cmd.Parameters.AddWithValue("@name", mName);
                 cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
                 mReader = mDatabase.executereadparams(cmd);
                 while (mReader.Read())
                 {
                     mModalDescription = (mReader.GetString(0).ToString());
                 }
-                mReader.Close();
             }
             catch { ;  }
+            mReader.Close();
 
             //Grab risks this project owns
-            mDatabase.connect();
             SqlCommand cmd1 = new SqlCommand();
             cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='" + mBusinessValue + "'";
             cmd1.Parameters.AddWithValue("@name", mName);
@@ -118,7 +118,6 @@ namespace RocketRoadmap.DB
                 catch (Exception ex) { }
             }
             mReader.Close();
-            mDatabase.close();
 
             mDatabase.connect();
             //Get Dependants NON PROJECT
@@ -132,6 +131,7 @@ namespace RocketRoadmap.DB
                 mDependantString.Add(mReader.GetString(0).ToString());
             }
             mReader.Close();
+            mDatabase.close();
 
         }
 
@@ -212,7 +212,7 @@ namespace RocketRoadmap.DB
                 //Delete all dependants
                 mDatabase.connect();
                 SqlCommand cmd1 = new SqlCommand();
-                cmd1.CommandText = "DELETE FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+                cmd1.CommandText = "DELETE FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName=@Rname";
                 cmd1.Parameters.AddWithValue("@Pname", mName);
                 cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
                 cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
@@ -222,11 +222,10 @@ namespace RocketRoadmap.DB
                 foreach (string element in Dependants)
                 {
                     SqlCommand cmd2 = new SqlCommand();
-                    cmd2.CommandText = "INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName,BusinessValueName) VALUES (@Pname,@element,@Rname,@BVName)";
+                    cmd2.CommandText = "INSERT INTO [dbo].[Dependents_string](ProjectName, DependantString, RoadmapName) VALUES (@Pname,@element,@Rname)";
                     cmd2.Parameters.AddWithValue("@Pname", mName);
                     cmd2.Parameters.AddWithValue("@element", element);
                     cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
-                    cmd2.Parameters.AddWithValue("@BVName", mBusinessValue);
 
                     flag = mDatabase.executewriteparam(cmd2);
                 }
@@ -357,7 +356,7 @@ namespace RocketRoadmap.DB
             //assume already created
             mDatabase.connect();
             SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE [dbo].[Dependents] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND Dependantname = @name)";
+            cmd.CommandText = "DELETE [dbo].[Dependents] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND DependantName = @name";
             cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
             cmd.Parameters.AddWithValue("@Pname", mName);
             cmd.Parameters.AddWithValue("@name", dependant.GetName());
