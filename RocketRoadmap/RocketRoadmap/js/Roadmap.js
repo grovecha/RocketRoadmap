@@ -163,7 +163,6 @@ function addStrat(e, obj, i) {
                 element1.value = NewValue;
             }
 
-
             element1.style.backgroundColor = "white";
             element1.style.height = "100px";
             element1.style.width = "150px";
