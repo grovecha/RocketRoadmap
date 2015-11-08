@@ -227,7 +227,6 @@ $(document).ready(function () {
             //fill the inputboxes with their values
             $('input[name=select_input]').each(function () {
                 $(this).val(select_array[load_select_count]);
-                $(this).text(select_array[load_select_count]);
                 load_select_count++;
             });
         }
