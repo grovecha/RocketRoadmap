@@ -15,7 +15,7 @@ namespace RocketRoadmap.DB
         //Actually initiates connection to database
         public void connect()
         {
-            string connstring = "Data Source=35.9.22.106;Initial Catalog=QuickenLoansDB;User ID=QuickenLoans;Password=EricSmells2015;Connect Timeout=60";
+            string connstring = "Data Source=35.9.22.106;Initial Catalog=QuickenLoansDB;User ID=QuickenLoans;Password=ChaseSmells2015;Connect Timeout=60";
             SqlConnection conn = new SqlConnection(connstring);
 
             try

@@ -877,6 +877,7 @@ namespace RocketRoadmap
                         if (!P_list.Contains(s))
                         {
                             newproj.CreateDependant(s);
+                            dep_list.Add(s);
                         }
                     }
                 }
