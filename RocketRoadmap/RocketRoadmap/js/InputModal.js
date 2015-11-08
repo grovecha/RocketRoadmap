@@ -172,9 +172,9 @@ $(document).ready(function () {
              data: JSON.stringify(pr),
              contentType: "application/json; charset=utf-8",
              success: function (response) {
-                 $('#input_title').html(response.d[2][0]);
-                 $('#descText').val(response.d[0][0]);
-                 $('#riskText').val(response.d[1][0]);
+                 $('#input_title').html(response.d[2][0]);//fill in title
+                 $('#descText').val(response.d[0][0]);//fill in description
+                 $('#riskText').val(response.d[1][0]);//fill in risk
                  //Getting Dep String array   
                  idep_arr = response.d[3];
                  dep_total = idep_arr.length;
@@ -301,14 +301,14 @@ $(document).ready(function () {
                 //Getting Select Array
                 disselect_arr = response.d[4];
                 disselect_total = disselect_arr.length;
-                fill_select(iselect_arr);
+                
                 for (dissel_x = 0; dissel_x < dissel_total; dissel_x++) {
                     $('.disdepSelect').append("<div class='added_select'><p>" + dissel_arr[dissel_x] + "</p></div>");
                 }
                 //Get Link Array
                 dislink_arr = response.d[5];
                 dislink_total = dislink_arr.length;
-                fill_link(dislink_arr);
+                
                 for (dislink_x = 0; dislink_x < dislink_total; dislink_x++) {
                     $('.dislinkText').append('<div class="added_link"><a href="' + dislink_arr[dislink_x] + '">' + dislink_arr[dislink_x] + ' </a></div>');
                 }

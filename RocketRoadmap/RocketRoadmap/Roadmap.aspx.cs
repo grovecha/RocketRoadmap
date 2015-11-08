@@ -853,6 +853,7 @@ namespace RocketRoadmap
         {
             List<Project> tot_list = new List<Project>();
             List<Project> P_list = new List<Project>();
+            List<Project> P_list2 = new List<Project>();
             List<Project> dep_list = new List<Project>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
@@ -886,9 +887,14 @@ namespace RocketRoadmap
             {
                 if (!dep_list.Contains(s))
                 {
-                    newproj.DeleteDependant(s);
+                    P_list2.Add(s);
                 }
             }
+            foreach(Project s in P_list2)
+            {
+                newproj.DeleteDependant(s);
+            }
+            
         }
 
         //Set Project Risk
