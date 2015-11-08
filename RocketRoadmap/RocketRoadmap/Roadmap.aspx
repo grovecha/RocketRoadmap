@@ -267,6 +267,7 @@
 
 
 <script src="js/bootstrap.min.js"></script>
+<script src="js/Highlight.js"></script> 
 <script src="js/Roadmap.js"></script>
 <script src="js/InputModal.js"></script>
 
@@ -322,7 +323,7 @@
         .space {
           
               left: 200px;  
-              width: 90px; height: 10px;  cursor: e-resize; background-color:white
+              width: 90px; height: 10px; background-color:white
         }
        span {
           display: inline-block;
@@ -396,7 +397,7 @@
 	height: 2500px;
 	cursor: e-resize;
     position: absolute;
-    top: -5px;
+    top: -3px;
 }
 
   #timelineborder {

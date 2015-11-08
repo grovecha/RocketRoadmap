@@ -96,7 +96,7 @@ namespace RocketRoadmap
                                 B1.Click += new EventHandler(BtnHandler);
 
                                 HyperLink link = new HyperLink();
-                                link.NavigateUrl = "Roadmap.aspx?n=" + Server.UrlEncode(umap[0]);
+                                link.NavigateUrl = "Roadmap.aspx?n=" + Uri.EscapeUriString(umap[0]);
                                 link.Text = umap[0];
 
                                 TableCell tCell1 = new TableCell();
