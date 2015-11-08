@@ -48,8 +48,7 @@ $(document).ready(function () {
     //Getting roadmap name
     var roadmap_url = window.location.href;
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
-    map_Name = map_Name.substr(2, map_Name.length);
-
+    map_Name = decodeURIComponent(map_Name.substr(2, map_Name.length));
 
     //Dependency addition Functions
     $(add_Text).on("click", function (e) { //on add input button click
@@ -69,21 +68,19 @@ $(document).ready(function () {
     //Selection addition Functions
     $(add_Select).on("click", function (e) { //on add input button click
         e.preventDefault();
-        var br = { 'RoadmapName': map_Name };
-        var option_count = 0;
         
         //Add a selection
         if (load_select_count < max_fields ) { //max input box allowed
             load_select_count++; //text box increment
             var add_sel = "<div class='new_sel'><select name='select_input'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
             $(dep_Select).append(add_sel); //add input box
-            load_options = "";
+
         }
     });
     //Removing the selection dependency box
     $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
         e.preventDefault(); $(this).parent('div').remove();
-        select_count--;
+        load_select_count--;
     })
 
 
@@ -229,6 +226,7 @@ $(document).ready(function () {
             //fill the inputboxes with their values
             $('input[name=select_input]').each(function () {
                 $(this).val(select_array[load_select_count]);
+                $(this).text(select_array[load_select_count]);
                 load_select_count++;
             });
         }

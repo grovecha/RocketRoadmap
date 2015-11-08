@@ -67,7 +67,7 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
     
-<!--         <link rel="stylesheet" type="text/css" href="StyleSheet1.css"> -->
+    <link rel="stylesheet" type="text/css" href="StyleSheet1.css">
 
     
 
