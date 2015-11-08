@@ -635,6 +635,35 @@ namespace RocketRoadmap
 
         //Get Project Depencies
         [WebMethod]
+        public static string[] GetProjectDependencyArr(string ProjectID, string RoadmapName)
+        {
+            List<string> Project_Names = new List<string>();
+            List<Project> Project_List = new List<Project>();
+            int pointindex = ProjectID.IndexOf("Bus");
+            int valindex = ProjectID.IndexOf("Proj");
+            string point = ProjectID.Substring(0, pointindex);
+            string val = ProjectID.Substring(0, valindex);
+
+            RoadMap map = new RoadMap(RoadmapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(val);
+            Project newproj = newval.GetProject(ProjectID);
+            Project_List = newproj.GetDependencies();
+
+
+            //for each project just get the project names 
+            foreach (Project p in Project_List)
+            {
+                Project_Names.Add(p.GetDescription());
+
+            }
+
+            //Send name arrary
+
+            return Project_Names.ToArray<string>();
+        }
+        //Get Project Depencies
+        [WebMethod]
         public static List<string> GetProjectDependency(string ProjectID, string RoadmapName)
         {
             List<string> Project_Names = new List<string>();
