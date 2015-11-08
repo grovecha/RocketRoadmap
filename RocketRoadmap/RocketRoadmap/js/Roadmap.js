@@ -52,8 +52,8 @@ function deleteStrat(obj) {
 
     //delete from database
     var url = window.location.href;
-    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
-    mapName = decodeURIComponent(mapName.substr(2, mapName.length).split('#')[0]);
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteStrat('StratBox' + (PreviousStratNum).toString(), mapName);
 
 }

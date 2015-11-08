@@ -267,6 +267,7 @@
 
 
 <script src="js/bootstrap.min.js"></script>
+<script src="js/Highlight.js"></script> 
 <script src="js/Roadmap.js"></script>
 <script src="js/InputModal.js"></script>
 
