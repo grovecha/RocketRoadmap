@@ -396,7 +396,7 @@
 	height: 2500px;
 	cursor: e-resize;
     position: absolute;
-    top: -5px;
+    top: -3px;
 }
 
   #timelineborder {

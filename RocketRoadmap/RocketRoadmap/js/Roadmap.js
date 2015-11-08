@@ -8,10 +8,17 @@ function showTime() {
     }
     
 }
+
+function deleteTime(obj) {
+   var timeline = document.getElementById(obj.id)    
+   timeline.parentNode.removeChild(timeline);
+}
 function addTick(e, obj) {
     if (e.keyCode == 13) {
         var timeline = document.createElement("div");
+        timeline.setAttribute("ondblclick","deleteTime(this)")
         timeline.className = "timeline";
+        timeline.id = obj.value;
         timeline.innerHTML = '<p contenteditable="true" class="timelineText">' + obj.value + '</p>'
         var parent = document.getElementById("containment-wrapper");
         parent.appendChild(timeline);
