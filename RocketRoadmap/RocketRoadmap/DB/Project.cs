@@ -94,8 +94,9 @@ namespace RocketRoadmap.DB
 
             //Grab project dependencies
             SqlCommand cmd3 = new SqlCommand();
-            cmd3.CommandText = "SELECT DependantName, [dbo].[Project].Description, [dbo].[Project].BusinessValueName FROM [dbo].[Dependents], [dbo].[Project] WHERE ProjectName=@Pname AND DependantName=Name";
+            cmd3.CommandText = "SELECT P.Name, P.Description, P.BusinessValueName FROM(SELECT DependantName, RoadmapName, ProjectName FROM Dependents AS D WHERE(ProjectName = @Pname) AND(RoadmapName = @Rname)) AS S INNER JOIN Project AS P ON S.DependantName = P.Name AND P.RoadmapName = S.RoadmapName ";
             cmd3.Parameters.AddWithValue("@Pname", mName);
+            cmd3.Parameters.AddWithValue("@Rname", mRoadmapName);
             mReader = mDatabase.executereadparams(cmd3);
             while (mReader.Read() )
             {
