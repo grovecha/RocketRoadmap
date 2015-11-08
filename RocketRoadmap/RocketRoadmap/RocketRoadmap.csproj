@@ -89,6 +89,7 @@
     <Content Include="js\Login.js" />
     <Content Include="js\npm.js" />
     <Content Include="js\Roadmap.js" />
+    <Content Include="StyleSheet1.css" />
     <Content Include="teststuff.js" />
     <Content Include="packages.config" />
     <Content Include="css\bootstrap-theme.css.map" />
