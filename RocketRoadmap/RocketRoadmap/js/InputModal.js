@@ -2,6 +2,8 @@
 Created by Eric Nartker
 Contains input modal Onclick
 **/
+
+var FullScreen = false;
 var panel_close = false;
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
@@ -10,7 +12,41 @@ $("#menu-toggle").click(function (e) {
     } else if (panel_close == true) {
         panel_close = false;
     }
+        
     $("#wrapper").toggleClass("toggled");
+    if (!FullScreen) {
+        //disable editing
+        FullScreen = true;
+        $(".proj1").draggable("disable");
+        $(".proj1").resizable("disable");
+        $(".proj2").draggable("disable");
+        $(".proj2").resizable("disable");
+        $(".proj3").draggable("disable");
+        $(".proj3").resizable("disable");
+        $(".timeline").draggable("disable");
+
+        $(".proj1").css("cursor", "auto");
+        $(".proj2").css("cursor", "auto");
+        $(".proj3").css("cursor", "auto");
+        $(".timeline").css("cursor", "auto");
+    }
+    else {
+        FullScreen = false;
+        $(".proj1").draggable({ axis: "x" });
+        $(".proj1").resizable({ handles: 'e, w' });
+        $(".proj2").draggable({ axis: "x" });
+        $(".proj2").resizable({ handles: 'e, w' });
+        $(".proj3").draggable({ axis: "x" });
+        $(".proj3").resizable({ handles: 'e, w' });
+        $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+
+        $(".proj1").css("cursor", "e-resize");
+        $(".proj2").css("cursor", "e-resize");
+        $(".proj3").css("cursor", "e-resize");
+        $(".timeline").css("cursor", "e-resize");
+    }
+
+
 });
 
 var button_id;
@@ -71,9 +107,9 @@ $(document).ready(function () {
         
         //Add a selection
         if (load_select_count < max_fields ) { //max input box allowed
-            load_select_count++; //text box increment
-            var add_sel = "<div class='new_sel'><select name='select_input'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
+            var add_sel = "<div class='new_sel'><select id='select_input"+load_select_count+"'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
             $(dep_Select).append(add_sel); //add input box
+            load_select_count++; //text box increment
 
         }
     });
@@ -88,8 +124,9 @@ $(document).ready(function () {
     $(add_Link).on("click", function (e) { //on add input button click
         e.preventDefault();
         if (load_link_count < max_fields) { //max input box allowed
-            load_link_count++; //text box increment
+            
             $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+            load_link_count++; //text box increment
         }
     });
     //Removing the link input box
@@ -113,7 +150,7 @@ $(document).ready(function () {
             }
         });
         //Need Ajax Post Call here?
-        PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
+       // PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
 
 
         //Select Dependecy value
@@ -154,7 +191,7 @@ $(document).ready(function () {
         var dep_val, select_val, link_val;
         var dep_total = 0, select_total = 0, link_total = 0, option_total = 0; //used as list lengths
 
-        var title_Value = ""
+        var select_Value = ""
         var desc_Value = "";
         var risk_Value = "";
 
@@ -175,19 +212,23 @@ $(document).ready(function () {
                  //Getting Dep String array   
                  idep_arr = response.d[3];
                  dep_total = idep_arr.length;
-                 fill_dep(idep_arr);
                  //Getting Select Array
                  iselect_arr = response.d[4];
-                 select_total = iselect_arr.length;               
-                 fill_select(iselect_arr);
-                 //Get Link Array
-                 ilink_arr = response.d[5];
-                 link_total = ilink_arr.length;          
-                 fill_link(ilink_arr);
+                 select_total = iselect_arr.length;
                  //Geting Options
                  ioption_arr = response.d[6];
                  option_total = ioption_arr.length;
+                 //Get Link Array
+                 ilink_arr = response.d[5];
+                 link_total = ilink_arr.length;
+
+                 fill_dep(idep_arr);
                  fill_options(ioption_arr);
+                 fill_select(iselect_arr);
+              
+                 fill_link(ilink_arr);
+
+
              },
              error: function (xhr) {
                  console.log("error");
@@ -217,18 +258,19 @@ $(document).ready(function () {
             load_options = options;
             //Insert the correct number of selects
             for (select_x = 0; select_x < select_total; select_x++) {
-                $(dep_Select).append("<div class='new_sel'><select name='select_input'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");               
+                $(dep_Select).append("<div class='new_sel'><select id='select_input" + load_select_count + "'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");
+                load_select_count++;
             };
             
         }
         
         function fill_select(select_array) {
             //fill the inputboxes with their values
-            $('input[name=select_input]').each(function () {
-                $(this).val(select_array[load_select_count]);
-                $(this).text(select_array[load_select_count]);
-                load_select_count++;
-            });
+            for (select_x = 0; select_x < select_total; select_x++)
+            {
+                select_Value = "#select_input" + select_x;
+                $(select_Value).val(select_array[select_x]);
+            }
         }
         function fill_link(link_array){
             for (link_x = 0; link_x < link_total; link_x++) {

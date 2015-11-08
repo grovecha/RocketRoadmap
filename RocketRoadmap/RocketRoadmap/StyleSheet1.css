@@ -1,15 +1,15 @@
 ﻿.strategypoint {
-	-moz-box-shadow:inset 0px -3px 7px 0px #ff4242;
-	-webkit-box-shadow:inset 0px -3px 7px 0px #ff4242;
-	box-shadow:inset 0px -3px 7px 0px #ff4242;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f52e2e), color-stop(1, #fa0a0a));
-	background:-moz-linear-gradient(top, #f52e2e 5%, #fa0a0a 100%);
-	background:-webkit-linear-gradient(top, #f52e2e 5%, #fa0a0a 100%);
-	background:-o-linear-gradient(top, #f52e2e 5%, #fa0a0a 100%);
-	background:-ms-linear-gradient(top, #f52e2e 5%, #fa0a0a 100%);
-	background:linear-gradient(to bottom, #f52e2e 5%, #fa0a0a 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f52e2e', endColorstr='#fa0a0a',GradientType=0);
-	background-color:#f52e2e;
+    -moz-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+	-webkit-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+	box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5121b), color-stop(1, #b5121b));
+	background:-moz-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:-webkit-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:-o-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:-ms-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:linear-gradient(to bottom, #b5121b 5%, #b5121b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5121b', endColorstr='b5121b',GradientType=0);
+	background-color:#b5121b;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	border-radius:3px;
@@ -24,14 +24,14 @@
 	text-shadow:0px 1px 0px #263666;
 }
 .strategypoint:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fa0a0a), color-stop(1, #f52e2e));
-	background:-moz-linear-gradient(top, #fa0a0a 5%, #f52e2e 100%);
-	background:-webkit-linear-gradient(top, #fa0a0a 5%, #f52e2e 100%);
-	background:-o-linear-gradient(top, #fa0a0a 5%, #f52e2e 100%);
-	background:-ms-linear-gradient(top, #fa0a0a 5%, #f52e2e 100%);
-	background:linear-gradient(to bottom, #fa0a0a 5%, #f52e2e 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fa0a0a', endColorstr='#f52e2e',GradientType=0);
-	background-color:#fa0a0a;
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5121b), color-stop(1, #ab4444));
+	background:-moz-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:-webkit-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:-o-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:-ms-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	background:linear-gradient(to bottom, #b5121b 5%, #b5121b 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5121b', endColorstr='#b5121b',GradientType=0);
+	background-color:#b5121b;
 }
 .strategypoint:active {
 	position:relative;

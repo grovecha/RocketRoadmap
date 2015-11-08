@@ -9,18 +9,20 @@ function showTime() {
     
 }
 
-function Drag()
-{
-    $(".proj" + String(CurrentProjCount + 1)).draggable({ axis: "x" });
-    $(".proj" + String(CurrentProjCount + 1)).resizable({ handles: 'e, w' });
-    $(".proj3").draggable({ axis: "x" });
-    $(".proj3").resizable({ handles: 'e, w' });
+function deleteTime(obj) {
+    console.log(!FullScreen);
+    if (!FullScreen) {
+        var timeline = document.getElementById(obj.id)
+        timeline.parentNode.removeChild(timeline);
+    }
 }
 function addTick(e, obj) {
     if (e.keyCode == 13) {
         var timeline = document.createElement("div");
+        timeline.setAttribute("ondblclick","deleteTime(this)")
         timeline.className = "timeline";
-        timeline.innerHTML = '<p contenteditable="true" class="timelineText">' + obj.value + '</p>'
+        timeline.id = obj.value;
+        timeline.innerHTML = '<p  class="timelineText">' + obj.value + '</p>'
         var parent = document.getElementById("containment-wrapper");
         parent.appendChild(timeline);
         $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
@@ -60,8 +62,8 @@ function deleteStrat(obj) {
 
     //delete from database
     var url = window.location.href;
-    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
-    mapName = decodeURIComponent(mapName.substr(2, mapName.length).split('#')[0]);
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteStrat('StratBox' + (PreviousStratNum).toString(), mapName);
 
 }
@@ -402,6 +404,7 @@ function addProj(e, obj, i) {
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
+            element1.setAttribute("onmouseover", "Highlight(this.id)");
             
 
             ////set class, location of more than 3 projects will be the 3rd location
