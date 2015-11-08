@@ -1,12 +1,21 @@
 ﻿var changing = false;
+var dragging = false;
 function showTime() {
     if ($(".timeline").is(':visible')) {
         $(".timeline").hide();
     }
     else {
         $(".timeline").show();
+    }    
+}
+
+function disableModal() {
+    dragging = true;
+}
+function showMode(id) {
+    if (!dragging) {
+        showModal(id);
     }
-    
 }
 
 function deleteTime(obj) {
@@ -403,9 +412,10 @@ function addProj(e, obj, i) {
                 element1.innerHTML = "<span>" + NewValue; +"</span>";
             }
             //element1.style.verticalAlign = "top";
-            element1.setAttribute("onclick", "showModal(this.id)");
+            element1.setAttribute("onclick", "showMode(this.id)");
             element1.setAttribute("onmouseover", "Highlight(this.id)");
-            
+            element1.setAttribute("onresize", "disableModel()");
+            element1.setAttribute("ondrag", "disableModel()");
 
             ////set class, location of more than 3 projects will be the 3rd location
             if (CurrentProjCount > 2) {
