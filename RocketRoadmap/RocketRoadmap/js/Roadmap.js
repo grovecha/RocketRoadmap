@@ -9,6 +9,17 @@ function showTime() {
     
 }
 
+function enableDrag()
+{
+    $(".proj1").draggable({ axis: "x" });
+    $(".proj1").resizable({ handles: 'e, w' });
+    $(".proj2").draggable({ axis: "x" });
+    $(".proj2").resizable({ handles: 'e, w' });
+    $(".proj3").draggable({ axis: "x" });
+    $(".proj3").resizable({ handles: 'e, w' });
+    $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+}
+
 function deleteTime(obj) {
     console.log(!FullScreen);
     if (!FullScreen) {
