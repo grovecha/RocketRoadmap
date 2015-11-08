@@ -654,7 +654,7 @@ namespace RocketRoadmap
             //for each project just get the project names 
             foreach (Project p in Project_List)
             {
-                Project_Names.Add(p.GetDescription());
+                Project_Names.Add(p.GetName());
 
             }
 
