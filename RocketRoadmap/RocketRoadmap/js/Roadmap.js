@@ -268,14 +268,16 @@ function addBus(e, obj, i) {
                 table = document.getElementById(tableid);
                 var rowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
                 row = table.insertRow(rowIndex);
-                row.setAttribute("style", "height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3");
+                //row.setAttribute("style", "height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3");
+                row.className = "RowVis";
                 cell = row.insertCell(0);
                 cell.id = obj.id + "td";
 
                 row.insertCell(1);
                 row.insertCell(2);
                 cell1 = row.insertCell(3);
-                cell1.setAttribute("style", "width: 100px; text-align:right; background-color: white; padding:0");
+                //cell1.setAttribute("style", "width: 100px; text-align:right; background-color: white; padding:0");
+                cell1.className = "CellVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
                 currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
