@@ -52,8 +52,8 @@ function deleteStrat(obj) {
 
     //delete from database
     var url = window.location.href;
-    var mapName = url.substr(url.indexOf('?') + 1);
-    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
+    mapName = decodeURIComponent(mapName.substr(2, mapName.length).split('#')[0]);
     PageMethods.DeleteStrat('StratBox' + (PreviousStratNum).toString(), mapName);
 
 }
@@ -78,7 +78,7 @@ function deleteBus(obj) {
 
     //delete from database
     var url = window.location.href;
-    var mapName = url.substr(url.indexOf('?') + 1);
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteBus(BusId, StratId, mapName);
 }
@@ -106,7 +106,7 @@ function deleteProj(obj) {
     var BusId = obj.id.split("ProjBox")[0];
     var ProjId = obj.id.split("Delete")[0];
     var url = window.location.href;
-    var mapName = url.substr(url.indexOf('?') + 1);
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteProj(ProjId, BusId, StratId, mapName);
 
@@ -183,7 +183,7 @@ function addStrat(e, obj, i) {
             cell2.appendChild(element1);
         }
         var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
         mapName = mapName.substr(2, mapName.length).split('#')[0];
         //if new strat input already created, just edit database
         if (obj.getAttribute("firstadd") == "1") {
@@ -323,7 +323,7 @@ function addBus(e, obj, i) {
         document.getElementById(StratId).setAttribute("BusTotal", parseInt(BusTotal) + 1);
 
         var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
         mapName = mapName.substr(2, mapName.length).split('#')[0];
         var PrevBusID = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal - 1);
         if (obj.getAttribute("firstadd") == "1") {
@@ -428,7 +428,7 @@ function addProj(e, obj, i) {
         }
 
         var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
         mapName = mapName.substr(2, mapName.length).split('#')[0];
         if (obj.getAttribute("firstadd") == "1") {
             PageMethods.EditProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
