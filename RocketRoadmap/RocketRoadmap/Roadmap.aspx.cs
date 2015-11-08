@@ -64,6 +64,7 @@ namespace RocketRoadmap
                 HtmlInputButton but = new HtmlInputButton();
                 but.Name = "Strat";
                 but.ID = "StratBut" + count.ToString();
+               // but.Attributes.Add("class", "strategypoint");
                 but.Style.Add(HtmlTextWriterStyle.BackgroundColor, "red");
                 but.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 but.Style.Add(HtmlTextWriterStyle.Width, "200px");
