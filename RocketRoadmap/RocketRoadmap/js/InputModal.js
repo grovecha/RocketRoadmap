@@ -24,6 +24,11 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable("disable");
         $(".proj3").resizable("disable");
         $(".timeline").draggable("disable");
+
+        $(".proj1").css("cursor", "auto");
+        $(".proj2").css("cursor", "auto");
+        $(".proj3").css("cursor", "auto");
+        $(".timeline").css("cursor", "auto");
     }
     else {
         FullScreen = false;
@@ -34,6 +39,11 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable({ axis: "x" });
         $(".proj3").resizable({ handles: 'e, w' });
         $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+
+        $(".proj1").css("cursor", "e-resize");
+        $(".proj2").css("cursor", "e-resize");
+        $(".proj3").css("cursor", "e-resize");
+        $(".timeline").css("cursor", "e-resize");
     }
 
 

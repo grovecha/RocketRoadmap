@@ -323,7 +323,7 @@
         .space {
           
               left: 200px;  
-              width: 90px; height: 10px;  cursor: e-resize; background-color:white
+              width: 90px; height: 10px; background-color:white
         }
        span {
           display: inline-block;
