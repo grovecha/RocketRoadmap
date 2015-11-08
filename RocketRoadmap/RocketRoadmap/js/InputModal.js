@@ -2,6 +2,8 @@
 Created by Eric Nartker
 Contains input modal Onclick
 **/
+
+var FullScreen = false;
 var panel_close = false;
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
@@ -10,7 +12,31 @@ $("#menu-toggle").click(function (e) {
     } else if (panel_close == true) {
         panel_close = false;
     }
+        
     $("#wrapper").toggleClass("toggled");
+    if (!FullScreen) {
+        //disable editing
+        FullScreen = true;
+        $(".proj1").draggable("disable");
+        $(".proj1").resizable("disable");
+        $(".proj2").draggable("disable");
+        $(".proj2").resizable("disable");
+        $(".proj3").draggable("disable");
+        $(".proj3").resizable("disable");
+        $(".timeline").draggable("disable");
+    }
+    else {
+        FullScreen = false;
+        $(".proj1").draggable({ axis: "x" });
+        $(".proj1").resizable({ handles: 'e, w' });
+        $(".proj2").draggable({ axis: "x" });
+        $(".proj2").resizable({ handles: 'e, w' });
+        $(".proj3").draggable({ axis: "x" });
+        $(".proj3").resizable({ handles: 'e, w' });
+        $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+    }
+
+
 });
 
 var button_id;
@@ -48,8 +74,7 @@ $(document).ready(function () {
     //Getting roadmap name
     var roadmap_url = window.location.href;
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
-    map_Name = map_Name.substr(2, map_Name.length);
-
+    map_Name = decodeURIComponent(map_Name.substr(2, map_Name.length));
 
     //Dependency addition Functions
     $(add_Text).on("click", function (e) { //on add input button click
