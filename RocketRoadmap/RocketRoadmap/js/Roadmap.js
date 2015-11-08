@@ -52,8 +52,8 @@ function deleteStrat(obj) {
 
     //delete from database
     var url = window.location.href;
-    var mapName = url.substr(url.indexOf('?') + 1);
-    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
+    mapName = decodeURIComponent(mapName.substr(2, mapName.length).split('#')[0]);
     PageMethods.DeleteStrat('StratBox' + (PreviousStratNum).toString(), mapName);
 
 }
@@ -78,7 +78,7 @@ function deleteBus(obj) {
 
     //delete from database
     var url = window.location.href;
-    var mapName = url.substr(url.indexOf('?') + 1);
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteBus(BusId, StratId, mapName);
 }
@@ -106,11 +106,9 @@ function deleteProj(obj) {
     var BusId = obj.id.split("ProjBox")[0];
     var ProjId = obj.id.split("Delete")[0];
     var url = window.location.href;
-    var mapName = url.substr(url.indexOf('?') + 1);
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteProj(ProjId, BusId, StratId, mapName);
-
-
 }
 
 
@@ -163,15 +161,17 @@ function addStrat(e, obj, i) {
                 element1.value = NewValue;
             }
 
-            element1.style.backgroundColor = "white";
-            element1.style.height = "100px";
-            element1.style.width = "150px";
-            element1.style.borderRightStyle = "dashed";
-            element1.style.borderBottomStyle = "solid";
+           // element1.style.backgroundColor = "white";
+           // element1.style.height = "100px";
+           // element1.style.width = "150px";
+           // element1.style.borderRightStyle = "dashed";
+           // element1.style.borderBottomStyle = "solid";
       
-            element1.style.borderLeftStyle = "none";
-            element1.style.borderTopStyle = "none";
-            element1.style.borderColor = "#D3D3D3";
+           // element1.style.borderLeftStyle = "none";
+          //  element1.style.borderTopStyle = "none";
+            //  element1.style.borderColor = "#D3D3D3";
+            element1.style.height = "100px";
+            element1.className = "StratVis";
             
 
 
@@ -183,7 +183,7 @@ function addStrat(e, obj, i) {
             cell2.appendChild(element1);
         }
         var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
         mapName = mapName.substr(2, mapName.length).split('#')[0];
         //if new strat input already created, just edit database
         if (obj.getAttribute("firstadd") == "1") {
@@ -208,11 +208,11 @@ function addStrat(e, obj, i) {
             newrow.setAttribute("id", 'StratBox' + NewStratCount.toString() + "Row");
 
             newrow.innerHTML = "<td>" +                             
-                            "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "' style='color:white; font-size:20px; vertical-align:-3px;' class='remove_strat'> X</a> <br />" +
+                            "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "'class='remove_strat'> X</a> <br />" +
                             '<table id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
                             '<tr id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
                                 '<td id="StratBox' + NewStratCount.toString() + 'BuxBox0inputtd">' +
-                            "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' style='color:white; font-size:20px; vertical-align:-3px;' class='remove_bus'> X</a><br />" +
+                            "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' class='remove_bus'> X</a><br />" +
                             '<div id="StratBox' + NewStratCount.toString() + 'BusBox0projDiv">' +
                             "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +
                             "</div>"
@@ -267,48 +267,54 @@ function addBus(e, obj, i) {
                 table = document.getElementById(tableid);
                 var rowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
                 row = table.insertRow(rowIndex);
-                row.setAttribute("style", "height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3");
+                //row.setAttribute("style", "height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3");
+                row.className = "RowVis";
                 cell = row.insertCell(0);
                 cell.id = obj.id + "td";
 
                 row.insertCell(1);
                 row.insertCell(2);
                 cell1 = row.insertCell(3);
-                cell1.setAttribute("style", "width: 100px; text-align:right; background-color: white; padding:0");
+                //cell1.setAttribute("style", "width: 100px; text-align:right; background-color: white; padding:0");
+                cell1.className = "CellVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
                 currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
                 document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 100) + "px";
+                console.log(CurrentStratCount);
+                console.log(currentheight.toString());
+                console.log(String(parseInt(currentheight) + 100) + "px");
 
             }
             else {
                 var newcell = row.insertCell(1);
                 var w = screen.width;
                 newcell.style.width = w.toString() + "px";
-                newcell.style.backgroundColor = "white";
+                //newcell.style.backgroundColor = "white";
+                newcell.className = "NewCellVis";
                 tableid = StratId + "VisualTable";
                 projtd = obj.id + "td";
 
                 ////set top border if it is the first bus value
                 if (obj.id == "StratBox0BusBox0") {
                     newcell.innerHTML = "<table id='" + tableid + "'>" +
-                                        "<tr  style = 'z-index: 2; height:100px; border-width: 1px; border-bottom-style: solid; border-top: 2pt solid; border-top-color: #D3D3D3; border-color: #D3D3D3; '>" +
-                                            '<td id="' + projtd + '" style=" padding:0; width: 2500px;">' +
+                                        "<tr class='RowVis' style = 'border-top: 2pt solid; border-top-color: #D3D3D3; '>" +
+                                            '<td class = "projtd" id="' + projtd + '" >' +
                                             '</td>' +
                                             '<td ></td>' +
                                             '<td ></td>' +
-                                            '<td id="' + NextVisualId + '" style=" width: 100px; text-align:right; background-color: white; padding:0">' + obj.value + '</td>' +
+                                            '<td class="BusVis" id="' + NextVisualId + '" >' + obj.value + '</td>' +
                                        '</tr>' +
                                     '</table>';
                 }
                 else {
                     newcell.innerHTML = "<table id='" + tableid + "'>" +
-                                        "<tr  style = 'z-index: 2; height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3;'>" +
-                                            '<td id="' + projtd + '" style=" padding:0; width: 2500px;">' +
+                                        "<tr class='RowVis'>" +
+                                            '<td class="projtd" id="' + projtd + '" >' +
                                             '</td>' +
                                             '<td ></td>' +
                                             '<td ></td>' +
-                                            '<td id="' + NextVisualId + '" style=" width: 100px; text-align:right; background-color: white; padding:0">' + obj.value + '</td>' +
+                                            '<td class="BusVis" id="' + NextVisualId + '" >' + obj.value + '</td>' +
                                        '</tr>' +
                                     '</table>';
                 }
@@ -323,7 +329,7 @@ function addBus(e, obj, i) {
         document.getElementById(StratId).setAttribute("BusTotal", parseInt(BusTotal) + 1);
 
         var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
         mapName = mapName.substr(2, mapName.length).split('#')[0];
         var PrevBusID = obj.id.split("BusBox")[0] + "BusBox" + String(BusTotal - 1);
         if (obj.getAttribute("firstadd") == "1") {
@@ -340,7 +346,7 @@ function addBus(e, obj, i) {
             newrow = mainDiv.insertRow(RowIndex);
             newrow.setAttribute("id", CurrentBusId + "Row");
             newrow.innerHTML = "<td id='"+CurrentBusId+"inputtd'>" +
-                                "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><a href='#' id='"+CurrentBusId + "Delete' style='color:white; font-size:20px; vertical-align:-3px;' class='remove_bus'> X</a><br />" +
+                                "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><a href='#' id='"+CurrentBusId + "Delete' class='remove_bus'> X</a><br />" +
                                 '<div id="'+CurrentBusId+'projDiv">' +
                                 "<input class='txtProjDel' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' />" +
                                 "</div>"
@@ -388,12 +394,10 @@ function addProj(e, obj, i) {
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
+            element1.setAttribute("onmouseover", "Highlight(this.id)");
+            
 
-            //element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
-            element1.setAttribute("class", "draggable");
-            element1.setAttribute('style', "text-align: center; ")
-
-            ////location of more than 3 projects will be the 3rd location
+            ////set class, location of more than 3 projects will be the 3rd location
             if (CurrentProjCount > 2) {
                 element1.setAttribute("class", "proj3");
             }
@@ -421,13 +425,13 @@ function addProj(e, obj, i) {
             element2.innerHTML = " X";
             element2.id = obj.id + "Delete";
             element2.setAttribute("href", "#");
-            element2.setAttribute("style", "color:white; font-size:20px; vertical-align:-3px")
+            //element2.setAttribute("style", "color:white; font-size:20px; vertical-align:-3px")
             element2.className = 'remove_proj';
             $("#" + BusId + "projDiv").append(element2);
         }
 
         var url = window.location.href;
-        var mapName = url.substr(url.indexOf('?') + 1);
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
         mapName = mapName.substr(2, mapName.length).split('#')[0];
         if (obj.getAttribute("firstadd") == "1") {
             PageMethods.EditProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());

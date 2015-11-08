@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
+
 
     <!-- RangeSlider -->
     <link rel="stylesheet" href="css/normalize.css" />
@@ -67,7 +67,7 @@
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
     
-<!--         <link rel="stylesheet" type="text/css" href="StyleSheet1.css"> -->
+    <link rel="stylesheet" type="text/css" href="StyleSheet1.css">
 
     
 
@@ -303,18 +303,21 @@
         }   
         .proj1 {
            
-              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue         
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;     
+                  text-align: center;    
         }
         .proj2 {
            
               left: 100px;    
-              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue         
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;
+              text-align: center;       
         }
         .proj3 {
            
                      
               left: 200px;  
-              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;
+              text-align: center;
         }
         .space {
           
@@ -326,6 +329,66 @@
           vertical-align: middle;
           line-height: normal;      
         }
+
+       .StratVis{
+            background-color:white;
+            
+            width:150px;
+            border-right-style:dashed;
+            border-bottom-style:solid;
+            border-left-style:none;
+            border-top-style:none;
+            border-color:#D3D3D3;
+
+       }
+
+       .RowVis{
+           height:100px;
+           border-width: 1px;
+           border-bottom-style:solid;
+           border-left-color: #D3D3D3;
+       }
+       .CellVis{
+           width:100px;
+           text-align:right;
+           background-color:white;
+           padding:0;
+
+       }
+       .NewCellVis {
+           background-color: white;
+       }
+
+       .projtd {
+           padding:0;
+           width: 2500px;
+       }
+
+       .ProjVis{
+
+       }
+
+       .BusVis {
+           width: 100px;
+           text-align:right;
+           background-color: white;
+           padding:0
+       }
+
+       .remove_strat {
+           color:white; 
+           font-size:20px; 
+           vertical-align:-3px;
+       }
+       .remove_bus {
+           color:white;
+           font-size:20px;
+           vertical-align:-3px;
+       }
+       .remove_proj {
+           color:white; font-size:20px; vertical-align:-3px
+       }
+
 
        .timeline {
     border-left: solid lightgrey;

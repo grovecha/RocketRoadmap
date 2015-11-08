@@ -48,8 +48,7 @@ $(document).ready(function () {
     //Getting roadmap name
     var roadmap_url = window.location.href;
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
-    map_Name = map_Name.substr(2, map_Name.length);
-
+    map_Name = decodeURIComponent(map_Name.substr(2, map_Name.length));
 
     //Dependency addition Functions
     $(add_Text).on("click", function (e) { //on add input button click
