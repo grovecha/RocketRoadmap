@@ -327,6 +327,36 @@
           line-height: normal;      
         }
 
+       .StratVis{
+            background-color:white;
+            height:100px;
+            width:150px;
+            border-right-style:dashed;
+            border-bottom-style:solid;
+            border-left-style:none;
+            border-top-style:none;
+            border-color:#D3D3D3;
+
+       }
+
+       .RowVis{
+           height:100px;
+           border-width: 1px;
+           border-bottom-style:solid;
+           border-left-color: #D3D3D3;
+       }
+       .CellVis{
+           width:100px;
+           text-align:right;
+           background-color:white;
+           padding:0;
+
+       }
+
+       .ProjVis{
+
+       }
+
        .timeline {
     border-left: solid lightgrey;
 	border-left-style: dashed;

@@ -163,15 +163,16 @@ function addStrat(e, obj, i) {
                 element1.value = NewValue;
             }
 
-            element1.style.backgroundColor = "white";
-            element1.style.height = "100px";
-            element1.style.width = "150px";
-            element1.style.borderRightStyle = "dashed";
-            element1.style.borderBottomStyle = "solid";
+           // element1.style.backgroundColor = "white";
+           // element1.style.height = "100px";
+           // element1.style.width = "150px";
+           // element1.style.borderRightStyle = "dashed";
+           // element1.style.borderBottomStyle = "solid";
       
-            element1.style.borderLeftStyle = "none";
-            element1.style.borderTopStyle = "none";
-            element1.style.borderColor = "#D3D3D3";
+           // element1.style.borderLeftStyle = "none";
+          //  element1.style.borderTopStyle = "none";
+            //  element1.style.borderColor = "#D3D3D3";
+            element1.className = "StratVis";
             
 
 
