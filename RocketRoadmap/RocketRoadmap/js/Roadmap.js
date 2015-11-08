@@ -8,6 +8,14 @@ function showTime() {
     }
     
 }
+
+function Drag()
+{
+    $(".proj" + String(CurrentProjCount + 1)).draggable({ axis: "x" });
+    $(".proj" + String(CurrentProjCount + 1)).resizable({ handles: 'e, w' });
+    $(".proj3").draggable({ axis: "x" });
+    $(".proj3").resizable({ handles: 'e, w' });
+}
 function addTick(e, obj) {
     if (e.keyCode == 13) {
         var timeline = document.createElement("div");
@@ -394,7 +402,6 @@ function addProj(e, obj, i) {
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
-            element1.setAttribute("onmouseover", "Highlight(this.id)");
             
 
             ////set class, location of more than 3 projects will be the 3rd location

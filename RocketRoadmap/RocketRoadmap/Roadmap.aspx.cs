@@ -64,10 +64,7 @@ namespace RocketRoadmap
                 HtmlInputButton but = new HtmlInputButton();
                 but.Name = "Strat";
                 but.ID = "StratBut" + count.ToString();
-                // but.Attributes.Add("class", "strategypoint");
-                //but.Style.Add(HtmlTextWriterStyle.BackgroundColor, "red");
-                //but.Style.Add(HtmlTextWriterStyle.Height, "100px");
-                //but.Style.Add(HtmlTextWriterStyle.Width, "200px");
+                but.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 but.Attributes.Add("class","StratVis");
                 but.Value = p.GetDescription();
 
@@ -172,8 +169,11 @@ namespace RocketRoadmap
                     {
 
                         HtmlTableCell sCell = new HtmlTableCell();
-                        sCell.Style.Add(HtmlTextWriterStyle.Width, "3000px");
-                        sCell.Style.Add(HtmlTextWriterStyle.BackgroundColor, "yellow");
+                        //sCell.Style.Add(HtmlTextWriterStyle.Width, "3000px");
+                        //sCell.Style.Add(HtmlTextWriterStyle.BackgroundColor, "yellow");
+                        sCell.Attributes.Add("class", "NewCellVis");
+
+
 
                         row.Cells.Add(sCell);
 
@@ -182,12 +182,19 @@ namespace RocketRoadmap
 
                         HtmlTableRow visRow = new HtmlTableRow();
 
-                        visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
+                        //visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
+                        visRow.Attributes.Add("class", "RowVis");
+                        if (count == 1 && valcount == 0)
+                        {
+                            visRow.Attributes.Add("style", "border-top: 2pt solid; border-top-color: #D3D3D3;");
+                        }
                         StratVisTable.Rows.Add(visRow);
 
 
                         bc1.ID = b.GetName() + "td";
-                        bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
+                        bc1.Attributes.Add("class", "projtd");
+                        //bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
+                        
 
                         visRow.Cells.Add(bc1);
                         visRow.Cells.Add(new HtmlTableCell());
@@ -196,7 +203,8 @@ namespace RocketRoadmap
                         bc2 = new HtmlTableCell();
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
-                        bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
+                        //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
+                        bc2.Attributes.Add("class", "BusVis");
 
                         bc2.InnerText = b.GetDescription();
 
@@ -209,10 +217,14 @@ namespace RocketRoadmap
 
                         HtmlTableRow newPRow = new HtmlTableRow();
                         StratVisTable.Rows.Add(newPRow);
-                        newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
+                       // newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
+                        newPRow.Attributes.Add("class", "RowVis");
+
+
 
                         bc1 = new HtmlTableCell();
                         bc1.ID = b.GetName() + "td";
+                        bc1.Attributes.Add("class", "projtd");
 
                         newPRow.Cells.Add(bc1);
 
@@ -222,7 +234,8 @@ namespace RocketRoadmap
 
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
-                        bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
+                        //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
+                        bc2.Attributes.Add("class", "CellVis");
 
                         bc2.InnerText = b.GetDescription();
 
@@ -299,15 +312,24 @@ namespace RocketRoadmap
                         bustextbox.Attributes.Add("ProjTotal", (projCount + 1).ToString());
 
 
-                        //< input type = "button" id = "StratBox0BusBox0ProjBox0But" value = "proj1" onclick = "showModal(this.id)" class="proj1" style="height: 33px; width: 150px; vertical-align: top; background-color: green;">
-                        HtmlInputButton projBut = new HtmlInputButton();
-                        projBut.ID = proj.GetName() + "But";
-                        projBut.Attributes.Add("value", "proj" + (projCount + 1).ToString());
-                        projBut.Attributes.Add("onclick", "showModal(this.id)");
-                        projBut.Attributes.Add("class", "proj" + (projCount + 1).ToString());
-                        projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
-                        projBut.Value = proj.GetDescription();
-                        bc1.Controls.Add(projBut);
+                        //HtmlInputButton projBut = new HtmlInputButton();
+                        //projBut.ID = proj.GetName() + "But";
+                        //projBut.Attributes.Add("value", "proj" + (projCount + 1).ToString());
+                        //projBut.Attributes.Add("onclick", "showModal(this.id)");
+                        //projBut.Attributes.Add("class", "proj" + (projCount + 1).ToString());
+                        //projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
+                        //projBut.Value = proj.GetDescription();
+
+                        bc1.InnerHtml =bc1.InnerHtml+ "<div id=\"" + proj.GetName() + "But" + "\" onclick=\"showModal(this.id)\" class=\"proj"+(projCount+1).ToString()+" ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
+                            "<span>" + proj.GetDescription() + "</span>"+
+                            "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>"+
+                            "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>"+
+                            "</div>"+
+                            "<div class=\"space\" id=\""+proj.GetName()+"space\"></div>";
+
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideExample();", true);
+
+                        //bc1.Controls.Add(projBut);
 
                         HtmlInputText projTextBox = new HtmlInputText();
                         //lastCell = new HtmlTableCell();

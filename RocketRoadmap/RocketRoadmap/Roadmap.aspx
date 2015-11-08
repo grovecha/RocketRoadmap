@@ -308,14 +308,14 @@
         }
         .proj2 {
            
-              left: 100px;    
+  
               width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;
               text-align: center;       
         }
         .proj3 {
            
                      
-              left: 200px;  
+
               width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;
               text-align: center;
         }
