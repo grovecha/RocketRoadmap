@@ -43,25 +43,25 @@ namespace RocketRoadmap.DB
             mDescription = description;
             mBusinessValue = businessvalue;
             mRoadmapName = rname;
-
+            mDatabase.connect();
             try
             {
-                //Set modal description in DB
+                //Get modal description in DB
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE ProjectName=@name AND RoadmapName =@Rname";
+                cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE Name=@name AND RoadmapName =@Rname AND BusinessValueName=@BVName";
                 cmd.Parameters.AddWithValue("@name", mName);
                 cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
                 mReader = mDatabase.executereadparams(cmd);
                 while (mReader.Read())
                 {
                     mModalDescription = (mReader.GetString(0).ToString());
                 }
-                mReader.Close();
             }
             catch { ;  }
+            mReader.Close();
 
             //Grab risks this project owns
-            mDatabase.connect();
             SqlCommand cmd1 = new SqlCommand();
             cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='" + mBusinessValue + "'";
             cmd1.Parameters.AddWithValue("@name", mName);
