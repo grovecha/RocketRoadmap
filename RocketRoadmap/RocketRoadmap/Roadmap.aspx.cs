@@ -327,7 +327,7 @@ namespace RocketRoadmap
                             "</div>"+
                             "<div class=\"space\" id=\""+proj.GetName()+"space\"></div>";
 
-                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideExample();", true);
+
 
                         //bc1.Controls.Add(projBut);
 
@@ -458,6 +458,7 @@ namespace RocketRoadmap
 
                 #endregion
             }
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "enableDrag();", true);
 
         }
 
