@@ -92,8 +92,9 @@
 
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
+        <br />        
         <br />
-        <br />
+        <input style="width: 100px;" id="addtimelinetick" type="text" onkeyup="addTick(event,this)" placeholder='Add Timeline'/><input style="width: 120px;"  type="button" value="Toggle Timeline" onclick="showTime()">
         <!-- Data Input -->
         <div id="mainDiv">
            <table id ="sidebarTable" runat ="server">
@@ -134,7 +135,10 @@
 
                 </div>
                 <br />
-             
+                <div id="containment-wrapper">
+                  
+                </div>
+
                 <table id="roadmapTable" style="width:100%" runat="server">                
         
                 </table>
@@ -322,7 +326,30 @@
           line-height: normal;      
         }
 
+       .timeline {
+    border-left: solid lightgrey;
+	border-left-style: dashed;
+	height: 2500px;
+	cursor: e-resize;
+    position: absolute;
+    top: -5px;
+}
 
+  #timelineborder {
+      
+      left: 150px;
+      
+  }
+
+.timelineText {
+    left: -10px;
+    top: -25px;
+	position: relative;
+    z-index: 5;
+	
+}
+
+#containment-wrapper {position: absolute; left: 150px; width: 100%;   }
    
     </style>
 
