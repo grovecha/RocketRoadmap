@@ -351,6 +351,7 @@ function addProj(e, obj, i) {
             element1.style.width = "150px";
             element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
+            element1.setAttribute("onmouseover", "Highlight(this.id)");
 
             element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
 

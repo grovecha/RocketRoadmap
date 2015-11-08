@@ -247,7 +247,7 @@
 <!-- jQuery -->
 <script src="js/jquery.js"></script>
 <script src="js/InputModal.js"></script>
-<script src="js/DisplayModal.js"></script>
+<script src="js/Highlight.js"></script>
 
 
 <!-- Bootstrap Core JavaScript -->
