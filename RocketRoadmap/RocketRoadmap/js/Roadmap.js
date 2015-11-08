@@ -425,8 +425,8 @@ function addProj(e, obj, i) {
             //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showMode(this.id)");
             element1.setAttribute("onmouseover", "Highlight(this.id)");
-            element1.setAttribute("onresize", "disableModel()");
-            element1.setAttribute("ondrag", "disableModel()");
+            element1.setAttribute("onresize", "disableModal()");
+            element1.setAttribute("ondrag", "disableModal()");
 
             ////set class, location of more than 3 projects will be the 3rd location
             if (CurrentProjCount > 2) {
