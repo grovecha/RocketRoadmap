@@ -66,9 +66,7 @@ function deleteBus(obj) {
 
 function deleteProj(obj) {
 
-    //delete slider
-    var id = obj.id.split("Delete")[0];
-    $("#" + id + "But").data("ionRangeSlider").destroy();
+    var id = obj.id.split("Delete")[0];    
 
     //delete visual and input box
     var ele = document.getElementById(obj.id);
