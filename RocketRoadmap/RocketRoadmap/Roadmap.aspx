@@ -13,6 +13,12 @@
     <meta name="author" content="">
 
     <title>Roadmap</title>
+    
+    <!-- Draggable -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
 
     <!-- RangeSlider -->
     <link rel="stylesheet" href="css/normalize.css" />
@@ -253,7 +259,7 @@
 
 
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
+
 
 <script src="js/bootstrap.min.js"></script>
 <script src="js/Roadmap.js"></script>
@@ -291,20 +297,32 @@
             width:200px;
         }   
         .proj1 {
-            position: relative;
-              top: -50%;             
+           
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue         
         }
         .proj2 {
-            position: relative;
-              top: 0%; 
-              left: 150px;             
+           
+              left: 100px;    
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue         
         }
         .proj3 {
-            position: relative;
-              top: 50%;           
-              left: 300px;  
+           
+                     
+              left: 200px;  
+              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue
         }
-        
+        .space {
+          
+              left: 200px;  
+              width: 90px; height: 10px;  cursor: e-resize; background-color:white
+        }
+       span {
+          display: inline-block;
+          vertical-align: middle;
+          line-height: normal;      
+        }
+
+
    
     </style>
 

@@ -341,53 +341,36 @@ function addProj(e, obj, i) {
             document.getElementById(obj.id + "But").value = obj.value;
         }
         else {
-            var div1 = document.createElement("div");
 
-            var element1 = document.createElement("input");
-            element1.type = "text";
-
+            var element1 = document.createElement("div");       
+            
             element1.id = obj.id + "But";
-            element1.className = 'range';
+            
 
             var NewValue = obj.value;
             if (NewValue != "") {
-                element1.value = NewValue;
+                element1.innerHTML = "<span>" + NewValue; +"</span>";
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showModal(this.id)");
 
             //element1.setAttribute("class", "proj" + String(CurrentProjCount + 1))
-            element1.setAttribute("class", "range");
-            element1.name = "range";
+            element1.setAttribute("class", "draggable");
+            element1.setAttribute('style', "text-align: center; ")
+            element1.setAttribute("class", "proj" + String(CurrentProjCount + 1));
             element1.value = "";
 
             var cell = document.getElementById(BusId + "td");
             cell.appendChild(element1);
+            space = document.createElement('div');
+            space.className = 'space';
+            cell.appendChild(space);
+            
 
-            //convert range element into rangeslider
-            $(".range").ionRangeSlider({
-                hide_min_max: true,
-                hide_from_to: true,
-                keyboard: true,
-                min: 0,
-                max: 8000,
-                from: 0,
-                to: 2000,
-                type: 'double',
-                step: 1,
-                prefix: "$",
-                grid: false,
-                drag_interval: true,
-                onChange: function () {
-                    changing = true;
-                },
-                onFinish: function (data) {
-                    if (!changing) {
-                        showModal(data.input[0].id);
-                    }
-                    changing = false;
-                }
-            });
+            //enable draggability and resizability
+            $(".proj" + String(CurrentProjCount + 1)).draggable({ axis: "x" });
+            $(".proj" + String(CurrentProjCount + 1)).resizable({ handles: 'e, w' });
+
             var element2 = document.createElement('a');
             element2.innerHTML = " X";
             element2.id = obj.id + "Delete";
@@ -406,8 +389,6 @@ function addProj(e, obj, i) {
         else {
             PageMethods.AddProject(obj.id, obj.value, mapName.toString(), StratId.toString(), BusId.toString());
             obj.setAttribute("firstadd", "1");
-
-
             //add 1 to ProjTotal
             document.getElementById(BusId).setAttribute("ProjTotal", parseInt(ProjTotal) + 1);
 
@@ -424,9 +405,6 @@ function addProj(e, obj, i) {
             //Place cursor in next proj box
             document.getElementById(BusId + "ProjBox" + String(CurrentProjCount + 1)).select();
         }
-    
- 
-        
     }
     return false;
 }
