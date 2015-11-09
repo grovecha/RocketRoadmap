@@ -1,5 +1,11 @@
 ﻿var changing = false;
 var dragging = false;
+
+
+$(".block").resizable({ handles: 'e, w' });
+$(".block").draggable({ axis: "x" });
+
+
 function showTime() {
     if ($(".timeline").is(':visible')) {
         $(".timeline").hide();
@@ -408,8 +414,9 @@ function addProj(e, obj, i) {
     else if (e.keyCode === 13) {
         /////add visual project        
         //if the project exists, change the value
+       
         if (document.getElementById(obj.id + "But")) {
-            document.getElementById(obj.id + "But").value = obj.value;
+            document.getElementById(obj.id + "But").innerHTML = obj.value;
         }
         else {
 
@@ -420,7 +427,8 @@ function addProj(e, obj, i) {
 
             var NewValue = obj.value;
             if (NewValue != "") {
-                element1.innerHTML = "<span>" + NewValue; +"</span>";
+                
+                element1.innerHTML =  NewValue;
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("onclick", "showMode(this.id)");
@@ -460,6 +468,12 @@ function addProj(e, obj, i) {
             element2.className = 'remove_proj';
             $("#" + BusId + "projDiv").append(element2);
         }
+
+
+        if (obj.value == "") {
+
+        }
+
 
         var url = window.location.href;
         var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
