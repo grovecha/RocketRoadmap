@@ -19,11 +19,6 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 
-    <!-- RangeSlider -->
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="css/ion.rangeSlider.skinFlat.css" />
-
     <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -139,6 +134,9 @@
                 <div id="containment-wrapper">
                   
                 </div>
+                <div class="block"></div>
+          
+           
 
                 <table id="roadmapTable" style="width:100%" runat="server">                
         
@@ -302,24 +300,8 @@
             height:200px;
             width:200px;
         }   
-        .proj1 {
-           
-              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;     
-                  text-align: center;    
-        }
-        .proj2 {
-           
-  
-              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;
-              text-align: center;       
-        }
-        .proj3 {
-           
-                     
-
-              width: 90px; height: 20px;  cursor: e-resize; background-color:deepskyblue;
-              text-align: center;
-        }
+        
+      
         .space {
           
               left: 200px;  
@@ -401,9 +383,7 @@
 }
 
   #timelineborder {
-      
       left: 150px;
-      
   }
 
 .timelineText {
@@ -411,10 +391,40 @@
     top: -25px;
 	position: relative;
     z-index: 5;
-	
 }
 
 #containment-wrapper {position: absolute; left: 150px; width: 100%;   }
+
+ .proj1:after, .proj2:after, .proj3:after {
+  color: deepskyblue;
+  border-left: 10px solid;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  display: inline-block;
+  content: '';
+  position: absolute;
+  right: -10px;
+ 
+}
+.proj1, .proj2, .proj3 {
+  background-color: deepskyblue;
+  width: 150px;
+  height: 20px;
+  display: block;
+  position: relative;
+  text-align: center;
+    text-indent: 10px;
+}
+.proj1:before, .proj2:before, .proj3:before {
+    content: "";
+    position: absolute;
+    display: block;
+    border-top: 10px solid transparent;
+    border-left: 10px solid white;
+    border-bottom: 10px solid transparent;
+    
+}
+
    
     </style>
 
