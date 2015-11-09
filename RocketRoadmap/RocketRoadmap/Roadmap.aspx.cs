@@ -920,15 +920,25 @@ namespace RocketRoadmap
 
             P_list = newproj.GetDependencies();
             tot_list = map.GetAllProjects();
+            bool cflag = false;
+            bool dflag = false;
 
             //Create
             //For each project in the total project list, check is a project name from the array is in there, if its not in the dep list then create it 
             foreach (Project s in tot_list)
             {
-                foreach(string pd in proj_dep)
+                cflag = false;
+                foreach (string pd in proj_dep)
                 {
                     if(pd == s.GetDescription()) {
-                        if (!P_list.Contains(s))
+                        foreach(Project p in P_list)
+                        {
+                            if(p.GetDescription() == s.GetDescription())
+                            {
+                                cflag = true;
+                            }
+                        }
+                        if (cflag == false)
                         {
                             newproj.CreateDependant(s);
                             dep_list.Add(s);
@@ -940,16 +950,25 @@ namespace RocketRoadmap
             //Delete
             foreach (Project s in P_list)
             {
-                if (!dep_list.Contains(s))
+                dflag = false;
+                foreach (Project p in dep_list)
                 {
-                    P_list2.Add(s);
+                    if (p.GetDescription() == s.GetDescription())
+                    {
+                        dflag = true;
+                    }
+                }
+                if(dflag == false)
+                {
+                    P_list2.Add(s);  
                 }
             }
-            foreach(Project s in P_list2)
+
+            foreach(Project x in P_list2)
             {
-                newproj.DeleteDependant(s);
+                newproj.DeleteDependant(x);
             }
-            
+
         }
 
         //Set Project Risk

@@ -24,6 +24,12 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable("disable");
         $(".proj3").resizable("disable");
         $(".timeline").draggable("disable");
+        $(".proj1").bind("mouseover");
+        $(".proj1").bind("mouseout");
+        $(".proj2").bind("mouseover");
+        $(".proj2").bind("mouseout");
+        $(".proj3").bind("mouseover");
+        $(".proj3").bind("mouseout");
 
         $(".proj1").css("cursor", "auto");
         $(".proj2").css("cursor", "auto");
@@ -39,6 +45,12 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable({ axis: "x" });
         $(".proj3").resizable({ handles: 'e, w' });
         $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+        $(".proj1").unbind("mouseover");
+        $(".proj1").unbind("mouseout");
+        $(".proj2").unbind("mouseover");
+        $(".proj2").unbind("mouseout");
+        $(".proj3").unbind("mouseover");
+        $(".proj3").unbind("mouseout");
 
         $(".proj1").css("cursor", "e-resize");
         $(".proj2").css("cursor", "e-resize");
@@ -107,10 +119,9 @@ $(document).ready(function () {
         
         //Add a selection
         if (load_select_count < max_fields ) { //max input box allowed
-            var add_sel = "<div class='new_sel'><select id='select_input"+load_select_count+"'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
+            var add_sel = "<div class='new_sel'><select id='select_input" + load_select_count + "'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
             $(dep_Select).append(add_sel); //add input box
-            load_select_count++; //text box increment
-
+            load_select_count++;
         }
     });
     //Removing the selection dependency box
@@ -150,17 +161,20 @@ $(document).ready(function () {
             }
         });
         //Need Ajax Post Call here?
-       // PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
+        PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
+        
 
 
         //Select Dependecy value
-        $('select[name=select_input]').each(function () {
-            if ($(this).val() != "No Project") {
-                nselect_arr.push($(this).val());
+        for (select_x = 0; select_x < load_select_count; select_x++) {
+            select_Value = "#select_input" + select_x;
+            if ( $(select_Value).val() != "No Project") {
+                nselect_arr.push($(select_Value).val());
             }
-        });
+        }
         //Need Ajax Call here 
         PageMethods.SetProjectDependency(button_id, map_Name, nselect_arr);
+        
 
         //Taking the value of the risks
         var risk_val = document.getElementById("riskText").value.toString();
@@ -174,6 +188,9 @@ $(document).ready(function () {
         });
         //Need Ajax Call here
         PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
+        ndep_arr = [];
+        nselect_arr = [];
+        nlink_arr = [];
 
         $('#inputModal').modal('hide');
 
@@ -224,11 +241,13 @@ $(document).ready(function () {
 
                  fill_dep(idep_arr);
                  fill_options(ioption_arr);
-                 fill_select(iselect_arr);
-              
+                 fill_select(iselect_arr); 
                  fill_link(ilink_arr);
 
-
+                 idep_arr = [];
+                 ioptions_arr = [];
+                 iselect_arr = [];
+                 ilink_arr = [];
              },
              error: function (xhr) {
                  console.log("error");
@@ -355,6 +374,11 @@ $(document).ready(function () {
                 //Geting Options
                 disoption_arr = response.d[6];
                 disoption_total = disoption_arr.length;
+
+                disdep_arr = [];
+                dissel_arr = [];
+                dislink_arr = [];
+                disoption_arr = [];
             },
             error: function (xhr) {
                 console.log("error");
