@@ -113,10 +113,9 @@ namespace RocketRoadmap
                 //< a href = "#" id = 'StratDelete0' style = "color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                 delete = new HyperLink();
                 delete.ID = "StratDelete" + count.ToString();
-                delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                 delete.Attributes.Add("class", "remove_strat");
                 delete.Text = " X";
-                delete.Target="#";
                 cell1.Controls.Add(delete);
 
                 
@@ -295,10 +294,9 @@ namespace RocketRoadmap
 
                     delete = new HyperLink();
                     delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Delete";
-                    delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
-                    delete.Attributes.Add("class", "remove_strat");
+                    //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                    delete.Attributes.Add("class", "remove_bus");
                     delete.Text = " X";
-                    delete.Target = "#";
                     NextInputCell.Controls.Add(delete);
 
 
@@ -364,12 +362,12 @@ namespace RocketRoadmap
                         //< a id = "StratBox0BusBox0ProjBox0Delete" href = "#" style = "color:white; font-size:20px; vertical-align:-3px" class="remove_proj"> X</a>
                         delete = new HyperLink();
                         delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + (valcount - 1).ToString() + "ProjBox" + projCount.ToString() + "Delete";
-                        delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
-                        delete.Attributes.Add("class", "remove_strat");
+                        //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                        delete.Attributes.Add("class", "remove_proj");
                         delete.Text = " X";
-                        delete.Target = "#";
+
                         lastCell.Controls.Add(delete);
-                        lastCell.Controls.Add(new LiteralControl("<br />"));
+                        //lastCell.Controls.Add(new LiteralControl("<br />"));
 
                         projCount++;
 
@@ -380,7 +378,7 @@ namespace RocketRoadmap
 
                         newprojText.Name = "DynmaicTextBox";
                         newprojText.ID = "StratBox" + (count-1).ToString() + "BusBox" + (valcount-1).ToString() + "ProjBox" + projCount.ToString();
-                        newprojText.Attributes.Add("class", "txtProj");
+                        newprojText.Attributes.Add("class", "txtProjDel");
                         newprojText.Attributes.Add("placeholder", "Add Project");
                         newprojText.Attributes.Add("runat", "server");
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
@@ -427,13 +425,7 @@ namespace RocketRoadmap
 
                 stratCell.Controls.Add(busVal);
 
-                //delete = new HyperLink();
-                //delete.ID = "StratBoxBusBox0Delete";
-                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
-                //delete.Attributes.Add("class", "remove_strat");
-                //delete.Text = "X";
-                //delete.Target = "#";
-                //stratCell.Controls.Add(delete);
+
 
 
 
@@ -446,7 +438,7 @@ namespace RocketRoadmap
                 projText.Attributes.Add("runat", "server");
                 projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
                 stratCell.Controls.Add(projText);
-                stratCell.Controls.Add(new LiteralControl("<br />"));
+                //stratCell.Controls.Add(new LiteralControl("<br />"));
 
                 lastRow.Cells.Add(cell1);
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
