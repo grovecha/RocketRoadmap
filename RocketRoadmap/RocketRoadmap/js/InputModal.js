@@ -3,6 +3,16 @@ Created by Eric Nartker
 Contains input modal Onclick
 **/
 
+
+var button_id;
+function showModal(id) {
+    button_id = id.substr(0, id.length - 3)
+    if (panel_close == false) {
+        $("#inputModal").modal("show");
+    } else if (panel_close == true) {
+        $("#displayModal").modal("show");
+    }
+}
 var FullScreen = false;
 var panel_close = false;
 $("#menu-toggle").click(function (e) {
@@ -26,10 +36,10 @@ $("#menu-toggle").click(function (e) {
         $(".timeline").draggable("disable");
         $(".proj1").bind("mouseover");
         $(".proj1").bind("mouseout");
-        $(".proj2").bind("mouseover");
-        $(".proj2").bind("mouseout");
-        $(".proj3").bind("mouseover");
-        $(".proj3").bind("mouseout");
+        //$(".proj2").bind("mouseover");
+        //$(".proj2").bind("mouseout");
+        //$(".proj3").bind("mouseover");
+        //$(".proj3").bind("mouseout");
 
         $(".proj1").css("cursor", "auto");
         $(".proj2").css("cursor", "auto");
@@ -47,10 +57,10 @@ $("#menu-toggle").click(function (e) {
         $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
         $(".proj1").unbind("mouseover");
         $(".proj1").unbind("mouseout");
-        $(".proj2").unbind("mouseover");
-        $(".proj2").unbind("mouseout");
-        $(".proj3").unbind("mouseover");
-        $(".proj3").unbind("mouseout");
+        //$(".proj2").unbind("mouseover");
+        //$(".proj2").unbind("mouseout");
+        //$(".proj3").unbind("mouseover");
+        //$(".proj3").unbind("mouseout");
 
         $(".proj1").css("cursor", "e-resize");
         $(".proj2").css("cursor", "e-resize");
@@ -61,15 +71,7 @@ $("#menu-toggle").click(function (e) {
 
 });
 
-var button_id;
-function showModal(id) {
-    button_id = id.substr(0, id.length - 3)
-    if (panel_close == false) {
-        $("#inputModal").modal("show");
-    } else if (panel_close == true) {
-        $("#displayModal").modal("show");
-    }
-}
+
 
 
 $(document).ready(function () {
@@ -152,6 +154,8 @@ $(document).ready(function () {
         //Taking the value of the description
         var description_val = document.getElementById("descText").value.toString();
         PageMethods.SetProjectDescription(button_id, map_Name, description_val);
+        var risk_val = document.getElementById("riskText").value.toString();
+        PageMethods.SetProjectRisk(button_id, map_Name, risk_val);
 
 
         //Taking the string dependecy- in a list of string??
@@ -162,6 +166,14 @@ $(document).ready(function () {
         });
         //Need Ajax Post Call here?
         PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
+        //Select Dependecy value
+        $('input[name=link_input]').each(function () {
+            if ($(this).val() != null) {
+                nlink_arr.push($(this).val());
+            }
+        });
+        //Need Ajax Call here
+        PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
         
 
 
@@ -177,17 +189,9 @@ $(document).ready(function () {
         
 
         //Taking the value of the risks
-        var risk_val = document.getElementById("riskText").value.toString();
-        PageMethods.SetProjectRisk(button_id, map_Name, risk_val);
 
-        //Select Dependecy value
-        $('input[name=link_input]').each(function () {
-            if ($(this).val() != null) {
-                nlink_arr.push($(this).val());
-            }
-        });
-        //Need Ajax Call here
-        PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
+
+
         ndep_arr = [];
         nselect_arr = [];
         nlink_arr = [];
