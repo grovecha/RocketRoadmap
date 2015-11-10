@@ -253,6 +253,7 @@ namespace RocketRoadmap.DB
 
                 projects.Add(temp);
             }
+            mReader.Close();
             mDatabase.close();
 
             return projects;

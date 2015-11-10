@@ -868,6 +868,7 @@ namespace RocketRoadmap
         public static void SetProjectStrDependency(string ProjectID, string RoadmapName, string[] string_dep)
         {
             List<string> Dep_Names = new List<string>();
+            List<string> Dep_Names2 = new List<string>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -892,8 +893,12 @@ namespace RocketRoadmap
             {
                 if (!string_dep.Contains(s))
                 {
-                    Dep_Names.Remove(s);
+                    Dep_Names2.Add(s);
                 }
+            }
+            foreach(string s in Dep_Names2)
+            {
+                Dep_Names.Remove(s);
             }
 
             newproj.UpdateDependantStrings(Dep_Names);
