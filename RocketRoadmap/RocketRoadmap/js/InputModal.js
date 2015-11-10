@@ -403,7 +403,7 @@ $(document).ready(function () {
                 nlink_arr.push($(this).val());
             }
         });
-        for (select_x = 0; select_x < load_select_count; select_x++) {
+        for (select_x = 0; select_x < total_select_count; select_x++) {
             select_Value = "#select_input" + select_x;
             if ($(select_Value).val() != "No Project") {
                 nselect_arr.push($(select_Value).val());

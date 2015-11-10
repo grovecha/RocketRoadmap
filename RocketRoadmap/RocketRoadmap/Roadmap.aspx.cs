@@ -309,15 +309,6 @@ namespace RocketRoadmap
                     {
                         bustextbox.Attributes.Add("ProjTotal", (projCount + 1).ToString());
 
-
-                        //HtmlInputButton projBut = new HtmlInputButton();
-                        //projBut.ID = proj.GetName() + "But";
-                        //projBut.Attributes.Add("value", "proj" + (projCount + 1).ToString());
-                        //projBut.Attributes.Add("onclick", "showModal(this.id)");
-                        //projBut.Attributes.Add("class", "proj" + (projCount + 1).ToString());
-                        //projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
-                        //projBut.Value = proj.GetDescription();
-
                         bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1 ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
                             "<span>" + proj.GetDescription() + "</span>" +
                             "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>" +
