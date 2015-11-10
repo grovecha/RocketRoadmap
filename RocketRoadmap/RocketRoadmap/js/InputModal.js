@@ -18,9 +18,14 @@ var panel_close = false;
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
     if (panel_close == false) {
+        // the sidebar is closed and we are in presentation mode (Display)
+        document.getElementById("sidebar-wrapper").setAttribute("Present", "true");                     //how to get that bool
+                                                                                                        // document.getElementById("sidebar-wrapper").GetAttribute("Present);
         panel_close = true;
     } else if (panel_close == true) {
+        // the side bar is open and we are in edit mode
         panel_close = false;
+        document.getElementById("sidebar-wrapper").setAttribute("Present", "false");
     }
         
     $("#wrapper").toggleClass("toggled");
