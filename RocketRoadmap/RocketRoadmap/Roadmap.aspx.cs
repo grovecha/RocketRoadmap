@@ -28,9 +28,9 @@ namespace RocketRoadmap
             string url = Request.Url.AbsoluteUri;
             int index = url.IndexOf("=");
             string name = HttpUtility.UrlDecode(url.Substring(index + 1));
-            
 
-           // roadmapnamelabel.InnerText = name;
+
+            // roadmapnamelabel.InnerText = name;
             RoadMap roadmap = new RoadMap(name);
 
             List<StrategyPoint> strats = roadmap.GetStrategyPoints();
@@ -65,7 +65,7 @@ namespace RocketRoadmap
                 but.Name = "Strat";
                 but.ID = "StratBut" + count.ToString();
                 but.Style.Add(HtmlTextWriterStyle.Height, "100px");
-                but.Attributes.Add("class","StratVis");
+                but.Attributes.Add("class", "StratVis");
                 but.Value = p.GetDescription();
 
                 HtmlInputText textbox;
@@ -113,14 +113,13 @@ namespace RocketRoadmap
                 //< a href = "#" id = 'StratDelete0' style = "color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                 delete = new HyperLink();
                 delete.ID = "StratDelete" + count.ToString();
-                delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                 delete.Attributes.Add("class", "remove_strat");
                 delete.Text = " X";
-                delete.Target="#";
                 cell1.Controls.Add(delete);
 
-                
-                
+
+
 
                 HtmlButton deletebutton = new HtmlButton();
 
@@ -194,7 +193,7 @@ namespace RocketRoadmap
                         bc1.ID = b.GetName() + "td";
                         bc1.Attributes.Add("class", "projtd");
                         //bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
-                        
+
 
                         visRow.Cells.Add(bc1);
                         visRow.Cells.Add(new HtmlTableCell());
@@ -217,7 +216,7 @@ namespace RocketRoadmap
 
                         HtmlTableRow newPRow = new HtmlTableRow();
                         StratVisTable.Rows.Add(newPRow);
-                       // newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
+                        // newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
                         newPRow.Attributes.Add("class", "RowVis");
 
 
@@ -274,17 +273,17 @@ namespace RocketRoadmap
 
                     HtmlTableRow NextRow = new HtmlTableRow();
 
-                    NextRow.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "Row";
+                    NextRow.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Row";
 
                     NextInputCell = new HtmlTableCell();
 
-                    NextInputCell.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "inputtd";
+                    NextInputCell.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "inputtd";
 
                     HtmlInputText NextBox = new HtmlInputText();
 
                     NextBox.Attributes.Add("class", "txtBus");
                     NextBox.Attributes.Add("ProjTotal", "1");
-                    NextBox.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString();
+                    NextBox.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString();
                     NextBox.Attributes.Add("placeholder", "Add Business Value");
                     NextBox.Attributes.Add("runat", "server");
                     NextBox.Attributes.Add("onkeyup", "addBus(event,this," + valcount.ToString() + ")");
@@ -295,10 +294,9 @@ namespace RocketRoadmap
 
                     delete = new HyperLink();
                     delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Delete";
-                    delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
-                    delete.Attributes.Add("class", "remove_strat");
+                    //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                    delete.Attributes.Add("class", "remove_bus");
                     delete.Text = " X";
-                    delete.Target = "#";
                     NextInputCell.Controls.Add(delete);
 
 
@@ -320,12 +318,12 @@ namespace RocketRoadmap
                         //projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
                         //projBut.Value = proj.GetDescription();
 
-                        bc1.InnerHtml =bc1.InnerHtml+ "<div id=\"" + proj.GetName() + "But" + "\" onclick=\"showModal(this.id)\" onmouseover=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj" + (projCount+1).ToString()+" ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
-                            "<span>" + proj.GetDescription() + "</span>"+
-                            "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>"+
-                            "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>"+
-                            "</div>"+
-                            "<div class=\"space\" id=\""+proj.GetName()+"space\"></div>";
+                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" onclick=\"showModal(this.id)\" onmouseover=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj" + (projCount + 1).ToString() + " ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
+                            "<span>" + proj.GetDescription() + "</span>" +
+                            "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>" +
+                            "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>" +
+                            "</div>" +
+                            "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
 
 
@@ -364,12 +362,20 @@ namespace RocketRoadmap
                         //< a id = "StratBox0BusBox0ProjBox0Delete" href = "#" style = "color:white; font-size:20px; vertical-align:-3px" class="remove_proj"> X</a>
                         delete = new HyperLink();
                         delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + (valcount - 1).ToString() + "ProjBox" + projCount.ToString() + "Delete";
-                        delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
-                        delete.Attributes.Add("class", "remove_strat");
+                        //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                        delete.Attributes.Add("class", "remove_proj");
                         delete.Text = " X";
-                        delete.Target = "#";
-                        lastCell.Controls.Add(delete);
-                        lastCell.Controls.Add(new LiteralControl("<br />"));
+
+                        if(count==1 && valcount==1 && projCount==0)
+                        {
+                            StratBox0BusBox0projDiv.Controls.Add(delete);
+                        }
+                        else
+                        {
+                            lastCell.Controls.Add(delete);
+                        }
+
+                        //lastCell.Controls.Add(new LiteralControl("<br />"));
 
                         projCount++;
 
@@ -379,8 +385,8 @@ namespace RocketRoadmap
                         newprojText = new HtmlInputText();
 
                         newprojText.Name = "DynmaicTextBox";
-                        newprojText.ID = "StratBox" + (count-1).ToString() + "BusBox" + (valcount-1).ToString() + "ProjBox" + projCount.ToString();
-                        newprojText.Attributes.Add("class", "txtProj");
+                        newprojText.ID = "StratBox" + (count - 1).ToString() + "BusBox" + (valcount - 1).ToString() + "ProjBox" + projCount.ToString();
+                        newprojText.Attributes.Add("class", "txtProjDel");
                         newprojText.Attributes.Add("placeholder", "Add Project");
                         newprojText.Attributes.Add("runat", "server");
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
@@ -398,7 +404,7 @@ namespace RocketRoadmap
                     nextText = new HtmlInputText();
 
                     nextText.Name = "DynmaicTextBox";
-                    nextText.ID = "StratBox" + (count-1).ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
+                    nextText.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
                     nextText.Attributes.Add("class", "txtProjDel");
                     nextText.Attributes.Add("placeholder", "Add Project");
                     nextText.Attributes.Add("runat", "server");
@@ -427,13 +433,7 @@ namespace RocketRoadmap
 
                 stratCell.Controls.Add(busVal);
 
-                //delete = new HyperLink();
-                //delete.ID = "StratBoxBusBox0Delete";
-                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
-                //delete.Attributes.Add("class", "remove_strat");
-                //delete.Text = "X";
-                //delete.Target = "#";
-                //stratCell.Controls.Add(delete);
+
 
 
 
@@ -446,7 +446,7 @@ namespace RocketRoadmap
                 projText.Attributes.Add("runat", "server");
                 projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
                 stratCell.Controls.Add(projText);
-                stratCell.Controls.Add(new LiteralControl("<br />"));
+                //stratCell.Controls.Add(new LiteralControl("<br />"));
 
                 lastRow.Cells.Add(cell1);
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
@@ -578,7 +578,7 @@ namespace RocketRoadmap
 
 
 
-        
+
         #region Modal Getters
         //Get Project Name (What is written on the button)
         [WebMethod]
@@ -770,7 +770,7 @@ namespace RocketRoadmap
             RoadMap map = new RoadMap(RoadmapName);
             All_proj = map.GetAllProjects();
 
-            foreach(Project p in All_proj)
+            foreach (Project p in All_proj)
             {
                 return_string.Add(p.GetDescription());
             }
@@ -790,7 +790,7 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
-            
+
             List<string> DepStr = new List<string>();
             List<string> DepProj = new List<string>();
             List<string> Link = new List<string>();
@@ -930,10 +930,11 @@ namespace RocketRoadmap
                 cflag = false;
                 foreach (string pd in proj_dep)
                 {
-                    if(pd == s.GetDescription()) {
-                        foreach(Project p in P_list)
+                    if (pd == s.GetDescription())
+                    {
+                        foreach (Project p in P_list)
                         {
-                            if(p.GetDescription() == s.GetDescription())
+                            if (p.GetDescription() == s.GetDescription())
                             {
                                 cflag = true;
                             }
@@ -958,13 +959,13 @@ namespace RocketRoadmap
                         dflag = true;
                     }
                 }
-                if(dflag == false)
+                if (dflag == false)
                 {
-                    P_list2.Add(s);  
+                    P_list2.Add(s);
                 }
             }
 
-            foreach(Project x in P_list2)
+            foreach (Project x in P_list2)
             {
                 newproj.DeleteDependant(x);
             }
