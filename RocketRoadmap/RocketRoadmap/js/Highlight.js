@@ -28,29 +28,29 @@ function Highlight(id) {
         data: JSON.stringify(disvalue),
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            for (dep_x = 0; dep_x < dep_arr.length; dep_x++) {
-                dep_char = "#" + response.d[dep_x];
-                dep_arr.push(dep_arr);
+            for (dep_x = 0; dep_x < response.d.length; dep_x++) {
+                dep_char = "#" + response.d[dep_x] + "But";
+                dep_arr.push(dep_char);
             }
-            cheche(dep_arr);
+            color(dep_arr);
         },
         error: function (xhr) {
             console.log("error");
         },
     });
 
-    function cheche(dep_arr) {
+    function color(id) {
 
-        $(cheche).css('border-style', 'solid');
-        $(cheche).css('border-color', 'orange');
-        $(cheche).css('border-width', '.2em');
+        $(id).css('border-style', 'solid');
+        $(id).css('border-color', 'orange');
+        $(id).css('border-width', '.2em');
     }
 
-    function Uncheche(dep_arr) {
+    function Uncolor(id) {
 
-        $(cheche).css('border-style', 'none');
-        $(cheche).css('border-color', 'none');
-        $(cheche).css('border-width', '0');
+        $(id).css('border-style', 'none');
+        $(id).css('border-color', 'none');
+        $(id).css('border-width', '0');
     }
 
     }
@@ -63,5 +63,6 @@ function UnHighlight(id) {
     $(cheche).css('border-color', 'none');
     $(cheche).css('border-width', '0');
 
-    Uncheche(dep_arr);
+    Uncolor(dep_arr);
+    dep_arr = null;
 }
