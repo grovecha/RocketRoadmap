@@ -250,7 +250,6 @@ namespace RocketRoadmap.DB
             while (mReader.Read())
             {
                 Project temp = new Project(mReader.GetString(0), mReader.GetString(1), mReader.GetString(2), mReader.GetString(3));
-
                 projects.Add(temp);
             }
             mReader.Close();
