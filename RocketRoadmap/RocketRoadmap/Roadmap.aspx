@@ -101,7 +101,7 @@
                         <tr id="StratBox0BusBox0Row">
                          <td id ="StratBox0BusBox0Cell" runat="server">
                            <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                            <div id="StratBox0BusBox0projDiv">   
+                            <div id="StratBox0BusBox0projDiv" runat="server">   
                              <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
                             </div>
                           
@@ -273,7 +273,8 @@
 <!-- Data Input -->
         <style>
         .txtStrat {
-            width: 200px;
+           
+            width: 150px;
             height:30px;
             margin-left: 0px;
             font-family:Arial;
@@ -321,14 +322,8 @@
         }
 
        .StratVis{
-          /*  background-color:white;
-            
-            width:150px;
-            border-right-style:dashed;
-            border-bottom-style:solid;
-            border-left-style:none;
-            border-top-style:none;
-            border-color:#D3D3D3;*/
+              word-break: break-all;
+            white-space: normal;
             -moz-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
 	        -webkit-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
 	        box-shadow:inset 0px -3px 7px 0px #7a1c1c;
@@ -352,6 +347,7 @@
 	        padding:9px 23px;
 	        text-decoration:none;
 	        text-shadow:0px 1px 0px #263666;
+            width: 150px;
 
        }
 
