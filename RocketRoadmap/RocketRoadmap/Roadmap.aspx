@@ -276,6 +276,7 @@
             width: 200px;
             height:30px;
             margin-left: 0px;
+            font-family:Arial;
         }
         .btnDelete {
             height: 32px;
@@ -285,16 +286,22 @@
             width: 180px;
             height: 30px;
             margin-left: 20px;
+            font-family:Arial;
+
         }
         .txtProj {
             width: 160px;
             height: 30px;
             margin-left: 40px;
+            font-family:Arial;
+
         }
         .txtProjDel {
             width: 160px;
             height: 30px;
             margin-left: 40px;
+            font-family:Arial;
+
         }
         .btnStrat{
             height:200px;
@@ -305,7 +312,7 @@
         .space {
           
               left: 200px;  
-              width: 90px; height: 10px; background-color:white
+              width: 90px; height: 10px; background-color:#e6f2c6
         }
        span {
           display: inline-block;
@@ -314,14 +321,37 @@
         }
 
        .StratVis{
-            background-color:white;
+          /*  background-color:white;
             
             width:150px;
             border-right-style:dashed;
             border-bottom-style:solid;
             border-left-style:none;
             border-top-style:none;
-            border-color:#D3D3D3;
+            border-color:#D3D3D3;*/
+            -moz-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+	        -webkit-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+	        box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+        	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5121b), color-stop(1, #b5121b));
+        	background:-moz-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+        	background:-webkit-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+        	background:-o-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	        background:-ms-linear-gradient(top, #b5121b 5%, #b5121b 100%);
+	        background:linear-gradient(to bottom, #b5121b 5%, #b5121b 100%);
+	        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5121b', endColorstr='b5121b',GradientType=0);
+	        background-color:#b5121b;
+	        -moz-border-radius:3px;
+	        -webkit-border-radius:3px;
+	        border-radius:3px;
+	        border:1px solid #3c521e;
+	        display:inline-block;
+	        cursor:pointer;
+	        color:#f5f5f5;
+	        font-family:Arial;
+	        font-size:15px;
+	        padding:9px 23px;
+	        text-decoration:none;
+	        text-shadow:0px 1px 0px #263666;
 
        }
 
@@ -329,32 +359,32 @@
            height:100px;
            border-width: 1px;
            border-bottom-style:solid;
-           border-left-color: #D3D3D3;
+           background-color: #e6f2c6;
        }
        .CellVis{
            width:100px;
            text-align:right;
-           background-color:white;
+           background-color:#e6f2c6;
            padding:0;
 
        }
        .NewCellVis {
-           background-color: white;
+           background-color: #e6f2c6;
        }
 
        .projtd {
            padding:0;
            width: 2500px;
+           background-color:#e6f2c6;
        }
 
        .ProjVis{
-
        }
 
        .BusVis {
            width: 100px;
            text-align:right;
-           background-color: white;
+           background-color: #e6f2c6;
            padding:0
        }
 
@@ -407,7 +437,7 @@
  
 }
 .proj1, .proj2, .proj3 {
-  background-color: deepskyblue;
+  background-color:  deepskyblue;
   width: 150px;
   height: 20px;
   display: block;
@@ -420,9 +450,8 @@
     position: absolute;
     display: block;
     border-top: 10px solid transparent;
-    border-left: 10px solid white;
-    border-bottom: 10px solid transparent;
-    
+    border-left: 10px solid #e6f2c6;
+    border-bottom: 10px solid transparent;    
 }
 
    
