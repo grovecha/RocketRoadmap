@@ -318,7 +318,7 @@ namespace RocketRoadmap
                         //projBut.Attributes.Add("style", "height: 33px; width: 150px; vertical-align: top; background-color: green;");
                         //projBut.Value = proj.GetDescription();
 
-                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" onclick=\"showModal(this.id)\" onmouseover=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj" + (projCount + 1).ToString() + " ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
+                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" onclick=\"showModal(this.id)\" onmouseover=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1 ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
                             "<span>" + proj.GetDescription() + "</span>" +
                             "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>" +
                             "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>" +
@@ -366,7 +366,7 @@ namespace RocketRoadmap
                         delete.Attributes.Add("class", "remove_proj");
                         delete.Text = " X";
 
-                        if(count==1 && valcount==1 && projCount==0)
+                        if (count == 1 && valcount == 1 && projCount == 0)
                         {
                             StratBox0BusBox0projDiv.Controls.Add(delete);
                         }
@@ -375,7 +375,6 @@ namespace RocketRoadmap
                             lastCell.Controls.Add(delete);
                         }
 
-                        //lastCell.Controls.Add(new LiteralControl("<br />"));
 
                         projCount++;
 
