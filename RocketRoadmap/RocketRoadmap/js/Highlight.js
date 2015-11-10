@@ -16,9 +16,7 @@ function Highlight(id) {
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
     map_Name = decodeURIComponent(map_Name.substr(2, map_Name.length));
 
-    $(cheche).css('border-style', 'solid');
-    $(cheche).css('border-color', 'red');
-    $(cheche).css('border-width', '.2em');
+    $(cheche).css('background-color', 'yellow');
 
     var disvalue = { 'ProjectID': button_id, 'RoadmapName': map_Name };
     $.ajax({
@@ -38,31 +36,28 @@ function Highlight(id) {
             console.log("error");
         },
     });
+}
 
     function color(id) {
-
-        $(id).css('border-style', 'solid');
-        $(id).css('border-color', 'orange');
-        $(id).css('border-width', '.2em');
+        var id_x;
+        for (id_x = 0; id_x < id.length; id_x++) {
+            $(id[id_x]).css('background-color', 'orange');
+        }
     }
 
     function Uncolor(id) {
-
-        $(id).css('border-style', 'none');
-        $(id).css('border-color', 'none');
-        $(id).css('border-width', '0');
+        var id_x;
+        for (id_x = 0; id_x < id.length; id_x++) {
+            $(id[id_x]).css('background-color', 'deepskyblue');
+        }
     }
 
+    function UnHighlight(id) {
+
+        var cheche = "#" + id;
+
+        $(cheche).css('background-color', 'deepskyblue');
+
+        Uncolor(dep_arr);
+        dep_arr = [];
     }
-
-function UnHighlight(id) {
-
-    var cheche = "#" + id;
-
-    $(cheche).css('border-style', 'none');
-    $(cheche).css('border-color', 'none');
-    $(cheche).css('border-width', '0');
-
-    Uncolor(dep_arr);
-    dep_arr = null;
-}
