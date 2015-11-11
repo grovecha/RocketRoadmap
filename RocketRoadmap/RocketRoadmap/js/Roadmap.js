@@ -431,10 +431,10 @@ function addProj(e, obj, i) {
                 element1.innerHTML =  NewValue;
             }
             //element1.style.verticalAlign = "top";
-            element1.setAttribute("ondblclick", "showMode(this.id)");
+            element1.setAttribute("ondblclick", "showModal(this.id)");
             element1.setAttribute("onclick", "Highlight(this.id)");
-            element1.setAttribute("onresize", "disableModal()");
-            element1.setAttribute("ondrag", "disableModal()");
+            //element1.setAttribute("onresize", "disableModal()");
+            //element1.setAttribute("ondrag", "disableModal()");
             element1.setAttribute("onmouseleave", "UnHighlight(this.id)");
 
             ////set class, location of more than 3 projects will be the 3rd location
