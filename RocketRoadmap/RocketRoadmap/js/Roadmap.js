@@ -1,4 +1,4 @@
-﻿var changing = false;
+﻿var changing = true;
 var dragging = false;
 
 

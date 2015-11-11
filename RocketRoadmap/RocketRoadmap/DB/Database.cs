@@ -56,6 +56,7 @@ namespace RocketRoadmap.DB
             cmd.Connection = mConnection;
 
 
+            cmd.CommandTimeout = 60;
             reader = cmd.ExecuteReader();
 
             return reader;
@@ -89,7 +90,7 @@ namespace RocketRoadmap.DB
                 int rows=timestamp.ExecuteNonQuery();
 
             }
-
+            cmd.CommandTimeout = 60;
             return (cmd.ExecuteNonQuery()!=0);
         }
     }
