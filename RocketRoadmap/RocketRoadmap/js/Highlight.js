@@ -5,7 +5,7 @@ Emily Klopfer
 
 
 var depon_arr = [];
-var depof_arr
+var depof_arr = [];
 
 function Highlight(id) {
     var cheche = "#" + id;
@@ -69,6 +69,8 @@ function UnHighlight(id) {
 
     $(cheche).css('background-color', 'deepskyblue');
 
-    Uncolor(dep_arr);
-    dep_arr = [];
+    Uncolor(depon_arr);
+    Uncolor(depof_arr);
+    depon_arr = [];
+    depof_arr = [];
 }
