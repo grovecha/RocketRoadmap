@@ -2,29 +2,28 @@
 Created by Eric Nartker
 Contains input modal Onclick
 **/
-
-
+var FullScreen = false;
 var button_id;
 function showModal(id) {
     button_id = id.substr(0, id.length - 3)
-    if (panel_close == false) {
+    if (FullScreen == false) {
         $("#inputModal").modal("show");
-    } else if (panel_close == true) {
+    } else if (FullScreen == true) {
         $("#displayModal").modal("show");
     }
 }
-var FullScreen = false;
-var panel_close = false;
+
+
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
-    if (panel_close == false) {
+    console.log(FullScreen);
+    if (FullScreen == false) {
         // the sidebar is closed and we are in presentation mode (Display)
-        document.getElementById("sidebar-wrapper").setAttribute("Present", "true");                     //how to get that bool
-                                                                                                        // document.getElementById("sidebar-wrapper").GetAttribute("Present);
-        panel_close = true;
-    } else if (panel_close == true) {
+        document.getElementById("sidebar-wrapper").setAttribute("Present", "true");                    
+        
+    } else if (FullScreen == true) {
         // the side bar is open and we are in edit mode
-        panel_close = false;
+        
         document.getElementById("sidebar-wrapper").setAttribute("Present", "false");
     }
         
@@ -39,12 +38,6 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable("disable");
         $(".proj3").resizable("disable");
         $(".timeline").draggable("disable");
-        $(".proj1").bind("mouseover");
-        $(".proj1").bind("mouseout");
-        //$(".proj2").bind("mouseover");
-        //$(".proj2").bind("mouseout");
-        //$(".proj3").bind("mouseover");
-        //$(".proj3").bind("mouseout");
 
         $(".proj1").css("cursor", "auto");
         $(".proj2").css("cursor", "auto");
@@ -60,17 +53,17 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable({ axis: "x" });
         $(".proj3").resizable({ handles: 'e, w' });
         $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
-        $(".proj1").unbind("mouseover");
-        $(".proj1").unbind("mouseout");
-        //$(".proj2").unbind("mouseover");
-        //$(".proj2").unbind("mouseout");
-        //$(".proj3").unbind("mouseover");
-        //$(".proj3").unbind("mouseout");
 
-        $(".proj1").css("cursor", "e-resize");
-        $(".proj2").css("cursor", "e-resize");
-        $(".proj3").css("cursor", "e-resize");
-        $(".timeline").css("cursor", "e-resize");
+        $(".proj1").draggable("enable");
+        $(".proj1").resizable("enable");
+        $(".proj2").draggable("enable");
+        $(".proj2").resizable("enable");
+        $(".proj3").draggable("enable");
+        $(".proj3").resizable("enable");
+        $(".timeline").draggable("enable");
+
+
+
     }
 
 
@@ -123,6 +116,8 @@ $(document).ready(function () {
         var desc_Value = "";
         var risk_Value = "";
 
+
+
         //FILLING THE TITLE
         var pr = { 'ProjectID': button_id, 'RoadmapName': map_Name };
         var br = { 'RoadmapName': map_Name };
@@ -137,6 +132,7 @@ $(document).ready(function () {
                  $('#input_title').html(response.d[2][0]);//fill in title
                  $('#descText').val(response.d[0][0]);//fill in description
                  $('#riskText').val(response.d[1][0]);//fill in risk
+
                  //Getting Dep String array   
                  idep_arr = response.d[3];
                  dep_total = idep_arr.length;
@@ -430,3 +426,6 @@ $(document).ready(function () {
 
     });
 });
+
+
+

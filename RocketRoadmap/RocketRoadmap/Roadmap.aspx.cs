@@ -277,7 +277,7 @@ namespace RocketRoadmap
 
                     NextInputCell = new HtmlTableCell();
 
-                    NextInputCell.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "inputtd";
+                    NextInputCell.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Cell";
 
                     HtmlInputText NextBox = new HtmlInputText();
 
@@ -349,6 +349,7 @@ namespace RocketRoadmap
                         {
                             newprojText.Value = proj.GetDescription();
                         }
+                        lastCell.ID = b.GetName() + "Cell";
 
                         //< a id = "StratBox0BusBox0ProjBox0Delete" href = "#" style = "color:white; font-size:20px; vertical-align:-3px" class="remove_proj"> X</a>
                         delete = new HyperLink();
@@ -357,15 +358,9 @@ namespace RocketRoadmap
                         delete.Attributes.Add("class", "remove_proj");
                         delete.Text = " X";
 
-                        if (count == 1 && valcount == 1 && projCount == 0)
-                        {
-                            StratBox0BusBox0projDiv.Controls.Add(delete);
-                        }
-                        else
-                        {
+                      
                             lastCell.Controls.Add(delete);
-                        }
-
+                 
 
                         projCount++;
 
