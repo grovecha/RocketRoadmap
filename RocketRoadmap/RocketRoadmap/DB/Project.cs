@@ -59,7 +59,7 @@ namespace RocketRoadmap.DB
                 }
             }
             catch { ;  }
-            mReader.Close();
+            if(mReader!=null) mReader.Close();
 
             //Grab risks this project owns
             SqlCommand cmd1 = new SqlCommand();
@@ -120,7 +120,6 @@ namespace RocketRoadmap.DB
             }
             mReader.Close();
 
-            mDatabase.connect();
             //Get Dependants NON PROJECT
             SqlCommand cmd5 = new SqlCommand();
             cmd5.CommandText = "SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
@@ -389,12 +388,13 @@ namespace RocketRoadmap.DB
         }
         public string QuickDBTest()
         {
+            
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "SELECT Name FROM [dbo].[Project] WHERE Name=@Name AND BusinessValueName=@BVName AND RoadmapName=@RName";
             cmd.Parameters.AddWithValue("@Name", "Tested");
             cmd.Parameters.AddWithValue("@BVName", "test");
             cmd.Parameters.AddWithValue("@Rname", "Test");
-
+            mDatabase.connect();
             mReader = mDatabase.executereadparams(cmd);
             if (mReader.HasRows)
             {
@@ -403,6 +403,7 @@ namespace RocketRoadmap.DB
                 mReader.Close();
                 return temp;
             }
+            mDatabase.close();
             return "";
         }
 

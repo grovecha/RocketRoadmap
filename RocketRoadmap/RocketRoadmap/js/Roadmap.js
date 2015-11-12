@@ -1,4 +1,4 @@
-﻿var changing = false;
+﻿var changing = true;
 var dragging = false;
 
 
@@ -17,9 +17,6 @@ function showTime() {
 
 function disableModal() {
     dragging = true;
-}
-function enableModal() {
-    dragging = false;
 }
 function showMode(id) {
     if (!dragging) {
@@ -250,11 +247,11 @@ function addStrat(e, obj, i) {
                             "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "'class='remove_strat'> X</a> <br />" +
                             '<table id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
                             '<tr id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
-                                '<td id="StratBox' + NewStratCount.toString() + 'BusBox0Cell">' +
+                                '<td id="StratBox' + NewStratCount.toString() + 'BuxBox0inputtd">' +
                             "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' class='remove_bus'> X</a><br />" +
-                            //'<div id="StratBox' + NewStratCount.toString() + 'BusBox0projDiv">' +
+                            '<div id="StratBox' + NewStratCount.toString() + 'BusBox0projDiv">' +
                             "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +
-                            //"</div>"
+                            "</div>"
                               '</td>' +
                             '</tr>' +
                             '</table>' +
@@ -384,13 +381,12 @@ function addBus(e, obj, i) {
             var RowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
             newrow = mainDiv.insertRow(RowIndex);
             newrow.setAttribute("id", CurrentBusId + "Row");
-            newrow.innerHTML = "<td id='"+CurrentBusId+"Cell'>" +
+            newrow.innerHTML = "<td id='"+CurrentBusId+"inputtd'>" +
                                 "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><a href='#' id='"+CurrentBusId + "Delete' class='remove_bus'> X</a><br />" +
-                             
+                                '<div id="'+CurrentBusId+'projDiv">' +
                                 "<input class='txtProjDel' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' />" +
-                             
+                                "</div>"
             "</td>";
-
             //place cursor in proj box         
             document.getElementById(obj.id +"ProjBox0").select();
         }
@@ -435,11 +431,11 @@ function addProj(e, obj, i) {
                 element1.innerHTML =  NewValue;
             }
             //element1.style.verticalAlign = "top";
-            element1.setAttribute("ondblclick", "showMode(this.id)");
+            element1.setAttribute("ondblclick", "showModal(this.id)");
             element1.setAttribute("onclick", "Highlight(this.id)");
-            element1.setAttribute("onresize", "disableModal()");
-            element1.setAttribute("ondrag", "disableModal()");
-            element1.setAttribute("onmouseleave", "UnHighlight(this.id); enableModal();");
+            //element1.setAttribute("onresize", "disableModal()");
+            //element1.setAttribute("ondrag", "disableModal()");
+            element1.setAttribute("onmouseleave", "UnHighlight(this.id)");
 
             ////set class, location of more than 3 projects will be the 3rd location
             if (CurrentProjCount > 2) {
@@ -471,7 +467,7 @@ function addProj(e, obj, i) {
             element2.setAttribute("href", "#");
             //element2.setAttribute("style", "color:white; font-size:20px; vertical-align:-3px")
             element2.className = 'remove_proj';
-            $("#" + BusId + "Cell").append(element2);
+            $("#" + BusId + "projDiv").append(element2);
         }
 
 
