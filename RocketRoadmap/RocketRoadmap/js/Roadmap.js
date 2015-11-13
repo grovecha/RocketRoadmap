@@ -416,7 +416,7 @@ function addProj(e, obj, i) {
         //if the project exists, change the value
        
         if (document.getElementById(obj.id + "But")) {
-            document.getElementById(obj.id + "But").innerHTML = obj.value;
+            document.getElementById(obj.id + "But").innerHTML = "<span style='display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;'>" + obj.value + "</span>";
         }
         else {
 
@@ -428,7 +428,7 @@ function addProj(e, obj, i) {
             var NewValue = obj.value;
             if (NewValue != "") {
                 
-                element1.innerHTML =  NewValue;
+                element1.innerHTML =  "<span style='display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;'>"+ NewValue+ "</span>";
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("ondblclick", "showModal(this.id)");
