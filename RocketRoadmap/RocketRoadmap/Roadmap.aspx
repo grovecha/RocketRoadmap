@@ -50,7 +50,7 @@
             <a class="navbar-brand navbar-left">Enterprise Roadmap Tool</a>
             <a class="navbar-brand navbar-left" href="home.aspx">Roadmap Home</a>
         </div>
-    <div class="container">
+    
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav pull-right">
@@ -59,7 +59,7 @@
             </ul>
         </div>
         <!-- /.navbar-collapse -->
-    </div>
+    
     <!-- /.container -->
 </nav>
     <br />
@@ -475,6 +475,10 @@
   position: relative;
   text-align: center;
     text-indent: 10px;
+    font-size: 19px;
+    
+    font-family: "Comic Sans MS", "Comic Sans";
+ 
 }
 .proj1:before, .proj2:before, .proj3:before {
     content: "";
@@ -483,6 +487,7 @@
     border-top: 10px solid transparent;
     border-left: 10px solid #e6f2c6;
     border-bottom: 10px solid transparent;    
+
 }
 textarea{resize:vertical; max-height:300px}
 
