@@ -20,16 +20,17 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[TickMark] SET Name =@name WHERE TimelineName = @Tname";
-            cmd.Parameters.AddWithValue("@Tname", tname);
-            cmd.Parameters.AddWithValue("@name", name);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mName = name;
-                toReturn = true;
+                cmd.CommandText = "UPDATE [dbo].[TickMark] SET Name =@name WHERE TimelineName = @Tname";
+                cmd.Parameters.AddWithValue("@Tname", tname);
+                cmd.Parameters.AddWithValue("@name", name);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mName = name;
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
@@ -39,16 +40,17 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name";
-            cmd.Parameters.AddWithValue("@X", X);
-            cmd.Parameters.AddWithValue("@name", name);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mXPlacement = X;
-                toReturn = true;
+                cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name";
+                cmd.Parameters.AddWithValue("@X", X);
+                cmd.Parameters.AddWithValue("@name", name);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mXPlacement = X;
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
