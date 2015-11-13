@@ -32,6 +32,7 @@ namespace RocketRoadmap.DB
         private List<Link> mLinks = new List<Link>();
         //Dependences (PROJECTS)
         private List<Project> mDependencies = new List<Project>();
+        private List<Project> mDependants = new List<Project>();
 
         private RocketRoadmap.DB.Database mDatabase =  new Database();
         private SqlDataReader mReader;
@@ -104,6 +105,18 @@ namespace RocketRoadmap.DB
             }
             mReader.Close();
 
+            //Grab project dependencies
+            SqlCommand cmd10 = new SqlCommand();
+            cmd3.CommandText = "SELECT P.Name, P.Description, P.BusinessValueName FROM ( SELECT DependantName, RoadmapName, ProjectName FROM Dependents AS D WHERE(DependantName = @Pname) AND(RoadmapName = @Rname)) AS S INNER JOIN Project AS P ON S.ProjectName = P.Name AND P.RoadmapName = S.RoadmapName ";
+            cmd3.Parameters.AddWithValue("@Pname", mName);
+            cmd3.Parameters.AddWithValue("@Rname", mRoadmapName);
+            mReader = mDatabase.executereadparams(cmd10);
+            while (mReader.Read())
+            {
+                mDependants.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mReader.GetString(2).ToString(), mRoadmapName));
+            }
+            mReader.Close();
+            //get project dependants
             SqlCommand cmd4 = new SqlCommand();
             cmd4.CommandText = "SELECT StartDate,EndDate FROM [dbo].[Project] WHERE Name=@name AND BusinessValueName=@BVName AND RoadmapName=@Rname";
             cmd4.Parameters.AddWithValue("@name", mName);
@@ -171,7 +184,6 @@ namespace RocketRoadmap.DB
         public string GetDescription() {
             return mDescription;
         }
-
 
         public bool SetModalDescription(string description)
         {
@@ -283,8 +295,9 @@ namespace RocketRoadmap.DB
         public List<Link> GetLinks() { return mLinks; }
         //public List<Issue> GetIssues() { return mIssues; }
         public List<Project> GetDependencies() { return mDependencies; }
+        public List<Project> GetDependants() { return mDependants; }
         #endregion
-        
+
         //Create and delete links in list and DB
         public bool CreateLink(Link link)
         {
@@ -386,6 +399,7 @@ namespace RocketRoadmap.DB
         {
             return mRiskString;
         }
+
         public string QuickDBTest()
         {
             
