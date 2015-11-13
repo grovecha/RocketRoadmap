@@ -620,10 +620,12 @@ namespace RocketRoadmap
 
         //Get Project Depencies
         [WebMethod]
-        public static string[] GetProjectDependencyArr(string ProjectID, string RoadmapName)
+        public static string[][] GetProjectDependencyArr(string ProjectID, string RoadmapName)
         {
-            List<string> Project_Names = new List<string>();
-            List<Project> Project_List = new List<Project>();
+            List<string> Depon_Names = new List<string>();
+            List<Project> Projecton_List = new List<Project>();
+            List<string> Depof_Names = new List<string>();
+            List<Project> Projectof_List = new List<Project>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -633,19 +635,42 @@ namespace RocketRoadmap
             StrategyPoint newpoint = map.GetPoint(point);
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
-            Project_List = newproj.GetDependencies();
+            Projecton_List = newproj.GetDependencies();
+            Projectof_List = newproj.GetDependants();
 
-
+            
             //for each project just get the project names 
-            foreach (Project p in Project_List)
+            foreach (Project p in Projecton_List)
             {
-                Project_Names.Add(p.GetName());
+                Depon_Names.Add(p.GetName());
 
             }
+            //for each project just get the project names 
+            foreach (Project p in Projectof_List)
+            {
+                Depof_Names.Add(p.GetName());
+
+            }
+            string[][] final_return = new string[2][];
+            int x = 0;
+            int y = 0;
+
+            foreach (string s in Depon_Names)
+            {
+                final_return[0][x] = s;
+                x++;
+            }
+            foreach (string s in Depof_Names)
+            {
+                final_return[0][y] = s;
+                y++;
+            }
+
+
 
             //Send name arrary
 
-            return Project_Names.ToArray<string>();
+            return final_return;
         }
         //Get Project Depencies
         [WebMethod]
