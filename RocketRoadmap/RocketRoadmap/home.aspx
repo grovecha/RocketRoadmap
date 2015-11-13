@@ -45,27 +45,17 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Enterprise Architecture Roadmap</a>
-        </div>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Enterprise Architecture Roadmap</a>
+    </div>
+        <div class="container">
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
-                </li>
-                <li>
-                    <a href="index.aspx">Logout</a>
-                </li>
-
+            <ul class="nav navbar-nav pull-right">
+                <li><input type="search" placeholder="Search for Roadmap"/></li>
+                <li><a data-toggle="modal" href="#roadModal" class="pull-left">New Roadmap</a></li>
+                <li><a href="index.aspx" class="pull-right">Logout</a></li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -122,7 +112,21 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
-
+<style>
+    input[type="search"]{
+          width: 300px;
+        height: 50px;
+        background: #2b303b;
+        border: none;
+        font-size: 10pt;
+        float: left;
+        color: #63717f;
+        padding-left: 45px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+    }
+</style>
 </form>
 </body>
 

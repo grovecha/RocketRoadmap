@@ -55,6 +55,8 @@ namespace RocketRoadmap.DB
             SqlDataReader reader;
             cmd.Connection = mConnection;
 
+
+            cmd.CommandTimeout = 60;
             reader = cmd.ExecuteReader();
 
             return reader;
@@ -77,8 +79,18 @@ namespace RocketRoadmap.DB
         {
 
             cmd.Connection = mConnection;
+            if (cmd.Parameters.Contains("@Rname"))
+            {
+              
+                SqlCommand timestamp = new SqlCommand();
+                timestamp.Connection = mConnection;
+                timestamp.CommandText = "UPDATE [dbo].[Roadmap] SET Timestamp=getdate() WHERE Name=@Roadmap";
+                timestamp.Parameters.AddWithValue("@Roadmap", cmd.Parameters["@Rname"].Value.ToString());
 
+                int rows=timestamp.ExecuteNonQuery();
 
+            }
+            cmd.CommandTimeout = 60;
             return (cmd.ExecuteNonQuery()!=0);
         }
     }

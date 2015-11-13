@@ -2,15 +2,29 @@
 Created by Eric Nartker
 Contains input modal Onclick
 **/
-
 var FullScreen = false;
-var panel_close = false;
+var button_id;
+function showModal(id) {
+    button_id = id.substr(0, id.length - 3)
+    if (FullScreen == false) {
+        $("#inputModal").modal("show");
+    } else if (FullScreen == true) {
+        $("#displayModal").modal("show");
+    }
+}
+
+
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
-    if (panel_close == false) {
-        panel_close = true;
-    } else if (panel_close == true) {
-        panel_close = false;
+    console.log(FullScreen);
+    if (FullScreen == false) {
+        // the sidebar is closed and we are in presentation mode (Display)
+        document.getElementById("sidebar-wrapper").setAttribute("Present", "true");                    
+        
+    } else if (FullScreen == true) {
+        // the side bar is open and we are in edit mode
+        
+        document.getElementById("sidebar-wrapper").setAttribute("Present", "false");
     }
         
     $("#wrapper").toggleClass("toggled");
@@ -24,12 +38,6 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable("disable");
         $(".proj3").resizable("disable");
         $(".timeline").draggable("disable");
-        $(".proj1").bind("mouseover");
-        $(".proj1").bind("mouseout");
-        $(".proj2").bind("mouseover");
-        $(".proj2").bind("mouseout");
-        $(".proj3").bind("mouseover");
-        $(".proj3").bind("mouseout");
 
         $(".proj1").css("cursor", "auto");
         $(".proj2").css("cursor", "auto");
@@ -45,31 +53,23 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").draggable({ axis: "x" });
         $(".proj3").resizable({ handles: 'e, w' });
         $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
-        $(".proj1").unbind("mouseover");
-        $(".proj1").unbind("mouseout");
-        $(".proj2").unbind("mouseover");
-        $(".proj2").unbind("mouseout");
-        $(".proj3").unbind("mouseover");
-        $(".proj3").unbind("mouseout");
 
-        $(".proj1").css("cursor", "e-resize");
-        $(".proj2").css("cursor", "e-resize");
-        $(".proj3").css("cursor", "e-resize");
-        $(".timeline").css("cursor", "e-resize");
+        $(".proj1").draggable("enable");
+        $(".proj1").resizable("enable");
+        $(".proj2").draggable("enable");
+        $(".proj2").resizable("enable");
+        $(".proj3").draggable("enable");
+        $(".proj3").resizable("enable");
+        $(".timeline").draggable("enable");
+
+
+
     }
 
 
 });
 
-var button_id;
-function showModal(id) {
-    button_id = id.substr(0, id.length - 3)
-    if (panel_close == false) {
-        $("#inputModal").modal("show");
-    } else if (panel_close == true) {
-        $("#displayModal").modal("show");
-    }
-}
+
 
 
 $(document).ready(function () {
@@ -82,9 +82,10 @@ $(document).ready(function () {
     var link_Text = $(".linkText"); //Link input wrapper
     var add_Link = $("#addLink"); //Add Link input
     var save = $("#save"); //Save button
-    var load_dep_count = 0; // loading dep counter
-    var load_select_count = 0; // loading select counter
-    var load_link_count = 0; // loading link counter
+    var total_dep_count = 0; // total dep counter
+    var total_select_count = 0; // total select counter
+    var total_link_count = 0; // total link counter
+   
     var options = ""; // used for the string of options a select has
     var load_options = "";
     var select_total = 0;
@@ -98,106 +99,6 @@ $(document).ready(function () {
     var map_Name = roadmap_url.substr(roadmap_url.indexOf('?') + 1);
     map_Name = decodeURIComponent(map_Name.substr(2, map_Name.length));
 
-    //Dependency addition Functions
-    $(add_Text).on("click", function (e) { //on add input button click
-        e.preventDefault();
-        if (load_dep_count < max_fields) { //max input box allowed
-            load_dep_count++; //text box increment
-            $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-        }
-    });
-
-    $(dep_Text).on("click", ".remove_field", function (e) { //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove();
-        dep_count--;
-
-    })
-
-    //Selection addition Functions
-    $(add_Select).on("click", function (e) { //on add input button click
-        e.preventDefault();
-        
-        //Add a selection
-        if (load_select_count < max_fields ) { //max input box allowed
-            var add_sel = "<div class='new_sel'><select id='select_input" + load_select_count + "'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
-            $(dep_Select).append(add_sel); //add input box
-            load_select_count++;
-        }
-    });
-    //Removing the selection dependency box
-    $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove();
-        load_select_count--;
-    })
-
-
-    //Links Addition Functions
-    $(add_Link).on("click", function (e) { //on add input button click
-        e.preventDefault();
-        if (load_link_count < max_fields) { //max input box allowed
-            
-            $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
-            load_link_count++; //text box increment
-        }
-    });
-    //Removing the link input box
-    $(link_Text).on("click", ".remove_field", function (e) { //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove();
-        load_link_count--;
-    })
-
-    //Running the Save on all pieces
-
-    $(save).click(function (e) {
-        //Taking the value of the description
-        var description_val = document.getElementById("descText").value.toString();
-        PageMethods.SetProjectDescription(button_id, map_Name, description_val);
-
-
-        //Taking the string dependecy- in a list of string??
-        $('input[name=dep_input]').each(function () {
-            if ($(this).val() != null) {
-                ndep_arr.push($(this).val());
-            }
-        });
-        //Need Ajax Post Call here?
-        PageMethods.SetProjectStrDependency(button_id, map_Name, ndep_arr);
-        
-
-
-        //Select Dependecy value
-        for (select_x = 0; select_x < load_select_count; select_x++) {
-            select_Value = "#select_input" + select_x;
-            if ( $(select_Value).val() != "No Project") {
-                nselect_arr.push($(select_Value).val());
-            }
-        }
-        //Need Ajax Call here 
-        PageMethods.SetProjectDependency(button_id, map_Name, nselect_arr);
-        
-
-        //Taking the value of the risks
-        var risk_val = document.getElementById("riskText").value.toString();
-        PageMethods.SetProjectRisk(button_id, map_Name, risk_val);
-
-        //Select Dependecy value
-        $('input[name=link_input]').each(function () {
-            if ($(this).val() != null) {
-                nlink_arr.push($(this).val());
-            }
-        });
-        //Need Ajax Call here
-        PageMethods.SetProjectLink(button_id, map_Name, nlink_arr);
-        ndep_arr = [];
-        nselect_arr = [];
-        nlink_arr = [];
-
-        $('#inputModal').modal('hide');
-
-      
-
-    });
-
     //Inserting boxes when reloading the modal depending on the project it will be connected to 
     $('#inputModal').on('show.bs.modal', function (e) {
         var idep_arr = []; // dependecy string array
@@ -207,10 +108,15 @@ $(document).ready(function () {
         var dep_x, select_x, link_x, options_x;// used in respective for loops
         var dep_val, select_val, link_val;
         var dep_total = 0, select_total = 0, link_total = 0, option_total = 0; //used as list lengths
+        var load_dep_count = 0; // loading dep counter
+        var load_select_count = 0; // loading select counter
+        var load_link_count = 0; // loading link counter
 
         var select_Value = ""
         var desc_Value = "";
         var risk_Value = "";
+
+
 
         //FILLING THE TITLE
         var pr = { 'ProjectID': button_id, 'RoadmapName': map_Name };
@@ -226,6 +132,7 @@ $(document).ready(function () {
                  $('#input_title').html(response.d[2][0]);//fill in title
                  $('#descText').val(response.d[0][0]);//fill in description
                  $('#riskText').val(response.d[1][0]);//fill in risk
+
                  //Getting Dep String array   
                  idep_arr = response.d[3];
                  dep_total = idep_arr.length;
@@ -265,7 +172,7 @@ $(document).ready(function () {
                 $(this).val(dep_array[load_dep_count]);
                 load_dep_count++;
             });
-
+            total_dep_count = load_dep_count;
         }
 
         function fill_options(option_array) {
@@ -280,7 +187,7 @@ $(document).ready(function () {
                 $(dep_Select).append("<div class='new_sel'><select id='select_input" + load_select_count + "'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");
                 load_select_count++;
             };
-            
+            total_select_count = load_select_count;
         }
         
         function fill_select(select_array) {
@@ -301,6 +208,7 @@ $(document).ready(function () {
                 $(this).val(link_array[load_link_count]);
                 load_link_count++;
             });
+            total_link_count = load_link_count;
         }
       
     });
@@ -430,4 +338,94 @@ $(document).ready(function () {
         deleteProj(this);
 
     });
+
+    //Dependency addition Functions
+    $(add_Text).on("click", function (e) { //on add input button click
+        e.preventDefault();
+        if (total_dep_count < max_fields) { //max input box allowed
+            $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>");
+            total_dep_count++; //text box increment//add input box
+        }
+    });
+
+    $(dep_Text).on("click", ".remove_field", function (e) { //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove();
+        total_dep_count--;
+
+    })
+
+    //Selection addition Functions
+    $(add_Select).on("click", function (e) { //on add input button click
+        e.preventDefault();
+
+        //Add a selection
+        if (total_select_count < max_fields) { //max input box allowed
+            var add_sel = "<div class='new_sel'><select id='select_input" + total_select_count + "'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
+            $(dep_Select).append(add_sel); //add input box
+            total_select_count++;
+        }
+    });
+    //Removing the selection dependency box
+    $(dep_Select).on("click", ".remove_field", function (e) { //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove();
+        total_select_count--;
+    })
+
+
+    //Links Addition Functions
+    $(add_Link).on("click", function (e) { //on add input button click
+        e.preventDefault();
+        if (total_link_count < max_fields) { //max input box allowed
+
+            $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+            total_link_count++; //text box increment
+        }
+    });
+    //Removing the link input box
+    $(link_Text).on("click", ".remove_field", function (e) { //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove();
+        total_link_count--;
+    })
+
+    //Running the Save on all pieces
+
+    $(save).click(function (e) {
+        //Taking the value of the description
+        var description_val = document.getElementById("descText").value.toString();
+        var risk_val = document.getElementById("riskText").value.toString();
+        //Taking the string dependecy- in a list of string??
+        $('input[name=dep_input]').each(function () {
+            if ($(this).val() != null) {
+                ndep_arr.push($(this).val());
+            }
+        });
+        $('input[name=link_input]').each(function () {
+            if ($(this).val() != null) {
+                nlink_arr.push($(this).val());
+            }
+        });
+        for (select_x = 0; select_x < total_select_count; select_x++) {
+            select_Value = "#select_input" + select_x;
+            if ($(select_Value).val() != "No Project") {
+                nselect_arr.push($(select_Value).val());
+            }
+        }
+        //Need Ajax Post Call here?
+        PageMethods.SetAll(button_id, map_Name, nselect_arr, nlink_arr, ndep_arr, description_val, risk_val);
+
+        total_dep_count = 0;
+        total_select_count = 0;
+        total_link_count = 0;
+        ndep_arr = [];
+        nselect_arr = [];
+        nlink_arr = [];
+
+        $('#inputModal').modal('hide');
+
+
+
+    });
 });
+
+
+
