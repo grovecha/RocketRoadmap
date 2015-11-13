@@ -205,6 +205,8 @@ namespace RocketRoadmap
             Button btn = (Button)sender;
             RoadMaps maps = new RoadMaps();
 
+            //ADD YES NO MODAL
+
             maps.DeleteRoadMap(btn.CommandArgument);
             Response.Redirect(Request.RawUrl);
         }

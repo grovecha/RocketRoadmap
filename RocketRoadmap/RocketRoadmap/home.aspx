@@ -90,11 +90,11 @@
 
 <!-- Page Content -->
 <header>
-    <h1 ID="name" runat="server"></h1>
+    <h1 ID="name" runat="server" ></h1>
 </header>
     <asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
 </asp:Table>
-<h1>All Roadmaps</h1>
+<h1 id ="all">All Roadmaps</h1>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
             <asp:TableHeaderCell>Name</asp:TableHeaderCell>
@@ -125,6 +125,12 @@
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
+    }
+    #name{
+    text-align: center;
+    }
+    #all{
+    text-align: center;
     }
 </style>
 </form>
