@@ -5,8 +5,20 @@ var dragging = false;
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
 
-function setPos(pos, width) {
-    
+function setProjPos(ProjId, pos, width) {
+    StratId = ProjId.split("BusBox")[0];
+    BusId = ProjId.split("ProjBox")[0];
+    var url = window.posation.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    PageMethods.SetProjPos(ProjId, mapName, StratId, BusId, pos, width);
+}
+
+function setTimePos(timeId, pos) {
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    PageMethods.SetProjPos(mapName, timeId, pos);
 }
 
 function showTime() {
@@ -47,6 +59,12 @@ function deleteTime(obj) {
 }
 function addTick(e, obj) {
     if (e.keyCode == 13) {
+        //map name
+        var url = window.location.href;
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+        mapName = mapName.substr(2, mapName.length).split('#')[0];
+
+        //add timeline
         var timeline = document.createElement("div");
         timeline.setAttribute("ondblclick","deleteTime(this)")
         timeline.className = "timeline";
@@ -54,7 +72,20 @@ function addTick(e, obj) {
         timeline.innerHTML = '<p  class="timelineText">' + obj.value + '</p>'
         var parent = document.getElementById("containment-wrapper");
         parent.appendChild(timeline);
-        $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+
+        //add timeline to database
+        PageMethods.AddTick(mapName, 0, obj.value);
+
+        //draggable, edit location function
+        $(".timeline").draggable({
+            axis: "x", containment: "#containment-wrapper",
+            stop: function (event, ui) {
+                console.log(this.id);
+                var pos = $("#" + this.id).offset().left;
+                console.log(pos);                
+                PageMethods.EditTickLocation(mapName, pos, this.id);
+            }
+        });
     }
 }
 
@@ -462,6 +493,7 @@ function addProj(e, obj, i) {
            
             $(".proj" + String(CurrentProjCount + 1)).draggable({
                 axis: "x",
+                containment: "#"+BusId+"td",
                 drag: function (event, ui) {
                     
                 },            
@@ -471,16 +503,51 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setPos(pos, width);
+                    setProjPos(pos, width);
                 }
             
             });
-            $(".proj" + String(CurrentProjCount + 1)).resizable({ handles: 'e, w' });
-            $(".proj3").draggable({ axis: "x" });
-            $(".proj3").resizable({ handles: 'e, w' });
+            $(".proj" + String(CurrentProjCount + 1)).resizable({
+                handles: 'e, w',
+                containment: "#"+BusId+"td",
+                       
+                stop: function (event, ui) {
+                    console.log(this.id);
+                    var pos = $("#" + this.id).offset().left;
+                    var width = $("#" + this.id).width();
+                    console.log(pos);
+                    console.log(width);
+                    setProjPos(pos, width);
+                }
+            });
+            $(".proj3").draggable({
+                axis: "x",
+                containment: "#" + BusId + "td",
+                drag: function (event, ui) {
 
-           
-
+                },
+                stop: function (event, ui) {
+                    console.log(this.id);
+                    var pos = $("#" + this.id).offset().left;
+                    var width = $("#" + this.id).width();
+                    console.log(pos);
+                    console.log(width);
+                    setProjPos(pos, width);
+                }
+            });
+            $(".proj3").resizable({
+                handles: 'e, w',
+                containment: "#" + BusId + "td",
+          
+                stop: function (event, ui) {
+                    console.log(this.id);
+                    var pos = $("#" + this.id).offset().left;
+                    var width = $("#" + this.id).width();
+                    console.log(pos);
+                    console.log(width);
+                    setProjPos(pos, width);
+                }
+            });
 
             var element2 = document.createElement('a');
             element2.innerHTML = " X";
