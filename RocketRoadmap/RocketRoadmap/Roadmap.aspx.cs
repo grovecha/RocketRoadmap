@@ -469,6 +469,7 @@ namespace RocketRoadmap
         {
             RoadMap map = new RoadMap(mapName);
             map.GetPoint(id).EditDescription(name);
+            
         }
 
         [WebMethod]
@@ -507,7 +508,7 @@ namespace RocketRoadmap
             Project newProj = new Project(id, name, valID, mapName);
 
             val.CreateNewProject(newProj);
-
+           
 
             //val.addProject(newProj);
         }
@@ -525,6 +526,40 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(valID);
             Project newproj = newval.GetProject(id);
             newproj.SetDescription(name);
+        }
+
+        [WebMethod]
+        public static void SetProjPos(string id, string mapName, string stratID, string BusID, float startPos, float width)
+        {
+            int pointindex = id.IndexOf("Bus");
+            int valindex = id.IndexOf("Proj");
+            string point = id.Substring(0, pointindex);
+            //string val = id.Substring(pointindex, valindex);
+            //string pro = id.Substring(valindex, -1);
+            RoadMap map = new RoadMap(mapName);
+            StrategyPoint newpoint = map.GetPoint(point);
+            BusinessValue newval = newpoint.GetBusinessValue(BusID);
+            Project newproj = newval.GetProject(id);
+
+            //set width and start position
+            
+        }
+
+        [WebMethod]
+        public static void AddTick(string mapName, int pos, string label)
+        {
+            RoadMap map = new RoadMap(mapName);        
+            TimeLine timeline = new TimeLine(mapName);
+
+            TickMark tickmark = new TickMark(label, pos);
+            timeline.NewTickMark(tickmark);
+        }
+
+        [WebMethod]
+        public static void EditTickLocation(string mapName, int pos, string label)
+        {
+            TickMark tickmark = new TickMark(label, pos);
+            tickmark.EditTickLocation(pos, mapName);          
         }
 
         [WebMethod]
@@ -636,7 +671,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
             Projecton_List = newproj.GetDependencies();
-            Projectof_List = newproj.GetDependants();
+            //Projectof_List = newproj.GetDependants();
 
             
             //for each project just get the project names 
