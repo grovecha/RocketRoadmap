@@ -5,6 +5,9 @@ var dragging = false;
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
 
+function setPos(pos, width) {
+    
+}
 
 function showTime() {
     if ($(".timeline").is(':visible')) {
@@ -456,10 +459,28 @@ function addProj(e, obj, i) {
             
 
             //enable draggability and resizability
-            $(".proj" + String(CurrentProjCount + 1)).draggable({ axis: "x" });
+           
+            $(".proj" + String(CurrentProjCount + 1)).draggable({
+                axis: "x",
+                drag: function (event, ui) {
+                    
+                },            
+                stop: function (event, ui) {
+                    console.log(this.id);
+                    var pos = $("#" + this.id).offset().left;
+                    var width = $("#" + this.id).width();
+                    console.log(pos);
+                    console.log(width);
+                    setPos(pos, width);
+                }
+            
+            });
             $(".proj" + String(CurrentProjCount + 1)).resizable({ handles: 'e, w' });
             $(".proj3").draggable({ axis: "x" });
             $(".proj3").resizable({ handles: 'e, w' });
+
+           
+
 
             var element2 = document.createElement('a');
             element2.innerHTML = " X";
