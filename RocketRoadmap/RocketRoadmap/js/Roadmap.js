@@ -1,5 +1,5 @@
 ﻿var changing = true;
-var dragging = false;
+var dragging = true;
 
 var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
 
