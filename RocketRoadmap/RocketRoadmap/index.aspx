@@ -11,7 +11,7 @@
 <body class="align">
 
 <div class="logo">
-    <img src="images/quicken-loans-logo.png" alt="logo" width="200" height="100" align="middle">
+  <img src="images/quicken-loans-logo.png" alt="logo" width="200" height="100" align="middle">
 </div>
 
 

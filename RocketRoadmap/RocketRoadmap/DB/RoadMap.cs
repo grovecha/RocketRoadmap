@@ -15,76 +15,96 @@ namespace RocketRoadmap.DB
         public RoadMap( string name )
         {
             mName = name;
-
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Timestamp, Description, UserID FROM [dbo].[Roadmap] WHERE Name =@Rname";
-            cmd.Parameters.AddWithValue("@Rname", name);
-
-            mReader = mDatabase.executereadparams(cmd);
-            mReader.Read();
-
-            mTimeStamp = mReader.GetDateTime(0);
-            mDescription = mReader.GetString(1);
-            string UID = mReader.GetString(2);
-
-            mDatabase.close();
-
-            mDatabase.connect();
-            SqlCommand cmd1 = new SqlCommand();
-            cmd1.CommandText = "SELECT Name, Email, Password FROM [dbo].[User] WHERE ID = @User";
-            cmd1.Parameters.AddWithValue("@User", UID);
-            mReader = mDatabase.executereadparams(cmd1);
-            mReader.Read();
-
-            mUser = new User(mReader.GetString(0), UID, mReader.GetString(1), mReader.GetString(2));
-
-            mDatabase.close();
-
-            mDatabase.connect();
-            SqlCommand cmd2 = new SqlCommand();
-            cmd2.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = @Rname";
-            cmd2.Parameters.AddWithValue("@Rname", mName);
-            mReader = mDatabase.executereadparams(cmd2);
-            mReader.Read();
-
-            //mTimeline = new TimeLine(mName);
-
-            mDatabase.close();
-
-            //Get the StrategyPoints
-            mDatabase.connect();
-            SqlCommand cmd3 = new SqlCommand();
-            cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY NAME ASC";
-            cmd3.Parameters.AddWithValue("@Rname", mName);
-            mReader = mDatabase.executereadparams(cmd3);
-            while (mReader.Read())
+            string UID;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), name);
-                mStrategyPoints.Add(sp);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Timestamp, Description, UserID FROM [dbo].[Roadmap] WHERE Name =@Rname";
+                    cmd.Parameters.AddWithValue("@Rname", name);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        Reader.Read();
+
+                        mTimeStamp = Reader.GetDateTime(0);
+                        mDescription = Reader.GetString(1);
+                        UID = Reader.GetString(2);
+                    }
+                }
+
+                using (SqlCommand cmd1 = new SqlCommand())
+                {
+                    cmd1.CommandText = "SELECT Name, Email, Password FROM [dbo].[User] WHERE ID = @User";
+                    cmd1.Parameters.AddWithValue("@User", UID);
+                    cmd1.Connection = conn;
+
+                    using (SqlDataReader Reader = cmd1.ExecuteReader())
+                    {
+                        Reader.Read();
+
+                        mUser = new User(Reader.GetString(0), UID, Reader.GetString(1), Reader.GetString(2));
+                    }
+                }
+
+                using (SqlCommand cmd2 = new SqlCommand())
+                {
+                    cmd2.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = @Rname";
+                    cmd2.Parameters.AddWithValue("@Rname", mName);
+                    cmd2.Connection = conn;
+                    using (SqlDataReader Reader = cmd2.ExecuteReader())
+                    {
+                        Reader.Read();
+                    }
+                    //mTimeline = new TimeLine(mName);
+                }
+
+                //Get the StrategyPoints
+                using (SqlCommand cmd3 = new SqlCommand())
+                {
+                    cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY NAME ASC";
+                    cmd3.Parameters.AddWithValue("@Rname", mName);
+                    cmd3.Connection = conn;
+
+                    using (SqlDataReader Reader = cmd3.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            StrategyPoint sp = new StrategyPoint(Reader.GetString(0), Reader.GetString(1), name);
+                            mStrategyPoints.Add(sp);
+                        }
+                    }
+                }
+                conn.Close();    
             }
-            mDatabase.close();
         }
 
         //Creates timeline with Name=name
         public bool CreateTimeLine(string name)
         {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, StartDate, EndDate, RoadmapName ) VALUES ( @Tname, @sdate, @edate, @Rname)";
-            cmd.Parameters.AddWithValue("@Tname", name);
-            cmd.Parameters.AddWithValue("@sdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@edate", DateTime.Now.AddYears(1));
-            cmd.Parameters.AddWithValue("@Rname", mName);
-            bool toReturn = false;
-
-            if (mDatabase.executewriteparam(cmd))
+            bool toReturn;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                mTimeline = new TimeLine(name);
-                toReturn = true;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, StartDate, EndDate, RoadmapName ) VALUES ( @Tname, @sdate, @edate, @Rname)";
+                    cmd.Parameters.AddWithValue("@Tname", name);
+                    cmd.Parameters.AddWithValue("@sdate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@edate", DateTime.Now.AddYears(1));
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
+                    toReturn = false;
+                   
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mTimeline = new TimeLine(name);
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
             }
-
-            mDatabase.close();
             return toReturn;
         }
 
@@ -92,17 +112,23 @@ namespace RocketRoadmap.DB
         public bool AddStrategyPoint(StrategyPoint point)
         {
             mStrategyPoints.Add(point);
+            bool flag;
 
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES (@Sname,@descrip,@Rname)";
-            cmd.Parameters.AddWithValue("@Sname", point.GetName());
-            cmd.Parameters.AddWithValue("@descrip", point.GetDescription());
-            cmd.Parameters.AddWithValue("@Rname", mName);
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES (@Sname,@descrip,@Rname)";
+                    cmd.Parameters.AddWithValue("@Sname", point.GetName());
+                    cmd.Parameters.AddWithValue("@descrip", point.GetDescription());
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
 
-            bool flag = mDatabase.executewriteparam(cmd);
-
-            mDatabase.close();
+                    conn.Open();
+                    flag = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
+            }
 
             return flag;
 
@@ -111,60 +137,75 @@ namespace RocketRoadmap.DB
         //Delete timeline
         public bool DeleteTimeLine()
         {
-            mDatabase.connect();
             bool toReturn = false;
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE FROM [dbo].[Timeline] WHERE RoadmapName = @Rname";
-            cmd.Parameters.AddWithValue("@Rname",mName);
-            if (mDatabase.executewriteparam(cmd))
-            {
-                mTimeline.ClearTicks();
-                toReturn = true;
-            }
 
-            mDatabase.close();
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[Timeline] WHERE RoadmapName = @Rname";
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mTimeline.ClearTicks();
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
         //Edit roadmap name
            public bool EditName( string newname )
            {
-               mDatabase.connect();
-               SqlCommand cmd = new SqlCommand();
-               cmd.CommandText = "UPDATE [dbo].[Roadmap] SET Name = @Rname WHERE Name =@oldname";
-               cmd.Parameters.AddWithValue("@Rname", newname);
-               cmd.Parameters.AddWithValue("@oldname", mName);
-
                bool toReturn = false;
-
-               if (mDatabase.executewriteparam(cmd))
+               using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
                {
-                   mName = newname;
-                   toReturn = true;
-               }
+                   using (SqlCommand cmd = new SqlCommand())
+                   {
+                       cmd.CommandText = "UPDATE [dbo].[Roadmap] SET Name = @Rname WHERE Name =@oldname";
+                       cmd.Parameters.AddWithValue("@Rname", newname);
+                       cmd.Parameters.AddWithValue("@oldname", mName);
+                       cmd.Connection = conn;
 
-               mDatabase.close();
+                       conn.Open();
+                       if (cmd.ExecuteNonQuery()!=0)
+                       {
+                           mName = newname;
+                           toReturn = true;
+                       }
+                       conn.Close();
+                   }
+               }
                return toReturn;
            }
 
         //Edit roadmap description
         public bool EditDescription(string desc)
         {
-            mDatabase.connect();
-
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Roadmap] SET Description = @descrip WHERE Name = @Rname";
-            cmd.Parameters.AddWithValue("@descrip", desc);
-            cmd.Parameters.AddWithValue("@Rname", mName);
             bool toReturn = false;
-
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                mDescription = desc;
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[Roadmap] SET Description = @descrip WHERE Name = @Rname";
+                    cmd.Parameters.AddWithValue("@descrip", desc);
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mDescription = desc;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
@@ -197,18 +238,28 @@ namespace RocketRoadmap.DB
             string selectname = null;
             if (isFirst) selectname = currname;
             else selectname = nextID;
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Description FROM [dbo].[StrategyPoint] WHERE Name=@sname AND RoadmapName=@Rname";
-            cmd.Parameters.AddWithValue("@sname", selectname);
-            cmd.Parameters.AddWithValue("@Rname", mName);
-            mReader = mDatabase.executereadparams(cmd);
-            if(mReader.HasRows){
-                mReader.Read();
-                nextdesc=mReader.GetString(0);
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Description FROM [dbo].[StrategyPoint] WHERE Name=@sname AND RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@sname", selectname);
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        if (Reader.HasRows)
+                        {
+                            Reader.Read();
+                            nextdesc = Reader.GetString(0);
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
             }
-            mReader.Close();
-            mDatabase.close();
 
             //Continue moving strat points up one
             StrategyPoint next = new StrategyPoint(nextID, nextdesc, mName);
@@ -224,17 +275,26 @@ namespace RocketRoadmap.DB
         public void ReloadStrategyPoints()
         {
             mStrategyPoints = new List<StrategyPoint>();
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = @Rname ORDER BY NAME ASC";
-            cmd.Parameters.AddWithValue("@Rname", mName);
-            mReader = mDatabase.executereadparams(cmd);
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                StrategyPoint sp = new StrategyPoint(mReader.GetString(0), mReader.GetString(1), mName);
-                mStrategyPoints.Add(sp);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName = @Rname ORDER BY NAME ASC";
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            StrategyPoint sp = new StrategyPoint(Reader.GetString(0), Reader.GetString(1), mName);
+                            mStrategyPoints.Add(sp);
+                        }
+                    }
+                    conn.Close();
+                }
             }
-            mDatabase.close();
         }
 
         //Gets all projects for a roadmap
@@ -242,19 +302,27 @@ namespace RocketRoadmap.DB
         {
             List<Project> projects = new List<Project>();
 
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name, Description, BusinessValueName, RoadmapName FROM [dbo].[Project] WHERE RoadmapName = @Rname ORDER BY NAME ASC";
-            cmd.Parameters.AddWithValue("@Rname", mName);
-            mReader = mDatabase.executereadparams(cmd);
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                Project temp = new Project(mReader.GetString(0), mReader.GetString(1), mReader.GetString(2), mReader.GetString(3));
-                projects.Add(temp);
-            }
-            mReader.Close();
-            mDatabase.close();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name, Description, BusinessValueName, RoadmapName FROM [dbo].[Project] WHERE RoadmapName = @Rname ORDER BY NAME ASC";
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
 
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            Project temp = new Project(Reader.GetString(0), Reader.GetString(1), Reader.GetString(2), Reader.GetString(3));
+                            projects.Add(temp);
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
+            }
             return projects;
         }
 
@@ -265,13 +333,22 @@ namespace RocketRoadmap.DB
             {
                 if (sp.GetName() == name) mStrategyPoints.Remove(sp);
             }
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname AND Name = @sname";
-            cmd.Parameters.AddWithValue("@Rname", mName);
-            cmd.Parameters.AddWithValue("@sname", name);
-            bool flag = mDatabase.executewriteparam(cmd);
-            mDatabase.close();
+
+            bool flag;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname AND Name = @sname";
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Parameters.AddWithValue("@sname", name);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    flag = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
+            }
 
             int index = (int)Char.GetNumericValue(name[8]);
 
@@ -307,8 +384,8 @@ namespace RocketRoadmap.DB
         private TimeLine mTimeline;
         private List<StrategyPoint> mStrategyPoints = new List<StrategyPoint>();
 
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+    //    private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+    //    private SqlDataReader mReader;
     
     }
 }

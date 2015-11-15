@@ -25,82 +25,105 @@ namespace RocketRoadmap.DB
        public bool Login()
        {
            if (mUserName == null) return false;
-           mDatabase.connect();
-           using (SqlCommand cmd = new SqlCommand())
+
+           using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
            {
-               cmd.CommandText = "SELECT Password FROM [dbo].[User] WHERE ID=@User";
-               cmd.Parameters.AddWithValue("@User", mUserName);
-               using (mReader = mDatabase.executereadparams(cmd))
+               using (SqlCommand cmd = new SqlCommand())
                {
-                   if (mReader.HasRows)
+                   cmd.CommandText = "SELECT Password FROM [dbo].[User] WHERE ID=@User";
+                   cmd.Parameters.AddWithValue("@User", mUserName);
+                   cmd.Connection = conn;
+
+                   conn.Open();
+                   using (SqlDataReader Reader = cmd.ExecuteReader())
                    {
-                       mReader.Read();
-                       if (mReader.GetString(0).ToString() == mPassword)
+                       if (Reader.HasRows)
                        {
-                           return true;
+                           Reader.Read();
+                           if (Reader.GetString(0).ToString() == mPassword)
+                           {
+                               return true;
+                           }
                        }
                    }
+                   conn.Close();
                }
            }
-           mDatabase.close();
            return false;
        }
         public bool EditName(string name)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "UPDATE [dbo].[User] SET Name =@User WHERE ID =@oldname";
-                cmd.Parameters.AddWithValue("@User", name);
-                cmd.Parameters.AddWithValue("@oldname", mUserName);
-                if (mDatabase.executewriteparam(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    mName = name;
-                    toReturn = true;
+                    cmd.CommandText = "UPDATE [dbo].[User] SET Name =@User WHERE ID =@oldname";
+                    cmd.Parameters.AddWithValue("@User", name);
+                    cmd.Parameters.AddWithValue("@oldname", mUserName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mName = name;
+                        toReturn = true;
+                    }
+                    conn.Close();
                 }
             }
 
-            mDatabase.close();
             return toReturn;
         }
 
         public bool EditEmail(string mail)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[User] SET Email =@mail WHERE ID =@User";
-            cmd.Parameters.AddWithValue("@mail", mail);
-            cmd.Parameters.AddWithValue("@User", mUserName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                mEmail = mail;
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[User] SET Email =@mail WHERE ID =@User";
+                    cmd.Parameters.AddWithValue("@mail", mail);
+                    cmd.Parameters.AddWithValue("@User", mUserName);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mEmail = mail;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
         public bool EditPassword(string pass)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[User] SET Password = @pass WHERE ID = @User";
-            cmd.Parameters.AddWithValue("@pass", pass);
-            cmd.Parameters.AddWithValue("@User", mUserName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                mPassword = pass;
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[User] SET Password = @pass WHERE ID = @User";
+                    cmd.Parameters.AddWithValue("@pass", pass);
+                    cmd.Parameters.AddWithValue("@User", mUserName);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mPassword = pass;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
@@ -114,8 +137,8 @@ namespace RocketRoadmap.DB
         private string mEmail;
         private string mPassword;
 
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+       // private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+      //  private SqlDataReader mReader;
     }
 
 }

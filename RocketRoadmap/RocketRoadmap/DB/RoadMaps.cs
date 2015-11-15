@@ -31,22 +31,28 @@ namespace RocketRoadmap.DB
         */
         public List<RoadMap> GetAllMaps()
         {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name TimelineID FROM [dbo].[RoadMap]";
-
-            mReader = mDatabase.executereadparams(cmd);
-
             List<RoadMap> Maps = new List<RoadMap>();
 
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0));
-                Maps.Add(map);
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name TimelineID FROM [dbo].[RoadMap]";
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            //create a new roadmap object and add to list
+                            RoadMap map = new RoadMap(Reader.GetString(0));
+                            Maps.Add(map);
+                        }
+                    }
+                    conn.Close();
+                }
+            }
             //return list of roadmaps
             return Maps;
         }
@@ -56,96 +62,121 @@ namespace RocketRoadmap.DB
         */
         public List<RoadMap> GetUserMaps(string username)
         {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID = @User";
-            cmd.Parameters.AddWithValue("@User", username);
-            mReader = mDatabase.executereadparams(cmd);
-
             List<RoadMap> maps = new List<RoadMap>();
 
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0));
-                maps.Add(map);
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID = @User";
+                    cmd.Parameters.AddWithValue("@User", username);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+
+                        while (Reader.Read())
+                        {
+                            //create a new roadmap object and add to list
+                            RoadMap map = new RoadMap(Reader.GetString(0));
+                            maps.Add(map);
+                        }
+                    }
+                    conn.Close();
+                }
+            }
             //return list of roadmaps
             return maps;
         }
 
         public List<List<string>> GetUserMapsInfo(string username)
         {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID =@User";
-            cmd.Parameters.AddWithValue("@User", username);
-            mReader = mDatabase.executereadparams(cmd);
-
             List<List<string>> maps = new List<List<string>>();
 
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                List<string> temp = new List<string>();
-                temp.Add(mReader.GetString(0));
-                temp.Add(username);
-                temp.Add(mReader.GetString(1));
-                temp.Add(mReader.GetDateTime(2).ToString());
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID =@User";
+                    cmd.Parameters.AddWithValue("@User", username);
+                    cmd.Connection = conn;
 
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            List<string> temp = new List<string>();
+                            temp.Add(Reader.GetString(0));
+                            temp.Add(username);
+                            temp.Add(Reader.GetString(1));
+                            temp.Add(Reader.GetDateTime(2).ToString());
 
-                maps.Add(temp);
+                            maps.Add(temp);
+                        }
+                    }
+                    conn.Close();
+                }
             }
-
-            mDatabase.close();
             //return list of roadmaps
             return maps;
         }
 
         public List<List<string>> GetAllMapsInfo()
         {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap]";
-
-            mReader = mDatabase.executereadparams(cmd);
-
             List<List<string>> maps = new List<List<string>>();
-
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                List<string> temp = new List<string>();
-                temp.Add(mReader.GetString(0));
-                temp.Add(mReader.GetString(1));
-                temp.Add(mReader.GetString(2));
-                temp.Add(mReader.GetDateTime(3).ToString());
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap]";
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            List<string> temp = new List<string>();
+                            temp.Add(Reader.GetString(0));
+                            temp.Add(Reader.GetString(1));
+                            temp.Add(Reader.GetString(2));
+                            temp.Add(Reader.GetDateTime(3).ToString());
 
 
-                maps.Add(temp);
+                            maps.Add(temp);
+                        }
+                    }
+                    conn.Close();
+                }
             }
-
-            mDatabase.close();
             //return list of roadmaps
             return maps;
         }
 
         public bool CreateTimeLine(string name, string rname)
         {
-            mDatabase.connect();
             bool toReturn = false;
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, StartDate, EndDate, RoadmapName ) VALUES ( @Tname, @sdate,@edate,@Rname)";
-            cmd.Parameters.AddWithValue("@Tname", name);
-            cmd.Parameters.AddWithValue("@sdate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@edate", DateTime.Now.AddYears(1));
-            cmd.Parameters.AddWithValue("@Rname", rname);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, StartDate, EndDate, RoadmapName ) VALUES ( @Tname, @sdate,@edate,@Rname)";
+                    cmd.Parameters.AddWithValue("@Tname", name);
+                    cmd.Parameters.AddWithValue("@sdate", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@edate", DateTime.Now.AddYears(1));
+                    cmd.Parameters.AddWithValue("@Rname", rname);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
@@ -154,61 +185,79 @@ namespace RocketRoadmap.DB
         **/
         public bool CreateRoadMap(string name, string description, string userid )
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( @Rname, @descrip, GETDATE(), @User)";
-            cmd.Parameters.AddWithValue("@Rname", name);
-            cmd.Parameters.AddWithValue("@descrip", description);
-            cmd.Parameters.AddWithValue("@User", userid);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                //create a new timeline
-                //CreateTimeLine(name, name);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "INSERT INTO [dbo].[RoadMap] ( Name, Description, Timestamp, UserID ) VALUES ( @Rname, @descrip, GETDATE(), @User)";
+                    cmd.Parameters.AddWithValue("@Rname", name);
+                    cmd.Parameters.AddWithValue("@descrip", description);
+                    cmd.Parameters.AddWithValue("@User", userid);
+                    cmd.Connection = conn;
 
-                toReturn = true;
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        //create a new timeline
+                        //CreateTimeLine(name, name);
+
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
             }
-            mDatabase.close();
-
             return toReturn;
         }
 
         public bool DeleteRoadMap(string name)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE FROM [dbo].[RoadMap] WHERE Name =@name";
-            cmd.Parameters.AddWithValue("@name", name);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[RoadMap] WHERE Name =@name";
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
         public List<RoadMap> Search( string key )
         {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID LIKE @key  OR Name LIKE @key OR Description LIKE @key";
-            cmd.Parameters.AddWithValue("@key", key);
-            mReader = mDatabase.executereadparams(cmd);
-
             List<RoadMap> maps = new List<RoadMap>();
-
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                //create a new roadmap object and add to list
-                RoadMap map = new RoadMap(mReader.GetString(0));
-                maps.Add(map);
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID LIKE @key  OR Name LIKE @key OR Description LIKE @key";
+                    cmd.Parameters.AddWithValue("@key", key);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            //create a new roadmap object and add to list
+                            RoadMap map = new RoadMap(Reader.GetString(0));
+                            maps.Add(map);
+                        }
+                    }
+                    conn.Close();
+                }
+            }
             //return list of roadmaps
             return maps;
         }
@@ -217,7 +266,7 @@ namespace RocketRoadmap.DB
 
         }
 
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+       // private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+       // private SqlDataReader mReader;
     }
 }
