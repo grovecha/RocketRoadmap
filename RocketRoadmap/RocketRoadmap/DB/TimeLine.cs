@@ -35,7 +35,11 @@ namespace RocketRoadmap.DB
                     cmd.Connection = conn;
 
                     conn.Open();
-                    cmd.ExecuteNonQuery();
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex) { }
                     conn.Close();
                 }
                 using (SqlCommand cmd2 = new SqlCommand())
@@ -68,8 +72,7 @@ namespace RocketRoadmap.DB
                         Reader.Read();
 
                         mName = Reader.GetString(0);
-                        mStartDate = Reader.GetDateTime(1);
-                        mEndDate = Reader.GetDateTime(2);
+
                     }
                     conn.Close();
                 }
