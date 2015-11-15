@@ -43,6 +43,9 @@ function showMode(id) {
 
 function enableDrag()
 {
+
+
+
     $(".proj1").draggable({ axis: "x" });
     $(".proj1").resizable({ handles: 'e, w' });
     $(".proj2").draggable({ axis: "x" });
@@ -50,6 +53,19 @@ function enableDrag()
     $(".proj3").draggable({ axis: "x" });
     $(".proj3").resizable({ handles: 'e, w' });
     $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+
+
+
+    $(".proj1").draggable("enable");
+    $(".proj1").resizable("enable");
+    $(".proj2").draggable("enable");
+    $(".proj2").resizable("enable");
+    $(".proj3").draggable("enable");
+    $(".proj3").resizable("enable");
+    $(".timeline").draggable("enable");
+
+
+
 }
 
 function deleteTime(obj) {
@@ -484,6 +500,8 @@ function addProj(e, obj, i) {
             else {
                 element1.setAttribute("class", "proj1");
             }
+
+
             var sNum = parseInt(StratId.split("StratBox")[1]);
             var colorNum = sNum % color.length;
 
