@@ -709,7 +709,7 @@ namespace RocketRoadmap
             BusinessValue newval = newpoint.GetBusinessValue(val);
             Project newproj = newval.GetProject(ProjectID);
             Projecton_List = newproj.GetDependencies();
-            //Projectof_List = newproj.GetDependants();
+            Projectof_List = newproj.GetDependants();
 
             
             //for each project just get the project names 
@@ -727,15 +727,17 @@ namespace RocketRoadmap
             string[][] final_return = new string[2][];
             int x = 0;
             int y = 0;
+            final_return[0] = new string[Depon_Names.Count];
+            final_return[1] = new string[Depof_Names.Count];
 
             foreach (string s in Depon_Names)
             {
                 final_return[0][x] = s;
-                x++;
+                x+=1;
             }
             foreach (string s in Depof_Names)
             {
-                final_return[0][y] = s;
+                final_return[1][y] = s;
                 y++;
             }
 
