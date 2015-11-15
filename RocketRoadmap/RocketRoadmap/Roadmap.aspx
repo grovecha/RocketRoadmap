@@ -465,7 +465,7 @@
     z-index: 5;
 }
 
-#containment-wrapper {position: absolute; left: 150px; width: 100%;   }
+#containmentWrapper {position: absolute; left: 150px; width: 100%;   }
 
  .proj1:after, .proj2:after, .proj3:after {
   color: black;

@@ -236,7 +236,7 @@ namespace RocketRoadmap.DB
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "UPDATE [dbo].[Project] SET Left=@left WHERE Name=@Pname AND RoadmapName=@Rname and BusinessValueName=@BVName";
+                    cmd.CommandText = "UPDATE [dbo].[Project] SET StartPosition=@left WHERE Name=@Pname AND RoadmapName=@Rname and BusinessValueName=@BVName";
                     cmd.Parameters.AddWithValue("@left", left);
                     cmd.Parameters.AddWithValue("@Pname", mName);
                     cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
