@@ -55,7 +55,7 @@ function Highlight(id) {
 function dependoncolor(id) {
     var id_x;
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'orange');
+        $(id[id_x]).css('background-color', 'deepskyblue');
     }
 }
 function dependantofcolor(id) {

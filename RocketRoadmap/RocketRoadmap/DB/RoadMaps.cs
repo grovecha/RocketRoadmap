@@ -241,7 +241,7 @@ namespace RocketRoadmap.DB
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID LIKE @key  OR Name LIKE @key OR Description LIKE @key";
+                    cmd.CommandText = "SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID LIKE @key OR Name LIKE @key OR Description LIKE @key";
                     cmd.Parameters.AddWithValue("@key", key);
                     cmd.Connection = conn;
 
