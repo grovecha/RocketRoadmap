@@ -13,7 +13,7 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> color = new List<string> { "#ff0000", "#33cc33", "#0066ff" };
+        List<string> color = new List<string> { "#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5" };
 
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace RocketRoadmap.DB
 {
@@ -19,8 +20,8 @@ namespace RocketRoadmap.DB
         private List<Project> mProjects = new List<Project>();
 
         //Database object and data reader
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+      //  private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+       // private SqlDataReader mReader;
 
         //CONSTRUCTOR
         public BusinessValue(string name, string rname)
@@ -29,43 +30,49 @@ namespace RocketRoadmap.DB
             mName = name;
             mRoadmapName = rname;
 
-            //Add projects (If business value already exists, and has projects)
-            mDatabase.connect();
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                
-                cmd.CommandText = "SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName=@Name AND RoadmapName =@Rname";
-                cmd.Parameters.AddWithValue("@Name", mName);
-                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-                using (mReader = mDatabase.executereadparams(cmd))
-                {
-                    while (mReader.Read())
-                    {
-                        mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName, mRoadmapName));
-                    }
-                    mReader.Close();
-                }
-            }
-            //Grab the description if the BV exists
-            using (SqlCommand cmd2 = new SqlCommand())
-            {
-                cmd2.CommandText = "SELECT Description FROM [dbo].[BusinessValue] WHERE Name=@Name AND RoadmapName=@Rname";
-                cmd2.Parameters.AddWithValue("@Name", mName);
-                cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+                conn.Open();
+                //Add projects (If business value already exists, and has projects)
 
-                using (mReader = mDatabase.executereadparams(cmd2))
+                //mDatabase.connect();
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    if (mReader.HasRows)
-                    {
-                        mReader.Read();
-                        mDescription = mReader.GetString(0).ToString();
-                        mReader.Close();
+                    cmd.CommandText = "SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName=@Name AND RoadmapName =@Rname";
+                    cmd.Parameters.AddWithValue("@Name", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
 
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            mProjects.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), mName, mRoadmapName));
+                        }
                     }
                 }
-            }
-            mDatabase.close();
+                //Grab the description if the BV exists
+                using (SqlCommand cmd2 = new SqlCommand())
+                {
+                    cmd2.CommandText = "SELECT Description FROM [dbo].[BusinessValue] WHERE Name=@Name AND RoadmapName=@Rname";
+                    cmd2.Parameters.AddWithValue("@Name", mName);
+                    cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd2.Connection = conn;
 
+
+                    using (SqlDataReader Reader = cmd2.ExecuteReader())
+                    {
+                        if (Reader.HasRows)
+                        {
+                            Reader.Read();
+                            mDescription = Reader.GetString(0).ToString();
+                            Reader.Close();
+
+                        }
+                    }
+                }
+                conn.Close();
+            }
         }
 
         //Add a project to the project list
@@ -85,19 +92,23 @@ namespace RocketRoadmap.DB
 
         public bool SetDescription(string descrip)
         {
-            mDescription = descrip;
             bool flag;
-            string descripset = "UPDATE [dbo].[BusinessValue] SET Description=@Descrip WHERE Name=@Name AND RoadmapName =@Rname";
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = descripset;
-                cmd.Parameters.AddWithValue("@Descrip", descrip);
-                cmd.Parameters.AddWithValue("@Name", mName);
-                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                mDescription = descrip;
+                string descripset = "UPDATE [dbo].[BusinessValue] SET Description=@Descrip WHERE Name=@Name AND RoadmapName =@Rname";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = descripset;
+                    cmd.Parameters.AddWithValue("@Descrip", descrip);
+                    cmd.Parameters.AddWithValue("@Name", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
+                    conn.Open();
 
-                mDatabase.connect();
-                flag = mDatabase.executewriteparam(cmd);
-                mDatabase.close();
+                    flag = (cmd.ExecuteNonQuery() != 0);
+                    conn.Close();
+                }
             }
             return flag;
 
@@ -105,26 +116,29 @@ namespace RocketRoadmap.DB
 
         public bool SetName(string name)
         {
-            mDatabase.connect();
-            using (SqlCommand cmd1 = new SqlCommand())
-            {
-                cmd1.CommandText = "UPDATE [dbo].[SP_BV_Crosswalk] SET BusinessValueName=@BVName WHERE BusinessValueName=@BVName1 AND RoadmapName=@Rname";
-                cmd1.Parameters.AddWithValue("@BVName", name);
-                cmd1.Parameters.AddWithValue("@BVName1", mName);
-                cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
-                bool flag1 = mDatabase.executewriteparam(cmd1);
-            }
             bool flag;
-            using (SqlCommand cmd2 = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd2.CommandText = "UPDATE [dbo].[BusinessValue] SET Name=@AddName WHERE Name=@BVName AND RoadmapName =@Rname";
-                cmd2.Parameters.AddWithValue("@AddName", name);
-                cmd2.Parameters.AddWithValue("@BVName", mName);
-                cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
-                flag = mDatabase.executewriteparam(cmd2);
+                conn.Open();
+                using (SqlCommand cmd1 = new SqlCommand())
+                {
+                    cmd1.CommandText = "UPDATE [dbo].[SP_BV_Crosswalk] SET BusinessValueName=@BVName WHERE BusinessValueName=@BVName1 AND RoadmapName=@Rname";
+                    cmd1.Parameters.AddWithValue("@BVName", name);
+                    cmd1.Parameters.AddWithValue("@BVName1", mName);
+                    cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    bool flag1 = cmd1.ExecuteNonQuery() != 0;
+                }
+                using (SqlCommand cmd2 = new SqlCommand())
+                {
+                    cmd2.CommandText = "UPDATE [dbo].[BusinessValue] SET Name=@AddName WHERE Name=@BVName AND RoadmapName =@Rname";
+                    cmd2.Parameters.AddWithValue("@AddName", name);
+                    cmd2.Parameters.AddWithValue("@BVName", mName);
+                    cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    flag = cmd2.ExecuteNonQuery() != 0;
+                }
                 mName = name;
+                conn.Close();
             }
-            mDatabase.close();
             return flag;
         }
         public string GetName() { return mName; }
@@ -159,20 +173,23 @@ namespace RocketRoadmap.DB
                 }
             }
             if (!flag) return false;
-            mDatabase.connect();
 
             //Delete in database
             bool flag2;
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.Parameters.AddWithValue("@Pname", name);
-                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-                cmd.Parameters.AddWithValue("@BVName", mName);
-                cmd.CommandText = "DELETE FROM [dbo].[Project] WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
-                flag2 = mDatabase.executewriteparam(cmd);
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@Pname", name);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Parameters.AddWithValue("@BVName", mName);
+                    cmd.CommandText = "DELETE FROM [dbo].[Project] WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+                    conn.Open();
+                    flag2 = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
             }
-            mDatabase.close();
-
             if (!flag2) return false;
 
             //Reorder projects below this
@@ -204,25 +221,28 @@ namespace RocketRoadmap.DB
             else selectname = nextID;
 
             //Select the description of the project to be moved
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "SELECT Description FROM [dbo].[Project] WHERE Name=@PName AND RoadmapName=@Rname AND BusinessValueName=@BVName";
-                cmd.Parameters.AddWithValue("@PName", selectname);
-                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-                cmd.Parameters.AddWithValue("@BVName", mName);
-                mDatabase.connect();
-                using (mReader = mDatabase.executereadparams(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    if (mReader.HasRows)
+                    cmd.CommandText = "SELECT Description FROM [dbo].[Project] WHERE Name=@PName AND RoadmapName=@Rname AND BusinessValueName=@BVName";
+                    cmd.Parameters.AddWithValue("@PName", selectname);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Parameters.AddWithValue("@BVName", mName);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
                     {
-                        mReader.Read();
-                        nextdesc = mReader.GetString(0);
-                        mReader.Close();
+                        if (Reader.HasRows)
+                        {
+                            Reader.Read();
+                            nextdesc = Reader.GetString(0);
+                            Reader.Close();
+                        }
                     }
+                    conn.Close();
                 }
             }
-            mDatabase.close();
-
             //Change the name of the project to reorder
             Project next = new Project(nextID,desc, mName, mRoadmapName);
             Project nextdummy = new Project(currname, nextdesc,mName,mRoadmapName);
@@ -231,47 +251,56 @@ namespace RocketRoadmap.DB
                 nextdummy.SetName(nextID);
                 ReorderProject(nextID, nextdesc, false);
             }
-            mDatabase.close();
         }
 
         //Reload project list.  Useful for reordering projects
         public void ReloadProjects()
         {
             mProjects = new List<Project>();
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName=@BVName AND RoadmapName =@Rname";
-                cmd.Parameters.AddWithValue("@BVName", mName);
-                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-
-                mDatabase.connect();
-                using (mReader = mDatabase.executereadparams(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    while (mReader.Read())
+                    cmd.CommandText = "SELECT Name, Description FROM [dbo].[Project] WHERE BusinessValueName=@BVName AND RoadmapName =@Rname";
+                    cmd.Parameters.AddWithValue("@BVName", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
+                    
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd.ExecuteReader())
                     {
-                        mProjects.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mName, mRoadmapName));
+                        while (Reader.Read())
+                        {
+                            mProjects.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), mName, mRoadmapName));
+                        }
+                        Reader.Close();
                     }
+                    conn.Close();
                 }
             }
-            mDatabase.close();
         }
 
         public bool CreateNewProject( Project proj)
         {
-            mDatabase.connect();
             try
             {
                 bool flag;
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
                 {
-                    cmd.CommandText = "INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName) VALUES ('" + proj.GetName() + "', '" + proj.GetDescription() + "','" + proj.GetBusinessValue() + "','" + mRoadmapName + "')";
-                    cmd.Parameters.AddWithValue("@PName", proj.GetName());
-                    cmd.Parameters.AddWithValue("@PDescrip", proj.GetDescription());
-                    cmd.Parameters.AddWithValue("@BVName", proj.GetBusinessValue());
-                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-                    flag = mDatabase.executewriteparam(cmd);
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName) VALUES ('" + proj.GetName() + "', '" + proj.GetDescription() + "','" + proj.GetBusinessValue() + "','" + mRoadmapName + "')";
+                        cmd.Parameters.AddWithValue("@PName", proj.GetName());
+                        cmd.Parameters.AddWithValue("@PDescrip", proj.GetDescription());
+                        cmd.Parameters.AddWithValue("@BVName", proj.GetBusinessValue());
+                        cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                        cmd.Connection = conn;
+
+                        conn.Open();
+                        flag = cmd.ExecuteNonQuery()!=0;
+                        conn.Close();
+                    }
                 }
-                mDatabase.close();
                 mProjects.Add(proj);
                 return flag;
             }
