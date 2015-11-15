@@ -19,24 +19,25 @@ namespace RocketRoadmap.DB
 
             //Get the StrategyPoints
             mDatabase.connect();
-            mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName = '" + rname + "' AND StrategyPointName ='" + mName + "'");
-            while (mReader.Read())
+            using (mReader = mDatabase.executeread("SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName = '" + rname + "' AND StrategyPointName ='" + mName + "'"))
             {
-                string temp = mReader.GetString(0);
-                BusinessValue bv = new BusinessValue(mReader.GetString(0), mRoadmapName);
-                mValues.Add(bv);
+                while (mReader.Read())
+                {
+                    string temp = mReader.GetString(0);
+                    BusinessValue bv = new BusinessValue(mReader.GetString(0), mRoadmapName);
+                    mValues.Add(bv);
+                }
             }
-            mDatabase.close();
 
             foreach (BusinessValue bv in mValues)
             {
-                mDatabase.connect();
-                mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + bv.GetName() + "' AND RoadmapName='" + mRoadmapName + "'");
-                if (mReader.HasRows)
+                using (mReader = mDatabase.executeread("SELECT Description FROM [dbo].[BusinessValue] WHERE Name='" + bv.GetName() + "' AND RoadmapName='" + mRoadmapName + "'"))
                 {
-                    mReader.Read();
-                    bv.SetDescription(mReader.GetString(0).ToString());
-                    mReader.Close();
+                    if (mReader.HasRows)
+                    {
+                        mReader.Read();
+                        bv.SetDescription(mReader.GetString(0).ToString());
+                    }
                 }
             }
             mDatabase.close();
@@ -54,17 +55,18 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText="UPDATE [dbo].[StrategyPoint] SET Name = @Sname WHERE Name =@oldname AND RoadmapName =@Rname";
-            cmd.Parameters.AddWithValue("@Sname", name);
-            cmd.Parameters.AddWithValue("@oldname", mName);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mName = name;
-                toReturn = true;
+                cmd.CommandText = "UPDATE [dbo].[StrategyPoint] SET Name = @Sname WHERE Name =@oldname AND RoadmapName =@Rname";
+                cmd.Parameters.AddWithValue("@Sname", name);
+                cmd.Parameters.AddWithValue("@oldname", mName);
+                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mName = name;
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
@@ -74,17 +76,18 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[StrategyPoint] SET Description = @desc WHERE Name = @Sname AND RoadmapName =@Rname";
-            cmd.Parameters.AddWithValue("@desc", desc);
-            cmd.Parameters.AddWithValue("@Sname", mName);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mDescription = desc;
-                toReturn = true;
+                cmd.CommandText = "UPDATE [dbo].[StrategyPoint] SET Description = @desc WHERE Name = @Sname AND RoadmapName =@Rname";
+                cmd.Parameters.AddWithValue("@desc", desc);
+                cmd.Parameters.AddWithValue("@Sname", mName);
+                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mDescription = desc;
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
@@ -107,21 +110,25 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             try
             {
+                bool flag;
                 //Add to both the BV table, and the BV/SP ownership table
-                SqlCommand cmd1 = new SqlCommand();
-                cmd1.CommandText = "INSERT INTO [dbo].[BusinessValue] (Name, Description, RoadmapName) VALUES (@BVName, @desc,@Rname)";
-                cmd1.Parameters.AddWithValue("@BVName", name);
-                cmd1.Parameters.AddWithValue("@desc", desc);
-                cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
-                bool flag = mDatabase.executewriteparam(cmd1);
-               
-                
-                SqlCommand cmd2 = new SqlCommand();
-                cmd2.CommandText = "INSERT INTO [dbo].[SP_BV_Crosswalk] (StrategyPointName, BusinessValueName, RoadmapName) VALUES (@Sname,@BVName,@Rname)";
-                cmd2.Parameters.AddWithValue("@BVName", name);
-                cmd2.Parameters.AddWithValue("@Sname", mName);
-                cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
-                flag = mDatabase.executewriteparam(cmd2);
+                using (SqlCommand cmd1 = new SqlCommand())
+                {
+                    cmd1.CommandText = "INSERT INTO [dbo].[BusinessValue] (Name, Description, RoadmapName) VALUES (@BVName, @desc,@Rname)";
+                    cmd1.Parameters.AddWithValue("@BVName", name);
+                    cmd1.Parameters.AddWithValue("@desc", desc);
+                    cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    flag = mDatabase.executewriteparam(cmd1);
+
+                }
+                using (SqlCommand cmd2 = new SqlCommand())
+                {
+                    cmd2.CommandText = "INSERT INTO [dbo].[SP_BV_Crosswalk] (StrategyPointName, BusinessValueName, RoadmapName) VALUES (@Sname,@BVName,@Rname)";
+                    cmd2.Parameters.AddWithValue("@BVName", name);
+                    cmd2.Parameters.AddWithValue("@Sname", mName);
+                    cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    flag = mDatabase.executewriteparam(cmd2);
+                }
                 mDatabase.close();
                 BusinessValue bis = new BusinessValue(name, rname);
                 bis.SetDescription(desc);
@@ -150,19 +157,24 @@ namespace RocketRoadmap.DB
 
             //Delete from both the BV table and the SP/BV ownership table
             mDatabase.connect();
-            SqlCommand cmd1 = new SqlCommand();
-            cmd1.CommandText = "DELETE FROM [dbo].[BusinessValue] WHERE Name=@BVName AND RoadmapName=@Rname";
-            cmd1.Parameters.AddWithValue("@BVName", name);
-            cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
-            bool flag2 = mDatabase.executewriteparam(cmd1);
+            bool flag2, flag3;
+            using (SqlCommand cmd1 = new SqlCommand())
+            {
+                cmd1.CommandText = "DELETE FROM [dbo].[BusinessValue] WHERE Name=@BVName AND RoadmapName=@Rname";
+                cmd1.Parameters.AddWithValue("@BVName", name);
+                cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                flag2 = mDatabase.executewriteparam(cmd1);
+            }
 
-            SqlCommand cmd2 = new SqlCommand();
-            cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE BusinessValueName=@BVName AND StrategyPointName=@Sname AND RoadmapName=@Rname";
-            cmd2.Parameters.AddWithValue("@BVName", name);
-            cmd2.Parameters.AddWithValue("@Sname", mName);
-            cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+            using (SqlCommand cmd2 = new SqlCommand())
+            {
+                cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE BusinessValueName=@BVName AND StrategyPointName=@Sname AND RoadmapName=@Rname";
+                cmd2.Parameters.AddWithValue("@BVName", name);
+                cmd2.Parameters.AddWithValue("@Sname", mName);
+                cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
 
-            bool flag3 = mDatabase.executewriteparam(cmd2);
+                flag3 = mDatabase.executewriteparam(cmd2);
+            }
             mDatabase.close();
 
             if (!flag2) return false;
@@ -195,17 +207,20 @@ namespace RocketRoadmap.DB
             if (isFirst) selectname = currname;
             else selectname = nextID;
             mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Description FROM [dbo].[BusinessValue] WHERE Name=@sname AND RoadmapName=@Rname";
-            cmd.Parameters.AddWithValue("@sname", selectname);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-
-            mReader = mDatabase.executereadparams(cmd);
-            if (mReader.HasRows)
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mReader.Read();
-                nextdesc = mReader.GetString(0);
-                mReader.Close();
+                cmd.CommandText = "SELECT Description FROM [dbo].[BusinessValue] WHERE Name=@sname AND RoadmapName=@Rname";
+                cmd.Parameters.AddWithValue("@sname", selectname);
+                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+
+                using (mReader = mDatabase.executereadparams(cmd))
+                {
+                    if (mReader.HasRows)
+                    {
+                        mReader.Read();
+                        nextdesc = mReader.GetString(0);
+                    }
+                }
             }
             mDatabase.close();
 
@@ -227,18 +242,21 @@ namespace RocketRoadmap.DB
         {
             mValues = new List<BusinessValue>();
             mDatabase.connect();
-            SqlCommand cmd1 = new SqlCommand();
-            cmd1.CommandText = "SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName = @Rname AND StrategyPointName =@Sname";
-            cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
-            cmd1.Parameters.AddWithValue("@Sname", mName);
-            mReader = mDatabase.executereadparams(cmd1);
-            while (mReader.Read())
+            using (SqlCommand cmd1 = new SqlCommand())
             {
-                string temp = mReader.GetString(0);
-                BusinessValue bv = new BusinessValue(mReader.GetString(0), mRoadmapName);
-                mValues.Add(bv);
+                cmd1.CommandText = "SELECT BusinessValueName FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName = @Rname AND StrategyPointName =@Sname";
+                cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                cmd1.Parameters.AddWithValue("@Sname", mName);
+                using (mReader = mDatabase.executereadparams(cmd1))
+                {
+                    while (mReader.Read())
+                    {
+                        string temp = mReader.GetString(0);
+                        BusinessValue bv = new BusinessValue(mReader.GetString(0), mRoadmapName);
+                        mValues.Add(bv);
+                    }
+                }
             }
-            mReader.Close();
             mDatabase.close();
 
             foreach(BusinessValue bv in mValues){

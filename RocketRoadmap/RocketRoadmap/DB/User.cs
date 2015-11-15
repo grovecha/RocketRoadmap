@@ -26,16 +26,20 @@ namespace RocketRoadmap.DB
        {
            if (mUserName == null) return false;
            mDatabase.connect();
-           SqlCommand cmd = new SqlCommand();
-           cmd.CommandText = "SELECT Password FROM [dbo].[User] WHERE ID=@User";
-           cmd.Parameters.AddWithValue("@User", mUserName);
-           mReader = mDatabase.executereadparams(cmd);
-           if (mReader.HasRows)
+           using (SqlCommand cmd = new SqlCommand())
            {
-               mReader.Read();
-               if (mReader.GetString(0).ToString() == mPassword)
+               cmd.CommandText = "SELECT Password FROM [dbo].[User] WHERE ID=@User";
+               cmd.Parameters.AddWithValue("@User", mUserName);
+               using (mReader = mDatabase.executereadparams(cmd))
                {
-                   return true;
+                   if (mReader.HasRows)
+                   {
+                       mReader.Read();
+                       if (mReader.GetString(0).ToString() == mPassword)
+                       {
+                           return true;
+                       }
+                   }
                }
            }
            mDatabase.close();
@@ -46,14 +50,16 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[User] SET Name =@User WHERE ID =@oldname";
-            cmd.Parameters.AddWithValue("@User", name);
-            cmd.Parameters.AddWithValue("@oldname", mUserName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mName = name;
-                toReturn = true;
+                cmd.CommandText = "UPDATE [dbo].[User] SET Name =@User WHERE ID =@oldname";
+                cmd.Parameters.AddWithValue("@User", name);
+                cmd.Parameters.AddWithValue("@oldname", mUserName);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mName = name;
+                    toReturn = true;
+                }
             }
 
             mDatabase.close();
