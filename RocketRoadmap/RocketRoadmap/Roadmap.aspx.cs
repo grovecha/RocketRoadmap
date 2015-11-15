@@ -579,11 +579,18 @@ namespace RocketRoadmap
         [WebMethod]
         public static void AddTick(string mapName, int pos, string label)
         {
-            RoadMap map = new RoadMap(mapName);        
-            TimeLine timeline = new TimeLine(mapName);
+            RoadMap map = new RoadMap(mapName);
+            TimeLine TL = map.GetTimeline();
 
+            if(TL== null)
+            {
+                map.CreateTimeLine(mapName);
+            }
+
+            TL = map.GetTimeline();
+            
             TickMark tickmark = new TickMark(label, pos);
-            timeline.NewTickMark(tickmark);
+            TL.NewTickMark(tickmark);
         }
 
         [WebMethod]
