@@ -13,10 +13,11 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
+        List<string> color = new List<string> { "#ff0000", "#33cc33", "#0066ff" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
             //User login check
             DB.User user = new DB.User((string)Session["username"], (string)Session["password"]);
             if (!user.Login())
@@ -64,8 +65,13 @@ namespace RocketRoadmap
                 HtmlInputButton but = new HtmlInputButton();
                 but.Name = "Strat";
                 but.ID = "StratBut" + count.ToString();
-                but.Style.Add(HtmlTextWriterStyle.Height, "100px");
+
                 but.Attributes.Add("class", "StratVis");
+
+                int colorNum = count % color.Count;
+
+                but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color[colorNum] + "), color-stop(1, " + color[colorNum] + ")); background:-moz-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-webkit-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-o-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-ms-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:linear-gradient(to bottom, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color[colorNum] + "', endColorstr='" + color[colorNum] + "',GradientType=0);");
+                but.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 but.Value = p.GetDescription();
 
                 HtmlInputText textbox;
@@ -309,7 +315,9 @@ namespace RocketRoadmap
                     {
                         bustextbox.Attributes.Add("ProjTotal", (projCount + 1).ToString());
 
-                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1 ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; \">" +
+                        colorNum = (count - 1) % color.Count;
+
+                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1 ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; background-color: "+color[colorNum]+";\">" +
                             "<span>" + proj.GetDescription() + "</span>" +
                             "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>" +
                             "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>" +
@@ -317,6 +325,7 @@ namespace RocketRoadmap
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
 
+                        //bc1.Style.Add(HtmlTextWriterStyle.BackgroundColor, color[colorNum]);
 
                         //bc1.Controls.Add(projBut);
 

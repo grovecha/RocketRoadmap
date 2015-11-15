@@ -432,7 +432,7 @@
  
 }
 .proj1, .proj2, .proj3 {
-  background-color:  deepskyblue;
+  background-color:  black;
   width: 150px;
   height: 20px;
   display: block;
