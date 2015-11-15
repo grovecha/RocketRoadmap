@@ -8,6 +8,7 @@ var depon_arr = [];
 var depof_arr = [];
 var dtemp1 = [];
 var dtemp2 = [];
+var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
 
 function Highlight(id) {
     var cheche = "#" + id;
@@ -66,16 +67,25 @@ function dependantofcolor(id) {
 
 function Uncolor(id) {
     var id_x;
+
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'deepskyblue');
+
+        var temp = id[id_x].split("StratBox");
+        temp = temp[1].split("BusBox")[0]
+        var c = color[temp%6];
+
+        $(id[id_x]).css('background-color', c);
     }
 }
 
 function UnHighlight(id) {
 
     var cheche = "#" + id;
+    var temp = id.split("StratBox");
+    temp = temp[1].split("BusBox")[0]
+    var c = color[temp%6];
 
-    $(cheche).css('background-color', 'deepskyblue');
+    $(cheche).css({ "background-color": c });
 
     Uncolor(depon_arr);
     Uncolor(depof_arr);
