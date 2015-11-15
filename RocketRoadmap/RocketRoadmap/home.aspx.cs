@@ -20,6 +20,7 @@ namespace RocketRoadmap
             mUser = new DB.User((string)Session["username"], (string)Session["password"]);
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
+            searchtable.Rows.Clear();
 
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
@@ -145,13 +146,13 @@ namespace RocketRoadmap
                             B1.Text = "X";
                             B1.CommandArgument = map[0];
                             B1.Click += new EventHandler(BtnHandler);
-                            B1.UseSubmitBehavior = false;
+                  
 
                             Button B2 = new Button();
                             B2.Text = "EDIT";
                             B2.CommandArgument = map[0];
                             B2.Click += new EventHandler(EditRoadmap);
-                            B2.UseSubmitBehavior = false;
+                         
 
                             HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
@@ -228,11 +229,33 @@ namespace RocketRoadmap
             RoadMaps maps = new RoadMaps();
             List<List<string>> L_map = new List<List<String>>();
             search_String = search_text.Text.ToString();
-            //L_map = maps.Search(search_String);
+            L_map = maps.Search(search_String);
             search_name.InnerText = "Search Results:";
 
             try
             {
+                TableHeaderRow uhead = new TableHeaderRow();
+
+                TableHeaderCell u1 = new TableHeaderCell();
+                TableHeaderCell u2 = new TableHeaderCell();
+                TableHeaderCell u3 = new TableHeaderCell();
+                TableHeaderCell u4 = new TableHeaderCell();
+                TableHeaderCell u5 = new TableHeaderCell();
+                TableHeaderCell u6 = new TableHeaderCell();
+
+                u1.Text = "Name";
+                u2.Text = "Author";
+                u3.Text = "Description";
+                u4.Text = "Timestamp";
+
+                uhead.Cells.Add(u1);
+                uhead.Cells.Add(u2);
+                uhead.Cells.Add(u3);
+                uhead.Cells.Add(u4);
+                uhead.Cells.Add(u5);
+                //uhead.Cells.Add(u6);
+
+                searchtable.Rows.Add(uhead);
 
                 foreach (var map in L_map)
                 {
@@ -248,7 +271,7 @@ namespace RocketRoadmap
                     B1.Text = "X";
                     B1.CommandArgument = map[0];
                     B1.Click += new EventHandler(BtnHandler);
-                    B1.UseSubmitBehavior = false;
+                   
 
                     Button B2 = new Button();
                     B2.Text = "EDIT";

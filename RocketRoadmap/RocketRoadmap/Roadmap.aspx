@@ -19,35 +19,31 @@
 
 
     <!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="home.aspx">Enterprise Architecture Roadmap</a>
-        </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a data-toggle="modal" href="#roadModal"> New Roadmap</a>
-                </li>
-                <li>
-                    <a href="index.aspx">Logout</a>
-                </li>
-           
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
+         <!-- Brand and toggle get grouped for better mobile display --> 
+         <div class="navbar-header"> 
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> 
+                 <span class="sr-only">Toggle navigation</span> 
+                 <span class="icon-bar"></span> 
+                 <span class="icon-bar"></span> 
+                 <span class="icon-bar"></span> 
+             </button> 
+             <a class="navbar-brand navbar-left">Enterprise Roadmap Tool</a> 
+             <a class="navbar-brand navbar-left" href="home.aspx">Roadmap Home</a> 
+         </div> 
+     <div class="container"> 
+         <!-- Collect the nav links, forms, and other content for toggling --> 
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+             <ul class="nav navbar-nav pull-right"> 
+                 <li><a href="#helpModal" data-toggle="modal" class ="navbar-right">User Guide</a> </li> 
+                 <li><a href="index.aspx" class ="navbar-right">Logout</a></li> 
+             </ul> 
+         </div> 
+         <!-- /.navbar-collapse --> 
+     </div> 
+     <!-- /.container --> 
+ </nav> 
 
-    </div>
-    <!-- /.container -->
-</nav>
 
     <br />
 
@@ -214,7 +210,7 @@
 
 
     <!-- Display Modal-->
-     <div id="displayModal" class="modal fade" role ="dialog">
+ <div id="displayModal" class="modal fade" role ="dialog">
 
     <div class="modal-dialog modal-lg">
 
@@ -257,6 +253,57 @@
         </div> 
     </div>
  </div>
+<div id="helpModal" class="modal fade" role ="dialog"> 
+
+     <div class="modal-dialog modal-lg">  
+          <!-- Modal Content --> 
+         <div class="modal-content"> 
+ 
+             <div class="modal-header">  
+ 
+               <button type="button" class="close" data-dismiss="modal">&times;</button>  
+ 
+                    <h3 class="modal-title" id="help_title">User Guide</h3> 
+ 
+             </div> 
+ 
+                <div class="modal-body"> 
+                    <p>Hello, welcome to the Enterprise Roadmap Tool's User Guide</p> 
+             
+                    <h4><b>Adding, Editing, and Removing Visual Components</b></h4> 
+                    <p>In order to add Strategy Points, Business Values, or Projects; the user must enter the text into the left sidebar and press enter. *Note: Data does not save until enter is pressed</p> 
+                    <p>In order to change the text of the entered component, the user must type in the input boxes and press the enter key. </p> 
+                    <p>In order to to remove a visual component completely, the user must click the X next to the corresponding input box. This will erase the all lower tiered components as well. </p> 
+                    <p>When a Project is added to the page, the user is able to click and drag the object horizontally or grab either end of the project to resize the arrow.</p> 
+   
+ 
+                    <h4><b>Adding and Removing Timeline</b></h4> 
+                    <p>In order to add a timeline component, the user must enter the desired title into the top box of the left sidebar, upon clicking the add button a timeline will appear.</p> 
+                    <p>Timeline pieces are all draggable at anytime. When the user stops dragging the timeline and releases the mouse click, the position will be saved.</p> 
+                    <p>In order to remove a timeline tick, double-click the timeline title.</p> 
+    
+ 
+                    <h4><b>Modal</b></h4> 
+                    <p>In order for a modal to appear in either the editing or presentation mode, double-click a project object.</p> 
+                    <p>Use the buttons to add the desired amount of dependencies or links.</p> 
+                    <p>In order to save any information on the modal, the save button must be clicked, clicking the X or clicking outside the modal will close it without saving.</p> 
+   
+ 
+                    <h4><b>Highlighting</b></h4> 
+                    <p>In Presentation mode, a single click on any Project object will highlight the projects that are dependent on that project and the projects that that project depends on.</p> 
+                    <p>Projects that are depending on the chosen project: ORANGE</p> 
+                    <p>Projects that the chosen project depend on: YELLOW</p> 
+    
+ 
+                <div class="modal-footer"> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                </div> 
+                </div> 
+          </div>  
+        </div> 
+</div> 
+     
+
 
 
 
