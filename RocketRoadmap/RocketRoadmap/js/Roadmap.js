@@ -52,7 +52,7 @@ function enableDrag()
     $(".proj2").resizable({ handles: 'e, w' });
     $(".proj3").draggable({ axis: "x" });
     $(".proj3").resizable({ handles: 'e, w' });
-    $(".timeline").draggable({ axis: "x", containment: "#containment-wrapper", });
+    $(".timeline").draggable({ axis: "x", containment: "#containmentWrapper", });
 
 
 
@@ -88,7 +88,7 @@ function addTick(e, obj) {
         timeline.className = "timeline";
         timeline.id = obj.value;
         timeline.innerHTML = '<p  class="timelineText">' + obj.value + '</p>'
-        var parent = document.getElementById("containment-wrapper");
+        var parent = document.getElementById("containmentWrapper");
         parent.appendChild(timeline);
 
         //add timeline to database
@@ -96,7 +96,7 @@ function addTick(e, obj) {
 
         //draggable, edit location function
         $(".timeline").draggable({
-            axis: "x", containment: "#containment-wrapper",
+            axis: "x", containment: "#containmentWrapper",
             stop: function (event, ui) {
                 console.log(this.id);
                 var pos = $("#" + this.id).offset().left;

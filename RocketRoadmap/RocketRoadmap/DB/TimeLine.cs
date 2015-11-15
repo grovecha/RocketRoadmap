@@ -11,6 +11,7 @@ namespace RocketRoadmap.DB
     {
         public TimeLine (string roadmapname)
         {
+            mName = roadmapname;
 
             mDatabase.connect();
             SqlCommand cmd = new SqlCommand();

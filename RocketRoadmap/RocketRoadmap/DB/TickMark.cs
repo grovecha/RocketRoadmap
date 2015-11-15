@@ -59,7 +59,7 @@ namespace RocketRoadmap.DB
         public int GetXPlacement() { return mXPlacement; } //Used for placement on the timeline
 
         private string mName;
-        private int mXPlacement;
+        private int mXPlacement = 10;
 
         private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
         private SqlDataReader mReader;
