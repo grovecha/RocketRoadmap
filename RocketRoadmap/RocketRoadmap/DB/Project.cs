@@ -16,16 +16,16 @@ namespace RocketRoadmap.DB
         private string mDescription;
         //Modal Description
         private string mModalDescription;
-        //Start date of project (For timeline)
-        private DateTime mStartDate;
-        //End date of project (For timeline)
-        private DateTime mEndDate;
         //Business value the project belongs to
         private string mBusinessValue;
         //Roadmap the project belongs to
         private string mRoadmapName;
         //Risk string
         private string mRiskString;
+        //Width of project
+        private int mWidth;
+        //Left point of project
+        private int mLeft;
 
         //Dependants (NON PROJECTS)
         private List<string> mDependantString = new List<string>();
@@ -184,6 +184,52 @@ namespace RocketRoadmap.DB
         }
 
         #region Getter's and Setters
+        public bool SetWidth(int newwidth)
+        {
+            mWidth = newwidth;
+            bool flag;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[Project] SET Width=@width WHERE Name=@Pname AND RoadmapName=@Rname and BusinessValueName=@BVName";
+                    cmd.Parameters.AddWithValue("@width", newwidth);
+                    cmd.Parameters.AddWithValue("@Pname", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    flag= cmd.ExecuteNonQuery()!=0;
+                    conn.Close();
+                }
+            }
+            return flag;
+        }
+        public int GetWidth() { return mWidth; }
+
+        public bool SetLeft(int left)
+        {
+            mLeft = left;
+            bool flag;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[Project] SET Left=@left WHERE Name=@Pname AND RoadmapName=@Rname and BusinessValueName=@BVName";
+                    cmd.Parameters.AddWithValue("@left", left);
+                    cmd.Parameters.AddWithValue("@Pname", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+                    cmd.Connection = conn;
+                    conn.Open();
+                    flag = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
+            }
+            return flag;
+        }
+        public int GetLeft() { return mLeft; }
+
         public bool SetName(string name) {
             mDatabase.connect();
             SqlCommand cmd = new SqlCommand();
@@ -240,19 +286,6 @@ namespace RocketRoadmap.DB
             return mModalDescription;
         }
 
-        public bool SetStartDate(DateTime startdate) {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Project] SET StartDate=@sdate WHERE Name=@PName AND RoadmapName=@Rname AND BusinessValueName=@BVName";
-            cmd.Parameters.AddWithValue("@sdate", startdate);
-            cmd.Parameters.AddWithValue("@PName", mName);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
-            bool flag= mDatabase.executewriteparam(cmd);
-            mDatabase.close();
-            mStartDate = startdate;
-            return flag;
-        }
 
         public bool UpdateDependantStrings(List<string> Dependants)
         {
@@ -287,28 +320,6 @@ namespace RocketRoadmap.DB
         public List<string> GetDependantStrings()
         {
             return mDependantString;
-        }
-
-        public DateTime GetStartDate() {
-            return mStartDate;
-        }
-
-        public bool SetEndDate(DateTime enddate) {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Project] SET EndDate=@edate WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
-            cmd.Parameters.AddWithValue("@edate", enddate);
-            cmd.Parameters.AddWithValue("@Pname", mName);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
-
-            bool flag=mDatabase.executewriteparam(cmd);
-            mDatabase.close();
-            mEndDate = enddate;
-            return flag;
-        }
-        public DateTime GetEndDate() {
-            return mEndDate;
         }
 
         public bool SetBusinessValue(string businessvalue) {
