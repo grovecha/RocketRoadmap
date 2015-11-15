@@ -23,9 +23,9 @@ namespace RocketRoadmap.DB
         //Risk string
         private string mRiskString;
         //Width of project
-        private int mWidth;
+        private int mWidth=160;
         //Left point of project
-        private int mLeft;
+        private int mLeft=0;
 
         //Dependants (NON PROJECTS)
         private List<string> mDependantString = new List<string>();
