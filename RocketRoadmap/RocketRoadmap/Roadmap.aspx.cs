@@ -570,6 +570,9 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(id);
 
             //set width and start position
+
+            newproj.SetWidth((int)width);
+            newproj.SetLeft((int)startPos);
             
         }
 

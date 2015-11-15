@@ -11,58 +11,85 @@ namespace RocketRoadmap.DB
     {
         public TimeLine (string roadmapname)
         {
-            mName = roadmapname;
-
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName =@Rname";
-            cmd.Parameters.AddWithValue("@Rname", roadmapname);
-            mReader = mDatabase.executereadparams(cmd);
-            mReader.Read();
-
-           // mName = mReader.GetString(0);
-           // mStartDate = mReader.GetDateTime(1);
-           // mEndDate = mReader.GetDateTime(2);
-
-            mDatabase.close();
-
-            mDatabase.connect();
-            SqlCommand cmd2 = new SqlCommand();
-            cmd2.CommandText = "SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName =@Tname";
-            cmd2.Parameters.AddWithValue("@Tname", mName);
-            mReader = mDatabase.executereadparams(cmd2);
-            while (mReader.Read())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                TickMark tick = new TickMark(mReader.GetString(0).ToString(), mReader.GetInt32(1));
-                mTicks.Add(tick);
+                
+                //using (SqlCommand cmd = new SqlCommand())
+                //{
+                //    cmd.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName =@Rname";
+                //    cmd.Parameters.AddWithValue("@Rname", roadmapname);
+                //    mReader = mDatabase.executereadparams(cmd);
+                //    mReader.Read();
+
+                //    // mName = mReader.GetString(0);
+                //    // mStartDate = mReader.GetDateTime(1);
+                //    // mEndDate = mReader.GetDateTime(2);
+                //}
+
+                mName = roadmapname;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, RoadmapName) VALUES (@name,@Rname)";
+                    cmd.Parameters.AddWithValue("@Rname", roadmapname);
+                    cmd.Parameters.AddWithValue("@name", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                using (SqlCommand cmd2 = new SqlCommand())
+                {
+                    cmd2.CommandText = "SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName =@Tname";
+                    cmd2.Parameters.AddWithValue("@Tname", mName);
+                    cmd2.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd2.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            TickMark tick = new TickMark(Reader.GetString(0).ToString(), Reader.GetInt32(1));
+                            mTicks.Add(tick);
+                        }
+                    }
+                    conn.Close();
+                }
+
+                using (SqlCommand cmd3 = new SqlCommand())
+                {
+                    cmd3.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName =@Rname";
+                    cmd3.Parameters.AddWithValue("@Rname", roadmapname);
+                    cmd3.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd3.ExecuteReader())
+                    {
+                        Reader.Read();
+
+                        mName = Reader.GetString(0);
+                    }
+                    conn.Close();
+                }
+
+                using (SqlCommand cmd4 = new SqlCommand())
+                {
+                    cmd4.CommandText = "SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName = @TName";
+                    cmd4.Parameters.AddWithValue("@TName", mName);
+                    cmd4.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd4.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            TickMark tick = new TickMark(Reader.GetString(0).ToString(), Reader.GetInt32(1));
+                            mTicks.Add(tick);
+                        }
+                    }
+                    conn.Close();
+                }
             }
-            mDatabase.close();
-
-            mDatabase.connect();
-            SqlCommand cmd3 = new SqlCommand();
-            cmd3.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName =@Rname";
-            cmd3.Parameters.AddWithValue("@Rname", roadmapname);
-            mReader = mDatabase.executereadparams(cmd3);
-            mReader.Read();
-
-            mName = mReader.GetString(0);
-            mStartDate = mReader.GetDateTime(1);
-            mEndDate = mReader.GetDateTime(2);
-
-            mDatabase.close();
-
-            mDatabase.connect();
-            SqlCommand cmd4 = new SqlCommand();
-            cmd4.CommandText = "SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName = @TName";
-            cmd4.Parameters.AddWithValue("@TName", mName);
-            mReader = mDatabase.executereadparams(cmd4);
-            while (mReader.Read())
-            {
-                TickMark tick = new TickMark(mReader.GetString(0).ToString(), mReader.GetInt32(1));
-                mTicks.Add(tick);
-            }
-            mDatabase.close();
-
             //mDatabase.connect();
             //mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
             //mReader.Read();
@@ -87,105 +114,128 @@ namespace RocketRoadmap.DB
 
         public bool NewTickMark(TickMark tick)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
             //add Tickmark
             mTicks.Add(tick);
-
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineName ) VALUES (@tname,@X,@Timeline)";
-                cmd.Parameters.AddWithValue("@tname", tick.GetName());
-                cmd.Parameters.AddWithValue("@X", tick.GetXPlacement());
-                cmd.Parameters.AddWithValue("@Timeline", mName);
-                if (mDatabase.executewriteparam(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    toReturn = true;
+                    cmd.CommandText = "INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineName ) VALUES (@tname,@X,@Timeline)";
+                    cmd.Parameters.AddWithValue("@tname", tick.GetName());
+                    cmd.Parameters.AddWithValue("@X", tick.GetXPlacement());
+                    cmd.Parameters.AddWithValue("@Timeline", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        toReturn = true;
+                    }
+                    conn.Close();
                 }
             }
-            mDatabase.close();
             return toReturn;
         }
 
         public bool DeleteTickMark(TickMark tick)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
             //delete Tickmark
             mTicks.Remove(tick);
 
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE Name = @tName AND TimelineName =@timeline";
-                cmd.Parameters.AddWithValue("@tName", tick.GetName());
-                cmd.Parameters.AddWithValue("@timeline", mName);
-                if (mDatabase.executewriteparam(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    toReturn = true;
+                    cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE Name = @tName AND TimelineName =@timeline";
+                    cmd.Parameters.AddWithValue("@tName", tick.GetName());
+                    cmd.Parameters.AddWithValue("@timeline", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        toReturn = true;
+                    }
+                    conn.Close();
                 }
             }
-            mDatabase.close();
             return toReturn;
         }
 
         public bool ClearTicks()
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE TimelineName = @Tname";
-            cmd.Parameters.AddWithValue("@Tname", mName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                //delete Tickmark
-                mTicks.Clear();
-                toReturn = true;
-            }
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE TimelineName = @Tname";
+                cmd.Parameters.AddWithValue("@Tname", mName);
+                cmd.Connection = conn;
 
-            mDatabase.close();
+                conn.Open();
+                if (cmd.ExecuteNonQuery()!=0)
+                {
+                    //delete Tickmark
+                    mTicks.Clear();
+                    toReturn = true;
+                }
+                conn.Close();
+            }
             return toReturn;
         }
 
         public bool EditStartDate(DateTime date, string rname)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "UPDATE[dbo].[Timeline] SET StartDate =@sname WHERE RoadMapName =@Rname";
-                cmd.Parameters.AddWithValue("@sname", date);
-                cmd.Parameters.AddWithValue("@Rname", rname);
-                if (mDatabase.executewriteparam(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    mStartDate = date;
-                    toReturn = true;
+                    cmd.CommandText = "UPDATE[dbo].[Timeline] SET StartDate =@sname WHERE RoadMapName =@Rname";
+                    cmd.Parameters.AddWithValue("@sname", date);
+                    cmd.Parameters.AddWithValue("@Rname", rname);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mStartDate = date;
+                        toReturn = true;
+                    }
+                    conn.Close();
                 }
             }
-            mDatabase.close();
             return toReturn;
         }
 
         public bool EditEndDate(DateTime date, string rname)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            using (SqlCommand cmd = new SqlCommand())
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cmd.CommandText = "UPDATE[dbo].[Timeline] SET EndDate =@edate WHERE RoadMapName =@Rname";
-                cmd.Parameters.AddWithValue("@edate", date);
-                cmd.Parameters.AddWithValue("@Rname", rname);
-                if (mDatabase.executewriteparam(cmd))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    mEndDate = date;
-                    toReturn = true;
+                    cmd.CommandText = "UPDATE[dbo].[Timeline] SET EndDate =@edate WHERE RoadMapName =@Rname";
+                    cmd.Parameters.AddWithValue("@edate", date);
+                    cmd.Parameters.AddWithValue("@Rname", rname);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mEndDate = date;
+                        toReturn = true;
+                    }
+                    conn.Close();
                 }
             }
-            mDatabase.close();
             return toReturn;
         }
 
@@ -199,7 +249,7 @@ namespace RocketRoadmap.DB
         private DateTime mEndDate;
         private List<TickMark> mTicks = new List<TickMark>();
 
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+        //private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+        //private SqlDataReader mReader;
     }
 }
