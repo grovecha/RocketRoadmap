@@ -49,7 +49,7 @@ namespace RocketRoadmap
             HtmlTableCell NextInputCell = new HtmlTableCell();
 
             HyperLink delete = new HyperLink();
-
+            #region Loading Strats, Vals, and Projects
 
             foreach (StrategyPoint p in strats)
             {
@@ -454,6 +454,23 @@ namespace RocketRoadmap
 
                 #endregion
             }
+
+            #endregion
+
+            TimeLine TL = roadmap.GetTimeline();
+            if(TL!= null)
+            {
+                int tickCount = 0;
+                foreach (TickMark tick in TL.GetTicks())
+                {
+                    // < div ondblclick = "deleteTime(this)" class="timeline ui-draggable ui-draggable-handle" id="2" style="left: 293px; top: -3px;"><p class="timelineText">2</p></div>t
+                    tickCount++;
+                    containmentWrapper.InnerHtml = "< div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tickCount.ToString() + "\" style=\"left: " + tick.GetXPlacement() + "px; top: -3px; \"><p class=\"timelineText\">" + tick.GetName() + "</p></div>";
+                }
+
+            }
+
+           
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "enableDrag();", true);
 
         }
@@ -553,6 +570,9 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(id);
 
             //set width and start position
+
+            newproj.SetWidth((int)width);
+            newproj.SetLeft((int)startPos);
             
         }
 

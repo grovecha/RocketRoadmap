@@ -95,7 +95,7 @@
 <h1 ID="name" runat="server"></h1>  
     <asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
     </asp:Table>
-<h1>All Roadmaps</h1>
+<h1 id="all">All Roadmaps</h1>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
             <asp:TableHeaderCell>Name</asp:TableHeaderCell>
@@ -115,7 +115,7 @@
 
 
 <style>
-    #search{
+    #search_text{
         width: 300px;
         height: 50px;
         background: #2b303b;
@@ -128,6 +128,16 @@
         -moz-border-radius: 5px;
         border-radius: 5px;
     }
+    #name{
+        text-align: center;
+    }
+    #all{
+        text-align: center;
+    }
+    #search_name{
+        text-align: center;
+    }
+
 </style>
 </form>
 </body>
