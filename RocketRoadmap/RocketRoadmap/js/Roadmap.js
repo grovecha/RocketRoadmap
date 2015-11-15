@@ -8,9 +8,10 @@ $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
 
 function setProjPos(ProjId, pos, width) {
+    
     StratId = ProjId.split("BusBox")[0];
     BusId = ProjId.split("ProjBox")[0];
-    var url = window.posation.href;
+    var url = window.location.href;
     var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.SetProjPos(ProjId, mapName, StratId, BusId, pos, width);
@@ -472,7 +473,7 @@ function addProj(e, obj, i) {
         //if the project exists, change the value
        
         if (document.getElementById(obj.id + "But")) {
-            document.getElementById(obj.id + "But").innerHTML = "<span style='display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;'>" + obj.value + "</span>";
+            document.getElementById(obj.id + "Label").innerHTML = obj.value;
         }
         else {
 
@@ -484,7 +485,7 @@ function addProj(e, obj, i) {
             var NewValue = obj.value;
             if (NewValue != "") {
                 
-                element1.innerHTML =  "<span style='display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;'>"+ NewValue+ "</span>";
+                element1.innerHTML = "<span id = '" + obj.id + "Label' style='width: 115px; white-space: nowrap; overflow: hidden; display: inline-block; transform: translateY(-0px); vertical-align: middle; line-height: normal;'>" + NewValue + "</span>";
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("ondblclick", "showModal(this.id)");
@@ -519,7 +520,7 @@ function addProj(e, obj, i) {
 
             //enable draggability and resizability
            
-            $(".proj" + String(CurrentProjCount + 1)).draggable({
+            $(".proj1").draggable({
                 axis: "x",
                 containment: "#"+BusId+"td",
                 drag: function (event, ui) {
@@ -531,21 +532,24 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(pos, width);
+                    setProjPos(this.id, pos, width);
                 }
             
             });
-            $(".proj" + String(CurrentProjCount + 1)).resizable({
+            
+            //$(".proj" + String(CurrentProjCount + 1)).resizable({
+            $(".proj1").resizable({
                 handles: 'e, w',
                 containment: "#"+BusId+"td",
                        
                 stop: function (event, ui) {
-                    console.log(this.id);
+                
                     var pos = $("#" + this.id).offset().left;
                     var width = $("#" + this.id).width();
-                    console.log(pos);
-                    console.log(width);
-                    setProjPos(pos, width);
+             
+                    setProjPos(this.id, pos, width);
+          
+                    document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
                 }
             });
             $(".proj3").draggable({
@@ -560,7 +564,7 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(pos, width);
+                    setProjPos(this.id, pos, width);
                 }
             });
             $(".proj3").resizable({
@@ -573,7 +577,7 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(pos, width);
+                    setProjPos(this.id, pos, width);
                 }
             });
 
