@@ -16,10 +16,6 @@ namespace RocketRoadmap.DB
         private string mDescription;
         //Modal Description
         private string mModalDescription;
-        //Start date of project (For timeline)
-        private DateTime mStartDate;
-        //End date of project (For timeline)
-        private DateTime mEndDate;
         //Business value the project belongs to
         private string mBusinessValue;
         //Roadmap the project belongs to
@@ -240,19 +236,6 @@ namespace RocketRoadmap.DB
             return mModalDescription;
         }
 
-        public bool SetStartDate(DateTime startdate) {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Project] SET StartDate=@sdate WHERE Name=@PName AND RoadmapName=@Rname AND BusinessValueName=@BVName";
-            cmd.Parameters.AddWithValue("@sdate", startdate);
-            cmd.Parameters.AddWithValue("@PName", mName);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
-            bool flag= mDatabase.executewriteparam(cmd);
-            mDatabase.close();
-            mStartDate = startdate;
-            return flag;
-        }
 
         public bool UpdateDependantStrings(List<string> Dependants)
         {
@@ -289,27 +272,7 @@ namespace RocketRoadmap.DB
             return mDependantString;
         }
 
-        public DateTime GetStartDate() {
-            return mStartDate;
-        }
 
-        public bool SetEndDate(DateTime enddate) {
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Project] SET EndDate=@edate WHERE Name=@Pname AND RoadmapName=@Rname AND BusinessValueName=@BVName";
-            cmd.Parameters.AddWithValue("@edate", enddate);
-            cmd.Parameters.AddWithValue("@Pname", mName);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
-
-            bool flag=mDatabase.executewriteparam(cmd);
-            mDatabase.close();
-            mEndDate = enddate;
-            return flag;
-        }
-        public DateTime GetEndDate() {
-            return mEndDate;
-        }
 
         public bool SetBusinessValue(string businessvalue) {
             mDatabase.connect();
