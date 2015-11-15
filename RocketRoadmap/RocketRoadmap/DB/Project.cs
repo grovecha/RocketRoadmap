@@ -139,7 +139,7 @@ namespace RocketRoadmap.DB
 
                 using (SqlCommand cmd4 = new SqlCommand())
                 {
-                    cmd4.CommandText = "SELECT Width,Left FROM [dbo].[Project] WHERE Name=@name AND BusinessValueName=@BVName AND RoadmapName=@Rname";
+                    cmd4.CommandText = "SELECT Width, StartPosition FROM [dbo].[Project] WHERE Name=@name AND BusinessValueName=@BVName AND RoadmapName=@Rname";
                     cmd4.Parameters.AddWithValue("@name", mName);
                     cmd4.Parameters.AddWithValue("@Rname", mRoadmapName);
                     cmd4.Parameters.AddWithValue("@BVName", mBusinessValue);
