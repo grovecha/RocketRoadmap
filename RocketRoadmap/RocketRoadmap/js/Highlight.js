@@ -6,6 +6,9 @@ Emily Klopfer
 
 var depon_arr = [];
 var depof_arr = [];
+var dtemp1 = [];
+var dtemp2 = [];
+var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
 
 function Highlight(id) {
     var cheche = "#" + id;
@@ -29,9 +32,15 @@ function Highlight(id) {
             data: JSON.stringify(disvalue),
             contentType: "application/json; charset=utf-8",
             success: function (response) {
-                for (dep_x = 0; dep_x < response.d.length; dep_x++) {
-                    dep_char = "#" + response.d[dep_x] + "But";
+                dtemp1 = response.d[0];
+                dtemp2 = repsonse.d[1];
+                for (dep_x = 0; dep_x < dtemp1.length; dep_x++) {
+                    dep_char = "#" + dtemp1[dep_x] + "But";
                     depon_arr.push(dep_char);
+                }
+                for (dep_x = 0; dep_x < dtemp2.length; dep_x++) {
+                    dep_char = "#" + dtemp2[dep_x] + "But";
+                    depof_arr.push(dep_char);
                 }
                 dependoncolor(depon_arr);
                 dependantofcolor(depof_arr);
@@ -52,22 +61,31 @@ function dependoncolor(id) {
 function dependantofcolor(id) {
     var id_x;
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'orange');
+        $(id[id_x]).css('background-color', 'purple');
     }
 }
 
 function Uncolor(id) {
     var id_x;
+
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'deepskyblue');
+
+        var temp = id[id_x].split("StratBox");
+        temp = temp[1].split("BusBox")[0]
+        var c = color[temp%6];
+
+        $(id[id_x]).css('background-color', c);
     }
 }
 
 function UnHighlight(id) {
 
     var cheche = "#" + id;
+    var temp = id.split("StratBox");
+    temp = temp[1].split("BusBox")[0]
+    var c = color[temp%6];
 
-    $(cheche).css('background-color', 'deepskyblue');
+    $(cheche).css({ "background-color": c });
 
     Uncolor(depon_arr);
     Uncolor(depof_arr);

@@ -28,8 +28,7 @@ namespace RocketRoadmap
             BVDescrip.Text = BVDescrip.Text + " " + bvlist.First().GetDescription();
             Proj.Text = Proj.Text + " " + projlist.First().GetName();
             ProjDescrip.Text = ProjDescrip.Text + " " + projlist.First().GetDescription();
-            ProjStartDate.Text = ProjStartDate.Text + " " + projlist.First().GetStartDate().ToString();
-            ProjEndDate.Text = ProjEndDate.Text + " " + projlist.First().GetEndDate().ToString();
+
             //IssueDescrip.Text = IssueDescrip.Text + " " + issuelist.First().GetDescription();
             Link.Text = Link.Text + " " + linklist.First().GetLink();
             Dependency.Text = Dependency.Text + " " + dependencylist.First().GetName();

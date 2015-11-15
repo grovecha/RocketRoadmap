@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace RocketRoadmap.DB
 {
@@ -16,8 +17,8 @@ namespace RocketRoadmap.DB
         //Roadmap is belongs to
         private string mRoadmapName;
 
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+       // private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+      //  private SqlDataReader mReader;
 
         //CONSTRUCTOR
         public Issue(string description, string projname, string name)
@@ -29,15 +30,22 @@ namespace RocketRoadmap.DB
         #region Getter's and Setter's
         public bool SetDescription(string description)
         {
-            //Connect to DB and change description.
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Issues] SET Description=@descrip WHERE Description=@mDescrip AND RoadmapName=@Rname";
-            cmd.Parameters.AddWithValue("@descrip", description);
-            cmd.Parameters.AddWithValue("@mDescrip", mDescription);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            bool flag = mDatabase.executewriteparam(cmd);
-            mDatabase.close();
+            bool flag;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[Issues] SET Description=@descrip WHERE Description=@mDescrip AND RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@descrip", description);
+                    cmd.Parameters.AddWithValue("@mDescrip", mDescription);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    flag = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
+            }
 
             //Add in object
             mDescription = description;
@@ -49,16 +57,22 @@ namespace RocketRoadmap.DB
         }
         public bool SetProjectName(string projectname)
         {
-            //Change project name in DB
-            mDatabase.connect();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[Issues] SET ProjectName=@proj WHERE Description=@descrip AND RoadmapName=@Rname";
-            cmd.Parameters.AddWithValue("@proj", projectname);
-            cmd.Parameters.AddWithValue("@descrip", mDescription);
-            cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-            bool flag = mDatabase.executewriteparam(cmd);
-            mDatabase.close();
-            
+            bool flag;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[Issues] SET ProjectName=@proj WHERE Description=@descrip AND RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@proj", projectname);
+                    cmd.Parameters.AddWithValue("@descrip", mDescription);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    flag = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
+            }
             //Set in object
             mProjectName = projectname;
             return flag;

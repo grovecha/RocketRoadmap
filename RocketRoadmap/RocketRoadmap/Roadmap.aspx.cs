@@ -13,7 +13,7 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> color = new List<string> { "#ff0000", "#33cc33", "#0066ff" };
+        List<string> color = new List<string> { "#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -316,11 +316,13 @@ namespace RocketRoadmap
                         bustextbox.Attributes.Add("ProjTotal", (projCount + 1).ToString());
 
                         colorNum = (count - 1) % color.Count;
+                        //<div id="StratBox1BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="position: relative; cursor: auto; left: 1px; top: 0px; width: 160px; background-color: deepskyblue;"><span>h</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 180;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+                        // < div id = "StratBox0BusBox0ProjBox3But" ondblclick = "showModal(this.id)" onclick = "Highlight(this.id)" onmouseleave = "UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="left: 4px; top: 0px; width: 216px; background-color: deepskyblue;"><span style = "display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;" > new</ span >< div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+                        //<div id="StratBox0BusBox0ProjBox2But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="cursor: auto; left: 33px; top: 0px; width: 160px; background-color: deepskyblue;"><span>new</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
 
-                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1 ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; background-color: "+color[colorNum]+";\">" +
+
+                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
                             "<span>" + proj.GetDescription() + "</span>" +
-                            "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>" +
-                            "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 

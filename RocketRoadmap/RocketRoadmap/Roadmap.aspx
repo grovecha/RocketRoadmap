@@ -323,17 +323,17 @@
        .StratVis{
               word-break: break-all;
             white-space: normal;
-            -moz-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
+            /*-moz-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
 	        -webkit-box-shadow:inset 0px -3px 7px 0px #7a1c1c;
-	        box-shadow:inset 0px -3px 7px 0px #7a1c1c;
-        	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5121b), color-stop(1, #b5121b));
+	        box-shadow:inset 0px -3px 7px 0px #7a1c1c;*/
+         	/*background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #b5121b), color-stop(1, #b5121b));
         	background:-moz-linear-gradient(top, #b5121b 5%, #b5121b 100%);
         	background:-webkit-linear-gradient(top, #b5121b 5%, #b5121b 100%);
         	background:-o-linear-gradient(top, #b5121b 5%, #b5121b 100%);
 	        background:-ms-linear-gradient(top, #b5121b 5%, #b5121b 100%);
 	        background:linear-gradient(to bottom, #b5121b 5%, #b5121b 100%);
 	        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b5121b', endColorstr='b5121b',GradientType=0);
-	        background-color:#b5121b;
+	        background-color:#b5121b;*/
 	        -moz-border-radius:3px;
 	        -webkit-border-radius:3px;
 	        border-radius:3px;
@@ -421,7 +421,7 @@
 #containment-wrapper {position: absolute; left: 150px; width: 100%;   }
 
  .proj1:after, .proj2:after, .proj3:after {
-  color: deepskyblue;
+  color: black;
   border-left: 10px solid;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;

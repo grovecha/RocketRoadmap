@@ -17,39 +17,51 @@ namespace RocketRoadmap.DB
 
         public bool EditTickName(string name, string tname)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE [dbo].[TickMark] SET Name =@name WHERE TimelineName = @Tname";
-            cmd.Parameters.AddWithValue("@Tname", tname);
-            cmd.Parameters.AddWithValue("@name", name);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                mName = name;
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[TickMark] SET Name =@name WHERE TimelineName = @Tname";
+                    cmd.Parameters.AddWithValue("@Tname", tname);
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mName = name;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
         public bool EditTickLocation(int X, string name)
         {
-            mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name";
-            cmd.Parameters.AddWithValue("@X", X);
-            cmd.Parameters.AddWithValue("@name", name);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                mXPlacement = X;
-                toReturn = true;
-            }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name";
+                    cmd.Parameters.AddWithValue("@X", X);
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Connection = conn;
 
-            mDatabase.close();
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery()!=0)
+                    {
+                        mXPlacement = X;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
             return toReturn;
         }
 
@@ -59,7 +71,7 @@ namespace RocketRoadmap.DB
         private string mName;
         private int mXPlacement;
 
-        private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
-        private SqlDataReader mReader;
+        //private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
+        //private SqlDataReader mReader;
     }
 }
