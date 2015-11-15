@@ -234,9 +234,9 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public List<RoadMap> Search( string key )
+        public List<string> Search( string key )
         {
-            List<RoadMap> maps = new List<RoadMap>();
+            List<List<string>> maps = new List<List<string>>();
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -250,9 +250,13 @@ namespace RocketRoadmap.DB
                     {
                         while (Reader.Read())
                         {
-                            //create a new roadmap object and add to list
-                            RoadMap map = new RoadMap(Reader.GetString(0));
-                            maps.Add(map);
+                            List<string> temp = new List<string>();
+                            temp.Add(Reader.GetString(0));
+                            temp.Add(Reader.GetString(1));
+                            temp.Add(Reader.GetString(2));
+                            temp.Add(Reader.GetDateTime(3).ToString());
+
+                            maps.Add(temp);
                         }
                     }
                     conn.Close();
