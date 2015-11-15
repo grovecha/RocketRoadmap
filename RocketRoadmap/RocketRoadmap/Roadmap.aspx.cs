@@ -49,7 +49,7 @@ namespace RocketRoadmap
             HtmlTableCell NextInputCell = new HtmlTableCell();
 
             HyperLink delete = new HyperLink();
-
+            #region Loading Strats, Vals, and Projects
 
             foreach (StrategyPoint p in strats)
             {
@@ -317,11 +317,12 @@ namespace RocketRoadmap
 
                         colorNum = (count - 1) % color.Count;
                         //<div id="StratBox1BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="position: relative; cursor: auto; left: 1px; top: 0px; width: 160px; background-color: deepskyblue;"><span>h</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 180;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+                        // < div id = "StratBox0BusBox0ProjBox3But" ondblclick = "showModal(this.id)" onclick = "Highlight(this.id)" onmouseleave = "UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="left: 4px; top: 0px; width: 216px; background-color: deepskyblue;"><span style = "display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;" > new</ span >< div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+                        //<div id="StratBox0BusBox0ProjBox2But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="cursor: auto; left: 33px; top: 0px; width: 160px; background-color: deepskyblue;"><span>new</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
 
-                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1 ui-draggable ui - draggable - handle ui - resizable\" style=\"position: relative; cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
+
+                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
                             "<span>" + proj.GetDescription() + "</span>" +
-                            "<div class=\"ui-resizable-handle ui-resizable-e\" style=\"z-index: 90;\"></div>" +
-                            "<div class=\"ui-resizable-handle ui-resizable-w\" style=\"z-index: 90;\"></div>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
@@ -453,6 +454,23 @@ namespace RocketRoadmap
 
                 #endregion
             }
+
+            #endregion
+
+            TimeLine TL = roadmap.GetTimeline();
+            if(TL!= null)
+            {
+                int tickCount = 0;
+                foreach (TickMark tick in TL.GetTicks())
+                {
+                    // < div ondblclick = "deleteTime(this)" class="timeline ui-draggable ui-draggable-handle" id="2" style="left: 293px; top: -3px;"><p class="timelineText">2</p></div>t
+                    tickCount++;
+                    containmentWrapper.InnerHtml = "< div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tickCount.ToString() + "\" style=\"left: " + tick.GetXPlacement() + "px; top: -3px; \"><p class=\"timelineText\">" + tick.GetName() + "</p></div>";
+                }
+
+            }
+
+           
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "enableDrag();", true);
 
         }
@@ -552,6 +570,9 @@ namespace RocketRoadmap
             Project newproj = newval.GetProject(id);
 
             //set width and start position
+
+            newproj.SetWidth((int)width);
+            newproj.SetLeft((int)startPos);
             
         }
 

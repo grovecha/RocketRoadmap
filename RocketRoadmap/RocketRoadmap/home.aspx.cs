@@ -20,6 +20,7 @@ namespace RocketRoadmap
             mUser = new DB.User((string)Session["username"], (string)Session["password"]);
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
+            searchtable.Rows.Clear();
 
                 if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
@@ -31,7 +32,6 @@ namespace RocketRoadmap
                         Session["username"] = user.GetUserName();
                         Session["password"] = user.GetPassword();
                         mUser = new DB.User((string)Session["username"], (string)Session["password"]);
-                        //loginlabel.Text = "Logged in as: " + user.GetUserName();
                         name.InnerText = user.GetUserName() + "'s Roadmaps";
                     }
                     else if (mUser.Login())
@@ -94,6 +94,7 @@ namespace RocketRoadmap
                                 B1.Text = "X";
                                 B1.CommandArgument = umap[0];
                                 B1.Click += new EventHandler(BtnHandler);
+                                B1.UseSubmitBehavior = false;
 
                                 HyperLink link = new HyperLink();
                                 link.NavigateUrl = "Roadmap.aspx?n=" + Uri.EscapeUriString(umap[0]);
@@ -145,11 +146,13 @@ namespace RocketRoadmap
                             B1.Text = "X";
                             B1.CommandArgument = map[0];
                             B1.Click += new EventHandler(BtnHandler);
+                  
 
                             Button B2 = new Button();
                             B2.Text = "EDIT";
                             B2.CommandArgument = map[0];
                             B2.Click += new EventHandler(EditRoadmap);
+                         
 
                             HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
@@ -180,7 +183,7 @@ namespace RocketRoadmap
                     {
 
                     }
-
+            
                 
            
         }
@@ -218,6 +221,95 @@ namespace RocketRoadmap
 
             
             Response.Redirect(Request.RawUrl);
+        }
+        protected void searchRoadmaps(Object sender, EventArgs e)
+        {
+            string search_String;
+            Button btn = (Button)sender;
+            RoadMaps maps = new RoadMaps();
+            List<List<string>> L_map = new List<List<String>>();
+            search_String = search_text.Text.ToString();
+            L_map = maps.Search(search_String);
+            search_name.InnerText = "Search Results:";
+
+            try
+            {
+                TableHeaderRow uhead = new TableHeaderRow();
+
+                TableHeaderCell u1 = new TableHeaderCell();
+                TableHeaderCell u2 = new TableHeaderCell();
+                TableHeaderCell u3 = new TableHeaderCell();
+                TableHeaderCell u4 = new TableHeaderCell();
+                TableHeaderCell u5 = new TableHeaderCell();
+                TableHeaderCell u6 = new TableHeaderCell();
+
+                u1.Text = "Name";
+                u2.Text = "Author";
+                u3.Text = "Description";
+                u4.Text = "Timestamp";
+
+                uhead.Cells.Add(u1);
+                uhead.Cells.Add(u2);
+                uhead.Cells.Add(u3);
+                uhead.Cells.Add(u4);
+                uhead.Cells.Add(u5);
+                //uhead.Cells.Add(u6);
+
+                searchtable.Rows.Add(uhead);
+
+                foreach (var map in L_map)
+                {
+                    TableRow row = new TableRow();
+                    TableCell cell_1 = new TableCell();
+                    TableCell cell_2 = new TableCell();
+                    TableCell cell_3 = new TableCell();
+                    TableCell cell_4 = new TableCell();
+                    TableCell cell_5 = new TableCell();
+                    TableCell cell_6 = new TableCell();
+
+                    Button B1 = new Button();
+                    B1.Text = "X";
+                    B1.CommandArgument = map[0];
+                    B1.Click += new EventHandler(BtnHandler);
+                   
+
+                    Button B2 = new Button();
+                    B2.Text = "EDIT";
+                    B2.CommandArgument = map[0];
+                    B2.Click += new EventHandler(EditRoadmap);
+                    B2.UseSubmitBehavior = false;
+
+                    HyperLink link = new HyperLink();
+                    link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
+                    link.Text = map[0];
+
+                    TableCell tCell1 = new TableCell();
+                    cell_1.Controls.Add(link);
+                    cell_1.Controls.Add(B2);
+
+                    cell_2.Text = map[1];
+                    cell_3.Text = map[2];
+                    cell_4.Text = map[3];
+
+                    cell_5.Controls.Add(B1);
+                    cell_6.Controls.Add(B2);
+
+                    row.Cells.Add(cell_1);
+                    row.Cells.Add(cell_2);
+                    row.Cells.Add(cell_3);
+                    row.Cells.Add(cell_4);
+                    row.Cells.Add(cell_5);
+                    // row.Cells.Add(cell_6);
+
+                    searchtable.Rows.Add(row);
+                }
+            }
+            catch (NullReferenceException nre)
+            {
+
+            }
+
+
         }
 
     }
