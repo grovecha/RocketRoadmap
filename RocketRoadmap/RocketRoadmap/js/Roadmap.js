@@ -537,7 +537,7 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(this.id, pos, width);
+                    setProjPos(this.id.split("But")[0], pos, width);
                 }
             
             });
@@ -552,7 +552,7 @@ function addProj(e, obj, i) {
                     var pos = $("#" + this.id).offset().left;
                     var width = $("#" + this.id).width();
              
-                    setProjPos(this.id, pos, width);
+                    setProjPos(this.id.split("But")[0], pos, width);
           
                     document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
                 }
@@ -569,7 +569,7 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(this.id, pos, width);
+                    setProjPos(this.id.split("But")[0], pos, width);
                 }
             });
             $(".proj3").resizable({
@@ -582,7 +582,7 @@ function addProj(e, obj, i) {
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(this.id, pos, width);
+                    setProjPos(this.id.split("But")[0], pos, width);
                 }
             });
 
