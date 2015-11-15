@@ -92,16 +92,17 @@ namespace RocketRoadmap.DB
             //add Tickmark
             mTicks.Add(tick);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineName ) VALUES (@tname,@X,@Timeline)";
-            cmd.Parameters.AddWithValue("@tname", tick.GetName());
-            cmd.Parameters.AddWithValue("@X", tick.GetXPlacement());
-            cmd.Parameters.AddWithValue("@Timeline", mName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                toReturn = true;
+                cmd.CommandText = "INSERT INTO [dbo].[TickMark] ( Name, XPlacement, TimelineName ) VALUES (@tname,@X,@Timeline)";
+                cmd.Parameters.AddWithValue("@tname", tick.GetName());
+                cmd.Parameters.AddWithValue("@X", tick.GetXPlacement());
+                cmd.Parameters.AddWithValue("@Timeline", mName);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
@@ -114,15 +115,16 @@ namespace RocketRoadmap.DB
             //delete Tickmark
             mTicks.Remove(tick);
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE Name = @tName AND TimelineName =@timeline";
-            cmd.Parameters.AddWithValue("@tName", tick.GetName());
-            cmd.Parameters.AddWithValue("@timeline", mName);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                toReturn = true;
+                cmd.CommandText = "DELETE FROM [dbo].[TickMark] WHERE Name = @tName AND TimelineName =@timeline";
+                cmd.Parameters.AddWithValue("@tName", tick.GetName());
+                cmd.Parameters.AddWithValue("@timeline", mName);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
@@ -151,16 +153,17 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE[dbo].[Timeline] SET StartDate =@sname WHERE RoadMapName =@Rname";
-            cmd.Parameters.AddWithValue("@sname", date);
-            cmd.Parameters.AddWithValue("@Rname", rname);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mStartDate = date;
-                toReturn = true;
+                cmd.CommandText = "UPDATE[dbo].[Timeline] SET StartDate =@sname WHERE RoadMapName =@Rname";
+                cmd.Parameters.AddWithValue("@sname", date);
+                cmd.Parameters.AddWithValue("@Rname", rname);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mStartDate = date;
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }
@@ -170,16 +173,17 @@ namespace RocketRoadmap.DB
             mDatabase.connect();
             bool toReturn = false;
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "UPDATE[dbo].[Timeline] SET EndDate =@edate WHERE RoadMapName =@Rname";
-            cmd.Parameters.AddWithValue("@edate", date);
-            cmd.Parameters.AddWithValue("@Rname", rname);
-            if (mDatabase.executewriteparam(cmd))
+            using (SqlCommand cmd = new SqlCommand())
             {
-                mEndDate = date;
-                toReturn = true;
+                cmd.CommandText = "UPDATE[dbo].[Timeline] SET EndDate =@edate WHERE RoadMapName =@Rname";
+                cmd.Parameters.AddWithValue("@edate", date);
+                cmd.Parameters.AddWithValue("@Rname", rname);
+                if (mDatabase.executewriteparam(cmd))
+                {
+                    mEndDate = date;
+                    toReturn = true;
+                }
             }
-
             mDatabase.close();
             return toReturn;
         }

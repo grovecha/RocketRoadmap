@@ -1,7 +1,7 @@
 ﻿var changing = true;
 var dragging = false;
 
-var color = ["#ff0000", "#33cc33", "#0066ff"];
+var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
 
 
 $(".block").resizable({ handles: 'e, w' });
@@ -245,7 +245,7 @@ function addStrat(e, obj, i) {
 
             var colorNum = PreviousStratNum % color.length;
             element1.className = "StratVis";
-            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color[colorNum] + "), color-stop(1, " + color[colorNum] + ")); background:-moz-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-webkit-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-o-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-ms-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:linear-gradient(to bottom, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color[colorNum] + "', endColorstr='" + color[colorNum] + "',GradientType=0);")
+            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, "+color[colorNum]+"), color-stop(1, "+color[colorNum]+")); background:-moz-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-webkit-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-o-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-ms-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:linear-gradient(to bottom, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='"+color[colorNum]+"', endColorstr='b5121b',GradientType=0); background-color:"+color[colorNum]+";")
             element1.style.height = "100px";
 
             
