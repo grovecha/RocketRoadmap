@@ -439,9 +439,8 @@
   position: relative;
   text-align: center;
     text-indent: 10px;
-    font-size: 19px;
+    font-size: 15px;
     
-    font-family: "Comic Sans MS", "Comic Sans";
 }
 .proj1:before, .proj2:before, .proj3:before {
     content: "";

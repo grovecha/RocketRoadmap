@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace RocketRoadmap.DB
 {
@@ -43,96 +44,143 @@ namespace RocketRoadmap.DB
             mDescription = description;
             mBusinessValue = businessvalue;
             mRoadmapName = rname;
-            mDatabase.connect();
             try
             {
-                //Get modal description in DB
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE Name=@name AND RoadmapName =@Rname AND BusinessValueName=@BVName";
-                cmd.Parameters.AddWithValue("@name", mName);
-                cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
-                cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
-                mReader = mDatabase.executereadparams(cmd);
-                while (mReader.Read())
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
                 {
-                    mModalDescription = (mReader.GetString(0).ToString());
+                    //Get modal description in DB
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "SELECT ModalDescription FROM [dbo].[Project] WHERE Name=@name AND RoadmapName =@Rname AND BusinessValueName=@BVName";
+                        cmd.Parameters.AddWithValue("@name", mName);
+                        cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                        cmd.Parameters.AddWithValue("@BVName", mBusinessValue);
+                        cmd.Connection = conn;
+                        conn.Open();
+                        using (SqlDataReader Reader = cmd.ExecuteReader())
+                        {
+                            while (Reader.Read())
+                            {
+                                mModalDescription = (Reader.GetString(0).ToString());
+                            }
+                        }
+                    }
                 }
             }
             catch { ;  }
-            if(mReader!=null) mReader.Close();
 
-            //Grab risks this project owns
-            SqlCommand cmd1 = new SqlCommand();
-            cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='" + mBusinessValue + "'";
-            cmd1.Parameters.AddWithValue("@name", mName);
-            cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
-            cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
-            mReader=mDatabase.executereadparams(cmd1);
-            while (mReader.Read() )
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-
-                try
+                //Grab risks this project owns
+                using (SqlCommand cmd1 = new SqlCommand())
                 {
-                    mRiskString = mReader.GetString(0).ToString();
+                    cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='" + mBusinessValue + "'";
+                    cmd1.Parameters.AddWithValue("@name", mName);
+                    cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
+                    cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd1.Connection = conn;
+                    
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd1.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+
+                            try
+                            {
+                                mRiskString = Reader.GetString(0).ToString();
+                            }
+                            catch (Exception ex) { }
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
                 }
-                catch (Exception ex) { }
+                
+                //Get links this project owns
+                using (SqlCommand cmd2 = new SqlCommand())
+                {
+                    cmd2.CommandText = "SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
+                    cmd2.Parameters.AddWithValue("@Pname", mName);
+                    cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd2.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd2.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            mLinks.Add(new Link(Reader.GetString(0).ToString(), mName, Reader.GetString(1).ToString(), mRoadmapName));
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
+
+                //Grab project dependencies
+                using (SqlCommand cmd3 = new SqlCommand())
+                {
+                    cmd3.CommandText = "SELECT P.Name, P.Description, P.BusinessValueName FROM(SELECT DependantName, RoadmapName, ProjectName FROM Dependents AS D WHERE(ProjectName = @Pname) AND(RoadmapName = @Rname)) AS S INNER JOIN Project AS P ON S.DependantName = P.Name AND P.RoadmapName = S.RoadmapName ";
+                    cmd3.Parameters.AddWithValue("@Pname", mName);
+                    cmd3.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd3.Connection = conn;
+                    conn.Open();
+
+                    using (SqlDataReader Reader = cmd3.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            mDependencies.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), Reader.GetString(2).ToString(), mRoadmapName));
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
+
+                using (SqlCommand cmd4 = new SqlCommand())
+                {
+                    cmd4.CommandText = "SELECT StartDate,EndDate FROM [dbo].[Project] WHERE Name=@name AND BusinessValueName=@BVName AND RoadmapName=@Rname";
+                    cmd4.Parameters.AddWithValue("@name", mName);
+                    cmd4.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd4.Parameters.AddWithValue("@BVName", mBusinessValue);
+                    cmd4.Connection = conn;
+                   
+                    conn.Open();
+                    using (SqlDataReader Reader = cmd4.ExecuteReader())
+                    {
+                        if (Reader.HasRows)
+                        {
+                            Reader.Read();
+                            try { mStartDate = Reader.GetDateTime(0); }
+                            catch (Exception ex) { }
+                            try { mEndDate = Reader.GetDateTime(1); }
+                            catch (Exception ex) { }
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
+
+                //Get Dependants NON PROJECT
+                using (SqlCommand cmd5 = new SqlCommand())
+                {
+                    cmd5.CommandText = "SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
+                    cmd5.Parameters.AddWithValue("@Pname", mName);
+                    cmd5.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd5.Connection = conn;
+
+                    conn.Open();
+                    using (SqlDataReader Reader =cmd5.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            mDependantString.Add(Reader.GetString(0).ToString());
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
             }
-            mReader.Close();
-
-            //Get links this project owns
-            SqlCommand cmd2 = new SqlCommand();
-            cmd2.CommandText = "SELECT Description, Address FROM [dbo].[Link] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
-            cmd2.Parameters.AddWithValue("@Pname", mName);
-            cmd2.Parameters.AddWithValue("@Rname", mRoadmapName);
-
-            mReader = mDatabase.executereadparams(cmd2);
-            while (mReader.Read() )
-            {
-                mLinks.Add(new Link(mReader.GetString(0).ToString(), mName, mReader.GetString(1).ToString(), mRoadmapName));
-            }
-            mReader.Close();
-
-            //Grab project dependencies
-            SqlCommand cmd3 = new SqlCommand();
-            cmd3.CommandText = "SELECT P.Name, P.Description, P.BusinessValueName FROM(SELECT DependantName, RoadmapName, ProjectName FROM Dependents AS D WHERE(ProjectName = @Pname) AND(RoadmapName = @Rname)) AS S INNER JOIN Project AS P ON S.DependantName = P.Name AND P.RoadmapName = S.RoadmapName ";
-            cmd3.Parameters.AddWithValue("@Pname", mName);
-            cmd3.Parameters.AddWithValue("@Rname", mRoadmapName);
-            mReader = mDatabase.executereadparams(cmd3);
-            while (mReader.Read() )
-            {
-                mDependencies.Add(new Project(mReader.GetString(0).ToString(), mReader.GetString(1).ToString(), mReader.GetString(2).ToString(), mRoadmapName));
-            }
-            mReader.Close();
-
-            SqlCommand cmd4 = new SqlCommand();
-            cmd4.CommandText = "SELECT StartDate,EndDate FROM [dbo].[Project] WHERE Name=@name AND BusinessValueName=@BVName AND RoadmapName=@Rname";
-            cmd4.Parameters.AddWithValue("@name", mName);
-            cmd4.Parameters.AddWithValue("@Rname", mRoadmapName);
-            cmd4.Parameters.AddWithValue("@BVName", mBusinessValue);
-            mReader = mDatabase.executereadparams(cmd4);
-            if(mReader.HasRows)
-            {
-                mReader.Read();
-                try { mStartDate = mReader.GetDateTime(0); }
-                catch (Exception ex) { }
-                try { mEndDate = mReader.GetDateTime(1); }
-                catch (Exception ex) { }
-            }
-            mReader.Close();
-
-            //Get Dependants NON PROJECT
-            SqlCommand cmd5 = new SqlCommand();
-            cmd5.CommandText = "SELECT DependantString FROM [dbo].[Dependents_string] WHERE ProjectName=@Pname AND RoadmapName =@Rname";
-            cmd5.Parameters.AddWithValue("@Pname", mName);
-            cmd5.Parameters.AddWithValue("@Rname", mRoadmapName);
-            mReader = mDatabase.executereadparams(cmd5);
-            while (mReader.Read())
-            {
-                mDependantString.Add(mReader.GetString(0).ToString());
-            }
-            mReader.Close();
-            mDatabase.close();
-
         }
 
         #region Getter's and Setters
