@@ -94,7 +94,6 @@ namespace RocketRoadmap
                                 B1.Text = "X";
                                 B1.CommandArgument = umap[0];
                                 B1.Click += new EventHandler(BtnHandler);
-                                B1.UseSubmitBehavior = false;
 
                                 HyperLink link = new HyperLink();
                                 link.NavigateUrl = "Roadmap.aspx?n=" + Uri.EscapeUriString(umap[0]);
