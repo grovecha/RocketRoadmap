@@ -33,6 +33,7 @@ namespace RocketRoadmap.DB
         private List<Link> mLinks = new List<Link>();
         //Dependences (PROJECTS)
         private List<Project> mDependencies = new List<Project>();
+        private List<Project> mDependants = new List<Project>();
 
         //private RocketRoadmap.DB.Database mDatabase =  new Database();
         //private SqlDataReader mReader;
@@ -127,6 +128,26 @@ namespace RocketRoadmap.DB
                     conn.Open();
 
                     using (SqlDataReader Reader = cmd3.ExecuteReader())
+                    {
+                        while (Reader.Read())
+                        {
+                            mDependencies.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), Reader.GetString(2).ToString(), mRoadmapName));
+                        }
+                        Reader.Close();
+                    }
+                    conn.Close();
+                }
+
+                //Grab project dependencies
+                using (SqlCommand cmd11 = new SqlCommand())
+                {
+                    cmd11.CommandText = "SELECT P.Name, P.Description, P.BusinessValueName FROM ( SELECT DependantName, RoadmapName, ProjectName FROM Dependents AS D WHERE(DependantName = @Pname) AND(RoadmapName = @Rname)) AS S INNER JOIN Project AS P ON S.ProjectName = P.Name AND P.RoadmapName = S.RoadmapName ";
+                    cmd11.Parameters.AddWithValue("@Pname", mName);
+                    cmd11.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd11.Connection = conn;
+                    conn.Open();
+
+                    using (SqlDataReader Reader = cmd11.ExecuteReader())
                     {
                         while (Reader.Read())
                         {
@@ -309,7 +330,6 @@ namespace RocketRoadmap.DB
             return mModalDescription;
         }
 
-
         public bool UpdateDependantStrings(List<string> Dependants)
         {
 
@@ -382,8 +402,9 @@ namespace RocketRoadmap.DB
         public List<Link> GetLinks() { return mLinks; }
         //public List<Issue> GetIssues() { return mIssues; }
         public List<Project> GetDependencies() { return mDependencies; }
+        public List<Project> GetDependants() { return mDependants; }
         #endregion
-        
+
         //Create and delete links in list and DB
         public bool CreateLink(Link link)
         {
