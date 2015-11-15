@@ -234,14 +234,14 @@ namespace RocketRoadmap.DB
             return toReturn;
         }
 
-        public List<string> Search( string key )
+        public List<List<string>> Search( string key )
         {
             List<List<string>> maps = new List<List<string>>();
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT Name FROM [dbo].[RoadMap] WHERE UserID LIKE @key  OR Name LIKE @key OR Description LIKE @key";
+                    cmd.CommandText = "SELECT SELECT Name, UserID, Description, Timestamp FROM [dbo].[RoadMap] WHERE UserID LIKE @key  OR Name LIKE @key OR Description LIKE @key";
                     cmd.Parameters.AddWithValue("@key", key);
                     cmd.Connection = conn;
 
