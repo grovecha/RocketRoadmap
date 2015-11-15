@@ -26,6 +26,18 @@ namespace RocketRoadmap.DB
                 //    // mEndDate = mReader.GetDateTime(2);
                 //}
 
+                mName = roadmapname;
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "INSERT INTO [dbo].[Timeline] (Name, RoadmapName) VALUES (@name,@Rname)";
+                    cmd.Parameters.AddWithValue("@Rname", roadmapname);
+                    cmd.Parameters.AddWithValue("@name", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
                 using (SqlCommand cmd2 = new SqlCommand())
                 {
                     cmd2.CommandText = "SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName =@Tname";
