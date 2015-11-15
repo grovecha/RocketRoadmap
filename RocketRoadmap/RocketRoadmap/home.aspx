@@ -22,7 +22,7 @@
         body {
             padding-top: 70px;
             /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-            cursor: url(/RocketRoadmap/images/Rocket.cur), auto;
+            /*cursor: url(/RocketRoadmap/images/Rocket.cur), auto;*/
             }
 
 
@@ -45,7 +45,7 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- Brand and toggle get grouped for better mobile display-->
     <div class="navbar-header">
         <a class="navbar-brand" href="#">Enterprise Architecture Roadmap</a>
     </div>
@@ -53,7 +53,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav pull-right">
-                <li><input type="search" placeholder="Search..." onkeyup =""/></li>
+                <li><asp:Textbox id = "search_text" runat="server" placeholder ="Search..."  /><asp:Button ID="searchb" runat="server" text ="Search" OnClick="searchRoadmaps"/></li>
                 <li><a data-toggle="modal" href="#roadModal" class="pull-left">New Roadmap</a></li>
                 <li><a href="index.aspx" class="pull-right">Logout</a></li>
             </ul>
@@ -89,12 +89,13 @@
 
 
 <!-- Page Content -->
-<header>
-    <h1 ID="name" runat="server" ></h1>
-</header>
+<h1 id="search_name" runat="server"></h1>
+    <asp:Table ID="searchtable" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%"> 
+    </asp:Table>
+<h1 ID="name" runat="server"></h1>  
     <asp:Table ID="userroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
-</asp:Table>
-<h1 id ="all">All Roadmaps</h1>
+    </asp:Table>
+<h1>All Roadmaps</h1>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
       <asp:TableHeaderRow>
             <asp:TableHeaderCell>Name</asp:TableHeaderCell>
@@ -112,9 +113,10 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 
+
 <style>
-    input[type="search"]{
-          width: 300px;
+    #search{
+        width: 300px;
         height: 50px;
         background: #2b303b;
         border: none;
@@ -125,12 +127,6 @@
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
-    }
-    #name{
-    text-align: center;
-    }
-    #all{
-    text-align: center;
     }
 </style>
 </form>
