@@ -56,6 +56,7 @@ function enableDrag()
     $(".proj2").resizable({ handles: 'e, w' });
     $(".proj3").draggable({
         axis: "x"
+    });
     $(".proj3").resizable({ handles: 'e, w' });
     $(".timeline").draggable({ axis: "x", containment: "#containmentWrapper", });
 
