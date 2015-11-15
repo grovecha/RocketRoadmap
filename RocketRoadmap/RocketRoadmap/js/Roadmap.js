@@ -1,6 +1,8 @@
 ﻿var changing = true;
 var dragging = false;
 
+var color = ["#ff0000", "#33cc33", "#0066ff"];
+
 
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
@@ -240,8 +242,12 @@ function addStrat(e, obj, i) {
            // element1.style.borderLeftStyle = "none";
           //  element1.style.borderTopStyle = "none";
             //  element1.style.borderColor = "#D3D3D3";
-            element1.style.height = "100px";
+
+            var colorNum = PreviousStratNum % color.length;
             element1.className = "StratVis";
+            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color[colorNum] + "), color-stop(1, " + color[colorNum] + ")); background:-moz-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-webkit-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-o-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-ms-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:linear-gradient(to bottom, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color[colorNum] + "', endColorstr='" + color[colorNum] + "',GradientType=0);")
+            element1.style.height = "100px";
+
             
 
 
@@ -473,11 +479,15 @@ function addProj(e, obj, i) {
 
             ////set class, location of more than 3 projects will be the 3rd location
             if (CurrentProjCount > 2) {
-                element1.setAttribute("class", "proj3");
+                element1.setAttribute("class", "proj1");
             }
             else {
-                element1.setAttribute("class", "proj" + String(CurrentProjCount + 1));
+                element1.setAttribute("class", "proj1");
             }
+            var sNum = parseInt(StratId.split("StratBox")[1]);
+            var colorNum = sNum % color.length;
+
+            element1.style.backgroundColor = color[colorNum];
             
             element1.value = "";
 
