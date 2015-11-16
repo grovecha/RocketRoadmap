@@ -465,7 +465,7 @@ namespace RocketRoadmap
                 {
                     // < div ondblclick = "deleteTime(this)" class="timeline ui-draggable ui-draggable-handle" id="2" style="left: 293px; top: -3px;"><p class="timelineText">2</p></div>t
                     tickCount++;
-                    containmentWrapper.InnerHtml = "< div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tickCount.ToString() + "\" style=\"left: " + tick.GetXPlacement() + "px; top: -3px; \"><p class=\"timelineText\">" + tick.GetName() + "</p></div>";
+                    containmentWrapper.InnerHtml = "< div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tickCount.ToString() + "\" style=\"left: " + (tick.GetXPlacement()-150).ToString() + "px; top: -3px; \"><p class=\"timelineText\">" + tick.GetName() + "</p></div>";
                 }
 
             }
