@@ -44,13 +44,39 @@ function showMode(id) {
 
 function enableDrag()
 {
-
-
-
+    
     $(".proj1").draggable({
-        axis: "x"
+        axis: "x",
+        //containment: "#" + this.id.split("ProjBox")[0] + "td",
+        drag: function (event, ui) {
+
+        },
+        stop: function (event, ui) {
+            console.log(this.id);
+            var pos = $("#" + this.id).position().left;
+            var width = $("#" + this.id).width();
+            console.log(pos);
+            console.log(width);
+            setProjPos(this.id.split("But")[0], pos - 158, width);
+        }
+
     });
-    $(".proj1").resizable({ handles: 'e, w' });
+
+    //$(".proj" + String(CurrentProjCount + 1)).resizable({
+    $(".proj1").resizable({
+        handles: 'e, w',
+        //containment: "#" + this.id.split("ProjBox")[0] + "td",
+
+        stop: function (event, ui) {
+
+            var pos = $("#" + this.id).position().left;
+            var width = $("#" + this.id).width();
+
+            setProjPos(this.id.split("But")[0], pos - 158, width);
+
+            document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
+        }
+    });
     $(".proj2").draggable({
         axis: "x"});
     $(".proj2").resizable({ handles: 'e, w' });
@@ -533,11 +559,11 @@ function addProj(e, obj, i) {
                 },            
                 stop: function (event, ui) {
                     console.log(this.id);
-                    var pos = $("#" + this.id).offset().left;
+                    var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(this.id.split("But")[0], pos, width);
+                    setProjPos(this.id.split("But")[0], pos - 158, width);
                 }
             
             });
@@ -549,10 +575,10 @@ function addProj(e, obj, i) {
                        
                 stop: function (event, ui) {
                 
-                    var pos = $("#" + this.id).offset().left;
+                    var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
              
-                    setProjPos(this.id.split("But")[0], pos, width);
+                    setProjPos(this.id.split("But")[0], pos - 158, width);
           
                     document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
                 }
@@ -565,11 +591,11 @@ function addProj(e, obj, i) {
                 },
                 stop: function (event, ui) {
                     console.log(this.id);
-                    var pos = $("#" + this.id).offset().left;
+                    var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(this.id.split("But")[0], pos, width);
+                    setProjPos(this.id.split("But")[0], pos-158, width);
                 }
             });
             $(".proj3").resizable({
@@ -578,11 +604,11 @@ function addProj(e, obj, i) {
           
                 stop: function (event, ui) {
                     console.log(this.id);
-                    var pos = $("#" + this.id).offset().left;
+                    var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
                     console.log(pos);
                     console.log(width);
-                    setProjPos(this.id.split("But")[0], pos, width);
+                    setProjPos(this.id.split("But")[0], pos - 158, width);
                 }
             });
 
