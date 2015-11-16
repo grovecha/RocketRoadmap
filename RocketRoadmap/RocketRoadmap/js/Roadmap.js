@@ -52,11 +52,10 @@ function enableDrag()
 
         },
         stop: function (event, ui) {
-            console.log(this.id);
+            
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-            console.log(pos);
-            console.log(width);
+       
             setProjPos(this.id.split("But")[0], pos - 158, width);
         }
 
@@ -101,7 +100,7 @@ function enableDrag()
 }
 
 function deleteTime(obj) {
-    console.log(!FullScreen);
+    
     if (!FullScreen) {
         var timeline = document.getElementById(obj.id)
         timeline.parentNode.removeChild(timeline);
@@ -130,9 +129,9 @@ function addTick(e, obj) {
         $(".timeline").draggable({
             axis: "x", containment: "#containmentWrapper",
             stop: function (event, ui) {
-                console.log(this.id);
+              
                 var pos = $("#" + this.id).offset().left;
-                console.log(pos);                
+                          
                 PageMethods.EditTickLocation(mapName, pos, this.id);
             }
         });
@@ -190,7 +189,7 @@ function deleteBus(obj) {
         var table = document.getElementById(StratId + "VisualTable");
         table.deleteRow(RowIndex);
         currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) - 100) + "px";
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) - 66) + "px";
     }
     catch (err) {
 
@@ -281,20 +280,11 @@ function addStrat(e, obj, i) {
                 element1.value = NewValue;
             }
 
-           // element1.style.backgroundColor = "white";
-           // element1.style.height = "100px";
-           // element1.style.width = "150px";
-           // element1.style.borderRightStyle = "dashed";
-           // element1.style.borderBottomStyle = "solid";
-      
-           // element1.style.borderLeftStyle = "none";
-          //  element1.style.borderTopStyle = "none";
-            //  element1.style.borderColor = "#D3D3D3";
 
             var colorNum = PreviousStratNum % color.length;
             element1.className = "StratVis";
             element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, "+color[colorNum]+"), color-stop(1, "+color[colorNum]+")); background:-moz-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-webkit-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-o-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-ms-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:linear-gradient(to bottom, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='"+color[colorNum]+"', endColorstr='b5121b',GradientType=0); background-color:"+color[colorNum]+";")
-            element1.style.height = "100px";
+            element1.style.height = "66px";
 
             
 
@@ -384,30 +374,30 @@ function addBus(e, obj, i) {
             var PreviousStratRow = document.getElementById('StratVisual' + (PreviousStratNum).toString() + "Row").rowIndex;
             var row = table.rows[PreviousStratRow];
 
-            console.log(table.rows.count);
+           
             tableid = StratId + "VisualTable";
             
             if (document.getElementById(tableid)) {
                 table = document.getElementById(tableid);
                 var rowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex;
                 row = table.insertRow(rowIndex);
-                //row.setAttribute("style", "height:100px; border-width: 1px; border-bottom-style: solid; border-color: #D3D3D3");
+                
                 row.className = "RowVis";
+                row.id = obj.id + "RowVis";
                 cell = row.insertCell(0);
                 cell.id = obj.id + "td";
+                cell.className = "projtd";
 
                 row.insertCell(1);
                 row.insertCell(2);
                 cell1 = row.insertCell(3);
-                //cell1.setAttribute("style", "width: 100px; text-align:right; background-color: white; padding:0");
-                cell1.className = "CellVis";
+                
+                cell1.className = "BusVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
                 currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 100) + "px";
-                console.log(CurrentStratCount);
-                console.log(currentheight.toString());
-                console.log(String(parseInt(currentheight) + 100) + "px");
+                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 66) + "px";
+
 
             }
             else {
@@ -422,7 +412,7 @@ function addBus(e, obj, i) {
                 ////set top border if it is the first bus value
                 if (obj.id == "StratBox0BusBox0") {
                     newcell.innerHTML = "<table id='" + tableid + "'>" +
-                                        "<tr class='RowVis' style = 'border-top: 2pt solid; border-top-color: #D3D3D3; '>" +
+                                        "<tr id='" + obj.id + "RowVis' class='RowVis' style = 'border-top: 2pt solid; border-top-color: #D3D3D3; '>" +
                                             '<td class = "projtd" id="' + projtd + '" >' +
                                             '</td>' +
                                             '<td ></td>' +
@@ -433,7 +423,7 @@ function addBus(e, obj, i) {
                 }
                 else {
                     newcell.innerHTML = "<table id='" + tableid + "'>" +
-                                        "<tr class='RowVis'>" +
+                                        "<tr id='" + obj.id + "RowVis' class='RowVis'>" +
                                             '<td class="projtd" id="' + projtd + '" >' +
                                             '</td>' +
                                             '<td ></td>' +
@@ -508,6 +498,20 @@ function addProj(e, obj, i) {
         }
         else {
 
+            if (ProjTotal > 2) {
+                //increase stratbut height
+                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
+                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 33) + "px";
+
+                //increase RowVis height
+                var RowVis = obj.id.split("ProjBox")[0] + "RowVis";
+                currentheight = document.getElementById(RowVis).style.height;
+        
+                document.getElementById(RowVis).style.height = (ProjTotal*33).toString() + "px";
+
+
+            }
+
             var element1 = document.createElement("div");       
             
             element1.id = obj.id + "But";
@@ -558,11 +562,10 @@ function addProj(e, obj, i) {
                     
                 },            
                 stop: function (event, ui) {
-                    console.log(this.id);
+              
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-                    console.log(pos);
-                    console.log(width);
+               
                     setProjPos(this.id.split("But")[0], pos - 158, width);
                 }
             
@@ -590,11 +593,10 @@ function addProj(e, obj, i) {
 
                 },
                 stop: function (event, ui) {
-                    console.log(this.id);
+                
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-                    console.log(pos);
-                    console.log(width);
+            
                     setProjPos(this.id.split("But")[0], pos-158, width);
                 }
             });
@@ -603,11 +605,10 @@ function addProj(e, obj, i) {
                 containment: "#" + BusId + "td",
           
                 stop: function (event, ui) {
-                    console.log(this.id);
+             
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-                    console.log(pos);
-                    console.log(width);
+                
                     setProjPos(this.id.split("But")[0], pos - 158, width);
                 }
             });

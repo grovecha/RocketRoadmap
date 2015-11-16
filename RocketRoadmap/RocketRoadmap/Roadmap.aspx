@@ -398,7 +398,7 @@
        }
 
        .RowVis{
-           height:100px;
+           height: 66px;
            border-width: 1px;
            border-bottom-style:solid;
            background-color: #e6f2c6;
@@ -411,11 +411,11 @@
 
        }
        .NewCellVis {
-           background-color: #e6f2c6;
+          
        }
 
        .projtd {
-           padding:0;
+           padding-top: 5px;
            width: 2500px;
            background-color:#e6f2c6;
        }
