@@ -99,7 +99,7 @@ namespace RocketRoadmap.DB
                     conn.Open();
                     if (cmd.ExecuteNonQuery()!=0)
                     {
-                        mTimeline = new TimeLine(name);
+                        mTimeline = new TimeLine(name);   
                         toReturn = true;
                     }
                     conn.Close();
