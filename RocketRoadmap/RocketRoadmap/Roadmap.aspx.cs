@@ -71,7 +71,7 @@ namespace RocketRoadmap
                 int colorNum = count % color.Count;
 
                 but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color[colorNum] + "), color-stop(1, " + color[colorNum] + ")); background:-moz-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-webkit-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-o-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-ms-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:linear-gradient(to bottom, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color[colorNum] + "', endColorstr='" + color[colorNum] + "',GradientType=0);");
-                but.Style.Add(HtmlTextWriterStyle.Height, "100px");
+                but.Style.Add(HtmlTextWriterStyle.Height, "75px");
                 but.Value = p.GetDescription();
 
                 HtmlInputText textbox;
@@ -450,10 +450,12 @@ namespace RocketRoadmap
                 sideTable.Rows.Add(lastRow);
 
                 //hide example
-                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideExample();", true);
+
 
                 #endregion
             }
+
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideStrat(StratBox" + (count).ToString() + "BusBox0Row);", true);
 
             #endregion
 
