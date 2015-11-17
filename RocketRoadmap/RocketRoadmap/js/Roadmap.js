@@ -138,8 +138,8 @@ function addTick(e, obj) {
     }
 }
 
-function hideExample() {
-    $("#StratBox0BusBox0Row").hide();
+function hideStrat(StratString) {
+    $(StratString).hide();
 };
  
 //$("#StratBox0BusBox0Row").hide();
@@ -334,7 +334,7 @@ function addStrat(e, obj, i) {
                             '</tr>' +
                             '</table>' +
                             "</td>";
-                            //  $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
+                              $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
 
             //place cursor in  bus value
             document.getElementById(obj.id+"BusBox0").select();
