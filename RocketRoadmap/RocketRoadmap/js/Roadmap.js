@@ -189,6 +189,12 @@ function deleteBus(obj) {
     var BusId = obj.id.split("Delete")[0];
     var StratTable = document.getElementById(StratId + "Table");
     var RowIndex = document.getElementById(BusId + "Row").rowIndex;
+
+    //don't allow deletion of last strat box
+    if (!document.getElementById(BusId).getAttribute("firstadd")) {
+        return 0;
+    }
+
     StratTable.deleteRow(RowIndex);
 
     try {
