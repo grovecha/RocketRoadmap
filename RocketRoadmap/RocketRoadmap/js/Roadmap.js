@@ -132,7 +132,7 @@ function addTick(e, obj) {
             axis: "x", containment: "#containmentWrapper",
             stop: function (event, ui) {
                 console.log("call me");
-                var pos = $("#" + this.id).offset().left;
+                var pos = $("#" + this.id).position().left;
                            
                 PageMethods.EditTickLocation(mapName, pos, this.id);
             }
