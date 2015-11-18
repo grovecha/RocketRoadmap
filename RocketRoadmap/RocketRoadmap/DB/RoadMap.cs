@@ -48,17 +48,9 @@ namespace RocketRoadmap.DB
                     }
                 }
 
-                using (SqlCommand cmd2 = new SqlCommand())
-                {
-                    cmd2.CommandText = "SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = @Rname";
-                    cmd2.Parameters.AddWithValue("@Rname", mName);
-                    cmd2.Connection = conn;
-                    using (SqlDataReader Reader = cmd2.ExecuteReader())
-                    {
-                        Reader.Read();
-                    }
-                    //mTimeline = new TimeLine(mName);
-                }
+
+                    mTimeline = new TimeLine(mName);
+
 
                 //Get the StrategyPoints
                 using (SqlCommand cmd3 = new SqlCommand())

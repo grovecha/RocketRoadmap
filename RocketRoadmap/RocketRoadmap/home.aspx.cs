@@ -7,6 +7,8 @@ using System.Web.Services;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using RocketRoadmap.DB;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace RocketRoadmap
 {
@@ -210,6 +212,22 @@ namespace RocketRoadmap
             //ADD YES NO MODAL
 
             maps.DeleteRoadMap(btn.CommandArgument);
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@Rname", btn.CommandArgument);
+                    cmd.Connection = conn;
+
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+
             Response.Redirect(Request.RawUrl);
         }
 
