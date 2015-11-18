@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Services;
 using System.Web.UI.HtmlControls;
+using System.Data.SqlClient;
+using System.Configuration;
 using RocketRoadmap.DB;
 
 
@@ -698,7 +700,7 @@ namespace RocketRoadmap
         public static string[][] GetProjectDependencyArr(string ProjectID, string RoadmapName)
         {
             List<string> Depon_Names = new List<string>();
-            List<Project> Projecton_List = new List<Project>();
+            List<string> Projecton_List = new List<string>();
             List<string> Depof_Names = new List<string>();
             List<Project> Projectof_List = new List<Project>();
             int pointindex = ProjectID.IndexOf("Bus");
@@ -715,9 +717,9 @@ namespace RocketRoadmap
 
             
             //for each project just get the project names 
-            foreach (Project p in Projecton_List)
+            foreach (string p in Projecton_List)
             {
-                Depon_Names.Add(p.GetName());
+                Depon_Names.Add(p);
 
             }
             //for each project just get the project names 
@@ -754,7 +756,7 @@ namespace RocketRoadmap
         public static List<string> GetProjectDependency(string ProjectID, string RoadmapName)
         {
             List<string> Project_Names = new List<string>();
-            List<Project> Project_List = new List<Project>();
+            List<string> Project_List = new List<string>();
             int pointindex = ProjectID.IndexOf("Bus");
             int valindex = ProjectID.IndexOf("Proj");
             string point = ProjectID.Substring(0, pointindex);
@@ -768,9 +770,9 @@ namespace RocketRoadmap
 
 
             //for each project just get the project names 
-            foreach (Project p in Project_List)
+            foreach (string p in Project_List)
             {
-                Project_Names.Add(p.GetDescription());
+                Project_Names.Add(p);
 
             }
 
@@ -891,6 +893,18 @@ namespace RocketRoadmap
             Link = GetProjectLinksString(ProjectID, RoadmapName);
             AllProj = GetAllRoadmapProjectDesc(RoadmapName);
 
+            List<Project> all_projs = map.GetAllProjects();
+            List<string> DepProjNames = new List<string>();
+            foreach (string s in DepProj)
+            {
+                foreach (Project proj in all_projs)
+                {
+                    if(proj.GetName() == s)
+                    {
+                        DepProjNames.Add(proj.GetDescription());
+                    }
+                }
+            }
 
             string[][] final_return = new string[7][];
             final_return[0] = new string[1];
@@ -911,7 +925,7 @@ namespace RocketRoadmap
                 final_return[3][x] = ds;
                 x++;
             }
-            foreach (string dp in DepProj)
+            foreach (string dp in DepProjNames)
             {
                 final_return[4][a] = dp;
                 a++;
@@ -940,7 +954,7 @@ namespace RocketRoadmap
         public static void SetAll(string ProjectID, string RoadmapName, string[] proj_dep, string[] link_arr, string[] string_dep, string desc, string risk)
         {
             List<Project> tot_list = new List<Project>(); // Total List of projects
-            List<Project> P_list = new List<Project>(); // 
+            List<string> P_list = new List<string>(); // 
             List<Project> P_list2 = new List<Project>();
             List<Project> dep_list = new List<Project>();
             List<Link> Link_List = new List<Link>();
@@ -965,55 +979,100 @@ namespace RocketRoadmap
             Link_List = GetProjectLinks(ProjectID, RoadmapName);
             Dep_Names = newproj.GetDependantStrings();
 
-
-            //Create
-            //For each project in the total project list, check is a project name from the array is in there, if its not in the dep list then create it 
-            bool cflag = false;
-            bool dflag = false;
-            foreach (Project s in tot_list)
+            //DELETE ALL DEPENDENTS
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
-                cflag = false;
-                foreach (string pd in proj_dep)
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    if (pd == s.GetDescription())
+                    cmd.CommandText = "DELETE FROM [dbo].[Dependents] WHERE ProjectName=@Pname AND RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@Pname", ProjectID);
+                    cmd.Parameters.AddWithValue("@Rname", RoadmapName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+
+            //Add in new dependents list
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                foreach (string s in proj_dep)
+                {
+                    Project proj=null;
+                    foreach (Project pro in tot_list)
                     {
-                        foreach (Project p in P_list)
+                        if (pro.GetDescription() == s)
                         {
-                            if (p.GetDescription() == s.GetDescription())
-                            {
-                                cflag = true;
-                            }
+                            proj = pro;
                         }
-                        if (cflag == false)
-                        {
-                            newproj.CreateDependant(s);
-                            dep_list.Add(s);
-                        }
+                    }
+                    if (proj == null) break;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "INSERT INTO [dbo].[Dependents] (ProjectName, DependantName,Description, RoadmapName) VALUES (@Pname, @Dname,'this column is dumb', @Rname)";
+                        cmd.Parameters.AddWithValue("@Pname", ProjectID);
+                        cmd.Parameters.AddWithValue("@Dname", proj.GetName());
+                        cmd.Parameters.AddWithValue("@Rname", RoadmapName);
+                        cmd.Connection = conn;
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
                     }
                 }
             }
 
-            //Delete
-            foreach (Project s in P_list)
-            {
-                dflag = false;
-                foreach (Project p in dep_list)
-                {
-                    if (p.GetDescription() == s.GetDescription())
-                    {
-                        dflag = true;
-                    }
-                }
-                if (dflag == false)
-                {
-                    P_list2.Add(s);
-                }
-            }
+            
+            ////Create
+            ////For each project in the total project list, check is a project name from the array is in there, if its not in the dep list then create it 
+            //bool cflag = false;
+            //bool dflag = false;
+            //foreach (Project s in tot_list)
+            //{
+            //    cflag = false;
+            //    foreach (string pd in proj_dep)
+            //    {
+            //        if (pd == s.GetDescription())
+            //        {
+            //            foreach (Project p in P_list)
+            //            {
+            //                if (p.GetDescription() == s.GetDescription())
+            //                {
+            //                    cflag = true;
+            //                }
+            //            }
+            //            if (cflag == false)
+            //            {
+            //                newproj.CreateDependant(s);
+            //                dep_list.Add(s);
+            //            }
+            //        }
+            //    }
+            //}
 
-            foreach (Project x in P_list2)
-            {
-                newproj.DeleteDependant(x);
-            }
+            ////Delete
+            //foreach (Project s in P_list)
+            //{
+            //    dflag = false;
+            //    foreach (Project p in dep_list)
+            //    {
+            //        if (p.GetDescription() == s.GetDescription())
+            //        {
+            //            dflag = true;
+            //        }
+            //    }
+            //    if (dflag == false)
+            //    {
+            //        P_list2.Add(s);
+            //    }
+            //}
+
+            //foreach (Project x in P_list2)
+            //{
+            //    newproj.DeleteDependant(x);
+            //}
 
 
 
