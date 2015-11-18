@@ -77,23 +77,6 @@ namespace RocketRoadmap.DB
                     conn.Close();
                 }
 
-                using (SqlCommand cmd4 = new SqlCommand())
-                {
-                    cmd4.CommandText = "SELECT Name, XPlacement FROM [dbo].[TickMark] WHERE TimelineName = @TName";
-                    cmd4.Parameters.AddWithValue("@TName", mName);
-                    cmd4.Connection = conn;
-
-                    conn.Open();
-                    using (SqlDataReader Reader = cmd4.ExecuteReader())
-                    {
-                        while (Reader.Read())
-                        {
-                            TickMark tick = new TickMark(Reader.GetString(0).ToString(), Reader.GetInt32(1));
-                            mTicks.Add(tick);
-                        }
-                    }
-                    conn.Close();
-                }
             }
             //mDatabase.connect();
             //mReader = mDatabase.executeread("SELECT Name, StartDate, EndDate FROM [dbo].[Timeline] WHERE RoadmapName = '" + roadmapname + "'");
