@@ -129,9 +129,9 @@ function addTick(e, obj) {
         $(".timeline").draggable({
             axis: "x", containment: "#containmentWrapper",
             stop: function (event, ui) {
-              
+                console.log("call me");
                 var pos = $("#" + this.id).offset().left;
-                          
+                           
                 PageMethods.EditTickLocation(mapName, pos, this.id);
             }
         });
