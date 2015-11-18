@@ -32,7 +32,7 @@ namespace RocketRoadmap.DB
         //Links this project owns
         private List<Link> mLinks = new List<Link>();
         //Dependences (PROJECTS)
-        private List<Project> mDependencies = new List<Project>();
+        private List<string> mDependencies = new List<string>();
         private List<Project> mDependants = new List<Project>();
 
         //private RocketRoadmap.DB.Database mDatabase =  new Database();
@@ -131,7 +131,7 @@ namespace RocketRoadmap.DB
                     {
                         while (Reader.Read())
                         {
-                            mDependencies.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), Reader.GetString(2).ToString(), mRoadmapName));
+                            mDependencies.Add(Reader.GetString(0).ToString());
                         }
                         Reader.Close();
                     }
@@ -151,7 +151,7 @@ namespace RocketRoadmap.DB
                     {
                         while (Reader.Read())
                         {
-                            mDependencies.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), Reader.GetString(2).ToString(), mRoadmapName));
+                            mDependants.Add(new Project(Reader.GetString(0).ToString(), Reader.GetString(1).ToString(), Reader.GetString(2).ToString(), mRoadmapName));
                         }
                         Reader.Close();
                     }
@@ -401,7 +401,7 @@ namespace RocketRoadmap.DB
 
         public List<Link> GetLinks() { return mLinks; }
         //public List<Issue> GetIssues() { return mIssues; }
-        public List<Project> GetDependencies() { return mDependencies; }
+        public List<String> GetDependencies() { return mDependencies; }
         public List<Project> GetDependants() { return mDependants; }
         #endregion
 
@@ -493,7 +493,7 @@ namespace RocketRoadmap.DB
                     conn.Close();
                 }
             }
-            mDependencies.Add(dependant);
+            mDependencies.Add(dependant.GetName());
 
             return flag;
         }
@@ -516,7 +516,7 @@ namespace RocketRoadmap.DB
                     conn.Close();
                 }
             }
-            mDependencies.Remove(dependant);
+            mDependencies.Remove(dependant.GetName());
 
             return flag;
         }
