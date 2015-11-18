@@ -42,8 +42,10 @@ function showMode(id) {
     }
 }
 
+
 function enableDrag()
 {
+    console.log("Enable Drag");
     
     $(".proj1").draggable({
         axis: "x",
@@ -95,7 +97,7 @@ function enableDrag()
     $(".proj3").resizable("enable");
     $(".timeline").draggable("enable");
 
-
+    console.log("/Enable Drag");
 
 }
 
@@ -145,9 +147,14 @@ function hideStrat(StratString) {
 //$("#StratBox0BusBox0Row").hide();
 
 function deleteStrat(obj) {
-
+    
     var mainDiv = document.getElementById('sidebarTable');
     var PreviousStratNum = parseInt(obj.id.split('StratDelete')[1].split("BusBox")[0]);
+
+    //don't allow deletion of last strat box
+    if (!document.getElementById("StratBox" + PreviousStratNum.toString()).getAttribute("firstadd")) {
+        return 0;
+    }
     var mainDiv = document.getElementById('sidebarTable');
     var RowIndex = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex;
     mainDiv.deleteRow(RowIndex);
@@ -182,6 +189,12 @@ function deleteBus(obj) {
     var BusId = obj.id.split("Delete")[0];
     var StratTable = document.getElementById(StratId + "Table");
     var RowIndex = document.getElementById(BusId + "Row").rowIndex;
+
+    //don't allow deletion of last strat box
+    if (!document.getElementById(BusId).getAttribute("firstadd")) {
+        return 0;
+    }
+
     StratTable.deleteRow(RowIndex);
 
     try {

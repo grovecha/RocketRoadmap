@@ -320,7 +320,7 @@
         <style>
         .txtStrat {
            
-            width: 150px;
+            width: 200px;
             height:30px;
             margin-left: 0px;
             font-family:Arial;
