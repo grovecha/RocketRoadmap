@@ -160,7 +160,7 @@
 
         <div class="modal-content">
 
-        <div class="modal-header">
+        <div class="modal-header" id="headcolor1">
 
             <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -218,7 +218,7 @@
 
         <div class="modal-content">
 
-        <div class="modal-header">
+        <div class="modal-header" id="headcolor2">
 
             <button type="button" class="close" data-dismiss="modal">&times;</button>
 
@@ -249,15 +249,21 @@
                 <h2><u>Links</u></h2>
                     <div class="dislinkText">
                     </div>
+
             </div>
+               <div class="modal-footer"> 
+                   <button type="button" class="btn btn-default" data-dismiss="modal"id="close1">Close</button> 
+               </div> 
         </div> 
     </div>
  </div>
+
+
 <div id="helpModal" class="modal fade" role ="dialog"> 
 
      <div class="modal-dialog modal-lg">  
           <!-- Modal Content --> 
-         <div class="modal-content"> 
+         <div class="modal-content" id="icontent"> 
  
              <div class="modal-header">  
  
@@ -296,7 +302,7 @@
     
  
                 <div class="modal-footer"> 
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="close2">Close</button> 
                 </div> 
                 </div> 
           </div>  
@@ -398,26 +404,26 @@
        }
 
        .RowVis{
-           height: 66px;
+           height:100px;
            border-width: 1px;
            border-bottom-style:solid;
-           background-color: #e6f2c6;
+           background-color: #f4f2f1;
        }
        .CellVis{
            width:100px;
            text-align:right;
-           background-color:#e6f2c6;
+           background-color:#f4f2f1;
            padding:0;
 
        }
        .NewCellVis {
-          
+           background-color: #f4f2f1;
        }
 
        .projtd {
-           padding-top: 5px;
+           padding:0;
            width: 2500px;
-           background-color:#e6f2c6;
+           background-color:#f4f2f1;
        }
 
        .ProjVis{
@@ -426,7 +432,7 @@
        .BusVis {
            width: 100px;
            text-align:right;
-           background-color: #e6f2c6;
+           background-color: #f4f2f1;
            padding:0
        }
 
@@ -498,6 +504,41 @@
     border-bottom: 10px solid transparent;    
 }
 textarea{resize:vertical; max-height:300px}
+
+#close1, #close2, #save{
+-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24537;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+
+#headcolor1, #headcolor2{
+    background-color:#f24537;
+}
+#icontent{
+    background-color:#a8a8a8;
+}
+
    
     </style>
 
