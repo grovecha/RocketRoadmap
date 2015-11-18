@@ -45,7 +45,9 @@ function showMode(id) {
 
 function enableDrag()
 {
-    console.log("Enable Drag");
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
     
     $(".proj1").draggable({
         axis: "x",
@@ -85,7 +87,15 @@ function enableDrag()
         axis: "x"
     });
     $(".proj3").resizable({ handles: 'e, w' });
-    $(".timeline").draggable({ axis: "x", containment: "#containmentWrapper", });
+    $(".timeline").draggable({
+        axis: "x", containment: "#containmentWrapper",
+        stop: function (event, ui) {
+            console.log("call me");
+            var pos = $("#" + this.id).position().left;
+            console.log(pos);
+            PageMethods.EditTickLocation(mapName, pos, this.id);
+        }
+    });
 
 
 
@@ -97,7 +107,7 @@ function enableDrag()
     $(".proj3").resizable("enable");
     $(".timeline").draggable("enable");
 
-    console.log("/Enable Drag");
+    
 
 }
 
@@ -133,7 +143,7 @@ function addTick(e, obj) {
             stop: function (event, ui) {
                 console.log("call me");
                 var pos = $("#" + this.id).position().left;
-                           
+                console.log(pos);
                 PageMethods.EditTickLocation(mapName, pos, this.id);
             }
         });

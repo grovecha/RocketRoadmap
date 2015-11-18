@@ -53,9 +53,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav pull-right">
-                <li><asp:Textbox id = "search_text" runat="server" placeholder ="Search..."  /><asp:Button ID="searchb" runat="server" text ="Search" OnClick="searchRoadmaps"/></li>
                 <li><a data-toggle="modal" href="#roadModal" class="pull-left">New Roadmap</a></li>
                 <li><a href="index.aspx" class="pull-right">Logout</a></li>
+                <li><asp:Textbox id = "search_text" runat="server" placeholder ="Search..."  /><asp:Button ID="searchb" runat="server" text ="Search" OnClick="searchRoadmaps"/></li>
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -67,12 +68,12 @@
     <div class="modal fade" id="roadModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" id="roadmapmodal">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="roadmapmodal">New Roadmap</h4>
                     </div>
                     <div class="modal-body">
-                        <h2><u>Roadmap Name:</u></h2>
+                        <h2><u>Roadmap Name</u></h2>
                         <input type="text" id="roadmap_Name" size="60" runat="server" />
                         <p></p>
                         <h2><u>Roadmap Description</u></h2>
@@ -81,7 +82,7 @@
                        
                     </div>
                     <div class="modal-footer">
-                        <asp:button type="button" class="btn btn-default" onclick="newroadmap" runat="server" Text="Create"></asp:button>
+                        <asp:button type="button" id="createbutton" class="btn btn-default" onclick="newroadmap" runat="server" Text="Create"></asp:button>
                     </div>
                 </div>
             </div>
@@ -136,6 +137,52 @@
     }
     #search_name{
         text-align: center;
+    }
+    #searchb {
+	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	background-color:#b5121b;
+	border:1px solid #241d13;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #7a2a1d;
+    height: 50px;
+    }
+    #roadmapmodal{
+        background-color:#b5121b;
+    }
+    #createbutton{
+    -moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24537;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
     }
 
 </style>

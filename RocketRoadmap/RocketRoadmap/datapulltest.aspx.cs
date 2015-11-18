@@ -19,7 +19,7 @@ namespace RocketRoadmap
             List<Project> projlist = bvlist.First().GetProjects();
             //List<Issue> issuelist = projlist.First().GetIssues();
             List<Link> linklist = projlist.First().GetLinks();
-            List<Project> dependencylist = projlist.First().GetDependencies();
+            List<string> dependencylist = projlist.First().GetDependencies();
 
 
             RoadmapName.Text = RoadmapName.Text + " " + mapname ;
@@ -31,7 +31,7 @@ namespace RocketRoadmap
 
             //IssueDescrip.Text = IssueDescrip.Text + " " + issuelist.First().GetDescription();
             Link.Text = Link.Text + " " + linklist.First().GetLink();
-            Dependency.Text = Dependency.Text + " " + dependencylist.First().GetName();
+            Dependency.Text = Dependency.Text + " " + dependencylist.First();
 
             
 
