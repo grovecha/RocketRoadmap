@@ -469,13 +469,15 @@ namespace RocketRoadmap
                 {
                     // < div ondblclick = "deleteTime(this)" class="timeline ui-draggable ui-draggable-handle" id="2" style="left: 293px; top: -3px;"><p class="timelineText">2</p></div>t
                     tickCount++;
-                    containmentWrapper.InnerHtml = "< div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tickCount.ToString() + "\" style=\"left: " + (tick.GetXPlacement()-150).ToString() + "px; top: -3px; \"><p class=\"timelineText\">" + tick.GetName() + "</p></div>";
+                    containmentWrapper.InnerHtml +="<div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tickCount.ToString() + "\" style=\"left: " + (tick.GetXPlacement()).ToString() + "px; top: -3px; \">"
+                        +"<p class=\"timelineText\">" + tick.GetName() + "</p>"+
+                        "</div>";
                 }
 
             }
 
            
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "enableDrag();", true);
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script2", "enableDrag();", true);
 
         }
 
@@ -598,10 +600,10 @@ namespace RocketRoadmap
         }
 
         [WebMethod]
-        public static void EditTickLocation(string mapName, int pos, string label)
+        public static void EditTickLocation(string mapName, float pos, string label)
         {
-            TickMark tickmark = new TickMark(label, pos);
-            tickmark.EditTickLocation(pos, mapName);          
+            TickMark tickmark = new TickMark(label, (int)pos);
+            tickmark.EditTickLocation((int)pos, mapName);          
         }
 
         [WebMethod]

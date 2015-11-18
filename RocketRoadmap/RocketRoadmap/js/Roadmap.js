@@ -42,8 +42,12 @@ function showMode(id) {
     }
 }
 
+
 function enableDrag()
 {
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
     
     $(".proj1").draggable({
         axis: "x",
@@ -83,7 +87,15 @@ function enableDrag()
         axis: "x"
     });
     $(".proj3").resizable({ handles: 'e, w' });
-    $(".timeline").draggable({ axis: "x", containment: "#containmentWrapper", });
+    $(".timeline").draggable({
+        axis: "x", containment: "#containmentWrapper",
+        stop: function (event, ui) {
+            console.log("call me");
+            var pos = $("#" + this.id).position().left;
+            console.log(pos);
+            PageMethods.EditTickLocation(mapName, pos, this.id);
+        }
+    });
 
 
 
@@ -95,7 +107,7 @@ function enableDrag()
     $(".proj3").resizable("enable");
     $(".timeline").draggable("enable");
 
-
+    
 
 }
 
@@ -129,9 +141,9 @@ function addTick(e, obj) {
         $(".timeline").draggable({
             axis: "x", containment: "#containmentWrapper",
             stop: function (event, ui) {
-              
-                var pos = $("#" + this.id).offset().left;
-                          
+                console.log("call me");
+                var pos = $("#" + this.id).position().left;
+                console.log(pos);
                 PageMethods.EditTickLocation(mapName, pos, this.id);
             }
         });
@@ -145,9 +157,14 @@ function hideStrat(StratString) {
 //$("#StratBox0BusBox0Row").hide();
 
 function deleteStrat(obj) {
-
+    
     var mainDiv = document.getElementById('sidebarTable');
     var PreviousStratNum = parseInt(obj.id.split('StratDelete')[1].split("BusBox")[0]);
+
+    //don't allow deletion of last strat box
+    if (!document.getElementById("StratBox" + PreviousStratNum.toString()).getAttribute("firstadd")) {
+        return 0;
+    }
     var mainDiv = document.getElementById('sidebarTable');
     var RowIndex = document.getElementById('StratBox' + (PreviousStratNum).toString() + "Row").rowIndex;
     mainDiv.deleteRow(RowIndex);
@@ -182,6 +199,12 @@ function deleteBus(obj) {
     var BusId = obj.id.split("Delete")[0];
     var StratTable = document.getElementById(StratId + "Table");
     var RowIndex = document.getElementById(BusId + "Row").rowIndex;
+
+    //don't allow deletion of last strat box
+    if (!document.getElementById(BusId).getAttribute("firstadd")) {
+        return 0;
+    }
+
     StratTable.deleteRow(RowIndex);
 
     try {
