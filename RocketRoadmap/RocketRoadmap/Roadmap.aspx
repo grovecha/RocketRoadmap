@@ -365,7 +365,7 @@
         .space {
           
               left: 200px;  
-              width: 90px; height: 10px; background-color:#e6f2c6
+              width: 90px; height: 10px; background-color:#f4f2f1
         }
        span {
           display: inline-block;
@@ -500,7 +500,7 @@
     position: absolute;
     display: block;
     border-top: 10px solid transparent;
-    border-left: 10px solid #e6f2c6;
+    border-left: 10px solid #f4f2f1;
     border-bottom: 10px solid transparent;    
 }
 textarea{resize:vertical; max-height:300px}
