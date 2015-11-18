@@ -596,10 +596,10 @@ namespace RocketRoadmap
         }
 
         [WebMethod]
-        public static void EditTickLocation(string mapName, int pos, string label)
+        public static void EditTickLocation(string mapName, float pos, string label)
         {
-            TickMark tickmark = new TickMark(label, pos);
-            tickmark.EditTickLocation(pos, mapName);          
+            TickMark tickmark = new TickMark(label, (int)pos);
+            tickmark.EditTickLocation((int)pos, mapName);          
         }
 
         [WebMethod]

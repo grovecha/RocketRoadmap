@@ -41,8 +41,6 @@ function showMode(id) {
         showModal(id);
     }
 }
-
-
 function enableDrag()
 {
     console.log("Enable Drag");
@@ -132,8 +130,8 @@ function addTick(e, obj) {
             axis: "x", containment: "#containmentWrapper",
             stop: function (event, ui) {
               
-                var pos = $("#" + this.id).offset().left;
-                          
+                var pos = $("#" + this.id).position().left;
+                console.log(pos);
                 PageMethods.EditTickLocation(mapName, pos, this.id);
             }
         });
