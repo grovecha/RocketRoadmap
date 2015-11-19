@@ -1,0 +1,13 @@
+﻿
+#roadmapmodal {
+    padding: .563em 1em;
+    border-bottom: .063em solid #eee;
+    -webkit-border-top-left-radius: .313em;
+    -webkit-border-top-right-radius: .313em;
+    -moz-border-radius-topleft: .313em;
+    -moz-border-radius-topright: .313em;
+    border-top-left-radius: .313em;
+    border-top-right-radius: .313em;
+    background-color: #f24537;
+    font-family: Arial;
+}

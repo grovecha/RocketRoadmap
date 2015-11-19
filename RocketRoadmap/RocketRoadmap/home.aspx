@@ -70,14 +70,14 @@
                 <div class="modal-content">
                     <div class="modal-header" id="roadmapmodal">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="roadmapmodal">New Roadmap</h4>
+                        <h4 class="modal-title" id="roadmapmodal2">New Roadmap</h4>
                     </div>
                     <div class="modal-body">
                         <h2><u>Roadmap Name</u></h2>
                         <input type="text" id="roadmap_Name" size="60" runat="server" />
                         <p></p>
                         <h2><u>Roadmap Description</u></h2>
-                        <textarea id="roadmap_Desc" rows="4" cols="75" runat="server"></textarea>
+                        <textarea id="roadmap_Desc" rows="2" cols="75" runat="server"></textarea>
                         <p></p>
                        
                     </div>
@@ -117,17 +117,17 @@
 
 <style>
     #search_text{
-        width: 300px;
-        height: 50px;
+        width: 18.75em;
+        height: 3.125em;
         background: #2b303b;
         border: none;
         font-size: 10pt;
         float: left;
         color: #63717f;
-        padding-left: 45px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
+        padding-left: 2.813em;
+        -webkit-border-radius: .313em;
+        -moz-border-radius: .313em;
+        border-radius: .313em;
     }
     #name{
         text-align: center;
@@ -139,50 +139,58 @@
         text-align: center;
     }
     #searchb {
-	-moz-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	-webkit-box-shadow:inset 0px 34px 0px -15px #b54b3a;
-	box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	-moz-box-shadow:inset 0em 2.125em 0em -1em #b54b3a;
+	-webkit-box-shadow:inset 0em 2.125em 0px -1em #b54b3a;
+	box-shadow:inset 0em 2.125em 0em -1em #b54b3a;
 	background-color:#b5121b;
-	border:1px solid #241d13;
+	border:.063em solid #241d13;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:15px;
+	font-size:1em;
 	font-weight:bold;
-	padding:9px 23px;
+	padding:.563em 1.5em;
 	text-decoration:none;
-	text-shadow:0px -1px 0px #7a2a1d;
-    height: 50px;
+	text-shadow:0em -.063em 0em #7a2a1d;
+    height: 3.125em;
     }
     #roadmapmodal{
-        background-color:#b5121b;
+           padding:.563em 1em;
+    border-bottom:.063em solid #eee;
+    -webkit-border-top-left-radius: .313em;
+    -webkit-border-top-right-radius: .313em;
+    -moz-border-radius-topleft: .313em;
+    -moz-border-radius-topright: .313em;
+    border-top-left-radius: .313em;
+    border-top-right-radius: .313em;
+    background-color:#f24537;
+    font-family:Arial;
+    
     }
     #createbutton{
-    -moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
-	box-shadow:inset 0px 1px 0px 0px #f5978e;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
-	background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
-	background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
-	background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
-	background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
-	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
-	background-color:#f24537;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #d02718;
+	-moz-box-shadow: 0em 0em 0em 0em #cf866c;
+	-webkit-box-shadow: 0em 0em 0em 0em #cf866c;
+	box-shadow: 0em 0em 0em 0em #cf866c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+	background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+	background-color:#d0451b;
+	-moz-border-radius:1em;
+	-webkit-border-radius:1em;
+	border-radius:1em;
+	border:.063em solid #942911;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
+	font-size:1.00em;
+	padding:.375em 1.5em;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #810e05;
     }
 
 </style>

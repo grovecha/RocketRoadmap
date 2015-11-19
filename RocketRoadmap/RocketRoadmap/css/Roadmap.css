@@ -1,1 +1,233 @@
-﻿
+﻿.txtStrat {  
+    width: 12.5em;
+    height:1.875em;
+    margin-left: 0em;
+    font-family:Arial;
+}
+.btnDelete {
+    height: 2em;
+    width: 1.75em;
+}
+.txtBus {
+    width: 11.25em;
+    height: 1.875em;
+    margin-left: 1.25em;
+    font-family:Arial;
+
+}
+.txtProj {
+    width: 10em;
+    height: 1.875em;
+    margin-left: 2.5em;
+    font-family:Arial;
+
+}
+.txtProjDel {
+    width: 10em;
+    height: 1.875em;
+    margin-left: 2.5em;
+    font-family:Arial;
+
+}
+.btnStrat{
+    height:12.5em;
+    width:12.5em;
+}   
+        
+      
+.space {
+          
+        left: 12.5em;  
+        width: 5.625em; height: .625em; background-color:#f4f2f1
+}
+span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;      
+}
+
+.StratVis{
+    word-break: break-all;
+    white-space: normal;
+	-moz-border-radius:.188em;
+	-webkit-border-radius:.188em;
+	border-radius:.188em;
+	border:.063em solid #3c521e;
+	display:inline-block;
+	cursor:pointer;
+	color:#f5f5f5;
+	font-family:Arial;
+	font-size:1em;
+	padding:.563em 1.5em;
+	text-decoration:none;
+	text-shadow:0em .063em 0em #263666;
+    width: 9.375em;
+    height: 6.25em;
+
+}
+
+.RowVis{
+    height:6.25em;
+    border-width: .063em;
+    border-bottom-style:solid;
+    background-color: #f4f2f1;
+}
+.CellVis{
+    width:6.25em;
+    text-align:right;
+    background-color:#f4f2f1;
+    padding:0;
+
+}
+.NewCellVis {
+    background-color: #f4f2f1;
+}
+
+.projtd {
+    padding:0;
+    width: 156.250em;
+    background-color:#f4f2f1;
+}
+
+.ProjVis{
+}
+
+.BusVis {
+    width: 6.25em;
+    text-align:right;
+    background-color: #f4f2f1;
+    padding:0
+}
+
+.remove_strat {
+    color:white; 
+    font-size:1.25em; 
+    vertical-align:-.188em
+}
+.remove_bus {
+    color:white;
+    font-size:1.25em; 
+    vertical-align:-.188em
+}
+.remove_proj {
+    color:white; 
+    font-size:1.25em; 
+    vertical-align:-.188em
+}
+
+.timeline {
+    border-left: solid lightgrey;
+	border-left-style: dashed;
+	height: 156.250em;
+	cursor: e-resize;
+    position: absolute;
+    top: -.188em;
+}
+
+#timelineborder {
+      left: 9.375em;
+}
+
+.timelineText {
+    left: -.625em;
+    top: -1.5em;
+	position: relative;
+    z-index: 5;
+}
+
+#containmentWrapper {position: absolute; left: 9.375em; width: 100%;   }
+
+ .proj1:after, .proj2:after, .proj3:after {
+  color: black;
+  border-left: .625em solid;
+  border-top: .625em solid transparent;
+  border-bottom: .625em solid transparent;
+  display: inline-block;
+  content: '';
+  position: absolute;
+  right: -.625em;
+ 
+}
+.proj1, .proj2, .proj3 {
+    background-color:  black;
+    width: 9.375em;
+    height: 1.25em;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-indent: .625em;
+    font-size: 1em;
+    
+}
+.proj1:before, .proj2:before, .proj3:before {
+    content: "";
+    position: absolute;
+    display: block;
+    border-top: .625em solid transparent;
+    border-left: .625em solid #f4f2f1;
+    border-bottom: .625em solid transparent;    
+}
+
+textarea{
+    resize:vertical; max-height:18.750em;
+    font-family:Arial;
+
+}
+
+#close1, #close2, #save{
+	-moz-box-shadow: 0em 0em 0em 0em #cf866c;
+	-webkit-box-shadow: 0em 0em 0em 0em #cf866c;
+	box-shadow: 0em 0em 0em 0em #cf866c;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+	background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+	background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+	background-color:#d0451b;
+	-moz-border-radius:1em;
+	-webkit-border-radius:1em;
+	border-radius:1em;
+	border:.063em solid #942911;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:1.00em;
+	padding:.375em 1.5em;
+	text-decoration:none;
+}
+
+#headcolor1, #headcolor2{
+    padding:.563em 1em;
+    border-bottom:.063em solid #eee;
+    -webkit-border-top-left-radius: .313em;
+    -webkit-border-top-right-radius: .313em;
+    -moz-border-radius-topleft: .313em;
+    -moz-border-radius-topright: .313em;
+    border-top-left-radius: .313em;
+    border-top-right-radius: .313em;
+    background-color:#f24537;
+    font-family:Arial;
+    
+}
+#addText, #addLink, #addSelect{
+    width:12em;
+}
+.iptext{
+    width: 35em;
+}
+
+#icontent{
+    background-color:#a8a8a8;
+}
+h2{
+    font-family:Arial;
+}
+p{
+    font-family:Arial;
+}
+h3{
+    font-family:Arial;
+}

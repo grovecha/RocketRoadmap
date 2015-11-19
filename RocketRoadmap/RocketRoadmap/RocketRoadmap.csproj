@@ -76,6 +76,7 @@
     <Content Include="css\Roadmap.css" />
     <Content Include="css\simple-sidebar.css" />
     <Content Include="css\Site.css" />
+    <Content Include="css\Home.css" />
     <Content Include="datapulltest.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="home.aspx" />

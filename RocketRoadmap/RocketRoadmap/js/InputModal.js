@@ -115,7 +115,7 @@ $(document).ready(function () {
         var select_Value = ""
         var desc_Value = "";
         var risk_Value = "";
-
+        var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
 
 
         //FILLING THE TITLE
@@ -150,6 +150,7 @@ $(document).ready(function () {
                  fill_options(ioption_arr);
                  fill_select(iselect_arr); 
                  fill_link(ilink_arr);
+                 headercolor(button_id);
 
                  idep_arr = [];
                  ioptions_arr = [];
@@ -165,7 +166,7 @@ $(document).ready(function () {
         function fill_dep(dep_array) {
             //Add all of the input boxes
             for (dep_x = 0; dep_x < dep_total; dep_x++) {
-                $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                $(dep_Text).append("<div class='new_dep'><input type='text' name='dep_input' class='iptext'/><a href='#' class='remove_field'>X</a></div>"); //add input box
             }
             //fill the inputboxes with their values
             $('input[name=dep_input]').each(function () {
@@ -200,7 +201,7 @@ $(document).ready(function () {
         }
         function fill_link(link_array){
             for (link_x = 0; link_x < link_total; link_x++) {
-                $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                $(link_Text).append("<div class='new_link'><input type='text' name='link_input' class'iptext'/><a href='#' class='remove_field'>X</a></div>"); //add input box
             };
 
             //fill the inputboxes with their values
@@ -209,6 +210,16 @@ $(document).ready(function () {
                 load_link_count++;
             });
             total_link_count = load_link_count;
+        }
+        function headercolor(id) {
+                var temp = id.split("StratBox");
+                temp = temp[1].split("BusBox")[0]
+                var c = color[temp % 6];
+
+                $("#headcolor1").css('background-color', c);
+                $("save").css('background-color', c);
+            
+
         }
       
     });
@@ -343,7 +354,7 @@ $(document).ready(function () {
     $(add_Text).on("click", function (e) { //on add input button click
         e.preventDefault();
         if (total_dep_count < max_fields) { //max input box allowed
-            $(dep_Text).append("<div class='new_dep'><input type='text' size=55 name='dep_input'/><a href='#' class='remove_field'>X</a></div>");
+            $(dep_Text).append("<div class='new_dep'><input type='text' name='dep_input' class='iptext'/><a href='#' class='remove_field'>X</a></div>");
             total_dep_count++; //text box increment//add input box
         }
     });
@@ -377,7 +388,7 @@ $(document).ready(function () {
         e.preventDefault();
         if (total_link_count < max_fields) { //max input box allowed
 
-            $(link_Text).append("<div class='new_link'><input type='text' size=60 name='link_input'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+            $(link_Text).append("<div class='new_link'><input type='text'name='link_input' class='iptext'/><a href='#' class='remove_field'>X</a></div>"); //add input box
             total_link_count++; //text box increment
         }
     });
