@@ -37,13 +37,46 @@
       
 .space {
           
-        left: 12.5em;  
-        width: 5.625em; height: .625em; background-color:#f4f2f1
+    left: 12.5em;  
+    width: 5.625em; height: .625em; background-color:#f4f2f1
+}
+.space2 {
+          
+    left: 200px;  
+    width: 90px; height: 10px; background-color:transparent
 }
 span {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;      
+}
+
+.StratVisRow3 {
+    white-space: normal;
+            
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #3c521e;
+	display:inline-block;
+	cursor:pointer;
+	       
+	font-family:Arial;
+	font-size:15px;
+	padding:9px 23px;
+	text-decoration:none;
+	     
+    width: 400px;
+    text-align: left;
+    padding-left: 10px;
+    z-index: 1;
+            
+}
+
+.StratVisRow {
+    padding-left: 10px;
+    z-index: 1;
+            
 }
 
 .StratVis{
@@ -66,11 +99,75 @@ span {
 
 }
 
+.stratLabelFiller {
+    width: 320px;
+    text-align: center;
+    height: 74px;
+    line-height: 74px;
+    font-size:16px;
+    white-space: nowrap;
+}
+
+.StratVis2 {
+    word-break: break-all;
+    white-space: normal;
+    -moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #3c521e;
+	display:inline-block;
+	cursor:pointer;
+	color:#f5f5f5;
+	font-family:Arial;
+	font-size:15px;
+	padding:9px 23px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #263666;
+    width: 1150px;
+    position: absolute;
+    z-index: 1;
+}
+
+.stratLabel {
+    width: 80px;
+    font-size:16px;
+    float: left;
+    padding-left: 40px;
+    height: 74px;
+    padding-top: 2px;
+    white-space: nowrap;
+}
+
 .RowVis{
     height:6.25em;
     border-width: .063em;
     border-bottom-style:solid;
     background-color: #f4f2f1;
+}
+.RowVis2{
+    height: 66px;
+    width: 240px;
+    padding-left: 5px;
+    padding-right: 30px;
+    padding-top: 5px;
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
+	       
+	display:inline-block;
+	cursor:pointer;
+	color:black;
+	font-family:Arial;
+	font-size:15px;
+	        
+    background-color:white;
+	text-decoration:none;
+	         
+    z-index: 4;
+
+    margin-top: 3px;
+    margin-bottom: 3px;
+            
 }
 .CellVis{
     width:6.25em;
@@ -82,6 +179,13 @@ span {
 .NewCellVis {
     background-color: #f4f2f1;
 }
+.NewCellVis2 {
+    width: 245px;
+    padding-left: 5px;
+    float: left;
+          
+
+}
 
 .projtd {
     padding:0;
@@ -91,7 +195,11 @@ span {
 
 .ProjVis{
 }
-
+.projtd2 {
+           
+          
+    z-index: 4;
+}
 .BusVis {
     width: 6.25em;
     text-align:right;
@@ -99,6 +207,25 @@ span {
     padding:0
 }
 
+.Labeldiv {
+    padding-right: 5px; direction: rtl; text-align: right;
+}
+.BusVis2 {
+    height: 66px;
+         
+    text-align:right;
+    z-index: 4;
+    width: 400px;
+    padding-left: 10px;
+    transform: translateY(-25px);
+    white-space: nowrap;
+    direction: rtl;
+}
+.BusVis3 {
+    width: 110%;
+    text-align: center;
+    display: inline-block; 
+}
 .remove_strat {
     color:white; 
     font-size:1.25em; 

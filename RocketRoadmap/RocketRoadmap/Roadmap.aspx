@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
+    <script src="js/start.js"></script>
 
     <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
@@ -111,14 +111,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 id="roadmapnamelabel" runat="server"></h1>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a><input type="button" style="width: 30px; height: 30px" onclick="includeV2()" value="V2">
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
                 </div>
                 <div class="block">
                 </div>
-                <table id="roadmapTable" style="width:100%" runat="server">
+                <table id="roadmapTable" runat="server">
                 </table>
             </div>
         </div>
@@ -267,7 +267,8 @@
 <!-- jQuery -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/Highlight.js"></script> 
-<script src="js/Roadmap.js"></script>
+<script id="Roadmapjs" src="js/Roadmap.js"></script>
+
 <script src="js/InputModal.js"></script>
 
 </form>
