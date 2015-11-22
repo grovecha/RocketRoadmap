@@ -1,8 +1,14 @@
-﻿.txtStrat {  
+﻿.projLabel {
+    width: 115px; white-space: nowrap; overflow: hidden; display: inline-block; 
+    transform: translateY(-0px); vertical-align: middle; line-height: normal;
+}
+
+.txtStrat {  
     width: 12.5em;
     height:1.875em;
     margin-left: 0em;
     font-family:Arial;
+    background-color:white;
 }
 .btnDelete {
     height: 2em;
@@ -13,6 +19,7 @@
     height: 1.875em;
     margin-left: 1.25em;
     font-family:Arial;
+    background-color:white;
 
 }
 .txtProj {
@@ -20,6 +27,7 @@
     height: 1.875em;
     margin-left: 2.5em;
     font-family:Arial;
+    background-color:white;
 
 }
 .txtProjDel {
@@ -38,40 +46,15 @@
 .space {
           
     left: 12.5em;  
-    width: 5.625em; height: .625em; background-color:#f4f2f1
+    width: 5.625em; height: .125em; background-color:transparent;
 }
-.space2 {
-          
-    left: 200px;  
-    width: 90px; height: 10px; background-color:transparent
-}
+
 span {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;      
 }
 
-.StratVisRow3 {
-    white-space: normal;
-            
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	border:1px solid #3c521e;
-	display:inline-block;
-	cursor:pointer;
-	       
-	font-family:Arial;
-	font-size:15px;
-	padding:9px 23px;
-	text-decoration:none;
-	     
-    width: 400px;
-    text-align: left;
-    padding-left: 10px;
-    z-index: 1;
-            
-}
 
 .StratVisRow {
     padding-left: 10px;
@@ -90,7 +73,7 @@ span {
 	cursor:pointer;
 	color:#f5f5f5;
 	font-family:Arial;
-	font-size:1em;
+	font-size:1.5em;
 	padding:.563em 1.5em;
 	text-decoration:none;
 	text-shadow:0em .063em 0em #263666;
@@ -99,133 +82,50 @@ span {
 
 }
 
-.stratLabelFiller {
-    width: 320px;
-    text-align: center;
-    height: 74px;
-    line-height: 74px;
-    font-size:16px;
-    white-space: nowrap;
-}
-
-.StratVis2 {
-    word-break: break-all;
-    white-space: normal;
-    -moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	border:1px solid #3c521e;
-	display:inline-block;
-	cursor:pointer;
-	color:#f5f5f5;
-	font-family:Arial;
-	font-size:15px;
-	padding:9px 23px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #263666;
-    width: 1150px;
-    position: absolute;
-    z-index: 1;
-}
-
-.stratLabel {
-    width: 80px;
-    font-size:16px;
-    float: left;
-    padding-left: 40px;
-    height: 74px;
-    padding-top: 2px;
-    white-space: nowrap;
-}
 
 .RowVis{
-    height:6.25em;
+    height:5em;
     border-width: .063em;
     border-bottom-style:solid;
-    background-color: #f4f2f1;
+    background-color: #d0d0d0;
 }
-.RowVis2{
-    height: 66px;
-    width: 240px;
-    padding-left: 5px;
-    padding-right: 30px;
-    padding-top: 5px;
-	-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	border-radius:15px;
-	       
-	display:inline-block;
-	cursor:pointer;
-	color:black;
-	font-family:Arial;
-	font-size:15px;
-	        
-    background-color:white;
-	text-decoration:none;
-	         
-    z-index: 4;
 
-    margin-top: 3px;
-    margin-bottom: 3px;
-            
-}
 .CellVis{
     width:6.25em;
     text-align:right;
-    background-color:#f4f2f1;
+    background-color:#d0d0d0;
     padding:0;
 
 }
 .NewCellVis {
-    background-color: #f4f2f1;
+    background-color: #d0d0d0;
 }
-.NewCellVis2 {
-    width: 245px;
-    padding-left: 5px;
-    float: left;
-          
 
-}
 
 .projtd {
     padding:0;
     width: 156.250em;
-    background-color:#f4f2f1;
+    background-color:#d0d0d0;
+    border-bottom: groove;
+    border-color: #D1D1D1;
 }
 
 .ProjVis{
 }
-.projtd2 {
-           
-          
-    z-index: 4;
-}
+
 .BusVis {
     width: 6.25em;
     text-align:right;
-    background-color: #f4f2f1;
-    padding:0
+    background-color: #d0d0d0;
+    padding:0;
+    border-bottom: groove;
+    border-color: #D1D1D1;
 }
 
 .Labeldiv {
     padding-right: 5px; direction: rtl; text-align: right;
 }
-.BusVis2 {
-    height: 66px;
-         
-    text-align:right;
-    z-index: 4;
-    width: 400px;
-    padding-left: 10px;
-    transform: translateY(-25px);
-    white-space: nowrap;
-    direction: rtl;
-}
-.BusVis3 {
-    width: 110%;
-    text-align: center;
-    display: inline-block; 
-}
+
 .remove_strat {
     color:white; 
     font-size:1.25em; 
@@ -243,7 +143,7 @@ span {
 }
 
 .timeline {
-    border-left: solid lightgrey;
+    border-left: solid ;
 	border-left-style: dashed;
 	height: 156.250em;
 	cursor: e-resize;
@@ -258,6 +158,7 @@ span {
 .timelineText {
     left: -.625em;
     top: -1.5em;
+    font-size:1.3em;
 	position: relative;
     z-index: 5;
 }
@@ -266,33 +167,36 @@ span {
 
  .proj1:after, .proj2:after, .proj3:after {
   color: black;
-  border-left: .625em solid;
-  border-top: .625em solid transparent;
-  border-bottom: .625em solid transparent;
+  border-left: .75em solid;
+  border-top: .75em solid transparent;
+  border-bottom: .75em solid transparent;
   display: inline-block;
   content: '';
   position: absolute;
-  right: -.625em;
+  right: -.75em;
  
 }
 .proj1, .proj2, .proj3 {
-    background-color:  black;
+    background-color:  white;
     width: 9.375em;
-    height: 1.25em;
+    height: 1.5em;
     display: block;
     position: relative;
     text-align: center;
     text-indent: .625em;
-    font-size: 1em;
+    font-size: 1.5em;
+    font-weight:bold;
+    color:white;
     
 }
 .proj1:before, .proj2:before, .proj3:before {
     content: "";
     position: absolute;
     display: block;
-    border-top: .625em solid transparent;
-    border-left: .625em solid #f4f2f1;
-    border-bottom: .625em solid transparent;    
+    border-top: .75em solid transparent;
+    border-left: .75em solid #d0d0d0;
+    border-bottom: .75em solid transparent;  
+    back  
 }
 
 textarea{

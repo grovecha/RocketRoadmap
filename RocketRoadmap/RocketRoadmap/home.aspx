@@ -65,6 +65,7 @@
     <!-- /.container -->
 </nav>
 
+
     <div class="modal fade" id="roadModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -199,7 +200,7 @@
         width: 15% !important;
     }
     #wide {
-        width: 40% !important;
+        width: 30% !important;
     }
 
 a:link {

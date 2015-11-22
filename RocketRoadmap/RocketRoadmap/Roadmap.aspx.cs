@@ -15,7 +15,7 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> color = new List<string> { "#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5" };
+        List<string> color = new List<string> { "#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -242,7 +242,7 @@ namespace RocketRoadmap
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
-                        bc2.Attributes.Add("class", "CellVis");
+                        bc2.Attributes.Add("class", "BusVis");
 
                         bc2.InnerText = b.GetDescription();
 
@@ -324,7 +324,7 @@ namespace RocketRoadmap
 
 
                         bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
-                            "<span>" + proj.GetDescription() + "</span>" +
+                            "<span class='projLabel' id='"+proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 

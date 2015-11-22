@@ -123,7 +123,7 @@ $(document).ready(function () {
         var select_Value = ""
         var desc_Value = "";
         var risk_Value = "";
-        var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
+        var color = ["#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217"];
 
 
         //FILLING THE TITLE
