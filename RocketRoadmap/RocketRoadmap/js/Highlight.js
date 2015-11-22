@@ -33,7 +33,7 @@ function Highlight(id) {
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 dtemp1 = response.d[0];
-                dtemp2 = repsonse.d[1];
+                dtemp2 = response.d[1];
                 for (dep_x = 0; dep_x < dtemp1.length; dep_x++) {
                     dep_char = "#" + dtemp1[dep_x] + "But";
                     depon_arr.push(dep_char);

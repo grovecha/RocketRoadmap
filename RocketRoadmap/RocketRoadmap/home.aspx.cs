@@ -68,16 +68,20 @@ namespace RocketRoadmap
                             TableHeaderCell u6 = new TableHeaderCell();
 
                             u1.Text = "Name";
+                            u1.ID = "norm";
                             u2.Text = "Author";
+                            u1.ID = "norm";
                             u3.Text = "Description";
+                            u3.ID = "wide";
                             u4.Text = "Timestamp";
+                            u1.ID = "norm";
 
                             uhead.Cells.Add(u1);
                             uhead.Cells.Add(u2);
                             uhead.Cells.Add(u3);
                             uhead.Cells.Add(u4);
                             uhead.Cells.Add(u5);
-                            //uhead.Cells.Add(u6);
+                             uhead.Cells.Add(u6);
 
                             userroadmaps.Rows.Add(uhead);
 
@@ -90,7 +94,6 @@ namespace RocketRoadmap
                                 TableCell ucell_3 = new TableCell();
                                 TableCell ucell_4 = new TableCell();
                                 TableCell ucell_5 = new TableCell();
-                                TableCell ucell_6 = new TableCell();
 
                                 Button B1 = new Button();
                                 B1.Text = "X";
@@ -103,20 +106,23 @@ namespace RocketRoadmap
 
                                 TableCell tCell1 = new TableCell();
                                 ucell_1.Controls.Add(link);
+                                ucell_1.ID = "norm";
 
                                 ucell_2.Text = umap[1];
+                                ucell_1.ID = "norm";
                                 ucell_3.Text = umap[2];
+                                ucell_1.ID = "wide";
                                 ucell_4.Text = umap[3];
 
                                 ucell_5.Controls.Add(B1);
-                                ucell_6.Text = "EDIT";
+                                ucell_1.ID = "norm";
+
 
                                 urow.Cells.Add(ucell_1);
                                 urow.Cells.Add(ucell_2);
                                 urow.Cells.Add(ucell_3);
                                 urow.Cells.Add(ucell_4);
                                 urow.Cells.Add(ucell_5);
-                             //   urow.Cells.Add(ucell_6);
 
                                 userroadmaps.Rows.Add(urow);
                             }
@@ -132,8 +138,29 @@ namespace RocketRoadmap
                     try
                     {
                         List<List<string>> all = maps.GetAllMapsInfo();
+                        TableHeaderRow uhead = new TableHeaderRow();
 
-                        foreach (var map in all)
+                        TableHeaderCell u1 = new TableHeaderCell();
+                        TableHeaderCell u2 = new TableHeaderCell();
+                        TableHeaderCell u3 = new TableHeaderCell();
+                        TableHeaderCell u4 = new TableHeaderCell();
+                        TableHeaderCell u5 = new TableHeaderCell();
+                        TableHeaderCell u6 = new TableHeaderCell();
+
+                        u1.Text = "Name";
+                        u2.Text = "Author";
+                        u3.Text = "Description";
+                        u4.Text = "Timestamp";
+
+                        uhead.Cells.Add(u1);
+                        uhead.Cells.Add(u2);
+                        uhead.Cells.Add(u3);
+                        uhead.Cells.Add(u4);
+                        uhead.Cells.Add(u5);
+
+                        allroadmaps.Rows.Add(uhead);
+
+                foreach (var map in all)
                         {
                             TableRow row = new TableRow();
                             TableCell cell_1 = new TableCell();
@@ -162,10 +189,14 @@ namespace RocketRoadmap
                            TableCell tCell1 = new TableCell();
                             cell_1.Controls.Add(link);
                             cell_1.Controls.Add(B2);
+                            cell_1.ID = "norm";
 
                             cell_2.Text = map[1];
+                            cell_2.ID = "norm";
                             cell_3.Text = map[2];
+                            cell_3.ID = "wide";
                             cell_4.Text = map[3];
+                            cell_3.ID = "norm";
 
                             cell_5.Controls.Add(B1);
                             cell_6.Controls.Add(B2);

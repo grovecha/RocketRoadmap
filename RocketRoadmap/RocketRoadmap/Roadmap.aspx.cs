@@ -915,7 +915,7 @@ namespace RocketRoadmap
             final_return[3] = new string[DepStr.Count];
             final_return[4] = new string[DepProj.Count];
             final_return[5] = new string[Link.Count];
-            final_return[6] = new string[AllProj.Count];
+            final_return[6] = new string[AllProj.Count-1];
 
             final_return[0][0] = Desc;
             final_return[1][0] = Risk;
@@ -939,11 +939,10 @@ namespace RocketRoadmap
             }
             foreach (string ap in AllProj)
             {
-          
-                
+                if (ap != Name) {
                     final_return[6][y] = ap;
                     y++;
-                
+                }
             }
 
 

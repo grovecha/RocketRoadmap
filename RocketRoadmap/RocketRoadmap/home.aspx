@@ -98,12 +98,6 @@
     </asp:Table>
 <h1 id="all">All Roadmaps</h1>
 <asp:Table ID="allroadmaps" runat="server" class="table table-striped table-bordered" cellspacing="0" width="100%">   
-      <asp:TableHeaderRow>
-            <asp:TableHeaderCell>Name</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Author</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Description</asp:TableHeaderCell>
-            <asp:TableHeaderCell>Timestamp</asp:TableHeaderCell>
-        </asp:TableHeaderRow>
 </asp:Table> 
  
 <!-- /.container -->
@@ -192,6 +186,35 @@
 	padding:.375em 1.5em;
 	text-decoration:none;
     }
+
+    table, td, th {
+
+    }
+    th {
+        background-color: #b5121b !important;
+        color: white !important;
+        font-family: Arial !important;
+     }
+    #norm {
+        width: 15% !important;
+    }
+    #wide {
+        width: 40% !important;
+    }
+
+a:link {
+    color: black;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: #b5121b;
+}
 
 </style>
 </form>
