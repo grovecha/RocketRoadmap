@@ -7,7 +7,6 @@ var color = ["#0EA4B5", "#00274c", "#663399", "#ad235e", "#FF4500", "#bb0000"];
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
 
-
 function includeV2() {
     var head = document.getElementsByTagName('head')[0];
     var js = document.createElement("script");

@@ -199,7 +199,7 @@
         width: 15% !important;
     }
     #wide {
-        width: 40% !important;
+        width: 30% !important;
     }
 
 a:link {
