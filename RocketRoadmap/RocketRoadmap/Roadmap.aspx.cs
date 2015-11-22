@@ -242,7 +242,7 @@ namespace RocketRoadmap
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
-                        bc2.Attributes.Add("class", "CellVis");
+                        bc2.Attributes.Add("class", "BusVis");
 
                         bc2.InnerText = b.GetDescription();
 
