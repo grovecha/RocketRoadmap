@@ -44,14 +44,15 @@ $("#menu-toggle").click(function (e) {
         $(".proj3").css("cursor", "auto");
         $(".timeline").css("cursor", "auto");
         
-        $(".RowVis2").hide();
-        $(".stratLabel").hide();
-        $(".NewCellVis2").hide();
-        $(".stratLabelFiller").show();
-        $(".proj1").hide();
+        if (document.getElementById("v2")) {
+            $(".RowVis2").hide();
+            $(".stratLabel").hide();
+            $(".NewCellVis2").hide();
+            $(".stratLabelFiller").show();
+            $(".proj1").hide();
+        }
     }
     else {
-        
         FullScreen = false;
         $(".proj1").draggable({ axis: "x" });
         $(".proj1").resizable({ handles: 'e, w' });
@@ -208,7 +209,7 @@ $(document).ready(function () {
         }
         function fill_link(link_array){
             for (link_x = 0; link_x < link_total; link_x++) {
-                $(link_Text).append("<div class='new_link'><input type='text' name='link_input' class'iptext'/><a href='#' class='remove_field'>X</a></div>"); //add input box
+                $(link_Text).append("<div class='new_link'><input type='text' name='link_input' class='iptext'/><a href='#' class='remove_field'>X</a></div>"); //add input box
             };
 
             //fill the inputboxes with their values
@@ -224,7 +225,7 @@ $(document).ready(function () {
                 var c = color[temp % 6];
 
                 $("#headcolor1").css('background-color', c);
-                $("save").css('background-color', c);
+                $("#save").css('background-color', c);
             
 
         }
@@ -275,8 +276,8 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 $('#display_title').html(response.d[2][0]);
-                $('#disdescText').val(response.d[0][0]);
-                $('#disriskText').val(response.d[1][0]);
+                $('.disdescText').append("<div class='added_desc'><p>" + response.d[0][0] + "</p></div>");
+                $('.disriskText').append("<div class='added_risk'><p>" + response.d[1][0] + "</p></div>");
                 //Getting Dep String array   
                 disdep_arr = response.d[3];
                 disdep_total = disdep_arr.length;
@@ -287,8 +288,8 @@ $(document).ready(function () {
                 disselect_arr = response.d[4];
                 disselect_total = disselect_arr.length;
                 
-                for (dissel_x = 0; dissel_x < dissel_total; dissel_x++) {
-                    $('.disdepSelect').append("<div class='added_select'><p>" + dissel_arr[dissel_x] + "</p></div>");
+                for (dissel_x = 0; dissel_x < disselect_total; dissel_x++) {
+                    $('.disdepSelect').append("<div class='added_select'><p>" + disselect_arr[dissel_x] + "</p></div>");
                 }
                 //Get Link Array
                 dislink_arr = response.d[5];
@@ -305,19 +306,31 @@ $(document).ready(function () {
                 dissel_arr = [];
                 dislink_arr = [];
                 disoption_arr = [];
+                headercolor2(button_id);
             },
             error: function (xhr) {
                 console.log("error");
             },
         });
 
+        function headercolor2(id) {
+            var temp = id.split("StratBox");
+            temp = temp[1].split("BusBox")[0]
+            var c = color[temp % 6];
 
+            $("#headcolor2").css('background-color', c);
+            $("#close1").css('background-color', c);
+
+
+        }
     });
 
     //diplay modal hidden
     $('#displayModal').on('hidden.bs.modal', function (e) {
         //remove text from description
-        $('#disdescText').val('');
+        $('.added_desc').each(function () {
+            $(this).remove();
+        });
 
         //remove dependecy texts
         $('.added_depstring').each(function () {
@@ -330,7 +343,9 @@ $(document).ready(function () {
         });
 
         //remove risk text
-        $('#disriskText').val('');
+        $('.added_risk').each(function () {
+            $(this).remove();
+        });
 
         //remove links
         $('.added_link').each(function () {
@@ -425,7 +440,9 @@ $(document).ready(function () {
         for (select_x = 0; select_x < total_select_count; select_x++) {
             select_Value = "#select_input" + select_x;
             if ($(select_Value).val() != "No Project") {
-                nselect_arr.push($(select_Value).val());
+                if (nselect_arr.indexOf($(select_Value).val()) == -1) {
+                    nselect_arr.push($(select_Value).val());
+                }
             }
         }
         //Need Ajax Post Call here?

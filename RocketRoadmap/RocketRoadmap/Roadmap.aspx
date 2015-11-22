@@ -81,18 +81,17 @@
         <input style="width: 100px;" id="addtimelinetick" type="text" onkeyup="addTick(event,this)" placeholder='Add Timeline'/><input style="width: 120px;"  type="button" value="Toggle Timeline" onclick="showTime()">
         <!-- Data Input -->
         <div id="mainDiv">
-            <table id ="sidebarTable" runat ="server">
-                <tr id="StratBox0Row">
-                    <td>  
-                        <input id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
-                        <table id ="StratBox0Table" runat='server' >
-                            <tr id="StratBox0BusBox0Row">
-                                <td id ="StratBox0BusBox0Cell" runat="server">
-                                    <input id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div id="StratBox0BusBox0projDiv" runat="server">   
+            <table style="display:block;" id ="sidebarTable" runat ="server">
+                <tr style="display:block;" id="StratBox0Row">
+                    <td style="display:block;">
+                        <input  id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
+                        <table style="display:block; height: 100%" id ="StratBox0Table" runat='server' >
+                            <tr style="display:block;" id="StratBox0BusBox0Row">
+                                <td style="display:block;" id ="StratBox0BusBox0Cell" runat="server">
+                                    <input  id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
+                                    <div  id="StratBox0BusBox0projDiv" runat="server">   
                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
-                                    </div>
-                          
+                                    </div>                          
                                 </td>
                             </tr>
                         </table>                                
@@ -191,8 +190,8 @@
             <div class="modal-body">
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
-                    <textarea id="disdescText" rows="4" cols="75"></textarea> 
-                    <br />
+                    <div class="disdescText">
+                    </div>
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -205,7 +204,8 @@
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
-                    <textarea id="disriskText" rows="4" cols="75"></textarea> 
+                    <div class="disriskText">
+                    </div> 
 
                 <!-- Links Input -->
                 <h2><u>Links</u></h2>

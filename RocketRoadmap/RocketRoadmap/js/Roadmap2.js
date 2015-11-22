@@ -7,6 +7,7 @@ var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
 
+
 function showStrat(obj, event) {
     StratId = obj.id.split("LabelFiller")[0];
     $("#" + obj.id.split("LabelFiller")[0] + "NewCellVis").show();
