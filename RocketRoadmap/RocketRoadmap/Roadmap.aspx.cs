@@ -15,7 +15,7 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> color = new List<string> { "#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5" };
+        List<string> color = new List<string> { "#0EA4B5", "#00274c", "#663399", "#ad235e", "#FF4500", "#bb0000" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -242,7 +242,7 @@ namespace RocketRoadmap
 
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
                         //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
-                        bc2.Attributes.Add("class", "CellVis");
+                        bc2.Attributes.Add("class", "BusVis");
 
                         bc2.InnerText = b.GetDescription();
 

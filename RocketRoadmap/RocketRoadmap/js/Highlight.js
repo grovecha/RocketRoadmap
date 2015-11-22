@@ -8,7 +8,7 @@ var depon_arr = [];
 var depof_arr = [];
 var dtemp1 = [];
 var dtemp2 = [];
-var color = ["#FF6600", "#FFBB00", "#00E038", "#4949CC", "#b5121b", "#3DBCFC", "#0EA4B5"];
+var color = ["#0EA4B5", "#00274c", "#663399", "#ad235e", "#FF4500", "#bb0000"];
 
 function Highlight(id) {
     var cheche = "#" + id;
