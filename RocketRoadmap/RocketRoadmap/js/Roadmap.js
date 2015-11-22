@@ -314,6 +314,10 @@ function addStrat(e, obj, i) {
             element1.name = "Strat";
             element1.id = "StratBut" + PreviousStratNum.toString();
 
+            var colorpick = document.createElement("colorPicker");
+            colorpick.type = "color";
+
+
             var NewValue = obj.value;
             if (NewValue != "") {
                 element1.value = NewValue;
@@ -331,6 +335,9 @@ function addStrat(e, obj, i) {
             cell2 = row1.insertCell(0);
             div = document.createElement("div");
             cell2.appendChild(element1);
+
+
+            element1.innerHTML = "  <input type=\"color\" name=\"favcolor\" value=\"#ff0000\">";
         }
         var url = window.location.href;
         var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
