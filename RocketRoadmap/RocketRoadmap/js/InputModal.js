@@ -43,6 +43,14 @@ $("#menu-toggle").click(function (e) {
         $(".proj2").css("cursor", "auto");
         $(".proj3").css("cursor", "auto");
         $(".timeline").css("cursor", "auto");
+        
+        if (document.getElementById("v2")) {
+            $(".RowVis2").hide();
+            $(".stratLabel").hide();
+            $(".NewCellVis2").hide();
+            $(".stratLabelFiller").show();
+            $(".proj1").hide();
+        }
     }
     else {
         FullScreen = false;
