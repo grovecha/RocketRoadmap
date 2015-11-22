@@ -14,9 +14,13 @@ function includeV2() {
     js.type = "text/javascript";
 
     js.src = "js/Roadmap2.js";
+    
     $("#Roadmapjs").remove();
 
     head.appendChild(js);
+    div = document.createElement("div");
+    div.id = "v2";
+    document.head.appendChild(div);
 }
 
 function setProjPos(ProjId, pos, width) {
@@ -321,9 +325,6 @@ function addStrat(e, obj, i) {
             element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, "+color[colorNum]+"), color-stop(1, "+color[colorNum]+")); background:-moz-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-webkit-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-o-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-ms-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:linear-gradient(to bottom, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='"+color[colorNum]+"', endColorstr='b5121b',GradientType=0); background-color:"+color[colorNum]+";")
             element1.style.height = "66px";
 
-            
-
-
             var table1 = document.createElement("table");
             cell1.appendChild(table1);
             row1 = table1.insertRow(0);
@@ -356,11 +357,11 @@ function addStrat(e, obj, i) {
             
             newrow.setAttribute("id", 'StratBox' + NewStratCount.toString() + "Row");
 
-            newrow.innerHTML = "<td>" +                             
+            newrow.innerHTML = "<td style='display:block;'>" +                             
                             "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "'class='remove_strat'> X</a> <br />" +
-                            '<table id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
-                            '<tr id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
-                                '<td id="StratBox' + NewStratCount.toString() + 'BuxBox0inputtd">' +
+                            '<table style="display:block; height: 100%" id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
+                            '<tr style="display:block;" id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
+                                '<td style="display:block;" id="StratBox' + NewStratCount.toString() + 'BuxBox0inputtd">' +
                             "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' class='remove_bus'> X</a><br />" +
                             '<div id="StratBox' + NewStratCount.toString() + 'BusBox0projDiv">' +
                             "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +
@@ -494,7 +495,7 @@ function addBus(e, obj, i) {
             var RowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
             newrow = mainDiv.insertRow(RowIndex);
             newrow.setAttribute("id", CurrentBusId + "Row");
-            newrow.innerHTML = "<td id='"+CurrentBusId+"inputtd'>" +
+            newrow.innerHTML = "<td style='display:block;' id='"+CurrentBusId+"inputtd'>" +
                                 "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><a href='#' id='"+CurrentBusId + "Delete' class='remove_bus'> X</a><br />" +
                                 '<div id="'+CurrentBusId+'projDiv">' +
                                 "<input class='txtProjDel' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' />" +
