@@ -191,8 +191,8 @@
             <div class="modal-body">
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
-                    <textarea id="disdescText" rows="4" cols="75"></textarea> 
-                    <br />
+                    <div class="disdescText">
+                    </div>
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -205,7 +205,8 @@
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
-                    <textarea id="disriskText" rows="4" cols="75"></textarea> 
+                    <div class="disriskText">
+                    </div> 
 
                 <!-- Links Input -->
                 <h2><u>Links</u></h2>
