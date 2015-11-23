@@ -1,7 +1,7 @@
 ﻿var changing = true;
 var dragging = true;
 
-var color = ["#0EA4B5", "#00274c", "#663399", "#ad235e", "#FF4500", "#bb0000"];
+var color = ["#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217"];
 
 
 $(".block").resizable({ handles: 'e, w' });

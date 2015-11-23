@@ -82,7 +82,7 @@ span {
     height:4.7em;
     border-width: .063em;
     border-bottom-style:solid;
-    background-color: ##d0d0d0;
+    background-color: #d0d0d0;
 }
 
 .CellVis{
@@ -101,6 +101,8 @@ span {
     padding:0;
     width: 156.250em;
     background-color:#d0d0d0;
+    border-bottom: groove;
+    border-color: #D1D1D1;
 }
 
 .ProjVis{
@@ -110,7 +112,9 @@ span {
     width: 6.25em;
     text-align:right;
     background-color: #d0d0d0;
-    padding:0
+    padding:0;
+    border-bottom: groove;
+    border-color: #D1D1D1;
 }
 
 .Labeldiv {

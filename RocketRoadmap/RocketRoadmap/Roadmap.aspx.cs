@@ -15,7 +15,7 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> color = new List<string> { "#0EA4B5", "#00274c", "#663399", "#ad235e", "#FF4500", "#bb0000" };
+        List<string> color = new List<string> { "#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
