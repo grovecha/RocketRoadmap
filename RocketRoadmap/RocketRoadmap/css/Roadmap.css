@@ -1,4 +1,9 @@
-﻿.txtStrat {  
+﻿.projLabel {
+    width: 115px; white-space: nowrap; overflow: hidden; display: inline-block; 
+    transform: translateY(-0px); vertical-align: middle; line-height: normal;
+}
+
+.txtStrat {  
     width: 12.5em;
     height:1.875em;
     margin-left: 0em;
@@ -41,7 +46,7 @@
 .space {
           
     left: 12.5em;  
-    width: 5.625em; height: .625em; background-color:transparent;
+    width: 5.625em; height: .125em; background-color:transparent;
 }
 
 span {
@@ -79,7 +84,7 @@ span {
 
 
 .RowVis{
-    height:4.7em;
+    height:5em;
     border-width: .063em;
     border-bottom-style:solid;
     background-color: #d0d0d0;

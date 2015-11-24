@@ -324,7 +324,7 @@ namespace RocketRoadmap
 
 
                         bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
-                            "<span>" + proj.GetDescription() + "</span>" +
+                            "<span class='projLabel' id='"+proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
