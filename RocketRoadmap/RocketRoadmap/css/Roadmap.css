@@ -84,6 +84,7 @@ span {
 	text-shadow:0em .063em 0em #263666;
     width: 9.375em;
     height: 6.25em;
+    font-weight:bold;
 
 }
 
@@ -122,9 +123,12 @@ span {
     width: 6.25em;
     text-align:right;
     background-color: #d0d0d0;
-    padding:0;
+    padding:0 .5em 0 0;
     border-bottom: groove;
     border-color: #D1D1D1;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 .Labeldiv {
