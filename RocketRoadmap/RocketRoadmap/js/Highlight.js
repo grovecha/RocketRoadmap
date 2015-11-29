@@ -8,7 +8,6 @@ var depon_arr = [];
 var depof_arr = [];
 var dtemp1 = [];
 var dtemp2 = [];
-var color = ["#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#F87217", "#157DEC"];
 
 function Highlight(id) {
     var cheche = "#" + id;
@@ -55,7 +54,7 @@ function Highlight(id) {
 function dependoncolor(id) {
     var id_x;
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'deepskyblue');
+        $(id[id_x]).css('repeating-linear-gradient', '-45deg, white 0, light blue 10%');
     }
 }
 function dependantofcolor(id) {
@@ -72,9 +71,10 @@ function Uncolor(id) {
 
         var temp = id[id_x].split("StratBox");
         temp = temp[1].split("BusBox")[0]
-        var c = color[temp%6];
 
-        $(id[id_x]).css('background-color', c);
+        var return_c = document.getElementById("ColorPicker" + temp).value;
+
+        $(id[id_x]).css('background-color', return_c);
     }
 }
 
@@ -83,9 +83,9 @@ function UnHighlight(id) {
     var cheche = "#" + id;
     var temp = id.split("StratBox");
     temp = temp[1].split("BusBox")[0]
-    var c = color[temp%6];
+    var return_c = document.getElementById("ColorPicker" + temp).value;
 
-    $(cheche).css({ "background-color": c });
+    $(cheche).css({ "border-color": return_c });
 
     Uncolor(depon_arr);
     Uncolor(depof_arr);
