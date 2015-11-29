@@ -7,21 +7,6 @@ var color = ["#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217"];
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
 
-function includeV2() {
-    var head = document.getElementsByTagName('head')[0];
-    var js = document.createElement("script");
-    js.type = "text/javascript";
-
-    js.src = "js/Roadmap2.js";
-    
-    $("#Roadmapjs").remove();
-
-    head.appendChild(js);
-    div = document.createElement("div");
-    div.id = "v2";
-    document.head.appendChild(div);
-}
-
 function setProjPos(ProjId, pos, width) {
     
     StratId = ProjId.split("BusBox")[0];
@@ -57,7 +42,6 @@ function showMode(id) {
     }
 }
 
-
 function enableDrag()
 {
     var url = window.location.href;
@@ -66,7 +50,7 @@ function enableDrag()
     
     $(".proj1").draggable({
         axis: "x",
-        //containment: "#" + this.id.split("ProjBox")[0] + "td",
+        containment: "#" + BusId + "td",
         drag: function (event, ui) {
 
         },
@@ -83,7 +67,7 @@ function enableDrag()
     //$(".proj" + String(CurrentProjCount + 1)).resizable({
     $(".proj1").resizable({
         handles: 'e, w',
-        //containment: "#" + this.id.split("ProjBox")[0] + "td",
+        containment: "#" + BusId + "td",
 
         stop: function (event, ui) {
 
@@ -112,8 +96,6 @@ function enableDrag()
         }
     });
 
-
-
     $(".proj1").draggable("enable");
     $(".proj1").resizable("enable");
     $(".proj2").draggable("enable");
@@ -121,9 +103,6 @@ function enableDrag()
     $(".proj3").draggable("enable");
     $(".proj3").resizable("enable");
     $(".timeline").draggable("enable");
-
-    
-
 }
 
 function deleteTime(obj) {
@@ -313,16 +292,23 @@ function addStrat(e, obj, i) {
             element1.name = "Strat";
             element1.id = "StratBut" + PreviousStratNum.toString();
 
+            var colorpick = document.createElement("colorPicker");
+            colorpick.type = "color";
+
+
             var NewValue = obj.value;
             if (NewValue != "") {
                 element1.value = NewValue;
             }
 
 
-            var colorNum = PreviousStratNum % color.length;
+           // var colorNum = PreviousStratNum % color.length;
+
+            var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
+            var newColor= colorpicker.value;
             element1.className = "StratVis";
-            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, "+color[colorNum]+"), color-stop(1, "+color[colorNum]+")); background:-moz-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-webkit-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-o-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-ms-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:linear-gradient(to bottom, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='"+color[colorNum]+"', endColorstr='b5121b',GradientType=0); background-color:"+color[colorNum]+";")
-            element1.style.height = "66px";
+            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
+            element1.style.height = "3.5em";
 
             var table1 = document.createElement("table");
             cell1.appendChild(table1);
@@ -330,6 +316,9 @@ function addStrat(e, obj, i) {
             cell2 = row1.insertCell(0);
             div = document.createElement("div");
             cell2.appendChild(element1);
+
+
+
         }
         var url = window.location.href;
         var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
@@ -355,16 +344,19 @@ function addStrat(e, obj, i) {
             newrow = mainDiv.insertRow(varr);
             
             newrow.setAttribute("id", 'StratBox' + NewStratCount.toString() + "Row");
+            //color input
+            var colorNum = PreviousStratNum % color.length;
 
-            newrow.innerHTML = "<td style='display:block;'>" +                             
+            newrow.innerHTML += "<td style='display:block;'>" +
+                            "  <input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + NewStratCount.toString() + "\" onchange=\"changeColor(" + NewStratCount.toString()+")\" value=\"" + color[colorNum + 1] + "\">" +
                             "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "'class='remove_strat'> X</a> <br />" +
                             '<table style="display:block; height: 100%" id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
                             '<tr style="display:block;" id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
-                                '<td style="display:block;" id="StratBox' + NewStratCount.toString() + 'BuxBox0inputtd">' +
+                                '<td style="display:block;" id="StratBox' + NewStratCount.toString() + 'BusBox0Cell">' +
                             "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' class='remove_bus'> X</a><br />" +
-                            '<div id="StratBox' + NewStratCount.toString() + 'BusBox0projDiv">' +
+                            
                             "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +
-                            "</div>"
+                            
                               '</td>' +
                             '</tr>' +
                             '</table>' +
@@ -430,8 +422,9 @@ function addBus(e, obj, i) {
                 cell1.className = "BusVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
-                currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 66) + "px";
+                currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+                console.log(currentheight);
+                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
 
 
             }
@@ -494,11 +487,11 @@ function addBus(e, obj, i) {
             var RowIndex = document.getElementById(obj.id.split('ProjBox')[0] + "Row").rowIndex + 1;
             newrow = mainDiv.insertRow(RowIndex);
             newrow.setAttribute("id", CurrentBusId + "Row");
-            newrow.innerHTML = "<td style='display:block;' id='"+CurrentBusId+"inputtd'>" +
+            newrow.innerHTML = "<td style='display:block;' id='"+CurrentBusId+"Cell'>" +
                                 "<input class='txtBus' ProjTotal=1 id='" + CurrentBusId + "' type='text' placeholder='Add Business Value' onkeyup='addBus(event, this, 1)' /><a href='#' id='"+CurrentBusId + "Delete' class='remove_bus'> X</a><br />" +
-                                '<div id="'+CurrentBusId+'projDiv">' +
+                                
                                 "<input class='txtProjDel' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' />" +
-                                "</div>"
+                                
             "</td>";
             //place cursor in proj box         
             document.getElementById(obj.id +"ProjBox0").select();
@@ -512,7 +505,6 @@ function addBus(e, obj, i) {
 }
 
 function addProj(e, obj, i) {
-
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
     BusId = obj.id.split("ProjBox")[0];
     ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
@@ -535,27 +527,22 @@ function addProj(e, obj, i) {
 
             if (ProjTotal > 2) {
                 //increase stratbut height
-                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 33) + "px";
+                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em");
+                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 1.95) + "em";
 
                 //increase RowVis height
                 var RowVis = obj.id.split("ProjBox")[0] + "RowVis";
                 currentheight = document.getElementById(RowVis).style.height;
         
-                document.getElementById(RowVis).style.height = (ProjTotal*33).toString() + "px";
-
-
+                document.getElementById(RowVis).style.height = (ProjTotal*2.5).toString() + "em";
             }
 
-            var element1 = document.createElement("div");       
-            
+            var element1 = document.createElement("div");      
             element1.id = obj.id + "But";
-            
-
             var NewValue = obj.value;
             if (NewValue != "") {
                 
-                element1.innerHTML = "<span id = '" + obj.id + "Label' style='width: 115px; white-space: nowrap; overflow: hidden; display: inline-block; transform: translateY(-0px); vertical-align: middle; line-height: normal;'>" + NewValue + "</span>";
+                element1.innerHTML = "<span id = '" + obj.id + "Label' class = 'projLabel' >" + NewValue + "</span>";
             }
             //element1.style.verticalAlign = "top";
             element1.setAttribute("ondblclick", "showModal(this.id)");
@@ -574,9 +561,13 @@ function addProj(e, obj, i) {
 
 
             var sNum = parseInt(StratId.split("StratBox")[1]);
-            var colorNum = sNum % color.length;
 
-            element1.style.backgroundColor = color[colorNum];
+            var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
+            var newColor = colorpicker.value;
+
+            element1.style.backgroundColor = newColor;
+
+
             
             element1.value = "";
 
@@ -654,7 +645,8 @@ function addProj(e, obj, i) {
             element2.setAttribute("href", "#");
             //element2.setAttribute("style", "color:white; font-size:20px; vertical-align:-3px")
             element2.className = 'remove_proj';
-            $("#" + BusId + "projDiv").append(element2);
+            success = $("#" + BusId + "Cell").append(element2);
+            console.log("#" + BusId + "Cell" + success.toString());
         }
 
 
@@ -690,5 +682,31 @@ function addProj(e, obj, i) {
         }
     }
     return false;
+}
+
+
+function changeColor(index)
+{
+    var picker = document.getElementById("ColorPicker" + index.toString());
+
+    var newColor = picker.value;
+
+    var element1 = document.getElementById("StratBut" + index.toString());
+    element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
+    element1.style.height = "3.5em";
+
+
+    var bustotal = parseInt(document.getElementById("StratBox" + index.toString()).getAttribute("BusTotal"));
+
+    for (i = 0; i < bustotal; ++i)
+    {
+        var projTotal = parseInt(document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString()).getAttribute("ProjTotal"));
+        for(j=0;j<projTotal; ++j)
+        {
+            //<div id="StratBox0BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseleave="UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="background-color: rgb(220, 56, 31);"><span id="StratBox0BusBox0ProjBox0Label" class="projLabel">project</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+            var p = document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString() + "ProjBox" + j.toString() + "But");
+            p.style.backgroundColor = picker.value;
+        }
+    }
 }
 

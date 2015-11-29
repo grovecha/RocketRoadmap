@@ -117,14 +117,22 @@ namespace RocketRoadmap
                 text.Attributes.Add("runat", "server");
                 text.Attributes.Add("onkeyup", "addStrat(event,this," + count.ToString() + ")");
 
+
+
+                cell1.InnerHtml += "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker"+count.ToString()+ "\" onchange=\"changeColor("+count.ToString()+")\" value =\"" + color[colorNum+1] + "\">";
                 cell1.Controls.Add(text);
-                //< a href = "#" id = 'StratDelete0' style = "color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
+
+
+
+
+
                 delete = new HyperLink();
                 delete.ID = "StratDelete" + count.ToString();
                 //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                 delete.Attributes.Add("class", "remove_strat");
                 delete.Text = " X";
                 cell1.Controls.Add(delete);
+
 
 
 
@@ -324,7 +332,7 @@ namespace RocketRoadmap
 
 
                         bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
-                            "<span>" + proj.GetDescription() + "</span>" +
+                            "<span class='projLabel' id='"+proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="js/start.js"></script>
+    <script src="js/Roadmap.js"></script>
 
     <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"> 
@@ -84,14 +84,14 @@
             <table style="display:block;" id ="sidebarTable" runat ="server">
                 <tr style="display:block;" id="StratBox0Row">
                     <td style="display:block;">
-                        <input  id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
+                        <input type="color" class="stratColor" id="ColorPicker0" onchange="changeColor(0)" value="#DC381F"><input  id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                         <table style="display:block; height: 100%" id ="StratBox0Table" runat='server' >
                             <tr style="display:block;" id="StratBox0BusBox0Row">
                                 <td style="display:block;" id ="StratBox0BusBox0Cell" runat="server">
                                     <input  id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
-                                    <div  id="StratBox0BusBox0projDiv" runat="server">   
+                                      
                                         <input id ='StratBox0BusBox0ProjBox0' class ='txtProjDel' type='text' placeholder ='Add Project' runat='server' onkeyup ='addProj(event, this,1)' />
-                                    </div>                          
+                                                           
                                 </td>
                             </tr>
                         </table>                                
@@ -110,7 +110,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 id="roadmapnamelabel" runat="server"></h1>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a><input type="button" style="width: 30px; height: 30px" onclick="includeV2()" value="V2">
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
