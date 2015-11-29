@@ -55,7 +55,7 @@ namespace RocketRoadmap.DB
                 //Get the StrategyPoints
                 using (SqlCommand cmd3 = new SqlCommand())
                 {
-                    cmd3.CommandText = "SELECT Name, Description, color FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY NAME ASC";
+                    cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY NAME ASC";
                     cmd3.Parameters.AddWithValue("@Rname", mName);
                     cmd3.Connection = conn;
 
@@ -64,7 +64,6 @@ namespace RocketRoadmap.DB
                         while (Reader.Read())
                         {
                             StrategyPoint sp = new StrategyPoint(Reader.GetString(0), Reader.GetString(1), name);
-                            sp.EditColor(Reader.GetString(2));
                             mStrategyPoints.Add(sp);
                         }
                     }
