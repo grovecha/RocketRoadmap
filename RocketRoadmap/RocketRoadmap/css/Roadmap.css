@@ -90,7 +90,7 @@ span {
 
 
 .RowVis{
-    height:5em;
+    height:6.25em;
     border-width: .063em;
     border-bottom-style:solid;
     background-color: #d0d0d0;
@@ -125,8 +125,8 @@ span {
     background-color: #d0d0d0;
     padding:0 .5em 0 0;
     border-bottom: groove;
-    border-color: #D1D1D1;
-    color: white;
+    border-color: #C8C8C8;
+    color: black;
     font-weight: bold;
     font-size: 1.5em;
 }
@@ -170,6 +170,7 @@ span {
     font-size:1.3em;
 	position: relative;
     z-index: 5;
+    font-weight:bold;
 }
 
 #containmentWrapper {position: absolute; left: 9.375em; width: 100%;   }
