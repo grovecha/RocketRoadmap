@@ -85,7 +85,8 @@ function UnHighlight(id) {
     temp = temp[1].split("BusBox")[0]
     var return_c = document.getElementById("ColorPicker" + temp).value;
 
-    $(cheche).css({ "background-color": return_c });
+    $(cheche).css({ "border-color": return_c });
+    $(cheche).css({"border-style": "ridge"});
 
     Uncolor(depon_arr);
     Uncolor(depof_arr);

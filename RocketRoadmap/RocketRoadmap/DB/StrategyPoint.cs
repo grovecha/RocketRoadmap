@@ -70,6 +70,7 @@ namespace RocketRoadmap.DB
         public string GetName() { return mName; }
         public void SetName(string name) { mName = name; }
         public string GetDescription() { return mDescription; }
+        public string GetColor() { return mColor; }
         public List<BusinessValue> GetBusinessValues() { return mValues; }
 
         //Edit name of spoint
@@ -91,6 +92,32 @@ namespace RocketRoadmap.DB
                     if (cmd.ExecuteNonQuery()!=0)
                     {
                         mName = name;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
+            return toReturn;
+        }
+
+        public bool EditColor(string color)
+        {
+            bool toReturn = false;
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[StrategyPoint] SET color = @col WHERE Name = @Sname AND RoadmapName =@Rname";
+                    cmd.Parameters.AddWithValue("@col", color);
+                    cmd.Parameters.AddWithValue("@Sname", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery() != 0)
+                    {
+                        mColor = color;
                         toReturn = true;
                     }
                     conn.Close();
@@ -346,6 +373,7 @@ namespace RocketRoadmap.DB
         private string mName;
         private string mDescription;
         private string mRoadmapName;
+        private string mColor;
         private List<BusinessValue> mValues = new List<BusinessValue>();
 
       //  private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
