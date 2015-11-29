@@ -48,9 +48,10 @@ namespace RocketRoadmap.DB
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name";
+                    cmd.CommandText = "UPDATE[dbo].[TickMark] SET XPlacement =@X WHERE TimelineName = @name AND Name=@Tname";
                     cmd.Parameters.AddWithValue("@X", X);
                     cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@Tname", mName);
                     cmd.Connection = conn;
 
                     conn.Open();
