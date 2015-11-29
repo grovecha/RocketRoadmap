@@ -50,7 +50,7 @@ function enableDrag()
     
     $(".proj1").draggable({
         axis: "x",
-        containment: "#" + BusId + "td",
+        //containment: "#" + this.id.split('ProjBox')[0] + "td",
         drag: function (event, ui) {
 
         },
@@ -67,7 +67,7 @@ function enableDrag()
     //$(".proj" + String(CurrentProjCount + 1)).resizable({
     $(".proj1").resizable({
         handles: 'e, w',
-        containment: "#" + BusId + "td",
+        //containment: "#" + this.id.split('ProjBox')[0] + "td",
 
         stop: function (event, ui) {
 
@@ -308,7 +308,7 @@ function addStrat(e, obj, i) {
             var newColor= colorpicker.value;
             element1.className = "StratVis";
             element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
-            element1.style.height = "3.5em";
+            element1.style.height = "3.4em";
 
             var table1 = document.createElement("table");
             cell1.appendChild(table1);
@@ -415,15 +415,13 @@ function addBus(e, obj, i) {
                 cell.id = obj.id + "td";
                 cell.className = "projtd";
 
-                row.insertCell(1);
-                row.insertCell(2);
-                cell1 = row.insertCell(3);
+                cell1 = row.insertCell(1);
                 
                 cell1.className = "BusVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
                 currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
-                console.log(currentheight);
+                
                 document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
 
 
@@ -443,8 +441,7 @@ function addBus(e, obj, i) {
                                         "<tr id='" + obj.id + "RowVis' class='RowVis' style = 'border-top: 2pt solid; border-top-color: #D3D3D3; '>" +
                                             '<td class = "projtd" id="' + projtd + '" >' +
                                             '</td>' +
-                                            '<td ></td>' +
-                                            '<td ></td>' +
+                                        
                                             '<td class="BusVis" id="' + NextVisualId + '" >' + obj.value + '</td>' +
                                        '</tr>' +
                                     '</table>';
@@ -454,8 +451,7 @@ function addBus(e, obj, i) {
                                         "<tr id='" + obj.id + "RowVis' class='RowVis'>" +
                                             '<td class="projtd" id="' + projtd + '" >' +
                                             '</td>' +
-                                            '<td ></td>' +
-                                            '<td ></td>' +
+                                   
                                             '<td class="BusVis" id="' + NextVisualId + '" >' + obj.value + '</td>' +
                                        '</tr>' +
                                     '</table>';
@@ -505,6 +501,7 @@ function addBus(e, obj, i) {
 }
 
 function addProj(e, obj, i) {
+    CurrentStratCount = parseInt(obj.id.split("StratBox")[1].split('BusBox')[0]);
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
     BusId = obj.id.split("ProjBox")[0];
     ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
@@ -527,8 +524,8 @@ function addProj(e, obj, i) {
 
             if (ProjTotal > 2) {
                 //increase stratbut height
-                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em");
-                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 1.95) + "em";
+                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em")[0];
+                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 1.7) + "em";
 
                 //increase RowVis height
                 var RowVis = obj.id.split("ProjBox")[0] + "RowVis";
@@ -562,7 +559,7 @@ function addProj(e, obj, i) {
 
             var sNum = parseInt(StratId.split("StratBox")[1]);
 
-            var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
+            var colorpicker = document.getElementById("ColorPicker" + sNum.toString());
             var newColor = colorpicker.value;
 
             element1.style.backgroundColor = newColor;
@@ -693,7 +690,7 @@ function changeColor(index)
 
     var element1 = document.getElementById("StratBut" + index.toString());
     element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
-    element1.style.height = "3.5em";
+    element1.style.height = "3.4em";
 
 
     var bustotal = parseInt(document.getElementById("StratBox" + index.toString()).getAttribute("BusTotal"));

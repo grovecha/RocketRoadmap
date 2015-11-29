@@ -73,7 +73,7 @@ namespace RocketRoadmap
                 int colorNum = count % color.Count;
 
                 but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color[colorNum] + "), color-stop(1, " + color[colorNum] + ")); background:-moz-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-webkit-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-o-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-ms-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:linear-gradient(to bottom, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color[colorNum] + "', endColorstr='" + color[colorNum] + "',GradientType=0);");
-                but.Style.Add(HtmlTextWriterStyle.Height, "75px");
+                but.Style.Add(HtmlTextWriterStyle.Height, "3.4em");
                 but.Value = p.GetDescription();
 
                 HtmlInputText textbox;
@@ -168,7 +168,7 @@ namespace RocketRoadmap
                 HtmlInputText lastBusVal = new HtmlInputText();
                 HtmlTable BusTable = new HtmlTable();
 
-
+                float butheight = 3.4f;
 
                 HtmlInputText nextText = new HtmlInputText();
 
@@ -179,7 +179,7 @@ namespace RocketRoadmap
                     textbox.Attributes.Add("BusTotal", (valcount + 1).ToString());
                     HtmlTableCell bc1 = new HtmlTableCell();
                     HtmlTableCell bc2 = new HtmlTableCell();
-
+                    HtmlTableRow visRow = new HtmlTableRow();
                     if (valcount == 0)
                     {
 
@@ -195,10 +195,11 @@ namespace RocketRoadmap
 
                         sCell.Controls.Add(StratVisTable);
 
-                        HtmlTableRow visRow = new HtmlTableRow();
+
 
                         //visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
                         visRow.Attributes.Add("class", "RowVis");
+                        visRow.ID = b.GetName() + "RowVis";
                         if (count == 1 && valcount == 0)
                         {
                             visRow.Attributes.Add("style", "border-top: 2pt solid; border-top-color: #D3D3D3;");
@@ -212,8 +213,6 @@ namespace RocketRoadmap
 
 
                         visRow.Cells.Add(bc1);
-                        visRow.Cells.Add(new HtmlTableCell());
-                        visRow.Cells.Add(new HtmlTableCell());
 
                         bc2 = new HtmlTableCell();
 
@@ -234,7 +233,7 @@ namespace RocketRoadmap
                         StratVisTable.Rows.Add(newPRow);
                         // newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
                         newPRow.Attributes.Add("class", "RowVis");
-
+                        newPRow.ID = b.GetName() + "RowVis";
 
 
                         bc1 = new HtmlTableCell();
@@ -243,8 +242,7 @@ namespace RocketRoadmap
 
                         newPRow.Cells.Add(bc1);
 
-                        newPRow.Cells.Add(new HtmlTableCell());
-                        newPRow.Cells.Add(new HtmlTableCell());
+                      
 
 
 
@@ -256,8 +254,11 @@ namespace RocketRoadmap
 
                         newPRow.Cells.Add(bc2);
 
-                        int h = valcount * 100 + 100;
-                        but.Style.Add(HtmlTextWriterStyle.Height, h.ToString() + "px");
+                        //currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+                        //but.Attributes.g
+                        //document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
+                        butheight = butheight + valcount * 3.27f;
+                        but.Style.Add(HtmlTextWriterStyle.Height, butheight.ToString() + "em");
 
                     }
 
@@ -323,7 +324,7 @@ namespace RocketRoadmap
                     HtmlInputText newprojText = new HtmlInputText();
                     foreach (Project proj in b.GetProjects())
                     {
-                        bustextbox.Attributes.Add("ProjTotal", (projCount + 1).ToString());
+                        bustextbox.Attributes.Add("ProjTotal", (projCount + 2).ToString());
 
                         colorNum = (count - 1) % color.Count;
                         //<div id="StratBox1BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="position: relative; cursor: auto; left: 1px; top: 0px; width: 160px; background-color: deepskyblue;"><span>h</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 180;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
@@ -370,6 +371,26 @@ namespace RocketRoadmap
                         {
                             newprojText.Value = proj.GetDescription();
                         }
+                        if (projCount > 1) {
+                            //increase stratbut height
+                            //var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em")[0];
+                            //document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 1.7) + "em";
+                            butheight = butheight + 1.7f;
+                            //but.Style.Add(HtmlTextWriterStyle.Height, "6em");
+                            but.Style.Add(HtmlTextWriterStyle.Height, butheight.ToString() + "em");
+                            //increase RowVis height
+
+                            //visRow
+                            visRow.Style.Add(HtmlTextWriterStyle.Height, ((projCount+1) * 2.5).ToString()+"em");
+
+                            
+                            //RowVis = obj.id.split("ProjBox")[0] + "RowVis";
+                            //currentheight = document.getElementById(RowVis).style.height;
+
+                            //document.getElementById(RowVis).style.height = (ProjTotal * 2.5).toString() + "em";
+
+                        }
+
                         lastCell.ID = b.GetName() + "Cell";
 
                         //< a id = "StratBox0BusBox0ProjBox0Delete" href = "#" style = "color:white; font-size:20px; vertical-align:-3px" class="remove_proj"> X</a>
