@@ -37,7 +37,7 @@ namespace RocketRoadmap.DB
                             mValues.Add(bv);
                         }
                     }
-                    conn.Close();
+
                 }
 
 
@@ -60,9 +60,8 @@ namespace RocketRoadmap.DB
                     }
                     catch
                     {
-                        mColor = "";
+                        mColor = "#000000";
                     }
-                    
                 }
 
                 foreach (BusinessValue bv in mValues)
@@ -74,7 +73,7 @@ namespace RocketRoadmap.DB
                        cmd2.Parameters.AddWithValue("@BVName", bv.GetName());
                        cmd2.Connection = conn;
 
-                       conn.Open();
+                       //conn.Open();
                         using (SqlDataReader Reader = cmd2.ExecuteReader())
                         {
                             if (Reader.HasRows)
