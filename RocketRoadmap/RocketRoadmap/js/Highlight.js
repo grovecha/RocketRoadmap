@@ -54,7 +54,7 @@ function Highlight(id) {
 function dependoncolor(id) {
     var id_x;
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('repeating-linear-gradient', '-45deg, white 0, light blue 10%');
+        $(id[id_x]).css('background-color', 'deepskyblue');
     }
 }
 function dependantofcolor(id) {
@@ -85,7 +85,7 @@ function UnHighlight(id) {
     temp = temp[1].split("BusBox")[0]
     var return_c = document.getElementById("ColorPicker" + temp).value;
 
-    $(cheche).css({ "border-color": return_c });
+    $(cheche).css({ "background-color": return_c });
 
     Uncolor(depon_arr);
     Uncolor(depof_arr);
