@@ -40,19 +40,29 @@ namespace RocketRoadmap.DB
                     conn.Close();
                 }
 
+
+
                 using (SqlCommand cmd3 = new SqlCommand())
                 {
                     cmd3.CommandText = "SELECT color FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname AND Name = @sName";
                     cmd3.Parameters.AddWithValue("@Rname", mRoadmapName);
                     cmd3.Parameters.AddWithValue("@Sname", mName);
                     cmd3.Connection = conn;
-                    using (SqlDataReader Reader = cmd3.ExecuteReader())
+
+                    try
                     {
-                        Reader.Read();
+                        using (SqlDataReader Reader = cmd3.ExecuteReader())
+                        {
+                            Reader.Read();
 
-                        mColor = Reader.GetString(0);
-
+                            mColor = Reader.GetString(0);
+                        }
                     }
+                    catch
+                    {
+                        mColor = "";
+                    }
+                    
                 }
 
                 foreach (BusinessValue bv in mValues)
