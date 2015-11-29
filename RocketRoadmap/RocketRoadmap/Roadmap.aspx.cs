@@ -119,7 +119,7 @@ namespace RocketRoadmap
 
 
 
-                cell1.InnerHtml += "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker"+count.ToString()+ "\" onchange=\"changeColor("+count.ToString()+")\" value =\"" + color[colorNum+1] + "\">";
+                cell1.InnerHtml += "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker"+count.ToString()+ "\" onchange=\"changeColor("+count.ToString()+")\" value =\"" + color[colorNum] + "\">";
                 cell1.Controls.Add(text);
 
 
