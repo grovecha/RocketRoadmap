@@ -4,15 +4,20 @@
 }
 
 .txtStrat {  
-    width: 12.5em;
+    width: 10em;
     height:1.875em;
     margin-left: 0em;
     font-family:Arial;
     background-color:white;
 }
+.stratColor {
+    width:2.5em;
+    height:1.875em;
+}
 .btnDelete {
     height: 2em;
     width: 1.75em;
+
 }
 .txtBus {
     width: 11.25em;

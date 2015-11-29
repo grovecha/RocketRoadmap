@@ -117,14 +117,22 @@ namespace RocketRoadmap
                 text.Attributes.Add("runat", "server");
                 text.Attributes.Add("onkeyup", "addStrat(event,this," + count.ToString() + ")");
 
+
+
+                cell1.InnerHtml += "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker"+count.ToString()+ "\" onchange=\"changeColor("+count.ToString()+")\" value =\"" + color[colorNum+1] + "\">";
                 cell1.Controls.Add(text);
-                //< a href = "#" id = 'StratDelete0' style = "color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
+
+
+
+
+
                 delete = new HyperLink();
                 delete.ID = "StratDelete" + count.ToString();
                 //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                 delete.Attributes.Add("class", "remove_strat");
                 delete.Text = " X";
                 cell1.Controls.Add(delete);
+
 
 
 

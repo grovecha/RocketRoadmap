@@ -302,9 +302,12 @@ function addStrat(e, obj, i) {
             }
 
 
-            var colorNum = PreviousStratNum % color.length;
+           // var colorNum = PreviousStratNum % color.length;
+
+            var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
+            var newColor= colorpicker.value;
             element1.className = "StratVis";
-            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, "+color[colorNum]+"), color-stop(1, "+color[colorNum]+")); background:-moz-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-webkit-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-o-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:-ms-linear-gradient(top, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); background:linear-gradient(to bottom, "+color[colorNum]+" 5%, "+color[colorNum]+" 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='"+color[colorNum]+"', endColorstr='b5121b',GradientType=0); background-color:"+color[colorNum]+";")
+            element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
             element1.style.height = "3.5em";
 
             var table1 = document.createElement("table");
@@ -315,7 +318,7 @@ function addStrat(e, obj, i) {
             cell2.appendChild(element1);
 
 
-            element1.innerHTML = "  <input type=\"color\" name=\"favcolor\" value=\"#ff0000\">";
+
         }
         var url = window.location.href;
         var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
@@ -341,8 +344,11 @@ function addStrat(e, obj, i) {
             newrow = mainDiv.insertRow(varr);
             
             newrow.setAttribute("id", 'StratBox' + NewStratCount.toString() + "Row");
+            //color input
+            var colorNum = PreviousStratNum % color.length;
 
-            newrow.innerHTML = "<td style='display:block;'>" +                             
+            newrow.innerHTML += "<td style='display:block;'>" +
+                            "  <input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + NewStratCount.toString() + "\" onchange=\"changeColor(" + NewStratCount.toString()+")\" value=\"" + color[colorNum + 1] + "\">" +
                             "<input class='txtStrat' BusTotal=1 id='StratBox" + NewStratCount.toString() + "' type='text' placeholder='Add Strategy Point' runat='server'  onkeyup='addStrat(event,this," + NewStratCount.toString() + ")'/><a href='#' id='StratDelete" + NewStratCount.toString() + "'class='remove_strat'> X</a> <br />" +
                             '<table style="display:block; height: 100%" id ="StratBox' + NewStratCount.toString() + 'Table"' + ' >' +
                             '<tr style="display:block;" id="StratBox' + NewStratCount.toString() + 'BusBox0Row" > ' +
@@ -555,9 +561,13 @@ function addProj(e, obj, i) {
 
 
             var sNum = parseInt(StratId.split("StratBox")[1]);
-            var colorNum = sNum % color.length;
 
-            element1.style.backgroundColor = color[colorNum];
+            var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
+            var newColor = colorpicker.value;
+
+            element1.style.backgroundColor = newColor;
+
+
             
             element1.value = "";
 
@@ -672,5 +682,31 @@ function addProj(e, obj, i) {
         }
     }
     return false;
+}
+
+
+function changeColor(index)
+{
+    var picker = document.getElementById("ColorPicker" + index.toString());
+
+    var newColor = picker.value;
+
+    var element1 = document.getElementById("StratBut" + index.toString());
+    element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
+    element1.style.height = "3.5em";
+
+
+    var bustotal = parseInt(document.getElementById("StratBox" + index.toString()).getAttribute("BusTotal"));
+
+    for (i = 0; i < bustotal; ++i)
+    {
+        var projTotal = parseInt(document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString()).getAttribute("ProjTotal"));
+        for(j=0;j<projTotal; ++j)
+        {
+            //<div id="StratBox0BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseleave="UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="background-color: rgb(220, 56, 31);"><span id="StratBox0BusBox0ProjBox0Label" class="projLabel">project</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+            var p = document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString() + "ProjBox" + j.toString() + "But");
+            p.style.backgroundColor = picker.value;
+        }
+    }
 }
 
