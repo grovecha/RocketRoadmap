@@ -110,7 +110,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 id="roadmapnamelabel" runat="server"></h1>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Presentation Mode</a>
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
@@ -141,7 +141,7 @@
             <div class="modal-body">
                 <!-- Description Text Box -->
                 <h2><u>Description</u></h2>
-                    <textarea id="descText" rows="4" cols="75" ></textarea> 
+                    <textarea id="descText" style="min-width: 90%" ></textarea> 
 
                 <!--Depedency Input -->
                 <h2><u>Dependencies</u></h2>
@@ -159,7 +159,7 @@
 
                 <!-- Risks Text Box -->
                 <h2><u>Risks</u></h2>
-                    <textarea id="riskText" rows="4" cols="75"></textarea> 
+                    <textarea id="riskText" style="min-width: 90%"></textarea> 
 
                 <!-- Links Input -->
                 <h2><u>Links</u></h2>

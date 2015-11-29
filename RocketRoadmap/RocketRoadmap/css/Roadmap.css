@@ -210,7 +210,8 @@ span {
 }
 
 textarea{
-    resize:vertical; max-height:18.750em;
+    resize:vertical; 
+    max-height:18.750em;
     font-family:Arial;
 
 }
@@ -283,4 +284,10 @@ h3{
 }
 .disriskText{
     font-size: 1.4em
+}
+#input_title{
+    color:white;
+}
+#display_title{
+    color:white;
 }
