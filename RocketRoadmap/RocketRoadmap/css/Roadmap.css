@@ -68,7 +68,7 @@ span {
 }
 
 .StratVis{
-    word-break: break-all;
+    word-break: normal;
     white-space: normal;
 	-moz-border-radius:.188em;
 	-webkit-border-radius:.188em;
