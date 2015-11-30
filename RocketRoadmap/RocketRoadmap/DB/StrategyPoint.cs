@@ -82,10 +82,10 @@ namespace RocketRoadmap.DB
                                bv.SetDescription(Reader.GetString(0).ToString());
                             }
                         }
-                        conn.Close();
                    }
                }
-                
+                conn.Close();
+
             }
         }
 
@@ -188,7 +188,7 @@ namespace RocketRoadmap.DB
             return null;
         }
 
-        public bool CreateBuisnessValue(string name, string desc, string rname)
+        public bool CreateBusinessValue(string name, string desc, string rname)
         {
             try
             {

@@ -80,12 +80,12 @@
 //            BusinessValue bis2 = new BusinessValue("StratBox0BusBox1","busboxtest");
 //            BusinessValue bis3 = new BusinessValue("StratBox0BusBox2","busboxtest");
 
-//            strat1.CreateBuisnessValue("StratBox0BusBox0","first","busboxtest");
-//            strat1.CreateBuisnessValue("StratBox0BusBox1","second","busboxtest");
-//            strat1.CreateBuisnessValue("StratBox0BusBox2","fourth","busboxtest");
+//            strat1.CreateBusinessValue("StratBox0BusBox0","first","busboxtest");
+//            strat1.CreateBusinessValue("StratBox0BusBox1","second","busboxtest");
+//            strat1.CreateBusinessValue("StratBox0BusBox2","fourth","busboxtest");
 
 //            strat1.ReorderBusinessValue("StratBox0BusBox2","third",true);
-//            strat1.CreateBuisnessValue("StratBox0BusBOx2", "third", "busboxtest");
+//            strat1.CreateBusinessValue("StratBox0BusBOx2", "third", "busboxtest");
 //            strat1.ReloadBusinessValues();
 //            List<BusinessValue> list = strat1.GetBusinessValues();
 //            Assert.IsTrue(list.Last().GetName() == "StratBox0BusBox3");
@@ -101,9 +101,9 @@
 //                    StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "busboxtest");
 
 //                    newroadmap.AddStrategyPoint(strat1);
-//                    strat1.CreateBuisnessValue("StratBox0BusBox0", "first", "busboxtest");
-//                    strat1.CreateBuisnessValue("StratBox0BusBox1", "second", "busboxtest");
-//                    strat1.CreateBuisnessValue("StratBox0BusBox2", "fourth", "busboxtest");
+//                    strat1.CreateBusinessValue("StratBox0BusBox0", "first", "busboxtest");
+//                    strat1.CreateBusinessValue("StratBox0BusBox1", "second", "busboxtest");
+//                    strat1.CreateBusinessValue("StratBox0BusBox2", "fourth", "busboxtest");
                     
 //                    strat1.DeleteBusinessValue("StratBox0BusBox0");
 //                    strat1.ReloadBusinessValues();
