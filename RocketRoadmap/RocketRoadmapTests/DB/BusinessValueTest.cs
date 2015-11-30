@@ -56,7 +56,7 @@
 //            newroadmap.AddStrategyPoint(strat1);
 
 //            BusinessValue bis1 = new BusinessValue("StratBox0BusBox0", "busboxtest");
-//            strat1.CreateBuisnessValue("StratBox0BusBox0", "first", "busboxtest");
+//            strat1.CreateBusinessValue("StratBox0BusBox0", "first", "busboxtest");
 
 //            Project proj1 = new Project("StratBox0BusBox0ProjBox0", "first", "StratBox0BusBox0", "busboxtest");
 //            Project proj2 = new Project("StratBox0BusBox0ProjBox1", "second", "StratBox0BusBox0", "busboxtest");
@@ -82,7 +82,7 @@
 //            StrategyPoint strat1 = new StrategyPoint("StratBox0", "first", "busboxtest");
 
 //            newroadmap.AddStrategyPoint(strat1);
-//            strat1.CreateBuisnessValue("StratBox0BusBox0", "first", "busboxtest");
+//            strat1.CreateBusinessValue("StratBox0BusBox0", "first", "busboxtest");
 //            BusinessValue bis1 = new BusinessValue("StratBox0BusBox0", "busboxtest");
 
 //            Project proj1 = new Project("StratBox0BusBox0ProjBox0", "first", "StratBox0BusBox0", "busboxtest");

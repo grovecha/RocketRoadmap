@@ -40,6 +40,15 @@ namespace RocketRoadmap {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow StratBox0Row;
         
         /// <summary>
+        /// ColorPicker0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl ColorPicker0;
+        
+        /// <summary>
         /// StratBox0 control.
         /// </summary>
         /// <remarks>

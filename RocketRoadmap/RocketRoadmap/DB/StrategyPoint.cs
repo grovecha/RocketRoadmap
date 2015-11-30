@@ -37,7 +37,7 @@ namespace RocketRoadmap.DB
                             mValues.Add(bv);
                         }
                     }
-                    conn.Close();
+
                 }
 
 
@@ -60,9 +60,8 @@ namespace RocketRoadmap.DB
                     }
                     catch
                     {
-                        mColor = "";
+                        mColor = "#000000";
                     }
-                    
                 }
 
                 foreach (BusinessValue bv in mValues)
@@ -74,7 +73,7 @@ namespace RocketRoadmap.DB
                        cmd2.Parameters.AddWithValue("@BVName", bv.GetName());
                        cmd2.Connection = conn;
 
-                       conn.Open();
+                       //conn.Open();
                         using (SqlDataReader Reader = cmd2.ExecuteReader())
                         {
                             if (Reader.HasRows)
@@ -83,10 +82,10 @@ namespace RocketRoadmap.DB
                                bv.SetDescription(Reader.GetString(0).ToString());
                             }
                         }
-                        conn.Close();
                    }
                }
-                
+                conn.Close();
+
             }
         }
 
@@ -189,7 +188,7 @@ namespace RocketRoadmap.DB
             return null;
         }
 
-        public bool CreateBuisnessValue(string name, string desc, string rname)
+        public bool CreateBusinessValue(string name, string desc, string rname)
         {
             try
             {
