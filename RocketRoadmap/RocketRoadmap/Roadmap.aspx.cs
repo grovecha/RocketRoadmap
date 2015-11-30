@@ -566,7 +566,7 @@ namespace RocketRoadmap
             StrategyPoint point = map.GetPoint(stratID);
 
             BusinessValue newBusVal = new BusinessValue(id, mapName);
-            point.CreateBuisnessValue(id, name, mapName);
+            point.CreateBusinessValue(id, name, mapName);
 
             //function to add to database
         }

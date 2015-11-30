@@ -188,7 +188,7 @@ namespace RocketRoadmap.DB
             return null;
         }
 
-        public bool CreateBuisnessValue(string name, string desc, string rname)
+        public bool CreateBusinessValue(string name, string desc, string rname)
         {
             try
             {
