@@ -435,7 +435,7 @@ namespace RocketRoadmap.DB
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "DELETE [dbo].[Links] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND Address = @addr";
+                    cmd.CommandText = "DELETE FROM [dbo].[Link] WHERE RoadmapName = @Rname AND ProjectName = @Pname AND Address = @addr";
                     cmd.Parameters.AddWithValue("@Pname", mName);
                     cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
                     cmd.Parameters.AddWithValue("@addr", link.GetLink());

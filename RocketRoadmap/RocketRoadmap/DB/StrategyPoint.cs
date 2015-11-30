@@ -37,11 +37,34 @@ namespace RocketRoadmap.DB
                             mValues.Add(bv);
                         }
                     }
-                    conn.Close();
+
                 }
 
 
-               foreach (BusinessValue bv in mValues)
+
+                using (SqlCommand cmd3 = new SqlCommand())
+                {
+                    cmd3.CommandText = "SELECT color FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname AND Name = @sName";
+                    cmd3.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd3.Parameters.AddWithValue("@Sname", mName);
+                    cmd3.Connection = conn;
+
+                    try
+                    {
+                        using (SqlDataReader Reader = cmd3.ExecuteReader())
+                        {
+                            Reader.Read();
+
+                            mColor = Reader.GetString(0);
+                        }
+                    }
+                    catch
+                    {
+                        mColor = "#000000";
+                    }
+                }
+
+                foreach (BusinessValue bv in mValues)
                {
                    using (SqlCommand cmd2 = new SqlCommand())
                    {
@@ -50,7 +73,7 @@ namespace RocketRoadmap.DB
                        cmd2.Parameters.AddWithValue("@BVName", bv.GetName());
                        cmd2.Connection = conn;
 
-                       conn.Open();
+                       //conn.Open();
                         using (SqlDataReader Reader = cmd2.ExecuteReader())
                         {
                             if (Reader.HasRows)
@@ -70,6 +93,7 @@ namespace RocketRoadmap.DB
         public string GetName() { return mName; }
         public void SetName(string name) { mName = name; }
         public string GetDescription() { return mDescription; }
+        public string GetColor() { return mColor; }
         public List<BusinessValue> GetBusinessValues() { return mValues; }
 
         //Edit name of spoint
@@ -91,6 +115,32 @@ namespace RocketRoadmap.DB
                     if (cmd.ExecuteNonQuery()!=0)
                     {
                         mName = name;
+                        toReturn = true;
+                    }
+                    conn.Close();
+                }
+            }
+            return toReturn;
+        }
+
+        public bool EditColor(string color)
+        {
+            bool toReturn = false;
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[StrategyPoint] SET color = @col WHERE Name = @Sname AND RoadmapName =@Rname";
+                    cmd.Parameters.AddWithValue("@col", color);
+                    cmd.Parameters.AddWithValue("@Sname", mName);
+                    cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    if (cmd.ExecuteNonQuery() != 0)
+                    {
+                        mColor = color;
                         toReturn = true;
                     }
                     conn.Close();
@@ -346,6 +396,7 @@ namespace RocketRoadmap.DB
         private string mName;
         private string mDescription;
         private string mRoadmapName;
+        private string mColor;
         private List<BusinessValue> mValues = new List<BusinessValue>();
 
       //  private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();

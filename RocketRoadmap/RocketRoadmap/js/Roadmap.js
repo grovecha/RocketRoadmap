@@ -330,7 +330,7 @@ function addStrat(e, obj, i) {
         }
         //create new strat input and add entry to database
         else {
-            PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), document.getElementById("StratBox" + PreviousStratNum.toString()).value, mapName);
+            PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), document.getElementById("StratBox" + PreviousStratNum.toString()).value, newColor, mapName);
             obj.setAttribute("firstadd", "1");
             PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
             NewStratCount = PreviousStratNum + 1;
@@ -689,20 +689,27 @@ function changeColor(index)
     var newColor = picker.value;
 
     var element1 = document.getElementById("StratBut" + index.toString());
-    element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
-    element1.style.height = "3.4em";
-
-
-    var bustotal = parseInt(document.getElementById("StratBox" + index.toString()).getAttribute("BusTotal"));
-
-    for (i = 0; i < bustotal; ++i)
+    if (element1 != null)
     {
-        var projTotal = parseInt(document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString()).getAttribute("ProjTotal"));
-        for(j=0;j<projTotal; ++j)
-        {
-            //<div id="StratBox0BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseleave="UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="background-color: rgb(220, 56, 31);"><span id="StratBox0BusBox0ProjBox0Label" class="projLabel">project</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
-            var p = document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString() + "ProjBox" + j.toString() + "But");
-            p.style.backgroundColor = picker.value;
+        element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
+        element1.style.height = "3.5em";
+
+        var url = window.location.href;
+        var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
+        mapName = mapName.substr(2, mapName.length).split('#')[0];
+
+        PageMethods.SetColor("StratBox" + index.toString(),newColor, mapName);
+
+
+        var bustotal = parseInt(document.getElementById("StratBox" + index.toString()).getAttribute("BusTotal"));
+
+        for (i = 0; i < bustotal - 1; ++i) {
+            var projTotal = parseInt(document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString()).getAttribute("ProjTotal"));
+            for (j = 0; j < projTotal - 1; ++j) {
+                //<div id="StratBox0BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseleave="UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="background-color: rgb(220, 56, 31);"><span id="StratBox0BusBox0ProjBox0Label" class="projLabel">project</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
+                var p = document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString() + "ProjBox" + j.toString() + "But");
+                p.style.backgroundColor = picker.value;
+            }
         }
     }
 }
