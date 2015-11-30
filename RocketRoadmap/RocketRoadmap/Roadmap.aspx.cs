@@ -15,7 +15,7 @@ namespace RocketRoadmap
 {
     public partial class Roadmap : System.Web.UI.Page
     {
-        List<string> color = new List<string> { "#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217" };
+        List<string> colorList = new List<string> { "#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217" };
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,6 +50,9 @@ namespace RocketRoadmap
             HtmlInputText projText = new HtmlInputText();
             HtmlTableCell NextInputCell = new HtmlTableCell();
 
+            HtmlTableCell mainTextCell = new HtmlTableCell();
+            mainTextCell = null;
+
             HyperLink delete = new HyperLink();
             #region Loading Strats, Vals, and Projects
 
@@ -70,9 +73,9 @@ namespace RocketRoadmap
 
                 but.Attributes.Add("class", "StratVis");
 
-                int colorNum = count % color.Count;
+                string color = p.GetColor();
 
-                but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color[colorNum] + "), color-stop(1, " + color[colorNum] + ")); background:-moz-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-webkit-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-o-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:-ms-linear-gradient(top, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); background:linear-gradient(to bottom, " + color[colorNum] + " 5%, " + color[colorNum] + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color[colorNum] + "', endColorstr='" + color[colorNum] + "',GradientType=0);");
+                but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color + "), color-stop(1, " + color + ")); background:-moz-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-webkit-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-o-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-ms-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:linear-gradient(to bottom, " + color + " 5%, " + color + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color + "', endColorstr='" + color + "',GradientType=0);");
                 but.Style.Add(HtmlTextWriterStyle.Height, "3.4em");
                 but.Value = p.GetDescription();
 
@@ -103,7 +106,25 @@ namespace RocketRoadmap
                 HtmlTableRow lastRow = new HtmlTableRow();
                 lastRow.ID = "StratBox" + count.ToString() + "Row";
 
-                HtmlTableCell cell1 = new HtmlTableCell();
+                if (mainTextCell == null)
+                {
+                    ColorPicker0.Value = color;
+                }
+                else
+                {
+                    mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + count.ToString() + "\" onchange=\"changeColor(" + count.ToString() + ")\" value =\"" + color + "\">";
+                    mainTextCell.Controls.Add(lasttext);
+
+                    delete = new HyperLink();
+                    delete.ID = "StratDelete" + (count - 1).ToString();
+                    //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                    delete.Attributes.Add("class", "remove_strat");
+                    delete.Text = " X";
+                    mainTextCell.Controls.Add(delete);
+                    mainTextCell.Controls.Add(newtable);
+                }
+
+                mainTextCell = new HtmlTableCell();
 
                 HtmlInputText text = new HtmlInputText();
                 lasttext = text;
@@ -117,10 +138,11 @@ namespace RocketRoadmap
                 text.Attributes.Add("runat", "server");
                 text.Attributes.Add("onkeyup", "addStrat(event,this," + count.ToString() + ")");
 
+                int colorNum = count % colorList.Count;
 
+                mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + count.ToString() + "\" onchange=\"changeColor(" + count.ToString() + ")\" value =\"" + colorList[colorNum] + "\">";
 
-                cell1.InnerHtml += "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker"+count.ToString()+ "\" onchange=\"changeColor("+count.ToString()+")\" value =\"" + color[colorNum] + "\">";
-                cell1.Controls.Add(text);
+                mainTextCell.Controls.Add(text);
 
 
 
@@ -131,7 +153,7 @@ namespace RocketRoadmap
                 //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                 delete.Attributes.Add("class", "remove_strat");
                 delete.Text = " X";
-                cell1.Controls.Add(delete);
+                mainTextCell.Controls.Add(delete);
 
 
 
@@ -140,14 +162,14 @@ namespace RocketRoadmap
                 HtmlButton deletebutton = new HtmlButton();
 
 
-                cell1.Controls.Add(new LiteralControl("<br />"));
+                mainTextCell.Controls.Add(new LiteralControl("<br />"));
 
 
                 lastTable = newtable;
                 newtable = new HtmlTable();
                 newtable.ID = "StratBox" + count.ToString() + "Table";
 
-                cell1.Controls.Add(newtable);
+                mainTextCell.Controls.Add(newtable);
 
                 HtmlTableRow stratTableRow = new HtmlTableRow();
 
@@ -326,14 +348,14 @@ namespace RocketRoadmap
                     {
                         bustextbox.Attributes.Add("ProjTotal", (projCount + 2).ToString());
 
-                        colorNum = (count - 1) % color.Count;
+                        
                         //<div id="StratBox1BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="position: relative; cursor: auto; left: 1px; top: 0px; width: 160px; background-color: deepskyblue;"><span>h</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 180;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
                         // < div id = "StratBox0BusBox0ProjBox3But" ondblclick = "showModal(this.id)" onclick = "Highlight(this.id)" onmouseleave = "UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="left: 4px; top: 0px; width: 216px; background-color: deepskyblue;"><span style = "display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;" > new</ span >< div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
                         //<div id="StratBox0BusBox0ProjBox2But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="cursor: auto; left: 33px; top: 0px; width: 160px; background-color: deepskyblue;"><span>new</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
 
 
-                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() +"px; background-color: " + color[colorNum]+";\">" +
-                            "<span class='projLabel' id='"+proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
+                        bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() + "px; background-color: " + color + ";\">" +
+                            "<span class='projLabel' id='" +proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
@@ -475,7 +497,7 @@ namespace RocketRoadmap
                 stratCell.Controls.Add(projText);
                 //stratCell.Controls.Add(new LiteralControl("<br />"));
 
-                lastRow.Cells.Add(cell1);
+                lastRow.Cells.Add(mainTextCell);
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
 
                 sideTable.Rows.Add(lastRow);
@@ -513,7 +535,7 @@ namespace RocketRoadmap
         #region Adding functions
 
         [WebMethod]
-        public static void AddStrat(string id, string name, string mapName)
+        public static void AddStrat(string id, string name, string color, string mapName)
         {
 
             RoadMap map = new RoadMap(mapName);
@@ -521,6 +543,7 @@ namespace RocketRoadmap
             int n = map.GetStrategyPoints().Count;
 
             StrategyPoint point = new StrategyPoint(id, name, mapName);
+            point.EditColor(color);
             map.AddStrategyPoint(point);
 
         }
@@ -1172,6 +1195,18 @@ namespace RocketRoadmap
             }
 
             newproj.UpdateDependantStrings(Dep_Names);
+
+
+        }
+
+        [WebMethod]
+        public static void SetColor(string id, string color, string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+
+            StrategyPoint point = map.GetPoint(id);
+            point.EditColor(color);
+
 
 
         }

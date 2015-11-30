@@ -113,7 +113,7 @@ span {
     width: 156.250em;
     background-color:#d0d0d0;
     border-bottom: groove;
-    border-color: #D1D1D1;
+    border-color: #E8E8E8;
 }
 
 .ProjVis{
@@ -125,7 +125,7 @@ span {
     background-color: #d0d0d0;
     padding:0 .5em 0 0;
     border-bottom: groove;
-    border-color: #C8C8C8;
+    border-color: #E8E8E8;
     color: black;
     font-weight: bold;
     font-size: 1.5em;
@@ -210,7 +210,8 @@ span {
 }
 
 textarea{
-    resize:vertical; max-height:18.750em;
+    resize:vertical; 
+    max-height:18.750em;
     font-family:Arial;
 
 }
@@ -283,4 +284,10 @@ h3{
 }
 .disriskText{
     font-size: 1.4em
+}
+#input_title{
+    color:white;
+}
+#display_title{
+    color:white;
 }
