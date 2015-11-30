@@ -82,10 +82,10 @@ namespace RocketRoadmap.DB
                                bv.SetDescription(Reader.GetString(0).ToString());
                             }
                         }
-                        conn.Close();
                    }
                }
-                
+                conn.Close();
+
             }
         }
 
