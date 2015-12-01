@@ -388,11 +388,12 @@ namespace RocketRoadmap
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
+                        
 
                         /*
                         * Updating edit info
                         */
-                        
+
                         //finding correct text box
 
                         HtmlInputText projTextBox = new HtmlInputText();
@@ -469,6 +470,7 @@ namespace RocketRoadmap
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
 
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "enableDragbyId", "enableDragbyId(" + proj.GetName() + ");", true);
                     }
                     #endregion
 
