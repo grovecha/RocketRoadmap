@@ -30,6 +30,7 @@ $("#menu-toggle").click(function (e) {
     $("#wrapper").toggleClass("toggled");
     if (!FullScreen) {
         //disable editing
+        $("#menu_toggle").text('Presentation Mode');
         FullScreen = true;
         $(".proj1").draggable("disable");
         $(".proj1").resizable("disable");
@@ -43,6 +44,7 @@ $("#menu-toggle").click(function (e) {
         $(".proj2").css("cursor", "auto");
         $(".proj3").css("cursor", "auto");
         $(".timeline").css("cursor", "auto");
+
         
         if (document.getElementById("v2")) {
             $(".RowVis2").hide();
@@ -53,6 +55,7 @@ $("#menu-toggle").click(function (e) {
         }
     }
     else {
+        $("#menu_toggle").text('Editing Mode');
         FullScreen = false;
         $(".proj1").draggable({ axis: "x" });
         $(".proj1").resizable({ handles: 'e, w' });
@@ -92,6 +95,7 @@ $(document).ready(function () {
     var save = $("#save"); //Save button
     var total_dep_count = 0; // total dep counter
     var total_select_count = 0; // total select counter
+
     var total_link_count = 0; // total link counter
    
     var options = ""; // used for the string of options a select has

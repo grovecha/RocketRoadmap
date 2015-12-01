@@ -42,6 +42,7 @@ function showMode(id) {
     }
 }
 
+
 function enableDrag()
 {
     var url = window.location.href;
@@ -193,25 +194,41 @@ function deleteBus(obj) {
     var BusId = obj.id.split("Delete")[0];
     var StratTable = document.getElementById(StratId + "Table");
     var RowIndex = document.getElementById(BusId + "Row").rowIndex;
-
-    //don't allow deletion of last strat box
+    var CurrentStratCount = obj.id.split('StratBox')[1].split('BusBox')[0];
+    //don't allow deletion of last bus box
     if (!document.getElementById(BusId).getAttribute("firstadd")) {
+        console.log("last bus box");
         return 0;
     }
 
+    
+    //Reduce strat size
+    console.log(BusId + "RowVis");
+  
+    //get projtotal of bus value
+    projtotal = document.getElementById(BusId).getAttribute("ProjTotal")-1;
+    
+    //if projtotal > 2
+    if (projtotal > 2) {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (parseFloat(projtotal *1.7))) + "em";
+
+    }
+    
+      //decrease size by 3.27 + projtotal * 1.7
+    //else decrease size by 3.27
+    else {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (3.27)) + "em";
+    }
+    console.log(String(parseFloat(currenstrattheight) - (parseFloat(projtotal * 1.7) + 3.27)) + "em");
+   
+    //delete input row
     StratTable.deleteRow(RowIndex);
-
-    try {
-        //delete visual row 
-        var table = document.getElementById(StratId + "VisualTable");
-        table.deleteRow(RowIndex);
-        currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) - 66) + "px";
-    }
-    catch (err) {
-
-    }
-
+    //delete visual row 
+    var table = document.getElementById(StratId + "VisualTable");
+    table.deleteRow(RowIndex);
+    
     //delete from database
     var url = window.location.href;
     var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
@@ -220,6 +237,21 @@ function deleteBus(obj) {
 }
 
 function deleteProj(obj) {
+    var BusId = obj.id.split("ProjBox")[0];
+    //Reduce strat size
+
+    //get projtotal of bus value
+    projtotal = document.getElementById(BusId).getAttribute("ProjTotal") - 1;
+
+    if (projtotal > 2) {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (1.7)) + "em";
+
+        //reduce bus value size    
+        var RowVis = obj.id.split("ProjBox")[0] + "RowVis";
+        document.getElementById(RowVis).style.height = ((projtotal-1) * 2.5).toString() + "em";
+        
+    }
 
     var id = obj.id.split("Delete")[0];    
 
@@ -245,6 +277,10 @@ function deleteProj(obj) {
     var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteProj(ProjId, BusId, StratId, mapName);
+
+    //reduce projtotal
+    document.getElementById(BusId).setAttribute("ProjTotal", parseInt(projtotal));
+
 }
 
 
@@ -300,8 +336,6 @@ function addStrat(e, obj, i) {
             if (NewValue != "") {
                 element1.value = NewValue;
             }
-
-
            // var colorNum = PreviousStratNum % color.length;
 
             var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
@@ -371,6 +405,7 @@ function addStrat(e, obj, i) {
     }
     return false;
 }
+
 
 function addBus(e, obj, i) {
 
@@ -503,7 +538,7 @@ function addBus(e, obj, i) {
 function addProj(e, obj, i) {
     CurrentStratCount = parseInt(obj.id.split("StratBox")[1].split('BusBox')[0]);
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
-    BusId = obj.id.split("ProjBox")[0];
+    var BusId = obj.id.split("ProjBox")[0];
     ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
     StratId = obj.id.substr(0, obj.id.indexOf('Bus'));
     if (e.keyCode === 13 && e.shiftKey) {
@@ -538,7 +573,6 @@ function addProj(e, obj, i) {
             element1.id = obj.id + "But";
             var NewValue = obj.value;
             if (NewValue != "") {
-                
                 element1.innerHTML = "<span id = '" + obj.id + "Label' class = 'projLabel' >" + NewValue + "</span>";
             }
             //element1.style.verticalAlign = "top";
