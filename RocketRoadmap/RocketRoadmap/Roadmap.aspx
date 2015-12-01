@@ -264,15 +264,17 @@
 </div> 
 
 <!-- jQuery -->
+
+
+</form>
+
+
+<script src="js/ion.rangeSlider.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/Highlight.js"></script> 
 <script id="Roadmapjs" src="js/Roadmap.js"></script>
 
 <script src="js/InputModal.js"></script>
-
-</form>
-
-<script src="js/ion.rangeSlider.js"></script>
 
 </body>
 

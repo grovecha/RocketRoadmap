@@ -226,11 +226,11 @@ $(document).ready(function () {
         function headercolor(id) {
                 var temp = id.split("StratBox");
                 temp = temp[1].split("BusBox")[0]
-                var c = color[temp % 6];
+
+                var c = document.getElementById("ColorPicker" + temp).value;
 
                 $("#headcolor1").css('background-color', c);
-                $("#save").css('background-color', c);
-            
+                $("#save").css("background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + c + "), color-stop(1, " + c + ")); background:-moz-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:-webkit-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:-o-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:-ms-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:linear-gradient(to bottom, " + c + " 5%, " + c + " 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + c + "', endColorstr='" + c + "',GradientType=0);");         
 
         }
       
