@@ -58,7 +58,7 @@ namespace RocketRoadmap
 
             foreach (StrategyPoint p in strats)
             {
-
+                
                 #region Strategy Visual Creation
                 HtmlTableRow row;
 
@@ -79,10 +79,13 @@ namespace RocketRoadmap
                 but.Style.Add(HtmlTextWriterStyle.Height, "3.4em");
                 but.Value = p.GetDescription();
 
+                
+
                 HtmlInputText textbox;
                 if (count == 0)
                 {
                     textbox = StratBox0;
+                    
                 }
                 else
                 {
@@ -92,7 +95,11 @@ namespace RocketRoadmap
 
                 #region Strategy Text Box Creation
                 textbox.Value = p.GetDescription();
-
+                //allow deletion of all stratboxes except the last
+                if (count<strats.Count())
+                {
+                    textbox.Attributes.Add("firstadd", "1");
+                }
 
 
                 HtmlTableCell cell = new HtmlTableCell();
@@ -289,7 +296,7 @@ namespace RocketRoadmap
                     if (count == 1 && valcount == 0)
                     {
                         bustextbox = StratBox0BusBox0;
-
+                        bustextbox.Attributes.Add("firstadd", "1");
                     }
                     else
                     {
@@ -325,10 +332,14 @@ namespace RocketRoadmap
                     NextBox.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString();
                     NextBox.Attributes.Add("placeholder", "Add Business Value");
                     NextBox.Attributes.Add("runat", "server");
+                    if (valcount < p.GetBusinessValues().Count)
+                    {
+                        NextBox.Attributes.Add("firstadd", "1");
+                    }
                     NextBox.Attributes.Add("onkeyup", "addBus(event,this," + valcount.ToString() + ")");
 
                     BusTable.Rows.Add(NextRow);
-                    NextRow.Cells.Add(NextInputCell);
+                    
                     NextInputCell.Controls.Add(NextBox);
 
                     delete = new HyperLink();
@@ -337,6 +348,9 @@ namespace RocketRoadmap
                     delete.Attributes.Add("class", "remove_bus");
                     delete.Text = " X";
                     NextInputCell.Controls.Add(delete);
+                    NextRow.Cells.Add(NextInputCell);
+                    
+
 
 
 
@@ -355,7 +369,7 @@ namespace RocketRoadmap
 
 
                         bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() + "px; background-color: " + color + ";\">" +
-                            "<span class='projLabel' id='" +proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
+                            "<span style='width:" +(proj.GetWidth()-15).ToString() + "px;' class='projLabel' id='" +proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
@@ -375,6 +389,7 @@ namespace RocketRoadmap
                         {
                             StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
                             lastCell = StratBox0BusBox0Cell;
+                            
                         }
                         else if (valcount == 1 && projCount == 0)
                         {
@@ -423,7 +438,7 @@ namespace RocketRoadmap
                         delete.Text = " X";
 
                       
-                            lastCell.Controls.Add(delete);
+                        lastCell.Controls.Add(delete);
                  
 
                         projCount++;
@@ -441,10 +456,6 @@ namespace RocketRoadmap
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
 
-
-
-
-
                     }
                     #endregion
 
@@ -457,6 +468,7 @@ namespace RocketRoadmap
                     nextText.Attributes.Add("class", "txtProjDel");
                     nextText.Attributes.Add("placeholder", "Add Project");
                     nextText.Attributes.Add("runat", "server");
+                
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
                     //NextInputCell.Controls.Add(new LiteralControl("<br />"));
@@ -478,11 +490,18 @@ namespace RocketRoadmap
                 busVal.ID = "StratBox" + count.ToString() + "BusBox0";
                 busVal.Attributes.Add("placeholder", "Add Business Value");
                 busVal.Attributes.Add("runat", "server");
+                busVal.Attributes.Add("firstadd", "1");
                 busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
 
                 stratCell.Controls.Add(busVal);
 
+                delete = new HyperLink();
+                delete.ID = "StratBox" + (count).ToString() + "BusBox0Delete";
+                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
+                delete.Attributes.Add("class", "remove_bus");
+                delete.Text = " X";         
 
+                stratCell.Controls.Add(delete);
 
 
 
