@@ -119,7 +119,7 @@ namespace RocketRoadmap
                 }
                 else
                 {
-                    mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + count.ToString() + "\" onchange=\"changeColor(" + count.ToString() + ")\" value =\"" + color + "\">";
+                    mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + (count-1).ToString() + "\" onchange=\"changeColor(" + (count-1).ToString() + ")\" value =\"" + color + "\">";
                     mainTextCell.Controls.Add(lasttext);
 
                     delete = new HyperLink();
