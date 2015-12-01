@@ -77,7 +77,6 @@ namespace RocketRoadmap
                             uhead.Cells.Add(u3);
                             uhead.Cells.Add(u4);
                             uhead.Cells.Add(u5);
-                             uhead.Cells.Add(u6);
 
                             userroadmaps.Rows.Add(uhead);
 
@@ -91,10 +90,15 @@ namespace RocketRoadmap
                                 TableCell ucell_4 = new TableCell();
                                 TableCell ucell_5 = new TableCell();
 
-                                Button B1 = new Button();
-                                B1.Text = "X";
-                                B1.CommandArgument = umap[0];
-                                B1.Click += new EventHandler(BtnHandler);
+                                //Button B1 = new Button();
+                                //B1.Text = "X";
+                                //B1.CommandArgument = umap[0];
+                                //B1.Click += new EventHandler(BtnHandler);
+
+                                 HtmlInputButton deleteButton = new HtmlInputButton();
+                                deleteButton.Value = "X";
+                                deleteButton.Attributes.Add("onclick","AreYouSure(\""+umap[0]+"\");");
+
 
                                 HyperLink link = new HyperLink();
                                 link.NavigateUrl = "Roadmap.aspx?n=" + Uri.EscapeUriString(umap[0]);
@@ -107,7 +111,7 @@ namespace RocketRoadmap
                                 ucell_3.Text = umap[2];
                                 ucell_4.Text = umap[3];
 
-                                ucell_5.Controls.Add(B1);
+                                ucell_5.Controls.Add(deleteButton);
 
 
                                 urow.Cells.Add(ucell_1);
@@ -162,32 +166,34 @@ namespace RocketRoadmap
                             TableCell cell_5 = new TableCell();
                             TableCell cell_6 = new TableCell();
 
-                            Button B1 = new Button();
-                            B1.Text = "X";
-                            B1.CommandArgument = map[0];
-                            B1.Click += new EventHandler(BtnHandler);
-                  
+                            //Button B1 = new Button();
+                            //B1.Text = "X";
+                            //B1.CommandArgument = map[0];
+                            //B1.Click += new EventHandler(BtnHandler);
 
-                            Button B2 = new Button();
-                            B2.Text = "EDIT";
-                            B2.CommandArgument = map[0];
-                            B2.Click += new EventHandler(EditRoadmap);
-                         
 
-                            HyperLink link = new HyperLink();
+                            //Button B2 = new Button();
+                            //B2.Text = "EDIT";
+                            //B2.CommandArgument = map[0];
+                            //B2.Click += new EventHandler(EditRoadmap);
+
+                            HtmlInputButton deleteButton = new HtmlInputButton();
+                            deleteButton.Value = "X";
+                            deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
+
+
+                    HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
                            TableCell tCell1 = new TableCell();
                             cell_1.Controls.Add(link);
-                            cell_1.Controls.Add(B2);
 
                             cell_2.Text = map[1];
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
 
-                            cell_5.Controls.Add(B1);
-                            cell_6.Controls.Add(B2);
+                            cell_5.Controls.Add(deleteButton);
 
                             row.Cells.Add(cell_1);
                             row.Cells.Add(cell_2);
@@ -225,29 +231,31 @@ namespace RocketRoadmap
 
         protected void BtnHandler(Object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
-            RoadMaps maps = new RoadMaps();
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "AreYouSure();", true);
 
-            //ADD YES NO MODAL
+            //Button btn = (Button)sender;
+            //RoadMaps maps = new RoadMaps();
 
-            maps.DeleteRoadMap(btn.CommandArgument);
+            ////ADD YES NO MODAL
 
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName=@Rname";
-                    cmd.Parameters.AddWithValue("@Rname", btn.CommandArgument);
-                    cmd.Connection = conn;
+            //maps.DeleteRoadMap(btn.CommandArgument);
+
+            //using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            //{
+            //    using (SqlCommand cmd = new SqlCommand())
+            //    {
+            //        cmd.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName=@Rname";
+            //        cmd.Parameters.AddWithValue("@Rname", btn.CommandArgument);
+            //        cmd.Connection = conn;
 
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-                }
-            }
+            //        conn.Open();
+            //        cmd.ExecuteNonQuery();
+            //        conn.Close();
+            //    }
+            //}
 
-            Response.Redirect(Request.RawUrl);
+            //Response.Redirect(Request.RawUrl);
         }
 
         protected void EditRoadmap(Object sender, EventArgs e)

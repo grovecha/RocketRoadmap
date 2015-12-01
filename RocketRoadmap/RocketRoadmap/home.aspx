@@ -121,6 +121,7 @@
 <script src="js/jquery.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script id="HomeJS" src="js/Home.js"></script>
 
 
 </body>
