@@ -109,8 +109,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 id="roadmapnamelabel" runat="server"></h1>
-                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Presentation Mode</a>
+                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server"></h2>
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
@@ -265,15 +264,17 @@
 </div> 
 
 <!-- jQuery -->
+
+
+</form>
+
+
+<script src="js/ion.rangeSlider.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/Highlight.js"></script> 
 <script id="Roadmapjs" src="js/Roadmap.js"></script>
 
 <script src="js/InputModal.js"></script>
-
-</form>
-
-<script src="js/ion.rangeSlider.js"></script>
 
 </body>
 

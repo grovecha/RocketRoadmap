@@ -226,11 +226,11 @@ $(document).ready(function () {
         function headercolor(id) {
                 var temp = id.split("StratBox");
                 temp = temp[1].split("BusBox")[0]
-                var c = color[temp % 6];
+
+                var c = document.getElementById("ColorPicker" + temp).value;
 
                 $("#headcolor1").css('background-color', c);
-                $("#save").css('background-color', c);
-            
+                $("#save").css("background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + c + "), color-stop(1, " + c + ")); background:-moz-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:-webkit-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:-o-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:-ms-linear-gradient(top, " + c + " 5%, " + c + " 100%); background:linear-gradient(to bottom, " + c + " 5%, " + c + " 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + c + "', endColorstr='" + c + "',GradientType=0);");         
 
         }
       
@@ -280,8 +280,12 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 $('#display_title').html(response.d[2][0]);
-                $('.disdescText').append("<div class='added_desc'><p>" + response.d[0][0] + "</p></div>");
-                $('.disriskText').append("<div class='added_risk'><p>" + response.d[1][0] + "</p></div>");
+                if (response.d[0][0] != null) {
+                    $('.disdescText').append("<div class='added_desc'><p>" + response.d[0][0] + "</p></div>");
+                }
+                if (response.d[1][0] != null) {
+                    $('.disriskText').append("<div class='added_risk'><p>" + response.d[1][0] + "</p></div>");
+                }
                 //Getting Dep String array   
                 disdep_arr = response.d[3];
                 disdep_total = disdep_arr.length;
