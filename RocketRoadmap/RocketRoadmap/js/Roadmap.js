@@ -42,6 +42,7 @@ function showMode(id) {
     }
 }
 
+
 function enableDrag()
 {
     var url = window.location.href;
@@ -50,7 +51,7 @@ function enableDrag()
     
     $(".proj1").draggable({
         axis: "x",
-        containment: "#" + BusId + "td",
+        //containment: "#" + this.id.split('ProjBox')[0] + "td",
         drag: function (event, ui) {
 
         },
@@ -67,7 +68,7 @@ function enableDrag()
     //$(".proj" + String(CurrentProjCount + 1)).resizable({
     $(".proj1").resizable({
         handles: 'e, w',
-        containment: "#" + BusId + "td",
+        //containment: "#" + this.id.split('ProjBox')[0] + "td",
 
         stop: function (event, ui) {
 
@@ -193,25 +194,41 @@ function deleteBus(obj) {
     var BusId = obj.id.split("Delete")[0];
     var StratTable = document.getElementById(StratId + "Table");
     var RowIndex = document.getElementById(BusId + "Row").rowIndex;
-
-    //don't allow deletion of last strat box
+    var CurrentStratCount = obj.id.split('StratBox')[1].split('BusBox')[0];
+    //don't allow deletion of last bus box
     if (!document.getElementById(BusId).getAttribute("firstadd")) {
+        console.log("last bus box");
         return 0;
     }
 
+    
+    //Reduce strat size
+    console.log(BusId + "RowVis");
+  
+    //get projtotal of bus value
+    projtotal = document.getElementById(BusId).getAttribute("ProjTotal")-1;
+    
+    //if projtotal > 2
+    if (projtotal > 2) {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (parseFloat(projtotal *1.7))) + "em";
+
+    }
+    
+      //decrease size by 3.27 + projtotal * 1.7
+    //else decrease size by 3.27
+    else {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (3.27)) + "em";
+    }
+    console.log(String(parseFloat(currenstrattheight) - (parseFloat(projtotal * 1.7) + 3.27)) + "em");
+   
+    //delete input row
     StratTable.deleteRow(RowIndex);
-
-    try {
-        //delete visual row 
-        var table = document.getElementById(StratId + "VisualTable");
-        table.deleteRow(RowIndex);
-        currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) - 66) + "px";
-    }
-    catch (err) {
-
-    }
-
+    //delete visual row 
+    var table = document.getElementById(StratId + "VisualTable");
+    table.deleteRow(RowIndex);
+    
     //delete from database
     var url = window.location.href;
     var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
@@ -220,6 +237,21 @@ function deleteBus(obj) {
 }
 
 function deleteProj(obj) {
+    var BusId = obj.id.split("ProjBox")[0];
+    //Reduce strat size
+
+    //get projtotal of bus value
+    projtotal = document.getElementById(BusId).getAttribute("ProjTotal") - 1;
+
+    if (projtotal > 2) {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (1.7)) + "em";
+
+        //reduce bus value size    
+        var RowVis = obj.id.split("ProjBox")[0] + "RowVis";
+        document.getElementById(RowVis).style.height = ((projtotal-1) * 2.5).toString() + "em";
+        
+    }
 
     var id = obj.id.split("Delete")[0];    
 
@@ -245,6 +277,10 @@ function deleteProj(obj) {
     var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     PageMethods.DeleteProj(ProjId, BusId, StratId, mapName);
+
+    //reduce projtotal
+    document.getElementById(BusId).setAttribute("ProjTotal", parseInt(projtotal));
+
 }
 
 
@@ -300,15 +336,13 @@ function addStrat(e, obj, i) {
             if (NewValue != "") {
                 element1.value = NewValue;
             }
-
-
            // var colorNum = PreviousStratNum % color.length;
 
             var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
             var newColor= colorpicker.value;
             element1.className = "StratVis";
             element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
-            element1.style.height = "3.5em";
+            element1.style.height = "3.4em";
 
             var table1 = document.createElement("table");
             cell1.appendChild(table1);
@@ -330,7 +364,7 @@ function addStrat(e, obj, i) {
         }
         //create new strat input and add entry to database
         else {
-            PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), document.getElementById("StratBox" + PreviousStratNum.toString()).value,newColor, mapName);
+            PageMethods.AddStrat("StratBox" + PreviousStratNum.toString(), document.getElementById("StratBox" + PreviousStratNum.toString()).value, newColor, mapName);
             obj.setAttribute("firstadd", "1");
             PreviousStratNum = parseInt(obj.id.split('StratBox')[1].split("BusBox")[0]);
             NewStratCount = PreviousStratNum + 1;
@@ -371,6 +405,7 @@ function addStrat(e, obj, i) {
     }
     return false;
 }
+
 
 function addBus(e, obj, i) {
 
@@ -415,15 +450,13 @@ function addBus(e, obj, i) {
                 cell.id = obj.id + "td";
                 cell.className = "projtd";
 
-                row.insertCell(1);
-                row.insertCell(2);
-                cell1 = row.insertCell(3);
+                cell1 = row.insertCell(1);
                 
                 cell1.className = "BusVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
                 currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
-                console.log(currentheight);
+                
                 document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
 
 
@@ -443,8 +476,7 @@ function addBus(e, obj, i) {
                                         "<tr id='" + obj.id + "RowVis' class='RowVis' style = 'border-top: 2pt solid; border-top-color: #D3D3D3; '>" +
                                             '<td class = "projtd" id="' + projtd + '" >' +
                                             '</td>' +
-                                            '<td ></td>' +
-                                            '<td ></td>' +
+                                        
                                             '<td class="BusVis" id="' + NextVisualId + '" >' + obj.value + '</td>' +
                                        '</tr>' +
                                     '</table>';
@@ -454,8 +486,7 @@ function addBus(e, obj, i) {
                                         "<tr id='" + obj.id + "RowVis' class='RowVis'>" +
                                             '<td class="projtd" id="' + projtd + '" >' +
                                             '</td>' +
-                                            '<td ></td>' +
-                                            '<td ></td>' +
+                                   
                                             '<td class="BusVis" id="' + NextVisualId + '" >' + obj.value + '</td>' +
                                        '</tr>' +
                                     '</table>';
@@ -505,8 +536,9 @@ function addBus(e, obj, i) {
 }
 
 function addProj(e, obj, i) {
+    CurrentStratCount = parseInt(obj.id.split("StratBox")[1].split('BusBox')[0]);
     CurrentProjCount = parseInt(obj.id.split("ProjBox")[1]);
-    BusId = obj.id.split("ProjBox")[0];
+    var BusId = obj.id.split("ProjBox")[0];
     ProjTotal = document.getElementById(BusId).getAttribute("ProjTotal");
     StratId = obj.id.substr(0, obj.id.indexOf('Bus'));
     if (e.keyCode === 13 && e.shiftKey) {
@@ -527,8 +559,8 @@ function addProj(e, obj, i) {
 
             if (ProjTotal > 2) {
                 //increase stratbut height
-                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em");
-                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) + 1.95) + "em";
+                var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em")[0];
+                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 1.7) + "em";
 
                 //increase RowVis height
                 var RowVis = obj.id.split("ProjBox")[0] + "RowVis";
@@ -541,7 +573,6 @@ function addProj(e, obj, i) {
             element1.id = obj.id + "But";
             var NewValue = obj.value;
             if (NewValue != "") {
-                
                 element1.innerHTML = "<span id = '" + obj.id + "Label' class = 'projLabel' >" + NewValue + "</span>";
             }
             //element1.style.verticalAlign = "top";
@@ -562,7 +593,7 @@ function addProj(e, obj, i) {
 
             var sNum = parseInt(StratId.split("StratBox")[1]);
 
-            var colorpicker = document.getElementById("ColorPicker" + PreviousStratNum.toString());
+            var colorpicker = document.getElementById("ColorPicker" + sNum.toString());
             var newColor = colorpicker.value;
 
             element1.style.backgroundColor = newColor;
@@ -691,10 +722,7 @@ function changeColor(index)
 
     var newColor = picker.value;
 
-    
-
     var element1 = document.getElementById("StratBut" + index.toString());
-
     if (element1 != null)
     {
         element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
@@ -718,6 +746,5 @@ function changeColor(index)
             }
         }
     }
-
 }
 

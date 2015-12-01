@@ -16,15 +16,15 @@ function showModal(id) {
 
 $("#menu-toggle").click(function (e) {
     e.preventDefault();
-    console.log(FullScreen);
     if (FullScreen == false) {
         // the sidebar is closed and we are in presentation mode (Display)
-        document.getElementById("sidebar-wrapper").setAttribute("Present", "true");                    
+        document.getElementById("sidebar-wrapper").setAttribute("Present", "true");
+        document.getElementById("menu-toggle").innerHTML = "Editing Mode";
         
     } else if (FullScreen == true) {
-        // the side bar is open and we are in edit mode
-        
+        // the side bar is open and we are in edit mode 
         document.getElementById("sidebar-wrapper").setAttribute("Present", "false");
+        document.getElementById("menu-toggle").innerHTML = "Presentation Mode";
     }
         
     $("#wrapper").toggleClass("toggled");
