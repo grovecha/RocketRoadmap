@@ -194,23 +194,43 @@ function deleteBus(obj) {
     var StratTable = document.getElementById(StratId + "Table");
     var RowIndex = document.getElementById(BusId + "Row").rowIndex;
 
-    //don't allow deletion of last strat box
+    //don't allow deletion of last bus box
     if (!document.getElementById(BusId).getAttribute("firstadd")) {
+        console.log("last bus box");
         return 0;
     }
 
-    StratTable.deleteRow(RowIndex);
+    
 
-    try {
+    //Reduce strat size
+    console.log(BusId + "RowVis");
+  
+    //get projtotal of bus value
+    projtotal = document.getElementById(BusId).getAttribute("ProjTotal")-1;
+    
+    //if projtotal > 2
+    if (projtotal > 2) {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (parseFloat(projtotal *1.7))) + "em";
+
+    }
+    
+      //decrease size by 3.27 + projtotal * 1.7
+    //else decrease size by 3.27
+    else {
+        currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (3.27)) + "em";
+    }
+    console.log(String(parseFloat(currenstrattheight) - (parseFloat(projtotal * 1.7) + 3.27)) + "em");
+   
+
+   
+    //delete input row
+        StratTable.deleteRow(RowIndex);
         //delete visual row 
         var table = document.getElementById(StratId + "VisualTable");
         table.deleteRow(RowIndex);
-        currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height;
-        document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseInt(currentheight) - 66) + "px";
-    }
-    catch (err) {
-
-    }
+  
 
     //delete from database
     var url = window.location.href;
