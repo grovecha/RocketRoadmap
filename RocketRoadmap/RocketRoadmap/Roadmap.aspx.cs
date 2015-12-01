@@ -388,11 +388,12 @@ namespace RocketRoadmap
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
+                        
 
                         /*
                         * Updating edit info
                         */
-                        
+
                         //finding correct text box
 
                         HtmlInputText projTextBox = new HtmlInputText();
@@ -414,6 +415,7 @@ namespace RocketRoadmap
 
                             nextText.Value = proj.GetDescription();
                             lastCell = nextText.Parent as HtmlTableCell;
+                            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "Hide", "hideProj(" + nextText.ID + ");", true);
 
                         }
                         else
@@ -466,9 +468,11 @@ namespace RocketRoadmap
                         newprojText.Attributes.Add("class", "txtProjDel");
                         newprojText.Attributes.Add("placeholder", "Add Project");
                         newprojText.Attributes.Add("runat", "server");
+                        
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
 
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), proj.GetName()+"func", "enableDragbyId(" + proj.GetName() + ");", true);
                     }
                     #endregion
 
@@ -482,7 +486,7 @@ namespace RocketRoadmap
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
                     busVal = NextBox;
-
+                    
                 }
 
 

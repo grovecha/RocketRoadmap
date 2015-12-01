@@ -43,32 +43,26 @@ function showMode(id) {
 }
 
 
-function enableDrag()
-{
-    var url = window.location.href;
-    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
-    mapName = mapName.substr(2, mapName.length).split('#')[0];
-    
-    $(".proj1").draggable({
+function enableDragbyId(obj) {
+    console.log(obj.id+"But");
+    $("#" + obj.id + "But").draggable({
         axis: "x",
-        //containment: "#" + this.id.split('ProjBox')[0] + "td",
+        containment: "#" + obj.id.split('ProjBox')[0] + "td",
         drag: function (event, ui) {
 
         },
         stop: function (event, ui) {
-            
+
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-       
+
             setProjPos(this.id.split("But")[0], pos - 158, width);
         }
-
     });
 
-    //$(".proj" + String(CurrentProjCount + 1)).resizable({
-    $(".proj1").resizable({
+    $("#" + obj.id + "But").resizable({
         handles: 'e, w',
-        //containment: "#" + this.id.split('ProjBox')[0] + "td",
+        containment: "#" + obj.id.split('ProjBox')[0] + "td",
 
         stop: function (event, ui) {
 
@@ -80,13 +74,15 @@ function enableDrag()
             document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
         }
     });
-    $(".proj2").draggable({
-        axis: "x"});
-    $(".proj2").resizable({ handles: 'e, w' });
-    $(".proj3").draggable({
-        axis: "x"
-    });
-    $(".proj3").resizable({ handles: 'e, w' });
+}
+
+function enableDrag()
+{
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    
+  
     $(".timeline").draggable({
         axis: "x", containment: "#containmentWrapper",
         stop: function (event, ui) {
@@ -148,7 +144,12 @@ function addTick(e, obj) {
 function hideStrat(StratString) {
     $(StratString).hide();
 };
- 
+
+function hideProj(ProjString) {
+    console.log(ProjString.id);
+    $("#"+ProjString.id).hide();
+};
+
 //$("#StratBox0BusBox0Row").hide();
 
 function deleteStrat(obj) {
@@ -398,6 +399,8 @@ function addStrat(e, obj, i) {
                               $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
 
             //place cursor in  bus value
+            $("#" + obj.id + "BusBox0Row").show();
+            $("#" + obj.id + "BusBox0ProjBox0").hide();
             document.getElementById(obj.id+"BusBox0").select();
            
         }
@@ -524,7 +527,10 @@ function addBus(e, obj, i) {
                                 "<input class='txtProjDel' id='" + CurrentBusId + "ProjBox0' type='text' placeholder='Add Project' onkeyup='addProj(event, this, 1)' />" +
                                 
             "</td>";
-            //place cursor in proj box         
+            //place cursor in proj box    
+            $("#" + CurrentBusId + "ProjBox0").hide();
+            $("#" + obj.id + "ProjBox0").show();
+
             document.getElementById(obj.id +"ProjBox0").select();
         }
     }
@@ -747,4 +753,3 @@ function changeColor(index)
         }
     }
 }
-
