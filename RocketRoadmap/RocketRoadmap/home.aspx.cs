@@ -228,32 +228,55 @@ namespace RocketRoadmap
 
         }
 
+        [WebMethod]
+        public static void DeleteRoadmap(string name)
+        {
+            RoadMaps maps = new RoadMaps();
+
+            maps.DeleteRoadMap(name);
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@Rname", name);
+                    cmd.Connection = conn;
+
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+
+        }
 
         protected void BtnHandler(Object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "AreYouSure();", true);
+            //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "AreYouSure();", true);
 
-            //Button btn = (Button)sender;
-            //RoadMaps maps = new RoadMaps();
+            Button btn = (Button)sender;
+            RoadMaps maps = new RoadMaps();
 
-            ////ADD YES NO MODAL
+            //ADD YES NO MODAL
 
-            //maps.DeleteRoadMap(btn.CommandArgument);
+            maps.DeleteRoadMap(btn.CommandArgument);
 
-            //using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
-            //{
-            //    using (SqlCommand cmd = new SqlCommand())
-            //    {
-            //        cmd.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName=@Rname";
-            //        cmd.Parameters.AddWithValue("@Rname", btn.CommandArgument);
-            //        cmd.Connection = conn;
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName=@Rname";
+                    cmd.Parameters.AddWithValue("@Rname", btn.CommandArgument);
+                    cmd.Connection = conn;
 
 
-            //        conn.Open();
-            //        cmd.ExecuteNonQuery();
-            //        conn.Close();
-            //    }
-            //}
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
 
             //Response.Redirect(Request.RawUrl);
         }
