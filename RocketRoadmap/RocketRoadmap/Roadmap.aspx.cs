@@ -562,9 +562,9 @@ namespace RocketRoadmap
             int n = map.GetStrategyPoints().Count;
 
             StrategyPoint point = new StrategyPoint(id, name, mapName);
-            point.EditColor(color);
-            map.AddStrategyPoint(point);
 
+            map.AddStrategyPoint(point);
+            point.EditColor(color);
         }
 
 
