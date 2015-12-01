@@ -467,10 +467,11 @@ namespace RocketRoadmap
                         newprojText.Attributes.Add("class", "txtProjDel");
                         newprojText.Attributes.Add("placeholder", "Add Project");
                         newprojText.Attributes.Add("runat", "server");
+                        
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
 
-                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "enableDragbyId", "enableDragbyId(" + proj.GetName() + ");", true);
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), proj.GetName()+"func", "enableDragbyId(" + proj.GetName() + ");", true);
                     }
                     #endregion
 
@@ -484,7 +485,7 @@ namespace RocketRoadmap
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
                     busVal = NextBox;
-
+                    
                 }
 
 
