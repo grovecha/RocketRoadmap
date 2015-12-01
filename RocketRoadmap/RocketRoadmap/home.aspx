@@ -53,15 +53,30 @@
                     </div>
                     <div class="modal-body">
                         <h2><u>Roadmap Name</u></h2>
-                        <input type="text" id="roadmap_Name" size="60" runat="server" />
+                        <input type="text" id="roadmap_Name" style="width:90%" runat="server" />
                         <p></p>
                         <h2><u>Roadmap Description</u></h2>
-                        <textarea id="roadmap_Desc" rows="2" cols="75" runat="server"></textarea>
+                        <textarea id="roadmap_Desc" style="width:90%" runat="server"></textarea>
                         <p></p>
                        
                     </div>
                     <div class="modal-footer">
                         <asp:button type="button" id="createbutton" class="btn btn-default" onclick="newroadmap" runat="server" Text="Create"></asp:button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="modal fade" id="areyousureModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="areyousure">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="roadmapmodal4">Delete?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:button type="button" id="Button1" class="btn btn-default" onclick="newroadmap" runat="server" Text="Delete"></asp:button>
+                        <button type="button" id="Button2" class="btn btn-default" onclick="BtnHandler" Text="Cancel"></button>
                     </div>
                 </div>
             </div>

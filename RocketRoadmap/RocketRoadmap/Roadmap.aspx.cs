@@ -1100,57 +1100,7 @@ namespace RocketRoadmap
             }
 
             
-            ////Create
-            ////For each project in the total project list, check is a project name from the array is in there, if its not in the dep list then create it 
-            //bool cflag = false;
-            //bool dflag = false;
-            //foreach (Project s in tot_list)
-            //{
-            //    cflag = false;
-            //    foreach (string pd in proj_dep)
-            //    {
-            //        if (pd == s.GetDescription())
-            //        {
-            //            foreach (Project p in P_list)
-            //            {
-            //                if (p.GetDescription() == s.GetDescription())
-            //                {
-            //                    cflag = true;
-            //                }
-            //            }
-            //            if (cflag == false)
-            //            {
-            //                newproj.CreateDependant(s);
-            //                dep_list.Add(s);
-            //            }
-            //        }
-            //    }
-            //}
-
-            ////Delete
-            //foreach (Project s in P_list)
-            //{
-            //    dflag = false;
-            //    foreach (Project p in dep_list)
-            //    {
-            //        if (p.GetDescription() == s.GetDescription())
-            //        {
-            //            dflag = true;
-            //        }
-            //    }
-            //    if (dflag == false)
-            //    {
-            //        P_list2.Add(s);
-            //    }
-            //}
-
-            //foreach (Project x in P_list2)
-            //{
-            //    newproj.DeleteDependant(x);
-            //}
-
-
-
+          
 
             //SEPARATE THE LINK 
             //Check if link exists, if not create it
