@@ -43,32 +43,26 @@ function showMode(id) {
 }
 
 
-function enableDrag()
-{
-    var url = window.location.href;
-    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
-    mapName = mapName.substr(2, mapName.length).split('#')[0];
-    
-    $(".proj1").draggable({
+function enableDragbyId(obj) {
+    console.log(obj.id+"But");
+    $("#" + obj.id + "But").draggable({
         axis: "x",
-        //containment: "#" + this.id.split('ProjBox')[0] + "td",
+        containment: "#" + obj.id.split('ProjBox')[0] + "td",
         drag: function (event, ui) {
 
         },
         stop: function (event, ui) {
-            
+
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-       
+
             setProjPos(this.id.split("But")[0], pos - 158, width);
         }
-
     });
 
-    //$(".proj" + String(CurrentProjCount + 1)).resizable({
-    $(".proj1").resizable({
+    $("#" + obj.id + "But").resizable({
         handles: 'e, w',
-        //containment: "#" + this.id.split('ProjBox')[0] + "td",
+        containment: "#" + obj.id.split('ProjBox')[0] + "td",
 
         stop: function (event, ui) {
 
@@ -80,13 +74,15 @@ function enableDrag()
             document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
         }
     });
-    $(".proj2").draggable({
-        axis: "x"});
-    $(".proj2").resizable({ handles: 'e, w' });
-    $(".proj3").draggable({
-        axis: "x"
-    });
-    $(".proj3").resizable({ handles: 'e, w' });
+}
+
+function enableDrag()
+{
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    
+  
     $(".timeline").draggable({
         axis: "x", containment: "#containmentWrapper",
         stop: function (event, ui) {

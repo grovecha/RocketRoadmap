@@ -349,10 +349,6 @@ namespace RocketRoadmap
                     delete.Text = " X";
                     NextInputCell.Controls.Add(delete);
                     NextRow.Cells.Add(NextInputCell);
-                    
-
-
-
 
                     #region Loading Projects
                     int projCount = 0;
@@ -373,16 +369,13 @@ namespace RocketRoadmap
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
-
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "enableDragbyId", "enableDragbyId("+proj.GetName()+");", true);
                         //bc1.Style.Add(HtmlTextWriterStyle.BackgroundColor, color[colorNum]);
 
                         //bc1.Controls.Add(projBut);
 
                         HtmlInputText projTextBox = new HtmlInputText();
                         //lastCell = new HtmlTableCell();
-
-
-
 
 
                         if (count == 1 && valcount == 1 && projCount == 0)
