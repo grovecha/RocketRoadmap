@@ -415,6 +415,7 @@ namespace RocketRoadmap
 
                             nextText.Value = proj.GetDescription();
                             lastCell = nextText.Parent as HtmlTableCell;
+                            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "Hide", "hideProj(" + nextText.ID + ");", true);
 
                         }
                         else
