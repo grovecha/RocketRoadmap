@@ -67,7 +67,7 @@
             </div>
         </div>
 
-    <div class="modal fade" id="areyousureModal" tabindex="-1" role="dialog">
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" id="areyousure">
