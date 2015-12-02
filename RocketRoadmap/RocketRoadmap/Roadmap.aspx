@@ -133,17 +133,17 @@
 
         <!-- Modal Content -->
         <div class="modal-content">
-            <div class="modal-header" id="headcolor1">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header" id="headcolor1" >
+                <button type="button" class="close1" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title" id="input_title"></h3>
             </div>
             <div class="modal-body">
                 <!-- Description Text Box -->
-                <h2><u>Description</u></h2>
+                <h2>Description</h2>
                     <textarea id="descText" style="min-width: 90%" ></textarea> 
 
                 <!--Depedency Input -->
-                <h2><u>Dependencies</u></h2>
+                <h2>Dependencies</h2>
                     <button type="button" class="btn btn-default pull-right" id="addText">Input Dependency</button>
                     <button type="button" id="addSelect" class="btn btn-default pull-right">Selection Dependency</button>
                     <div class="depText">
@@ -155,13 +155,13 @@
                         <div></div>
                     </div>
 
-
+                <br />
                 <!-- Risks Text Box -->
-                <h2><u>Risks</u></h2>
+                <h2>Risks</h2>
                     <textarea id="riskText" style="min-width: 90%"></textarea> 
 
                 <!-- Links Input -->
-                <h2><u>Links</u></h2>
+                <h2>Links</h2>
                     <button type="button" class="btn btn-default pull-right" id="addLink">Add Link</button>
                     <div class="linkText">     
                         <div></div>
@@ -188,12 +188,12 @@
                 </div>
             <div class="modal-body">
                 <!-- Description Text Box -->
-                <h2><u>Description</u></h2>
+                <h2>Description</h2>
                     <div class="disdescText">
                     </div>
 
                 <!--Depedency Input -->
-                <h2><u>Dependencies</u></h2>
+                <h2>Dependencies</h2>
                     <div class="disdepText">                        
                     </div> 
 
@@ -202,12 +202,12 @@
                     </div>
 
                 <!-- Risks Text Box -->
-                <h2><u>Risks</u></h2>
+                <h2>Risks</h2>
                     <div class="disriskText">
                     </div> 
 
                 <!-- Links Input -->
-                <h2><u>Links</u></h2>
+                <h2>Links</h2>
                     <div class="dislinkText">
                     </div>
 

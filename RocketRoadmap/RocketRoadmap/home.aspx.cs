@@ -193,7 +193,7 @@ namespace RocketRoadmap
                             deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
 
 
-                    HyperLink link = new HyperLink();
+                             HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
@@ -350,11 +350,10 @@ namespace RocketRoadmap
                     TableCell cell_5 = new TableCell();
                     TableCell cell_6 = new TableCell();
 
-                    Button B1 = new Button();
-                    B1.Text = "X";
-                    B1.CommandArgument = map[0];
-                    B1.Click += new EventHandler(BtnHandler);
-                   
+                    HtmlInputButton deleteButton = new HtmlInputButton();
+                    deleteButton.Value = "X";
+                    deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
+
 
                     Button B2 = new Button();
                     B2.Text = "EDIT";
@@ -374,7 +373,7 @@ namespace RocketRoadmap
                     cell_3.Text = map[2];
                     cell_4.Text = map[3];
 
-                    cell_5.Controls.Add(B1);
+                    cell_5.Controls.Add(deleteButton);
                     cell_6.Controls.Add(B2);
 
                     row.Cells.Add(cell_1);
