@@ -74,6 +74,9 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="deleteModalTitle" modalName="">Delete?</h4>
                     </div>
+                     <div class="modal-body">
+                        <h4>Are you sure you want to delete this?</h4>
+                     </div>
                     <div class="modal-footer">
                         <button type="button" id="Button2" class="btn btn-default" onclick="deleteModal();" >Delete</button>
                     </div>

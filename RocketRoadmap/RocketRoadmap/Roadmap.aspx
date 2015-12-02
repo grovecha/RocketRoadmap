@@ -134,7 +134,7 @@
         <!-- Modal Content -->
         <div class="modal-content">
             <div class="modal-header" id="headcolor1" >
-                <button type="button" class="close1" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title" id="input_title"></h3>
             </div>
             <div class="modal-body">
