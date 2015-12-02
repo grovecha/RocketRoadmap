@@ -71,7 +71,7 @@ function Uncolor(id) {
     for (id_x = 0; id_x < id.length; id_x++) {
 
         var temp = id[id_x].split("StratBox");
-        temp = temp[1].split("BusBox")[0]
+        temp = temp[1].split("BusBox")[0];
 
         var return_c = document.getElementById("ColorPicker" + temp).value;
 
