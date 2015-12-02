@@ -168,8 +168,8 @@ span {
     left: -.625em;
     top: -1.5em;
     font-size:1.3em;
-	position: relative;
-    z-index: 5;
+	position: absolute;
+    z-index: 12;
     font-weight:bold;
 }
 
@@ -206,7 +206,6 @@ span {
     border-top: .75em solid transparent;
     border-left: .75em solid #d0d0d0;
     border-bottom: .75em solid transparent;  
-    back  
 }
 
 textarea{
