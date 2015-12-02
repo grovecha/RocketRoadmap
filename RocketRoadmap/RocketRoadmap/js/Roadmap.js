@@ -732,12 +732,13 @@ function changeColor(index)
     var picker = document.getElementById("ColorPicker" + index.toString());
 
     var newColor = picker.value;
-
+    
     var element1 = document.getElementById("StratBut" + index.toString());
+    var oldheight = document.getElementById("StratBut" + index.toString()).style.height;
     if (element1 != null)
     {
         element1.setAttribute("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + newColor + "), color-stop(1, " + newColor + ")); background:-moz-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-webkit-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-o-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:-ms-linear-gradient(top, " + newColor + " 5%, " + newColor + " 100%); background:linear-gradient(to bottom, " + newColor + " 5%, " + newColor + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + newColor + "', endColorstr='b5121b',GradientType=0); background-color:" + newColor + ";")
-        element1.style.height = "3.5em";
+        element1.style.height = oldheight;
 
         var url = window.location.href;
         var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
