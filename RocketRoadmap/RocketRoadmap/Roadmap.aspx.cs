@@ -27,167 +27,190 @@ namespace RocketRoadmap
                 Response.Redirect("index.aspx", false);
             }
 
-
+            //getting map name
             string url = Request.Url.AbsoluteUri;
             int index = url.IndexOf("=");
             string name = HttpUtility.UrlDecode(url.Substring(index + 1));
 
 
-            // roadmapnamelabel.InnerText = name;
+            roadmapnamelabel.InnerText = name;
             RoadMap roadmap = new RoadMap(name);
 
+
+            //getting list of strategy points
             List<StrategyPoint> strats = roadmap.GetStrategyPoints();
 
-
+            // our main table 
             HtmlTable table = FindControl("roadmapTable") as HtmlTable;
 
             int count = 0;
+
+            // the last textbox we made
             HtmlInputText lasttext = new HtmlInputText();
+            // business value textbox
             HtmlInputText busVal = new HtmlInputText();
+
+            //table that hold all text boxes for strategy point
             HtmlTable newtable = new HtmlTable();
+
+            // our last table
             HtmlTable lastTable = new HtmlTable();
 
+            // the project text box
             HtmlInputText projText = new HtmlInputText();
+
+            // the next input cell we will use
             HtmlTableCell NextInputCell = new HtmlTableCell();
 
             HtmlTableCell mainTextCell = new HtmlTableCell();
             mainTextCell = null;
-
+            
+            // the delete hyperlink
             HyperLink delete = new HyperLink();
             #region Loading Strats, Vals, and Projects
 
             foreach (StrategyPoint p in strats)
             {
+                
 
-                #region Strategy Visual Creation
+                /*
+                *    Creating the visual strategy points
+                */
+
+
+                //making a row for this point
                 HtmlTableRow row;
-
                 row = new HtmlTableRow();
-
-
                 row.ID = "StratVisual" + count.ToString() + "Row";
+     
 
+                // making the button
                 HtmlInputButton but = new HtmlInputButton();
                 but.Name = "Strat";
                 but.ID = "StratBut" + count.ToString();
-
+                // adding the style class
                 but.Attributes.Add("class", "StratVis");
 
+                //loading the color
                 string color = p.GetColor();
-
                 but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color + "), color-stop(1, " + color + ")); background:-moz-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-webkit-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-o-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-ms-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:linear-gradient(to bottom, " + color + " 5%, " + color + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color + "', endColorstr='" + color + "',GradientType=0);");
                 but.Style.Add(HtmlTextWriterStyle.Height, "3.4em");
                 but.Value = p.GetDescription();
 
+
+                /*
+                * Loading in info to edit panel
+                */
+                
+                // setting the text box to edit
                 HtmlInputText textbox;
                 if (count == 0)
                 {
                     textbox = StratBox0;
+                    
                 }
                 else
                 {
                     textbox = lasttext;
                 }
-                #endregion
 
-                #region Strategy Text Box Creation
+                // setting correct text value
                 textbox.Value = p.GetDescription();
 
 
+                //allow deletion of all stratboxes except the last
+                if (count<strats.Count())
+                {
+                    textbox.Attributes.Add("firstadd", "1");
+                }
 
+                //cell for text boxes
                 HtmlTableCell cell = new HtmlTableCell();
 
+                // adding in elementes to table
                 row.Cells.Add(cell);
                 cell.Controls.Add(but);
                 table.Rows.Add(row);
 
+
+                //increasing index to next point
                 count++;
 
+                //making a new row and setting it to last row so we can grab it in next loop
                 HtmlTableRow lastRow = new HtmlTableRow();
                 lastRow.ID = "StratBox" + count.ToString() + "Row";
 
+                // if this is the first point set the first color box if not reset the elements and set the color for the last point
                 if (mainTextCell == null)
                 {
                     ColorPicker0.Value = color;
                 }
                 else
                 {
-                    mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + count.ToString() + "\" onchange=\"changeColor(" + count.ToString() + ")\" value =\"" + color + "\">";
+                    mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + (count - 1).ToString() + "\" onchange=\"changeColor(" + (count - 1).ToString() + ")\" value =\"" + color + "\">";
                     mainTextCell.Controls.Add(lasttext);
 
                     delete = new HyperLink();
                     delete.ID = "StratDelete" + (count - 1).ToString();
-                    //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                     delete.Attributes.Add("class", "remove_strat");
                     delete.Text = " X";
                     mainTextCell.Controls.Add(delete);
                     mainTextCell.Controls.Add(newtable);
                 }
 
-                mainTextCell = new HtmlTableCell();
+                //making the next strategy text input
 
+                mainTextCell = new HtmlTableCell();
                 HtmlInputText text = new HtmlInputText();
                 lasttext = text;
-
                 text.ID = "StratBox" + count.ToString();
-
-
                 text.Attributes.Add("class", "txtStrat");
                 text.Attributes.Add("BusTotal", "1");
                 text.Attributes.Add("placeholder", "Add Strategy Point");
                 text.Attributes.Add("runat", "server");
                 text.Attributes.Add("onkeyup", "addStrat(event,this," + count.ToString() + ")");
 
+                //setting color to default value in case this is our last point
                 int colorNum = count % colorList.Count;
-
                 mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + count.ToString() + "\" onchange=\"changeColor(" + count.ToString() + ")\" value =\"" + colorList[colorNum] + "\">";
-
                 mainTextCell.Controls.Add(text);
 
-
-
-
-
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), text.ID + "BusBox0Row", "showStrat(" + text.ID + "BusBox0Row);", true);
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), text.ID + "BusBox0ProjBox0", "hideProj("+ text.ID + "BusBox0ProjBox0);", true);
+                
+                //adding the delete button
                 delete = new HyperLink();
                 delete.ID = "StratDelete" + count.ToString();
-                //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                 delete.Attributes.Add("class", "remove_strat");
                 delete.Text = " X";
                 mainTextCell.Controls.Add(delete);
 
-
-
-
-
-                HtmlButton deletebutton = new HtmlButton();
-
-
+                //making the new table
                 mainTextCell.Controls.Add(new LiteralControl("<br />"));
-
-
                 lastTable = newtable;
                 newtable = new HtmlTable();
                 newtable.ID = "StratBox" + count.ToString() + "Table";
-
                 mainTextCell.Controls.Add(newtable);
-
                 HtmlTableRow stratTableRow = new HtmlTableRow();
-
                 stratTableRow.ID = "StratBox" + count.ToString() + "BusBox0Row";
-
                 newtable.Rows.Add(stratTableRow);
-
                 HtmlTableCell stratCell = new HtmlTableCell();
-
                 stratTableRow.Cells.Add(stratCell);
 
+                /*
+                * Loading Business Values
+                */
 
                 #region Business Values
                 int valcount = 0;
 
+                // the table that the visual business values are in
                 HtmlTable StratVisTable = new HtmlTable();
                 StratVisTable.ID = p.GetName() + "VisualTable";
+                // the last business value we made
                 HtmlInputText lastBusVal = new HtmlInputText();
+
+                // the table for projects
                 HtmlTable BusTable = new HtmlTable();
 
                 float butheight = 3.4f;
@@ -197,29 +220,28 @@ namespace RocketRoadmap
 
                 foreach (BusinessValue b in p.GetBusinessValues())
                 {
+                    /*
+                    * Visual business values
+                    */
 
+                    // adding on to the BusTotal of the strategy point
                     textbox.Attributes.Add("BusTotal", (valcount + 1).ToString());
+
+                    
                     HtmlTableCell bc1 = new HtmlTableCell();
                     HtmlTableCell bc2 = new HtmlTableCell();
                     HtmlTableRow visRow = new HtmlTableRow();
+
+                    // if valcount is 0 insert the business value as normal
                     if (valcount == 0)
                     {
-
+                        // making the visual cell
                         HtmlTableCell sCell = new HtmlTableCell();
-                        //sCell.Style.Add(HtmlTextWriterStyle.Width, "3000px");
-                        //sCell.Style.Add(HtmlTextWriterStyle.BackgroundColor, "yellow");
                         sCell.Attributes.Add("class", "NewCellVis");
-
-
-
+                        sCell.Controls.Add(StratVisTable);
                         row.Cells.Add(sCell);
 
-
-                        sCell.Controls.Add(StratVisTable);
-
-
-
-                        //visRow.Attributes.Add("style", "height:100px; border-bottom:1pt solid black;");
+                        // making the visual row for value
                         visRow.Attributes.Add("class", "RowVis");
                         visRow.ID = b.GetName() + "RowVis";
                         if (count == 1 && valcount == 0)
@@ -228,22 +250,14 @@ namespace RocketRoadmap
                         }
                         StratVisTable.Rows.Add(visRow);
 
-
                         bc1.ID = b.GetName() + "td";
                         bc1.Attributes.Add("class", "projtd");
-                        //bc1.Style.Add(HtmlTextWriterStyle.Padding, "0");
-
-
                         visRow.Cells.Add(bc1);
-
                         bc2 = new HtmlTableCell();
-
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
-                        //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
                         bc2.Attributes.Add("class", "BusVis");
-
+                        //setting text to correct value
                         bc2.InnerText = b.GetDescription();
-
                         visRow.Cells.Add(bc2);
 
 
@@ -253,28 +267,23 @@ namespace RocketRoadmap
 
                         HtmlTableRow newPRow = new HtmlTableRow();
                         StratVisTable.Rows.Add(newPRow);
-                        // newPRow.Attributes.Add("style", "height:100px;border-bottom: 1pt solid black;");
                         newPRow.Attributes.Add("class", "RowVis");
                         newPRow.ID = b.GetName() + "RowVis";
-
 
                         bc1 = new HtmlTableCell();
                         bc1.ID = b.GetName() + "td";
                         bc1.Attributes.Add("class", "projtd");
 
                         newPRow.Cells.Add(bc1);
-
-                      
-
-
-
                         bc2.ID = p.GetName() + "BusVisual" + valcount.ToString();
-                        //bc2.Attributes.Add("style", "width:1000px; text-align:right; background-color:yellow; padding:0");
                         bc2.Attributes.Add("class", "BusVis");
-
+                        
+                        //setting text to correct value
                         bc2.InnerText = b.GetDescription();
 
                         newPRow.Cells.Add(bc2);
+
+                        //changing height of strategy point
 
                         //currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
                         //but.Attributes.g
@@ -284,21 +293,31 @@ namespace RocketRoadmap
 
                     }
 
+                    /*
+                    * Loading info into edit panel
+                    */
+
+
+
+                    //getting correct text box
                     HtmlInputText bustextbox = new HtmlInputText();
 
                     if (count == 1 && valcount == 0)
                     {
                         bustextbox = StratBox0BusBox0;
-
+                        bustextbox.Attributes.Add("firstadd", "1");
                     }
                     else
                     {
                         bustextbox = busVal;
 
                     }
+                    
+                    //setting text to correct value
 
                     bustextbox.Value = b.GetDescription();
 
+                    //getting correct table
                     if (count == 1)
                     {
                         BusTable = StratBox0Table;
@@ -308,18 +327,20 @@ namespace RocketRoadmap
                         BusTable = lastTable;
                     }
 
+                    
+                    //increaing index to for next business value
                     valcount++;
 
-                    HtmlTableRow NextRow = new HtmlTableRow();
+                    //creating next business value text box
 
+                    HtmlTableRow NextRow = new HtmlTableRow();
                     NextRow.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Row";
 
                     NextInputCell = new HtmlTableCell();
-
                     NextInputCell.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Cell";
 
+                    //adding new input box
                     HtmlInputText NextBox = new HtmlInputText();
-
                     NextBox.Attributes.Add("class", "txtBus");
                     NextBox.Attributes.Add("ProjTotal", "1");
                     NextBox.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString();
@@ -327,17 +348,31 @@ namespace RocketRoadmap
                     NextBox.Attributes.Add("runat", "server");
                     NextBox.Attributes.Add("onkeyup", "addBus(event,this," + valcount.ToString() + ")");
 
+                    // making it so you can't delete last text box
+                    if (valcount < p.GetBusinessValues().Count)
+                    {
+                        NextBox.Attributes.Add("firstadd", "1");
+                    }
+
                     BusTable.Rows.Add(NextRow);
-                    NextRow.Cells.Add(NextInputCell);
                     NextInputCell.Controls.Add(NextBox);
 
+
+                    //adding delete button
                     delete = new HyperLink();
                     delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "Delete";
-                    //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                     delete.Attributes.Add("class", "remove_bus");
                     delete.Text = " X";
                     NextInputCell.Controls.Add(delete);
 
+
+                    NextRow.Cells.Add(NextInputCell);
+
+                    
+
+                    /*
+                    * Loading Projects
+                    */
 
 
                     #region Loading Projects
@@ -346,40 +381,46 @@ namespace RocketRoadmap
                     HtmlInputText newprojText = new HtmlInputText();
                     foreach (Project proj in b.GetProjects())
                     {
+                        //updating the project count for business value
                         bustextbox.Attributes.Add("ProjTotal", (projCount + 2).ToString());
-
                         
-                        //<div id="StratBox1BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="position: relative; cursor: auto; left: 1px; top: 0px; width: 160px; background-color: deepskyblue;"><span>h</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 180;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
-                        // < div id = "StratBox0BusBox0ProjBox3But" ondblclick = "showModal(this.id)" onclick = "Highlight(this.id)" onmouseleave = "UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="left: 4px; top: 0px; width: 216px; background-color: deepskyblue;"><span style = "display: inline-block; transform: translateY(-4px); vertical-align: top; line-height: normal;" > new</ span >< div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
-                        //<div id="StratBox0BusBox0ProjBox2But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseout="UnHighlight(this.id)" class="proj1 ui-draggable ui - draggable - handle ui - resizable ui-draggable-handle ui-resizable" style="cursor: auto; left: 33px; top: 0px; width: 160px; background-color: deepskyblue;"><span>new</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
-
-
+                        /*
+                        * Visual Projects
+                        */
                         bc1.InnerHtml = bc1.InnerHtml + "<div id=\"" + proj.GetName() + "But" + "\" ondblclick=\"showModal(this.id)\" onclick=\"Highlight(this.id)\" onmouseout =\"UnHighlight(this.id)\" class=\"proj1\" style=\"cursor: auto; left: " + proj.GetLeft().ToString() + "px; top: 0px; width: " + proj.GetWidth().ToString() + "px; background-color: " + color + ";\">" +
-                            "<span class='projLabel' id='" +proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
+                            "<span style='width:" +(proj.GetWidth()-15).ToString() + "px;' class='projLabel' id='" +proj.GetName()+"Label'>" + proj.GetDescription() + "</span>" +
                             "</div>" +
                             "<div class=\"space\" id=\"" + proj.GetName() + "space\"></div>";
 
+                        
 
-                        //bc1.Style.Add(HtmlTextWriterStyle.BackgroundColor, color[colorNum]);
+                        /*
+                        * Updating edit info
+                        */
 
-                        //bc1.Controls.Add(projBut);
+                        //finding correct text box
 
                         HtmlInputText projTextBox = new HtmlInputText();
-                        //lastCell = new HtmlTableCell();
-
-
-
-
 
                         if (count == 1 && valcount == 1 && projCount == 0)
                         {
                             StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
                             lastCell = StratBox0BusBox0Cell;
+                            
+                            if (StratBox0BusBox0ProjBox0.Value == "")
+                            {
+                                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), StratBox0BusBox0ProjBox0.ID + "Hide", "showProj(" + StratBox0BusBox0ProjBox0.ID + ");", true);
+                            }
                         }
                         else if (valcount == 1 && projCount == 0)
                         {
                             projText.Value = proj.GetDescription();
                             lastCell = projText.Parent as HtmlTableCell;
+                            if ( projText.Value == "")
+                            {
+                                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), projText.ID + "Hide", "showProj(" + projText.ID + ");", true);
+                            }
+                            
 
                         }
                         else if (projCount == 0)
@@ -387,12 +428,24 @@ namespace RocketRoadmap
 
                             nextText.Value = proj.GetDescription();
                             lastCell = nextText.Parent as HtmlTableCell;
+                            if (nextText.Value == "")
+                            {
+                                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "show", "showProj(" + nextText.ID + ");", true);
+                            }
+                            
 
                         }
                         else
                         {
                             newprojText.Value = proj.GetDescription();
+
+                            
                         }
+
+
+
+                        //updaing size of strategy point
+
                         if (projCount > 1) {
                             //increase stratbut height
                             //var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em")[0];
@@ -413,45 +466,37 @@ namespace RocketRoadmap
 
                         }
 
+                        //setting the last cell 
                         lastCell.ID = b.GetName() + "Cell";
 
-                        //< a id = "StratBox0BusBox0ProjBox0Delete" href = "#" style = "color:white; font-size:20px; vertical-align:-3px" class="remove_proj"> X</a>
+
+                        //adding delete button
                         delete = new HyperLink();
                         delete.ID = "StratBox" + (count - 1).ToString() + "BusBox" + (valcount - 1).ToString() + "ProjBox" + projCount.ToString() + "Delete";
-                        //delete.Attributes.Add("style", "color:white; font-size:20px; vertical-align:-3px;");
                         delete.Attributes.Add("class", "remove_proj");
                         delete.Text = " X";
-
-                      
-                            lastCell.Controls.Add(delete);
+                        lastCell.Controls.Add(delete);
                  
-
+                        //increasing the index of projects for next project
                         projCount++;
 
-
-
-
+                        //creating next project text box
                         newprojText = new HtmlInputText();
-
                         newprojText.Name = "DynmaicTextBox";
                         newprojText.ID = "StratBox" + (count - 1).ToString() + "BusBox" + (valcount - 1).ToString() + "ProjBox" + projCount.ToString();
                         newprojText.Attributes.Add("class", "txtProjDel");
                         newprojText.Attributes.Add("placeholder", "Add Project");
                         newprojText.Attributes.Add("runat", "server");
+                        
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
-
-
-
-
-
+                        //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), newprojText.ID + "Hide", "showProj(" + newprojText.ID + ");", true);
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), proj.GetName()+"func", "enableDragbyId(" + proj.GetName() + ");", true);
                     }
                     #endregion
 
-
-
+                    //creating default project textbox for a business value
                     nextText = new HtmlInputText();
-
                     nextText.Name = "DynmaicTextBox";
                     nextText.ID = "StratBox" + (count - 1).ToString() + "BusBox" + valcount.ToString() + "ProjBox0";
                     nextText.Attributes.Add("class", "txtProjDel");
@@ -459,10 +504,10 @@ namespace RocketRoadmap
                     nextText.Attributes.Add("runat", "server");
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
-                    //NextInputCell.Controls.Add(new LiteralControl("<br />"));
-
-
                     busVal = NextBox;
+                  
+                    //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "Hide", "hideProj(" + nextText.ID + ");", true);
+                  
 
                 }
 
@@ -470,24 +515,26 @@ namespace RocketRoadmap
 
                 #endregion
 
+                //creating default business value for strategy point
                 busVal = new HtmlInputText();
-
-
                 busVal.Attributes.Add("class", "txtBus");
                 busVal.Attributes.Add("ProjTotal", "1");
                 busVal.ID = "StratBox" + count.ToString() + "BusBox0";
                 busVal.Attributes.Add("placeholder", "Add Business Value");
                 busVal.Attributes.Add("runat", "server");
+                busVal.Attributes.Add("firstadd", "1");
                 busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
-
                 stratCell.Controls.Add(busVal);
 
+                //default delete
+                delete = new HyperLink();
+                delete.ID = "StratBox" + (count).ToString() + "BusBox0Delete";
+                delete.Attributes.Add("class", "remove_bus");
+                delete.Text = " X";         
+                stratCell.Controls.Add(delete);
 
-
-
-
+                //adding in default project for first business value
                 projText = new HtmlInputText();
-
                 projText.Name = "DynmaicTextBox";
                 projText.ID = "StratBox" + count.ToString() + "BusBox0ProjBox0";
                 projText.Attributes.Add("class", "txtProjDel");
@@ -495,30 +542,29 @@ namespace RocketRoadmap
                 projText.Attributes.Add("runat", "server");
                 projText.Attributes.Add("onkeyup", "addProj(event,this," + count.ToString() + ")");
                 stratCell.Controls.Add(projText);
-                //stratCell.Controls.Add(new LiteralControl("<br />"));
 
                 lastRow.Cells.Add(mainTextCell);
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
-
                 sideTable.Rows.Add(lastRow);
 
-                //hide example
-
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), projText.ID + "Hide", "hideProj(" + projText.ID + ");", true);
 
                 #endregion
             }
 
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideStrat(StratBox" + (count).ToString() + "BusBox0Row);", true);
+            //hiding the elements of the newest strategy point
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "StratBox" + (count).ToString() + "BusBox0Row", "hideStrat(StratBox" + (count).ToString() + "BusBox0Row);", true);
+            
 
-            #endregion
-
+            /*
+            * Loading in timeline
+            */
             TimeLine TL = roadmap.GetTimeline();
             if(TL!= null)
             {
                 int tickCount = 0;
                 foreach (TickMark tick in TL.GetTicks())
                 {
-                    // < div ondblclick = "deleteTime(this)" class="timeline ui-draggable ui-draggable-handle" id="2" style="left: 293px; top: -3px;"><p class="timelineText">2</p></div>t
                     tickCount++;
                     containmentWrapper.InnerHtml +="<div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tick.GetName()+ "\" style=\"left: " + (tick.GetXPlacement()).ToString() + "px; top: -3px; \">"
                         +"<p class=\"timelineText\">" + tick.GetName() + "</p>"+
@@ -527,7 +573,7 @@ namespace RocketRoadmap
 
             }
 
-           
+           //enabling drag
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script2", "enableDrag();", true);
 
         }
@@ -543,9 +589,9 @@ namespace RocketRoadmap
             int n = map.GetStrategyPoints().Count;
 
             StrategyPoint point = new StrategyPoint(id, name, mapName);
-            point.EditColor(color);
-            map.AddStrategyPoint(point);
 
+            map.AddStrategyPoint(point);
+            point.EditColor(color);
         }
 
 
@@ -630,6 +676,7 @@ namespace RocketRoadmap
             //set width and start position
 
             newproj.SetWidth((int)width);
+            startPos -= 47f;
             newproj.SetLeft((int)startPos);
             
         }
@@ -938,6 +985,7 @@ namespace RocketRoadmap
             List<string> DepProj = new List<string>();
             List<string> Link = new List<string>();
             List<string> AllProj = new List<string>();
+            List<string> Proj = new List<string>();
             string Desc = newproj.GetModalDescription();
             string Risk = newproj.GetProjectRisks();
             string Name = newproj.GetDescription();
@@ -960,6 +1008,13 @@ namespace RocketRoadmap
                 }
             }
 
+            foreach(string rem in AllProj)
+            {
+                if (rem != Name) {
+                    Proj.Add(rem);
+                }
+            }
+
             string[][] final_return = new string[7][];
             final_return[0] = new string[1];
             final_return[1] = new string[1];
@@ -967,7 +1022,7 @@ namespace RocketRoadmap
             final_return[3] = new string[DepStr.Count];
             final_return[4] = new string[DepProj.Count];
             final_return[5] = new string[Link.Count];
-            final_return[6] = new string[AllProj.Count-1];
+            final_return[6] = new string[Proj.Count];
 
             final_return[0][0] = Desc;
             final_return[1][0] = Risk;
@@ -989,12 +1044,10 @@ namespace RocketRoadmap
                 final_return[5][z] = l;
                 z++;
             }
-            foreach (string ap in AllProj)
+            foreach (string ap in Proj)
             {
-                if (ap != Name) {
-                    final_return[6][y] = ap;
-                    y++;
-                }
+                final_return[6][y] = ap;
+                y++;
             }
 
 
@@ -1081,57 +1134,7 @@ namespace RocketRoadmap
             }
 
             
-            ////Create
-            ////For each project in the total project list, check is a project name from the array is in there, if its not in the dep list then create it 
-            //bool cflag = false;
-            //bool dflag = false;
-            //foreach (Project s in tot_list)
-            //{
-            //    cflag = false;
-            //    foreach (string pd in proj_dep)
-            //    {
-            //        if (pd == s.GetDescription())
-            //        {
-            //            foreach (Project p in P_list)
-            //            {
-            //                if (p.GetDescription() == s.GetDescription())
-            //                {
-            //                    cflag = true;
-            //                }
-            //            }
-            //            if (cflag == false)
-            //            {
-            //                newproj.CreateDependant(s);
-            //                dep_list.Add(s);
-            //            }
-            //        }
-            //    }
-            //}
-
-            ////Delete
-            //foreach (Project s in P_list)
-            //{
-            //    dflag = false;
-            //    foreach (Project p in dep_list)
-            //    {
-            //        if (p.GetDescription() == s.GetDescription())
-            //        {
-            //            dflag = true;
-            //        }
-            //    }
-            //    if (dflag == false)
-            //    {
-            //        P_list2.Add(s);
-            //    }
-            //}
-
-            //foreach (Project x in P_list2)
-            //{
-            //    newproj.DeleteDependant(x);
-            //}
-
-
-
+          
 
             //SEPARATE THE LINK 
             //Check if link exists, if not create it

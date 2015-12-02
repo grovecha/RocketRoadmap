@@ -1,4 +1,109 @@
-﻿
+﻿    #search_text{
+    width: 18.75em;
+    height: 3.125em;
+    background: #2b303b;
+    border: none;
+        font-size: 10pt;
+        float: left;
+        color: #63717f;
+        padding-left: 2.813em;
+        -webkit-border-radius: .313em;
+        -moz-border-radius: .313em;
+        border-radius: .313em;
+    }
+    #name{
+        text-align: center;
+    }
+    #all{
+        text-align: center;
+    }
+    #search_name{
+        text-align: center;
+    }
+    #searchb {
+        -moz-box-shadow:inset 0em 2.125em 0em -1em #b54b3a;
+        -webkit-box-shadow:inset 0em 2.125em 0px -1em #b54b3a;
+        box-shadow:inset 0em 2.125em 0em -1em #b54b3a;
+        background-color:#b5121b;
+        border:.063em solid #241d13;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:1em;
+        font-weight:bold;
+        padding:.563em 1.5em;
+        text-decoration:none;
+        text-shadow:0em -.063em 0em #7a2a1d;
+        height: 3.125em;
+    }
+    #roadmapmodal{
+    padding:.563em 1em;
+        border-bottom:.063em solid #eee;
+        -webkit-border-top-left-radius: .313em;
+        -webkit-border-top-right-radius: .313em;
+        -moz-border-radius-topleft: .313em;
+        -moz-border-radius-topright: .313em;
+        border-top-left-radius: .313em;
+        border-top-right-radius: .313em;
+        background-color:#f24537;
+        font-family:Arial;
+        color:white;
+    
+    }
+    #createbutton{
+        -moz-box-shadow: 0em 0em 0em 0em #cf866c;
+        -webkit-box-shadow: 0em 0em 0em 0em #cf866c;
+        box-shadow: 0em 0em 0em 0em #cf866c;
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d0451b), color-stop(1, #bc3315));
+        background:-moz-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+        background:-webkit-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+        background:-o-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+        background:-ms-linear-gradient(top, #d0451b 5%, #bc3315 100%);
+        background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315',GradientType=0);
+        background-color:#d0451b;
+        -moz-border-radius:1em;
+        -webkit-border-radius:1em;
+        border-radius:1em;
+        border:.063em solid #942911;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:1.00em;
+        padding:.375em 1.5em;
+        text-decoration:none;
+    }
+
+table, td, th {
+
+}
+th {
+    background-color: #b5121b !important;
+    color: white !important;
+    font-family: Arial !important;
+}
+    #norm {
+    width: 15% !important;
+    }
+    #wide {
+    width: 30% !important;
+    }
+
+a:link {
+    color: black;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: #b5121b;
+}
 #roadmapmodal {
     padding: .563em 1em;
     border-bottom: .063em solid #eee;
