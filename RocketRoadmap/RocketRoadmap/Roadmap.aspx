@@ -86,7 +86,7 @@
                     <td style="display:block;">
                         <input type="color"  id="ColorPicker0" runat='server' class="stratColor" onchange="changeColor(0)" value="#DC381F"><input  id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                         <table style="display:block; height: 100%" id ="StratBox0Table" runat='server' >
-                            <tr style="display:none;" id="StratBox0BusBox0Row">
+                            <tr style="display:block;" id="StratBox0BusBox0Row">
                                 <td style="display:block;" id ="StratBox0BusBox0Cell" runat="server">
                                     <input  id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
                                       
