@@ -491,7 +491,7 @@ namespace RocketRoadmap
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
                         //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), newprojText.ID + "Hide", "showProj(" + newprojText.ID + ");", true);
-                        //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), proj.GetName()+"func", "enableDragbyId(" + proj.GetName() + ");", true);
+                        ScriptManager.RegisterStartupScript(this.Page, this.GetType(), proj.GetName()+"func", "enableDragbyId(" + proj.GetName() + ");", true);
                     }
                     #endregion
 
@@ -676,6 +676,7 @@ namespace RocketRoadmap
             //set width and start position
 
             newproj.SetWidth((int)width);
+            startPos -= 47f;
             newproj.SetLeft((int)startPos);
             
         }
