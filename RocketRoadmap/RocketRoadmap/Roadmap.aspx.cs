@@ -288,7 +288,7 @@ namespace RocketRoadmap
                         //currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
                         //but.Attributes.g
                         //document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
-                        butheight = butheight + valcount * 3.27f;
+                        butheight = butheight + 3.27f;
                         but.Style.Add(HtmlTextWriterStyle.Height, butheight.ToString() + "em");
 
                     }
