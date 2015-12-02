@@ -225,7 +225,7 @@ namespace RocketRoadmap
                     */
 
                     // adding on to the BusTotal of the strategy point
-                    textbox.Attributes.Add("BusTotal", (valcount + 1).ToString());
+                    textbox.Attributes.Add("BusTotal", (valcount + 2).ToString());
 
                     
                     HtmlTableCell bc1 = new HtmlTableCell();

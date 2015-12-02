@@ -750,6 +750,7 @@ function changeColor(index)
         var bustotal = parseInt(document.getElementById("StratBox" + index.toString()).getAttribute("BusTotal"));
 
         for (i = 0; i < bustotal - 1; ++i) {
+            console.log(i);
             var projTotal = parseInt(document.getElementById("StratBox" + index.toString() + "BusBox" + i.toString()).getAttribute("ProjTotal"));
             for (j = 0; j < projTotal - 1; ++j) {
                 //<div id="StratBox0BusBox0ProjBox0But" ondblclick="showModal(this.id)" onclick="Highlight(this.id)" onmouseleave="UnHighlight(this.id)" class="proj1 ui-draggable ui-draggable-handle ui-resizable" style="background-color: rgb(220, 56, 31);"><span id="StratBox0BusBox0ProjBox0Label" class="projLabel">project</span><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div></div>
