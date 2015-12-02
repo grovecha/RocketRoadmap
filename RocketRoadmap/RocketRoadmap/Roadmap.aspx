@@ -229,7 +229,7 @@
                 <h3 class="modal-title" id="help_title">User Guide</h3> 
             </div> 
             <div class="modal-body"> 
-                <p>Hello, welcome to the Enterprise Roadmap Tool's User Guide</p> 
+                <h3>Hello, welcome to the Enterprise Roadmap Tool's User Guide</h3> 
              
                 <h4><b>Adding, Editing, and Removing Visual Components</b></h4> 
                 <p>In order to add Strategy Points, Business Values, or Projects; the user must enter the text into the left sidebar and press enter. *Note: Data does not save until enter is pressed</p> 
