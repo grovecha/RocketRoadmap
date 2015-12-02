@@ -23,8 +23,9 @@ namespace RocketRoadmap
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
             searchtable.Rows.Clear();
+            searchtable.Visible = false;
 
-                if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
+            if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
                     RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
                     bool flag = user.Login();
@@ -68,9 +69,14 @@ namespace RocketRoadmap
                             TableHeaderCell u6 = new TableHeaderCell();
 
                             u1.Text = "Name";
+                            u1.Width = new Unit(20, UnitType.Percentage);
                             u2.Text = "Author";
+                            u2.Width = new Unit(15, UnitType.Percentage);
                             u3.Text = "Description";
+                            u3.Width = new Unit(40, UnitType.Percentage);
                             u4.Text = "Timestamp";
+                            u4.Width = new Unit(20, UnitType.Percentage);
+                            u5.Width = new Unit(5, UnitType.Percentage);
 
                             uhead.Cells.Add(u1);
                             uhead.Cells.Add(u2);
@@ -144,9 +150,14 @@ namespace RocketRoadmap
                         TableHeaderCell u6 = new TableHeaderCell();
 
                         u1.Text = "Name";
+                        u1.Width = new Unit(20, UnitType.Percentage);
                         u2.Text = "Author";
+                        u2.Width = new Unit(15, UnitType.Percentage);
                         u3.Text = "Description";
+                        u3.Width = new Unit(40, UnitType.Percentage);
                         u4.Text = "Timestamp";
+                        u4.Width = new Unit(20, UnitType.Percentage);
+                        u5.Width = new Unit(5, UnitType.Percentage);
 
                         uhead.Cells.Add(u1);
                         uhead.Cells.Add(u2);
@@ -311,18 +322,23 @@ namespace RocketRoadmap
                 TableHeaderCell u6 = new TableHeaderCell();
 
                 u1.Text = "Name";
+                u1.Width = new Unit(20, UnitType.Percentage);
                 u2.Text = "Author";
+                u2.Width = new Unit(15, UnitType.Percentage);
                 u3.Text = "Description";
+                u3.Width = new Unit(40, UnitType.Percentage);
                 u4.Text = "Timestamp";
+                u4.Width = new Unit(20, UnitType.Percentage);
+                u5.Width = new Unit(5, UnitType.Percentage);
 
                 uhead.Cells.Add(u1);
                 uhead.Cells.Add(u2);
                 uhead.Cells.Add(u3);
                 uhead.Cells.Add(u4);
                 uhead.Cells.Add(u5);
-                //uhead.Cells.Add(u6);
 
                 searchtable.Rows.Add(uhead);
+                searchtable.Visible = true;
 
                 foreach (var map in L_map)
                 {
