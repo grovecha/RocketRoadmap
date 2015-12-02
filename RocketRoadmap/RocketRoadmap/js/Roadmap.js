@@ -43,7 +43,6 @@ function showMode(id) {
     }
 }
 
-
 function enableDragbyId(obj) {
     console.log(obj.id+"But");
     $("#" + obj.id + "But").draggable({
@@ -405,6 +404,7 @@ function addStrat(e, obj, i) {
 
             //place cursor in  bus value
             //$("#" + obj.id + "BusBox0Row").show();
+            document.getElementById(obj.id + "BusBox0Row").style.display = "block";
             //$("#" + obj.id + "BusBox0ProjBox0").hide();
             document.getElementById(obj.id+"BusBox0").select();
            
