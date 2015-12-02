@@ -676,6 +676,7 @@ namespace RocketRoadmap
             //set width and start position
 
             newproj.SetWidth((int)width);
+            startPos -= 47f;
             newproj.SetLeft((int)startPos);
             
         }
