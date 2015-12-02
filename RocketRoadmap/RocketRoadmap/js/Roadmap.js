@@ -6,6 +6,7 @@ var color = ["#DC381F", "#33cccc", "#6CBB3C", "#A23BEC", "#157DEC", "#F87217"];
 
 $(".block").resizable({ handles: 'e, w' });
 $(".block").draggable({ axis: "x" });
+//$("#StratBox0BusBox0Row").hide();
 
 function setProjPos(ProjId, pos, width) {
     
@@ -41,7 +42,6 @@ function showMode(id) {
         showModal(id);
     }
 }
-
 
 function enableDragbyId(obj) {
     console.log(obj.id+"But");
@@ -148,6 +148,11 @@ function hideStrat(StratString) {
 function hideProj(ProjString) {
     console.log(ProjString.id);
     $("#"+ProjString.id).hide();
+};
+
+function showProj(ProjString) {
+    console.log(ProjString.id);
+    $("#" + ProjString.id).show();
 };
 
 //$("#StratBox0BusBox0Row").hide();
@@ -390,8 +395,7 @@ function addStrat(e, obj, i) {
                                 '<td style="display:block;" id="StratBox' + NewStratCount.toString() + 'BusBox0Cell">' +
                             "<input  class='txtBus' ProjTotal=1 id='StratBox" + NewStratCount.toString() + "BusBox0' type='text' placeholder='Add Business Value' runat='server' onkeyup='addBus(event, this," + NewStratCount.toString() + ")' /><a href='#' id='StratBox" + NewStratCount.toString() + "BusBox0Delete' class='remove_bus'> X</a><br />" +
                             
-                            "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +
-                            
+                            "<input name='DynamicTextBox' id='StratBox" + NewStratCount.toString() + "BusBox0ProjBox0' class='txtProjDel' type='text' placeholder='Add Project' runat='server' onkeyup='addProj(event, this," + NewStratCount.toString() + ")' />" +                            
                               '</td>' +
                             '</tr>' +
                             '</table>' +
@@ -399,8 +403,9 @@ function addStrat(e, obj, i) {
                               $("#StratBox" + NewStratCount.toString() + "BusBox0Row").hide();
 
             //place cursor in  bus value
-            $("#" + obj.id + "BusBox0Row").show();
-            $("#" + obj.id + "BusBox0ProjBox0").hide();
+            //$("#" + obj.id + "BusBox0Row").show();
+            document.getElementById(obj.id + "BusBox0Row").style.display = "block";
+            //$("#" + obj.id + "BusBox0ProjBox0").hide();
             document.getElementById(obj.id+"BusBox0").select();
            
         }
@@ -528,7 +533,7 @@ function addBus(e, obj, i) {
                                 
             "</td>";
             //place cursor in proj box    
-            $("#" + CurrentBusId + "ProjBox0").hide();
+            //$("#" + CurrentBusId + "ProjBox0").hide();
             $("#" + obj.id + "ProjBox0").show();
 
             document.getElementById(obj.id +"ProjBox0").select();

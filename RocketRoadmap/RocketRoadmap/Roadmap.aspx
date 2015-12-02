@@ -50,7 +50,7 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
   
-    <link rel="stylesheet" type="text/css" href="StyleSheet1.css">
+    <link rel="stylesheet" type="text/css" href="css/StyleSheet1.css">
 
     <!-- Roadmap page items style sheet  -->
     <link href="css/Roadmap.css" rel="stylesheet" />
@@ -86,7 +86,7 @@
                     <td style="display:block;">
                         <input type="color"  id="ColorPicker0" runat='server' class="stratColor" onchange="changeColor(0)" value="#DC381F"><input  id='StratBox0' class ='txtStrat' BusTotal="1"  type ='text' placeholder='Add Strategy Point' runat='server'  onkeyup ='addStrat(event,this,1)'/><a href="#" id='StratDelete0' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_strat"> X</a><br/>
                         <table style="display:block; height: 100%" id ="StratBox0Table" runat='server' >
-                            <tr style="display:block;" id="StratBox0BusBox0Row">
+                            <tr style="display:none;" id="StratBox0BusBox0Row">
                                 <td style="display:block;" id ="StratBox0BusBox0Cell" runat="server">
                                     <input  id ='StratBox0BusBox0'  class='txtBus'  ProjTotal="1"  type ='text' placeholder='Add Business Value' runat='server' onkeyup ='addBus(event, this,1)' /><a href="#" id='StratBox0BusBox0Delete' style="color:white; font-size:20px; vertical-align:-3px;" class="remove_bus"> X</a>
                                       
@@ -109,7 +109,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server"></h2>
+                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
@@ -133,17 +133,17 @@
 
         <!-- Modal Content -->
         <div class="modal-content">
-            <div class="modal-header" id="headcolor1">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-header" id="headcolor1" >
+                <button type="button" class="close1" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title" id="input_title"></h3>
             </div>
             <div class="modal-body">
                 <!-- Description Text Box -->
-                <h2><u>Description</u></h2>
+                <h2>Description</h2>
                     <textarea id="descText" style="min-width: 90%" ></textarea> 
 
                 <!--Depedency Input -->
-                <h2><u>Dependencies</u></h2>
+                <h2>Dependencies</h2>
                     <button type="button" class="btn btn-default pull-right" id="addText">Input Dependency</button>
                     <button type="button" id="addSelect" class="btn btn-default pull-right">Selection Dependency</button>
                     <div class="depText">
@@ -155,13 +155,13 @@
                         <div></div>
                     </div>
 
-
+                <br />
                 <!-- Risks Text Box -->
-                <h2><u>Risks</u></h2>
+                <h2>Risks</h2>
                     <textarea id="riskText" style="min-width: 90%"></textarea> 
 
                 <!-- Links Input -->
-                <h2><u>Links</u></h2>
+                <h2>Links</h2>
                     <button type="button" class="btn btn-default pull-right" id="addLink">Add Link</button>
                     <div class="linkText">     
                         <div></div>
@@ -188,12 +188,12 @@
                 </div>
             <div class="modal-body">
                 <!-- Description Text Box -->
-                <h2><u>Description</u></h2>
+                <h2>Description</h2>
                     <div class="disdescText">
                     </div>
 
                 <!--Depedency Input -->
-                <h2><u>Dependencies</u></h2>
+                <h2>Dependencies</h2>
                     <div class="disdepText">                        
                     </div> 
 
@@ -202,12 +202,12 @@
                     </div>
 
                 <!-- Risks Text Box -->
-                <h2><u>Risks</u></h2>
+                <h2>Risks</h2>
                     <div class="disriskText">
                     </div> 
 
                 <!-- Links Input -->
-                <h2><u>Links</u></h2>
+                <h2>Links</h2>
                     <div class="dislinkText">
                     </div>
 
@@ -229,7 +229,7 @@
                 <h3 class="modal-title" id="help_title">User Guide</h3> 
             </div> 
             <div class="modal-body"> 
-                <p>Hello, welcome to the Enterprise Roadmap Tool's User Guide</p> 
+                <h3>Hello, welcome to the Enterprise Roadmap Tool's User Guide</h3> 
              
                 <h4><b>Adding, Editing, and Removing Visual Components</b></h4> 
                 <p>In order to add Strategy Points, Business Values, or Projects; the user must enter the text into the left sidebar and press enter. *Note: Data does not save until enter is pressed</p> 

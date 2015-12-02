@@ -22,7 +22,7 @@ function Highlight(id) {
 
     if (togglebool == "true") {
         $(cheche).css('background-color', 'yellow');
-        //$(cheche).css('repeating-linear-gradient', '(-45deg, red, red 5px, white 5px, white 10px)');
+        $(cheche).css('repeating-linear-gradient', '(-45deg, red, red 5px, white 5px, white 10px)');
 
         var disvalue = { 'ProjectID': button_id, 'RoadmapName': map_Name };
         $.ajax({
@@ -71,7 +71,7 @@ function Uncolor(id) {
     for (id_x = 0; id_x < id.length; id_x++) {
 
         var temp = id[id_x].split("StratBox");
-        temp = temp[1].split("BusBox")[0]
+        temp = temp[1].split("BusBox")[0];
 
         var return_c = document.getElementById("ColorPicker" + temp).value;
 

@@ -168,8 +168,8 @@ span {
     left: -.625em;
     top: -1.5em;
     font-size:1.3em;
-	position: relative;
-    z-index: 5;
+	position: absolute;
+    z-index: 12;
     font-weight:bold;
 }
 
@@ -206,7 +206,6 @@ span {
     border-top: .75em solid transparent;
     border-left: .75em solid #d0d0d0;
     border-bottom: .75em solid transparent;  
-    back  
 }
 
 textarea{
@@ -241,19 +240,20 @@ textarea{
 	text-decoration:none;
 }
 
-#headcolor1, #headcolor2{
-    padding:.563em 1em;
-    border-bottom:.063em solid #eee;
+#headcolor1, #headcolor2 {
+    padding: .563em 1em;
+    border-bottom: .063em solid #eee;
     -webkit-border-top-left-radius: .313em;
     -webkit-border-top-right-radius: .313em;
     -moz-border-radius-topleft: .313em;
     -moz-border-radius-topright: .313em;
     border-top-left-radius: .313em;
     border-top-right-radius: .313em;
-    background-color:#f24537;
-    font-family:Arial;
-    
+    background-color: #f24537;
+    font-family: Arial;
+    text-align:center;
 }
+
 #addText, #addLink, #addSelect{
     width:12em;
 }

@@ -175,6 +175,9 @@ namespace RocketRoadmap
                 mainTextCell.InnerHtml = "<input type=\"color\" class=\"stratColor\" id=\"ColorPicker" + count.ToString() + "\" onchange=\"changeColor(" + count.ToString() + ")\" value =\"" + colorList[colorNum] + "\">";
                 mainTextCell.Controls.Add(text);
 
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), text.ID + "BusBox0Row", "showStrat(" + text.ID + "BusBox0Row);", true);
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), text.ID + "BusBox0ProjBox0", "hideProj("+ text.ID + "BusBox0ProjBox0);", true);
+                
                 //adding the delete button
                 delete = new HyperLink();
                 delete.ID = "StratDelete" + count.ToString();
@@ -365,6 +368,7 @@ namespace RocketRoadmap
 
                     NextRow.Cells.Add(NextInputCell);
 
+                    
 
                     /*
                     * Loading Projects
@@ -403,11 +407,20 @@ namespace RocketRoadmap
                             StratBox0BusBox0ProjBox0.Value = proj.GetDescription();
                             lastCell = StratBox0BusBox0Cell;
                             
+                            if (StratBox0BusBox0ProjBox0.Value == "")
+                            {
+                                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), StratBox0BusBox0ProjBox0.ID + "Hide", "showProj(" + StratBox0BusBox0ProjBox0.ID + ");", true);
+                            }
                         }
                         else if (valcount == 1 && projCount == 0)
                         {
                             projText.Value = proj.GetDescription();
                             lastCell = projText.Parent as HtmlTableCell;
+                            if ( projText.Value == "")
+                            {
+                                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), projText.ID + "Hide", "showProj(" + projText.ID + ");", true);
+                            }
+                            
 
                         }
                         else if (projCount == 0)
@@ -415,12 +428,18 @@ namespace RocketRoadmap
 
                             nextText.Value = proj.GetDescription();
                             lastCell = nextText.Parent as HtmlTableCell;
-                            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "Hide", "hideProj(" + nextText.ID + ");", true);
+                            if (nextText.Value == "")
+                            {
+                                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "show", "showProj(" + nextText.ID + ");", true);
+                            }
+                            
 
                         }
                         else
                         {
                             newprojText.Value = proj.GetDescription();
+
+                            
                         }
 
 
@@ -471,7 +490,7 @@ namespace RocketRoadmap
                         
                         newprojText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                         lastCell.Controls.Add(newprojText);
-
+                        //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), newprojText.ID + "Hide", "showProj(" + newprojText.ID + ");", true);
                         ScriptManager.RegisterStartupScript(this.Page, this.GetType(), proj.GetName()+"func", "enableDragbyId(" + proj.GetName() + ");", true);
                     }
                     #endregion
@@ -486,7 +505,10 @@ namespace RocketRoadmap
                     nextText.Attributes.Add("onkeyup", "addProj(event,this," + projCount.ToString() + ")");
                     NextInputCell.Controls.Add(nextText);
                     busVal = NextBox;
-                    
+                  
+                    //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), nextText.ID + "Hide", "hideProj(" + nextText.ID + ");", true);
+                  
+
                 }
 
 
@@ -525,13 +547,14 @@ namespace RocketRoadmap
                 HtmlTable sideTable = FindControl("sidebarTable") as HtmlTable;
                 sideTable.Rows.Add(lastRow);
 
+                //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), projText.ID + "Hide", "hideProj(" + projText.ID + ");", true);
 
                 #endregion
             }
 
             //hiding the elements of the newest strategy point
-            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "hideStrat(StratBox" + (count).ToString() + "BusBox0Row);", true);
-
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "StratBox" + (count).ToString() + "BusBox0Row", "hideStrat(StratBox" + (count).ToString() + "BusBox0Row);", true);
+            
 
             /*
             * Loading in timeline
@@ -962,6 +985,7 @@ namespace RocketRoadmap
             List<string> DepProj = new List<string>();
             List<string> Link = new List<string>();
             List<string> AllProj = new List<string>();
+            List<string> Proj = new List<string>();
             string Desc = newproj.GetModalDescription();
             string Risk = newproj.GetProjectRisks();
             string Name = newproj.GetDescription();
@@ -984,6 +1008,13 @@ namespace RocketRoadmap
                 }
             }
 
+            foreach(string rem in AllProj)
+            {
+                if (rem != Name) {
+                    Proj.Add(rem);
+                }
+            }
+
             string[][] final_return = new string[7][];
             final_return[0] = new string[1];
             final_return[1] = new string[1];
@@ -991,7 +1022,7 @@ namespace RocketRoadmap
             final_return[3] = new string[DepStr.Count];
             final_return[4] = new string[DepProj.Count];
             final_return[5] = new string[Link.Count];
-            final_return[6] = new string[AllProj.Count-1];
+            final_return[6] = new string[Proj.Count];
 
             final_return[0][0] = Desc;
             final_return[1][0] = Risk;
@@ -1013,12 +1044,10 @@ namespace RocketRoadmap
                 final_return[5][z] = l;
                 z++;
             }
-            foreach (string ap in AllProj)
+            foreach (string ap in Proj)
             {
-                if (ap != Name) {
-                    final_return[6][y] = ap;
-                    y++;
-                }
+                final_return[6][y] = ap;
+                y++;
             }
 
 

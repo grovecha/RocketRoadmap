@@ -77,7 +77,6 @@
     <Content Include="css\simple-sidebar.css" />
     <Content Include="css\Site.css" />
     <Content Include="css\Home.css" />
-    <Content Include="datapulltest.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="home.aspx" />
     <Content Include="images\quicken-loans-logo.png" />
@@ -92,8 +91,7 @@
     <Content Include="js\Login.js" />
     <Content Include="js\npm.js" />
     <Content Include="js\Roadmap.js" />
-    <Content Include="StyleSheet1.css" />
-    <Content Include="teststuff.js" />
+    <Content Include="css\StyleSheet1.css" />
     <Content Include="packages.config" />
     <Content Include="css\bootstrap-theme.css.map" />
     <Content Include="css\bootstrap.css.map" />
@@ -114,13 +112,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="datapulltest.aspx.cs">
-      <DependentUpon>datapulltest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="datapulltest.aspx.designer.cs">
-      <DependentUpon>datapulltest.aspx</DependentUpon>
-    </Compile>
     <Compile Include="DB\BusinessValue.cs" />
     <Compile Include="DB\Database.cs" />
     <Compile Include="DB\Issue.cs" />

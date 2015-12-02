@@ -23,8 +23,9 @@ namespace RocketRoadmap
             //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
             name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
             searchtable.Rows.Clear();
+            searchtable.Visible = false;
 
-                if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
+            if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
                     RocketRoadmap.DB.User user = new RocketRoadmap.DB.User(Request.Form["username_ID"], Request.Form["password_ID"]);
                     bool flag = user.Login();
@@ -68,9 +69,14 @@ namespace RocketRoadmap
                             TableHeaderCell u6 = new TableHeaderCell();
 
                             u1.Text = "Name";
+                            u1.Width = new Unit(20, UnitType.Percentage);
                             u2.Text = "Author";
+                            u2.Width = new Unit(15, UnitType.Percentage);
                             u3.Text = "Description";
+                            u3.Width = new Unit(40, UnitType.Percentage);
                             u4.Text = "Timestamp";
+                            u4.Width = new Unit(20, UnitType.Percentage);
+                            u5.Width = new Unit(5, UnitType.Percentage);
 
                             uhead.Cells.Add(u1);
                             uhead.Cells.Add(u2);
@@ -144,9 +150,14 @@ namespace RocketRoadmap
                         TableHeaderCell u6 = new TableHeaderCell();
 
                         u1.Text = "Name";
+                        u1.Width = new Unit(20, UnitType.Percentage);
                         u2.Text = "Author";
+                        u2.Width = new Unit(15, UnitType.Percentage);
                         u3.Text = "Description";
+                        u3.Width = new Unit(40, UnitType.Percentage);
                         u4.Text = "Timestamp";
+                        u4.Width = new Unit(20, UnitType.Percentage);
+                        u5.Width = new Unit(5, UnitType.Percentage);
 
                         uhead.Cells.Add(u1);
                         uhead.Cells.Add(u2);
@@ -182,7 +193,7 @@ namespace RocketRoadmap
                             deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
 
 
-                    HyperLink link = new HyperLink();
+                             HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
@@ -311,18 +322,23 @@ namespace RocketRoadmap
                 TableHeaderCell u6 = new TableHeaderCell();
 
                 u1.Text = "Name";
+                u1.Width = new Unit(20, UnitType.Percentage);
                 u2.Text = "Author";
+                u2.Width = new Unit(15, UnitType.Percentage);
                 u3.Text = "Description";
+                u3.Width = new Unit(40, UnitType.Percentage);
                 u4.Text = "Timestamp";
+                u4.Width = new Unit(20, UnitType.Percentage);
+                u5.Width = new Unit(5, UnitType.Percentage);
 
                 uhead.Cells.Add(u1);
                 uhead.Cells.Add(u2);
                 uhead.Cells.Add(u3);
                 uhead.Cells.Add(u4);
                 uhead.Cells.Add(u5);
-                //uhead.Cells.Add(u6);
 
                 searchtable.Rows.Add(uhead);
+                searchtable.Visible = true;
 
                 foreach (var map in L_map)
                 {
@@ -334,11 +350,10 @@ namespace RocketRoadmap
                     TableCell cell_5 = new TableCell();
                     TableCell cell_6 = new TableCell();
 
-                    Button B1 = new Button();
-                    B1.Text = "X";
-                    B1.CommandArgument = map[0];
-                    B1.Click += new EventHandler(BtnHandler);
-                   
+                    HtmlInputButton deleteButton = new HtmlInputButton();
+                    deleteButton.Value = "X";
+                    deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
+
 
                     Button B2 = new Button();
                     B2.Text = "EDIT";
@@ -358,7 +373,7 @@ namespace RocketRoadmap
                     cell_3.Text = map[2];
                     cell_4.Text = map[3];
 
-                    cell_5.Controls.Add(B1);
+                    cell_5.Controls.Add(deleteButton);
                     cell_6.Controls.Add(B2);
 
                     row.Cells.Add(cell_1);
