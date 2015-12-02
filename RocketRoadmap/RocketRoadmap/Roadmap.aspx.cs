@@ -522,7 +522,7 @@ namespace RocketRoadmap
                 busVal.ID = "StratBox" + count.ToString() + "BusBox0";
                 busVal.Attributes.Add("placeholder", "Add Business Value");
                 busVal.Attributes.Add("runat", "server");
-                busVal.Attributes.Add("firstadd", "1");
+                //busVal.Attributes.Add("firstadd", "1");
                 busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
                 stratCell.Controls.Add(busVal);
 
