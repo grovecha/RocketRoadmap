@@ -225,7 +225,7 @@ namespace RocketRoadmap
                     */
 
                     // adding on to the BusTotal of the strategy point
-                    textbox.Attributes.Add("BusTotal", (valcount + 1).ToString());
+                    textbox.Attributes.Add("BusTotal", (valcount + 2).ToString());
 
                     
                     HtmlTableCell bc1 = new HtmlTableCell();
@@ -288,7 +288,7 @@ namespace RocketRoadmap
                         //currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
                         //but.Attributes.g
                         //document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
-                        butheight = butheight + valcount * 3.27f;
+                        butheight = butheight + 3.27f;
                         but.Style.Add(HtmlTextWriterStyle.Height, butheight.ToString() + "em");
 
                     }
@@ -522,7 +522,7 @@ namespace RocketRoadmap
                 busVal.ID = "StratBox" + count.ToString() + "BusBox0";
                 busVal.Attributes.Add("placeholder", "Add Business Value");
                 busVal.Attributes.Add("runat", "server");
-                busVal.Attributes.Add("firstadd", "1");
+                //busVal.Attributes.Add("firstadd", "1");
                 busVal.Attributes.Add("onkeyup", "addBus(event,this," + count.ToString() + ")");
                 stratCell.Controls.Add(busVal);
 
