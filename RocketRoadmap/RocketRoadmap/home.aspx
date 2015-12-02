@@ -75,10 +75,10 @@
                     </div>
                     <div class="modal-body">
                         <h2><u>Roadmap Name</u></h2>
-                        <input type="text" id="roadmap_Name" size="60" runat="server" />
+                        <input type="text" id="roadmap_Name" style="width:90%" runat="server" />
                         <p></p>
                         <h2><u>Roadmap Description</u></h2>
-                        <textarea id="roadmap_Desc" rows="2" cols="75" runat="server"></textarea>
+                        <textarea id="roadmap_Desc" style="width:90%"  runat="server"></textarea>
                         <p></p>
                        
                     </div>
