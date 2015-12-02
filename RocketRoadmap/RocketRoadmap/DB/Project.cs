@@ -75,7 +75,7 @@ namespace RocketRoadmap.DB
                 //Grab risks this project owns
                 using (SqlCommand cmd1 = new SqlCommand())
                 {
-                    cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name='" + mName + "' AND RoadmapName ='" + rname + "' AND BusinessValueName='" + mBusinessValue + "'";
+                    cmd1.CommandText = "SELECT Risks FROM [dbo].[Project] WHERE Name=@name AND RoadmapName =@Rname AND BusinessValueName=@BVName";
                     cmd1.Parameters.AddWithValue("@name", mName);
                     cmd1.Parameters.AddWithValue("@BVName", mBusinessValue);
                     cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);

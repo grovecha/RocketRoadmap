@@ -289,7 +289,7 @@ namespace RocketRoadmap.DB
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName) VALUES ('" + proj.GetName() + "', '" + proj.GetDescription() + "','" + proj.GetBusinessValue() + "','" + mRoadmapName + "')";
+                        cmd.CommandText = "INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName) VALUES (@PName, @pDescrip, @BVName, @RName)";
                         cmd.Parameters.AddWithValue("@PName", proj.GetName());
                         cmd.Parameters.AddWithValue("@PDescrip", proj.GetDescription());
                         cmd.Parameters.AddWithValue("@BVName", proj.GetBusinessValue());

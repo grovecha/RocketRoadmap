@@ -984,6 +984,7 @@ namespace RocketRoadmap
             List<string> DepProj = new List<string>();
             List<string> Link = new List<string>();
             List<string> AllProj = new List<string>();
+            List<string> Proj = new List<string>();
             string Desc = newproj.GetModalDescription();
             string Risk = newproj.GetProjectRisks();
             string Name = newproj.GetDescription();
@@ -1006,6 +1007,13 @@ namespace RocketRoadmap
                 }
             }
 
+            foreach(string rem in AllProj)
+            {
+                if (rem != Name) {
+                    Proj.Add(rem);
+                }
+            }
+
             string[][] final_return = new string[7][];
             final_return[0] = new string[1];
             final_return[1] = new string[1];
@@ -1013,7 +1021,7 @@ namespace RocketRoadmap
             final_return[3] = new string[DepStr.Count];
             final_return[4] = new string[DepProj.Count];
             final_return[5] = new string[Link.Count];
-            final_return[6] = new string[AllProj.Count-1];
+            final_return[6] = new string[Proj.Count];
 
             final_return[0][0] = Desc;
             final_return[1][0] = Risk;
@@ -1035,12 +1043,10 @@ namespace RocketRoadmap
                 final_return[5][z] = l;
                 z++;
             }
-            foreach (string ap in AllProj)
+            foreach (string ap in Proj)
             {
-                if (ap != Name) {
-                    final_return[6][y] = ap;
-                    y++;
-                }
+                final_return[6][y] = ap;
+                y++;
             }
 
 
