@@ -72,11 +72,10 @@
                 <div class="modal-content">
                     <div class="modal-header" id="areyousure">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="roadmapmodal4">Delete?</h4>
+                        <h4 class="modal-title" id="deleteModalTitle" modalName="">Delete?</h4>
                     </div>
                     <div class="modal-footer">
-                        <asp:button type="button" id="Button1" class="btn btn-default" onclick="newroadmap" runat="server" Text="Delete"></asp:button>
-                        <button type="button" id="Button2" class="btn btn-default" onclick="BtnHandler" Text="Cancel"></button>
+                        <button type="button" id="Button2" class="btn btn-default" onclick="deleteModal();" >Delete</button>
                     </div>
                 </div>
             </div>
@@ -121,6 +120,7 @@
 <script src="js/jquery.js"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
+<script id="HomeJS" src="js/Home.js"></script>
 
 
 </body>

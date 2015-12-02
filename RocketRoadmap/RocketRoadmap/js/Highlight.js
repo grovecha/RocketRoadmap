@@ -22,7 +22,7 @@ function Highlight(id) {
 
     if (togglebool == "true") {
         $(cheche).css('background-color', 'yellow');
-        //$(cheche).css('repeating-linear-gradient', '(-45deg, red, red 5px, white 5px, white 10px)');
+        $(cheche).css('repeating-linear-gradient', '(-45deg, red, red 5px, white 5px, white 10px)');
 
         var disvalue = { 'ProjectID': button_id, 'RoadmapName': map_Name };
         $.ajax({

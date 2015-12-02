@@ -50,7 +50,7 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
   
-    <link rel="stylesheet" type="text/css" href="StyleSheet1.css">
+    <link rel="stylesheet" type="text/css" href="css/StyleSheet1.css">
 
     <!-- Roadmap page items style sheet  -->
     <link href="css/Roadmap.css" rel="stylesheet" />
@@ -109,7 +109,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server"></h2>
+                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
