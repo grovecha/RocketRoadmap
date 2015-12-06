@@ -340,7 +340,18 @@ namespace RocketRoadmap.DB
                     flag = cmd.ExecuteNonQuery() != 0;
                     conn.Close();
                 }
-            }
+                    using (SqlCommand cmd2 = new SqlCommand())
+                    {
+                        cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName =@Rname AND Name = @sname";
+                        cmd2.Parameters.AddWithValue("@Rname", mName);
+                        cmd2.Parameters.AddWithValue("@sname", name);
+                        cmd2.Connection = conn;
+
+                        conn.Open();
+                        flag = cmd2.ExecuteNonQuery() != 0;
+                        conn.Close();
+                    }
+                }
 
             int index = (int)Char.GetNumericValue(name[8]);
 
