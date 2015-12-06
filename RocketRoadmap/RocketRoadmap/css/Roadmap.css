@@ -1,6 +1,7 @@
 ﻿.projLabel {
     width: 115px; white-space: nowrap; overflow: hidden; display: inline-block; 
     transform: translateY(-0px); vertical-align: middle; line-height: normal;
+    text-shadow: rgb(38, 54, 102) 0em 0.063em 0em;
 }
 
 .txtStrat {  
