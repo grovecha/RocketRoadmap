@@ -607,9 +607,9 @@ function addProj(e, obj, i) {
             var element1 = document.createElement("div");      
             element1.id = obj.id + "But";
             var NewValue = obj.value;
-            if (NewValue != "") {
-                element1.innerHTML = "<span id = '" + obj.id + "Label' class = 'projLabel' >" + NewValue + "</span>";
-            }
+         
+            element1.innerHTML = "<span id = '" + obj.id + "Label' class = 'projLabel' >" + NewValue + "</span>";
+        
             //element1.style.verticalAlign = "top";
             element1.setAttribute("ondblclick", "showModal(this.id)");
             element1.setAttribute("onclick", "Highlight(this.id)");
