@@ -228,14 +228,20 @@ namespace RocketRoadmap
 
         public void newroadmap(object sender, EventArgs e)
         {
-            RoadMaps nRoadmap = new RoadMaps();
-            if(roadmap_Name.Value == null)
-            {
-                roadmap_Name.Value = "Allbriansfault";
+
+            try {
+                RoadMaps nRoadmap = new RoadMaps();
+                if (roadmap_Name.Value == null)
+                {
+                    roadmap_Name.Value = "Allbriansfault";
+                }
+
+                nRoadmap.CreateRoadMap(roadmap_Name.Value.ToString(), roadmap_Desc.Value.ToString(), mUser.GetUserName());
+                Response.Redirect("Roadmap.aspx?n=" + roadmap_Name.Value, false);
+            } catch {
+                System.Windows.Forms.MessageBox.Show("ERROR: Roadmap with name already exists! Please rename and try again");
             }
 
-            nRoadmap.CreateRoadMap(roadmap_Name.Value.ToString(), roadmap_Desc.Value.ToString(), mUser.GetUserName());
-            Response.Redirect("Roadmap.aspx?n="+roadmap_Name.Value, false);
 
         }
 
