@@ -197,21 +197,23 @@ $(document).ready(function () {
             load_options = options;
             //Insert the correct number of selects
             for (select_x = 0; select_x < select_total; select_x++) {
-                $(dep_Select).append("<div class='new_sel'><select id='select_input" + load_select_count + "'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");
+                $(dep_Select).append("<div class='new_sel'><select name='select_name'>" + options + "</select><a href='#' class='remove_field'>X</a></div>");
                 load_select_count++;
             };
             total_select_count = load_select_count;
         }
         
         function fill_select(select_array) {
+            var sel_count = 0;
             //fill the inputboxes with their values
-            for (select_x = 0; select_x < select_total; select_x++)
-            {
-                select_Value = "#select_input" + select_x;
-                $(select_Value).val(select_array[select_x]);
-            }
+            $('select[name=select_name').each(function () {
+                $(this).val(select_array[sel_count]);
+                sel_count++;
+            });
+
         }
-        function fill_link(link_array){
+        function fill_link(link_array) {
+            //add the link input boxes
             for (link_x = 0; link_x < link_total; link_x++) {
                 $(link_Text).append("<div class='new_link'><input type='text' name='link_input' class='iptext'/><a href='#' class='remove_field'>X</a></div>"); //add input box
             };
@@ -401,7 +403,7 @@ $(document).ready(function () {
 
         //Add a selection
         if (total_select_count < max_fields) { //max input box allowed
-            var add_sel = "<div class='new_sel'><select id='select_input" + total_select_count + "'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
+            var add_sel = "<div class='new_sel'><select name='select_name'>" + load_options + "</select>" + "<a href='#' class='remove_field'>X</a></div>"
             $(dep_Select).append(add_sel); //add input box
             total_select_count++;
         }
@@ -445,14 +447,13 @@ $(document).ready(function () {
                 nlink_arr.push($(this).val());
             }
         });
-        for (select_x = 0; select_x < total_select_count; select_x++) {
-            select_Value = "#select_input" + select_x;
-            if ($(select_Value).val() != "No Project") {
-                if (nselect_arr.indexOf($(select_Value).val()) == -1) {
-                    nselect_arr.push($(select_Value).val());
-                }
+
+        $('select[name=select_name]').each(function () {
+            if ($(this).val() != null) {
+                nselect_arr.push($(this).val());
             }
-        }
+        });
+       
         //Need Ajax Post Call here?
         PageMethods.SetAll(button_id, map_Name, nselect_arr, nlink_arr, ndep_arr, description_val, risk_val);
 
