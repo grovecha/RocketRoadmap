@@ -229,12 +229,12 @@
                 <h3 class="modal-title" id="help_title">User Guide</h3> 
             </div> 
             <div class="modal-body"> 
-                <h3>Hello, welcome to the Enterprise Roadmap Tool's User Guide</h3> 
+                <h3>Hello, Welcome to the Enterprise Roadmap Tool's User Guide</h3> 
              
                 <h4><b>Adding, Editing, and Removing Visual Components</b></h4> 
                 <p>In order to add Strategy Points, Business Values, or Projects; the user must enter the text into the left sidebar and press enter. *Note: Data does not save until enter is pressed</p> 
                 <p>In order to change the text of the entered component, the user must type in the input boxes and press the enter key. </p> 
-                <p>In order to to remove a visual component completely, the user must click the X next to the corresponding input box. This will erase the all lower tiered components as well. </p> 
+                <p>In order to remove a visual component completely, the user must click the X next to the corresponding input box. This will erase the all lower tiered components as well. </p> 
                 <p>When a Project is added to the page, the user is able to click and drag the object horizontally or grab either end of the project to resize the arrow.</p> 
    
  
@@ -243,7 +243,6 @@
                 <p>Timeline pieces are all draggable at anytime. When the user stops dragging the timeline and releases the mouse click, the position will be saved.</p> 
                 <p>In order to remove a timeline tick, double-click the timeline title.</p> 
     
- 
                 <h4><b>Modal</b></h4> 
                 <p>In order for a modal to appear in either the editing or presentation mode, double-click a project object.</p> 
                 <p>Use the buttons to add the desired amount of dependencies or links.</p> 
@@ -254,6 +253,9 @@
                 <p>In Presentation mode, a single click on any Project object will highlight the projects that are dependent on that project and the projects that that project depends on.</p> 
                 <p>Projects that are depending on the chosen project: ORANGE</p> 
                 <p>Projects that the chosen project depend on: YELLOW</p> 
+
+                <h4><b>Coloring</b></h4> 
+                <p>In irder to change the color of a strategy point and the corresponding projects, choose the color picker next to the strategy point and select the desired color.</p>
             
             </div> 
             <div class="modal-footer"> 
