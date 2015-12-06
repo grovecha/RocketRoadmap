@@ -154,7 +154,7 @@ span {
 .timeline {
     border-left: solid ;
 	border-left-style: dashed;
-	height: 156.250em;
+	
 	cursor: e-resize;
     position: absolute;
     top: -.188em;
