@@ -45,6 +45,7 @@ namespace RocketRoadmap
 
             int count = 0;
 
+            double totalHeight = 0;
             // the last textbox we made
             HtmlInputText lasttext = new HtmlInputText();
             // business value textbox
@@ -64,15 +65,15 @@ namespace RocketRoadmap
 
             HtmlTableCell mainTextCell = new HtmlTableCell();
             mainTextCell = null;
-            
+             
             // the delete hyperlink
             HyperLink delete = new HyperLink();
             #region Loading Strats, Vals, and Projects
 
             foreach (StrategyPoint p in strats)
             {
-                
 
+                
                 /*
                 *    Creating the visual strategy points
                 */
@@ -95,6 +96,14 @@ namespace RocketRoadmap
                 string color = p.GetColor();
                 but.Attributes.Add("style", "background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, " + color + "), color-stop(1, " + color + ")); background:-moz-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-webkit-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-o-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:-ms-linear-gradient(top, " + color + " 5%, " + color + " 100%); background:linear-gradient(to bottom, " + color + " 5%, " + color + " 100%); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='" + color + "', endColorstr='" + color + "',GradientType=0);");
                 but.Style.Add(HtmlTextWriterStyle.Height, "3.4em");
+                if (count == 0)
+                {
+                    totalHeight = totalHeight + 5.2;
+                }
+                else
+                {
+                    totalHeight = totalHeight + 5;
+                }
                 but.Value = p.GetDescription();
 
 
@@ -289,6 +298,7 @@ namespace RocketRoadmap
                         //but.Attributes.g
                         //document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
                         butheight = butheight + 3.27f;
+                        totalHeight = totalHeight + 5; 
                         but.Style.Add(HtmlTextWriterStyle.Height, butheight.ToString() + "em");
 
                     }
@@ -451,6 +461,7 @@ namespace RocketRoadmap
                             //var currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split("em")[0];
                             //document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 1.7) + "em";
                             butheight = butheight + 1.7f;
+                            totalHeight = totalHeight + 2.5;
                             //but.Style.Add(HtmlTextWriterStyle.Height, "6em");
                             but.Style.Add(HtmlTextWriterStyle.Height, butheight.ToString() + "em");
                             //increase RowVis height
@@ -548,8 +559,9 @@ namespace RocketRoadmap
                 sideTable.Rows.Add(lastRow);
 
                 //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), projText.ID + "Hide", "hideProj(" + projText.ID + ");", true);
-
+                
                 #endregion
+
             }
 
             //hiding the elements of the newest strategy point
@@ -575,7 +587,8 @@ namespace RocketRoadmap
 
            //enabling drag
             ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script2", "enableDrag();", true);
-
+            //set total height
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "setTotalHeight", "setTotalHeight(" + totalHeight.ToString() + ");", true);
         }
 
         #region Adding functions
