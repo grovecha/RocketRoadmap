@@ -135,7 +135,13 @@ function addTick(e, obj) {
         timeline.setAttribute("ondblclick","deleteTime(this)")
         timeline.className = "timeline";
         timeline.id = obj.value;
-        timeline.innerHTML = '<p  class="timelineText">' + obj.value + '</p>'
+        if (obj.value.length < 2) {
+            translateAmount = .2;
+        }
+        else {
+            translateAmount = -1* ((obj.value).length * .25 - .35);
+        }
+        timeline.innerHTML = '<p style="transform:translateX('+translateAmount+'em)" class="timelineText">' + obj.value + '</p>'
         timeline.style.height = totalHeight.toString() + "em";
         var parent = document.getElementById("containmentWrapper");
         parent.appendChild(timeline);

@@ -578,8 +578,17 @@ namespace RocketRoadmap
                 foreach (TickMark tick in TL.GetTicks())
                 {
                     tickCount++;
-                    containmentWrapper.InnerHtml +="<div ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tick.GetName()+ "\" style=\"left: " + (tick.GetXPlacement()).ToString() + "px; top: -3px; \">"
-                        +"<p class=\"timelineText\">" + tick.GetName() + "</p>"+
+                    double translateAmount = 0;
+                    if (tick.GetName().Length < 2)
+                    {
+                        translateAmount = .2;
+                    }
+                    else
+                    {
+                        translateAmount = -1 * (tick.GetName().Length * .25 - .35);
+                    }
+                    containmentWrapper.InnerHtml += "<div  ondblclick = \"deleteTime(this)\" class=\"timeline\" id=\"" + tick.GetName()+ "\" style=\"left: " + (tick.GetXPlacement()).ToString() + "px; top: -3px; \">"
+                        + "<p style='transform: translateX(" + translateAmount + "em)' class=\"timelineText\">" + tick.GetName() + "</p>"+
                         "</div>";
                 }
 
