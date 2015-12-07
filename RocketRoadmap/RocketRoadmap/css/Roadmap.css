@@ -212,7 +212,6 @@ span {
 
  .proj1:before, .proj1:after{
     border: solid transparent;
-    border-style:dashed;
     content: ' ';
     height: 0em;
     right:-1.25em;
@@ -221,21 +220,15 @@ span {
     width:0;
  }
 
-  .proj1:after{
-    border-color: rgba(136, 183, 213, 0);
-	border-left-color: #d0451b;
-	border-width: .7em;
-	margin-top: -.7em;
-}
+
 
   .proj1:before{
-
 
   	border-color: rgba(194, 225, 245, 0);
 	border-left-color: black;
 	border-width: .75em;
 	margin-top: -.75em;
-    right:-1.4em;
+    right:-1.45em;
 
 }
 
@@ -252,7 +245,7 @@ span {
     font-weight:bold;
     color:white;
     border: .1em solid #000000;
-    border-right-width:0;
+    border-color:black;
     border-style:solid;
     top:1em;
     -moz-border-radius:.188em;
@@ -260,15 +253,6 @@ span {
     
 }
 
-
-/*.proj1:before, .proj2:before, .proj3:before {
-    content: "";
-    position: absolute;
-    display: block;
-    border-top: .75em solid transparent;
-    border-left: .75em solid #d0d0d0;
-    border-bottom: .75em solid transparent;  
-   }*/
 
 textarea{
     resize:vertical; 
@@ -334,6 +318,11 @@ p{
 }
 h3{
     font-family:Arial;
+}
+h5{
+    font-family:Arial;
+    color:white;
+    padding-left:.5em;
 }
 .disdepText{
     font-size: 1.4em;

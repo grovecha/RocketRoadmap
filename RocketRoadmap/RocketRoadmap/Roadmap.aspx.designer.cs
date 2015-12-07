@@ -22,6 +22,24 @@ namespace RocketRoadmap {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// DependentOfColor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl DependentOfColor;
+        
+        /// <summary>
+        /// DependentOnColor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl DependentOnColor;
+        
+        /// <summary>
         /// sidebarTable control.
         /// </summary>
         /// <remarks>

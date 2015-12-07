@@ -79,6 +79,30 @@
         <br />        
         <br />
         <input style="width: 100px;" id="addtimelinetick" type="text" onkeyup="addTick(event,this)" placeholder='Add Timeline'/><input style="width: 120px;"  type="button" value="Toggle Timeline" onclick="showTime()">
+        <br />
+        <br />
+        <table>
+            <tr>
+                <td>
+                    <input type="color"  id="DependentOfColor" runat='server' class="stratColor" onchange="changeColor(0)" value="#ffff00">
+                </td>
+                <td>
+                    <h5>Dependent <b>OF</b> Color</h5>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                 <input type="color"  id="DependentOnColor" runat='server' class="stratColor" onchange="changeColor(0)" value="#FF0000">
+                </td>
+                <td>
+                    <h5>Dependent <b>ON</b> Color</h5>
+                </td>
+            </tr>
+        </table>
+
+
+ 
+        <hr />
         <!-- Data Input -->
         <div id="mainDiv">
             <table style="display:block;" id ="sidebarTable" runat ="server">
