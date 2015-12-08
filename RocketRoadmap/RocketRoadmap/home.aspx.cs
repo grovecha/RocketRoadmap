@@ -96,11 +96,6 @@ namespace RocketRoadmap
                                 TableCell ucell_4 = new TableCell();
                                 TableCell ucell_5 = new TableCell();
 
-                                //Button B1 = new Button();
-                                //B1.Text = "X";
-                                //B1.CommandArgument = umap[0];
-                                //B1.Click += new EventHandler(BtnHandler);
-
                                  HtmlInputButton deleteButton = new HtmlInputButton();
                                 deleteButton.Value = "X";
                                 deleteButton.Attributes.Add("onclick","AreYouSure(\""+umap[0]+"\");");
@@ -177,20 +172,10 @@ namespace RocketRoadmap
                             TableCell cell_5 = new TableCell();
                             TableCell cell_6 = new TableCell();
 
-                            //Button B1 = new Button();
-                            //B1.Text = "X";
-                            //B1.CommandArgument = map[0];
-                            //B1.Click += new EventHandler(BtnHandler);
 
-
-                            //Button B2 = new Button();
-                            //B2.Text = "EDIT";
-                            //B2.CommandArgument = map[0];
-                            //B2.Click += new EventHandler(EditRoadmap);
-
-                            HtmlInputButton deleteButton = new HtmlInputButton();
-                            deleteButton.Value = "X";
-                            deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
+                            //HtmlInputButton deleteButton = new HtmlInputButton();
+                            //deleteButton.Value = "X";
+                            //deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
 
 
                              HyperLink link = new HyperLink();
@@ -204,7 +189,7 @@ namespace RocketRoadmap
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
 
-                            cell_5.Controls.Add(deleteButton);
+                            //cell_5.Controls.Add(deleteButton);
 
                             row.Cells.Add(cell_1);
                             row.Cells.Add(cell_2);

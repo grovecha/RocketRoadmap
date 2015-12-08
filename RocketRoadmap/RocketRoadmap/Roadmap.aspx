@@ -135,7 +135,7 @@
                 <div class="col-lg-12">
                     <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> 
                     <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
-                    <fieldset style="float: right"><legend>Highlight</legend>Dependent ON: Dotted Border<br /> Dependent OF: Bold</fieldset>
+                  
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
