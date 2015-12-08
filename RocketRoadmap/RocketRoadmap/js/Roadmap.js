@@ -69,7 +69,7 @@ function enableDragbyId(obj) {
 
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-
+            document.getElementById(this.id).style.height = "1.5em";
             setProjPos(this.id.split("But")[0], pos - 158, width);
         }
     });
@@ -82,7 +82,7 @@ function enableDragbyId(obj) {
 
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-
+            document.getElementById(this.id).style.height = "1.5em";
             setProjPos(this.id.split("But")[0], pos - 158, width);
 
             document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
@@ -102,6 +102,7 @@ function enableDrag()
         stop: function (event, ui) {
             console.log("call me");
             var pos = $("#" + this.id).position().left;
+
             console.log(pos);
             PageMethods.EditTickLocation(mapName, pos, this.id);
         }
@@ -664,7 +665,7 @@ function addProj(e, obj, i) {
               
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-               
+                    document.getElementById(this.id).style.height = "1.5em";
                     setProjPos(this.id.split("But")[0], pos - 158, width);
                 }
             
@@ -679,7 +680,7 @@ function addProj(e, obj, i) {
                 
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-             
+                    document.getElementById(this.id).style.height = "1.5em";
                     setProjPos(this.id.split("But")[0], pos - 158, width);
           
                     document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
