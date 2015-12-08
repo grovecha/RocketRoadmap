@@ -261,10 +261,6 @@ textarea{
 .iptext{
     width: 35em;
 }
-
-#icontent{
-    background-color:#a8a8a8;
-}
 h2{
     font-family:Arial;
 }
@@ -292,3 +288,5 @@ h3{
 #display_title{
     color:white;
 }
+
+fieldset{font-size:1.3em;}

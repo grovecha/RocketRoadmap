@@ -109,7 +109,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
+                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> 
+                    <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
+                    <fieldset style="float: right"><legend>Highlight</legend>Dependent ON: Dotted Border<br /> Dependent OF: Bold</fieldset>
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
@@ -255,7 +257,7 @@
                 <p>Projects that the chosen project depend on: YELLOW</p> 
 
                 <h4><b>Coloring</b></h4> 
-                <p>In irder to change the color of a strategy point and the corresponding projects, choose the color picker next to the strategy point and select the desired color.</p>
+                <p>In order to change the color of a strategy point and the corresponding projects, choose the color picker next to the strategy point and select the desired color.</p>
             
             </div> 
             <div class="modal-footer"> 
