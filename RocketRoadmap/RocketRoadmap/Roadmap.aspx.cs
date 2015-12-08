@@ -70,6 +70,8 @@ namespace RocketRoadmap
             HyperLink delete = new HyperLink();
             #region Loading Strats, Vals, and Projects
 
+            
+
             foreach (StrategyPoint p in strats)
             {
 
@@ -1234,6 +1236,13 @@ namespace RocketRoadmap
 
 
 
+        }
+        [WebMethod]
+        public static void SetDependencyColor(string on, string of,string mapName)
+        {
+            RoadMap map = new RoadMap(mapName);
+
+            
         }
 
         #endregion
