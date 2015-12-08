@@ -767,39 +767,7 @@ namespace RocketRoadmap
 
 
         #region Modal Getters
-        //Get Project Name (What is written on the button)
-        [WebMethod]
-        public static string GetProjectName(string ProjectID, string RoadmapName)
-        {
-            int pointindex = ProjectID.IndexOf("Bus");
-            int valindex = ProjectID.IndexOf("Proj");
-            string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(0, valindex);
-            RoadMap map = new RoadMap(RoadmapName);
-            StrategyPoint newpoint = map.GetPoint(point);
-            BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(ProjectID);
 
-            return newproj.GetDescription();
-        }
-
-
-        //Get Project Modal Description
-        [WebMethod]
-        public static string GetProjectDescription(string ProjectID, string RoadmapName)
-        {
-            int pointindex = ProjectID.IndexOf("Bus");
-            int valindex = ProjectID.IndexOf("Proj");
-            string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(0, valindex);
-            RoadMap map = new RoadMap(RoadmapName);
-            StrategyPoint newpoint = map.GetPoint(point);
-            BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(ProjectID);
-
-            return newproj.GetModalDescription();
-
-        }
 
         //Get String Dependecies
         [WebMethod]
@@ -906,21 +874,6 @@ namespace RocketRoadmap
             return Project_Names;
         }
 
-        //Get Proejct Risks
-        [WebMethod]
-        public static string GetProjectRisk(string ProjectID, string RoadmapName)
-        {
-            int pointindex = ProjectID.IndexOf("Bus");
-            int valindex = ProjectID.IndexOf("Proj");
-            string point = ProjectID.Substring(0, pointindex);
-            string val = ProjectID.Substring(0, valindex);
-            RoadMap map = new RoadMap(RoadmapName);
-            StrategyPoint newpoint = map.GetPoint(point);
-            BusinessValue newval = newpoint.GetBusinessValue(val);
-            Project newproj = newval.GetProject(ProjectID);
-
-            return newproj.GetProjectRisks();
-        }
 
         //Get Project Links as a string
         [WebMethod]

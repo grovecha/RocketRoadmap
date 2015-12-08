@@ -69,7 +69,7 @@ function enableDragbyId(obj) {
 
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-
+            document.getElementById(this.id).style.height = "1.5em";
             setProjPos(this.id.split("But")[0], pos - 158, width);
         }
     });
@@ -82,7 +82,7 @@ function enableDragbyId(obj) {
 
             var pos = $("#" + this.id).position().left;
             var width = $("#" + this.id).width();
-
+            document.getElementById(this.id).style.height = "1.5em";
             setProjPos(this.id.split("But")[0], pos - 158, width);
 
             document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
@@ -96,12 +96,13 @@ function enableDrag()
     var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1))
     mapName = mapName.substr(2, mapName.length).split('#')[0];
     
-  
+    
     $(".timeline").draggable({
         axis: "x", containment: "#containmentWrapper",
         stop: function (event, ui) {
             console.log("call me");
             var pos = $("#" + this.id).position().left;
+
             console.log(pos);
             PageMethods.EditTickLocation(mapName, pos, this.id);
         }
@@ -622,7 +623,8 @@ function addProj(e, obj, i) {
             //element1.setAttribute("onresize", "disableModal()");
             //element1.setAttribute("ondrag", "disableModal()");
             element1.setAttribute("onmouseleave", "UnHighlight(this.id)");
-
+            element1.style.transform = "translateY(-.95em)";
+            //element1.setAttribute("style", "transform: translateY(-.95em)");
             ////set class, location of more than 3 projects will be the 3rd location
             if (CurrentProjCount > 2) {
                 element1.setAttribute("class", "proj1");
@@ -663,7 +665,7 @@ function addProj(e, obj, i) {
               
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-               
+                    document.getElementById(this.id).style.height = "1.5em";
                     setProjPos(this.id.split("But")[0], pos - 158, width);
                 }
             
@@ -678,7 +680,7 @@ function addProj(e, obj, i) {
                 
                     var pos = $("#" + this.id).position().left;
                     var width = $("#" + this.id).width();
-             
+                    document.getElementById(this.id).style.height = "1.5em";
                     setProjPos(this.id.split("But")[0], pos - 158, width);
           
                     document.getElementById(this.id.split("But")[0] + "Label").style.width = ((width - 15).toString() + "px");
