@@ -15,9 +15,11 @@ function AreYouSure(name)
     document.getElementById("deleteModalTitle").setAttribute("modalName", name);
 
 }
-$(document).ready(function () {
+$(document).ready(function ()  {
     $('#roadModal').on('show.bs.modal', function (e) {
-        $("#createbutton").setAttribute('dis')
-    }
+        $("#createbutton").removeAttr('disabled');
+        $("#createbutton").removeAttr('enabled');
+        $("#createbutton").removeAttr('disabled');
+    })
 
 });
