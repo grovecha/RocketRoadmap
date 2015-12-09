@@ -92,7 +92,7 @@
             </tr>
             <tr>
                 <td>
-                 <input type="color"  id="DependentOnColor" runat='server' class="stratColor" onchange="changeDependentColor()" value="#FF0000">
+                 <input type="color"  id="DependentOnColor" runat='server' class="stratColor" onchange="changeDependentColor()" value="#ff66ff">
                 </td>
                 <td>
                     <h5>Dependent <b>ON</b> Color</h5>

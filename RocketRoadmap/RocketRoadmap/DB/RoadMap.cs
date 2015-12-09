@@ -406,12 +406,12 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
-        public string GetDependeny_of_Color(string on, string of)
+        public string GetDependeny_of_Color()
         {
             return mColor_of;
         }
 
-        public string GetDependeny_on_Color(string on, string of)
+        public string GetDependeny_on_Color()
         {
             return mColor_on;
         }
