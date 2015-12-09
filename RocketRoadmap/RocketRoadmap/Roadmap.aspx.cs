@@ -1194,7 +1194,7 @@ namespace RocketRoadmap
         public static void SetDependencyColor(string on, string of,string mapName)
         {
             RoadMap map = new RoadMap(mapName);
-
+            map.SetDependenyColor(on, of);
             
         }
 
