@@ -20,10 +20,10 @@ namespace RocketRoadmap
         {
 
             mUser = new DB.User((string)Session["username"], (string)Session["password"]);
-            //loginlabel.Text = "Logged in as: " + mUser.GetUserName();
-            name.InnerText = mUser.GetUserName() + "'s ROADMAPS";
+            name.InnerText = mUser.GetUserName() + "'s Roadmaps";
             searchtable.Rows.Clear();
             searchtable.Visible = false;
+            searchb.Enabled = false;
 
             if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
@@ -172,12 +172,6 @@ namespace RocketRoadmap
                             TableCell cell_5 = new TableCell();
                             TableCell cell_6 = new TableCell();
 
-
-                            //HtmlInputButton deleteButton = new HtmlInputButton();
-                            //deleteButton.Value = "X";
-                            //deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
-
-
                              HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
@@ -189,14 +183,12 @@ namespace RocketRoadmap
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
 
-                            //cell_5.Controls.Add(deleteButton);
-
                             row.Cells.Add(cell_1);
                             row.Cells.Add(cell_2);
                             row.Cells.Add(cell_3);
                             row.Cells.Add(cell_4);
                             row.Cells.Add(cell_5);
-                           // row.Cells.Add(cell_6);
+
 
                         allroadmaps.Rows.Add(row);
                         }
@@ -256,7 +248,6 @@ namespace RocketRoadmap
 
         protected void BtnHandler(Object sender, EventArgs e)
         {
-            //ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "script", "AreYouSure();", true);
 
             Button btn = (Button)sender;
             RoadMaps maps = new RoadMaps();
@@ -372,7 +363,6 @@ namespace RocketRoadmap
                     row.Cells.Add(cell_3);
                     row.Cells.Add(cell_4);
                     row.Cells.Add(cell_5);
-                    // row.Cells.Add(cell_6);
 
                     searchtable.Rows.Add(row);
                 }
