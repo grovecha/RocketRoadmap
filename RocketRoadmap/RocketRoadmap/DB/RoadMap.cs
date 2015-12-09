@@ -39,8 +39,8 @@ namespace RocketRoadmap.DB
                         }
                         catch
                         {
-                            mColor_of = "#FFFFFFFF";
-                            mColor_of = "#BBBBBBBB";
+                            mColor_of = "#ffff00";
+                            mColor_on = "#ff66ff";
                         }
                     }
                 }
@@ -406,12 +406,12 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
-        public string GetDependeny_of_Color(string on, string of)
+        public string GetDependeny_of_Color()
         {
             return mColor_of;
         }
 
-        public string GetDependeny_on_Color(string on, string of)
+        public string GetDependeny_on_Color()
         {
             return mColor_on;
         }

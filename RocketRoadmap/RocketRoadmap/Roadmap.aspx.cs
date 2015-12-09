@@ -70,7 +70,10 @@ namespace RocketRoadmap
             HyperLink delete = new HyperLink();
             #region Loading Strats, Vals, and Projects
 
-            
+
+            DependentOfColor.Value = roadmap.GetDependeny_of_Color();
+            DependentOnColor.Value = roadmap.GetDependeny_on_Color();
+
 
             foreach (StrategyPoint p in strats)
             {
