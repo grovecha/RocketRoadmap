@@ -39,8 +39,8 @@ namespace RocketRoadmap.DB
                         }
                         catch
                         {
-                            mColor_of = "#FFFFFFFF";
-                            mColor_of = "#BBBBBBBB";
+                            mColor_of = "#ffff00";
+                            mColor_on = "#ff66ff";
                         }
                     }
                 }
