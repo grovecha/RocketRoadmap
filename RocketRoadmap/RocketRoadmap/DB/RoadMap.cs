@@ -55,7 +55,7 @@ namespace RocketRoadmap.DB
                 //Get the StrategyPoints
                 using (SqlCommand cmd3 = new SqlCommand())
                 {
-                    cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY NAME ASC";
+                    cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY SORT ASC";
                     cmd3.Parameters.AddWithValue("@Rname", mName);
                     cmd3.Connection = conn;
 
@@ -106,14 +106,16 @@ namespace RocketRoadmap.DB
             mStrategyPoints.Add(point);
             bool flag;
 
+            int order = Convert.ToInt32(point.GetName().Substring(8, (point.GetName().Length) - 8));
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES (@Sname,@descrip,@Rname)";
+                    cmd.CommandText = "INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName],[Sort]) VALUES (@Sname,@descrip,@Rname,@sort)";
                     cmd.Parameters.AddWithValue("@Sname", point.GetName());
                     cmd.Parameters.AddWithValue("@descrip", point.GetDescription());
                     cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Parameters.AddWithValue("@sort", order);
                     cmd.Connection = conn;
 
                     conn.Open();
@@ -342,7 +344,7 @@ namespace RocketRoadmap.DB
                 }
                     using (SqlCommand cmd2 = new SqlCommand())
                     {
-                        cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName =@Rname AND Name = @sname";
+                        cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName =@Rname AND StrategyPointName = @sname";
                         cmd2.Parameters.AddWithValue("@Rname", mName);
                         cmd2.Parameters.AddWithValue("@sname", name);
                         cmd2.Connection = conn;
