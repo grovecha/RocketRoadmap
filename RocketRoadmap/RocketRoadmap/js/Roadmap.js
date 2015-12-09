@@ -809,3 +809,13 @@ function changeColor(index)
         }
     }
 }
+
+function changeDependentColor()
+{
+    console.log("got here");
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+
+    PageMethods.SetDependencyColor(document.getElementById("DependentOnColor").value, document.getElementById("DependentOfColor").value, mapName);
+}
