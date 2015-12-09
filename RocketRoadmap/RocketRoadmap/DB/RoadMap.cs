@@ -20,7 +20,7 @@ namespace RocketRoadmap.DB
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "SELECT Timestamp, Description, UserID FROM [dbo].[Roadmap] WHERE Name =@Rname";
+                    cmd.CommandText = "SELECT Timestamp, Description, UserID, color_dep_of, color_dep_on FROM [dbo].[Roadmap] WHERE Name =@Rname";
                     cmd.Parameters.AddWithValue("@Rname", name);
                     cmd.Connection = conn;
                     conn.Open();
@@ -31,6 +31,17 @@ namespace RocketRoadmap.DB
                         mTimeStamp = Reader.GetDateTime(0);
                         mDescription = Reader.GetString(1);
                         UID = Reader.GetString(2);
+
+                        try
+                        {
+                            mColor_of = Reader.GetString(3);
+                            mColor_on = Reader.GetString(4);
+                        }
+                        catch
+                        {
+                            mColor_of = "#FFFFFFFF";
+                            mColor_of = "#BBBBBBBB";
+                        }
                     }
                 }
 
@@ -55,7 +66,7 @@ namespace RocketRoadmap.DB
                 //Get the StrategyPoints
                 using (SqlCommand cmd3 = new SqlCommand())
                 {
-                    cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY NAME ASC";
+                    cmd3.CommandText = "SELECT Name, Description FROM [dbo].[StrategyPoint] WHERE RoadmapName =@Rname ORDER BY SORT ASC";
                     cmd3.Parameters.AddWithValue("@Rname", mName);
                     cmd3.Connection = conn;
 
@@ -106,14 +117,16 @@ namespace RocketRoadmap.DB
             mStrategyPoints.Add(point);
             bool flag;
 
+            int order = Convert.ToInt32(point.GetName().Substring(8, (point.GetName().Length) - 8));
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName]) VALUES (@Sname,@descrip,@Rname)";
+                    cmd.CommandText = "INSERT INTO [dbo].[StrategyPoint] ([Name],[Description],[RoadmapName],[Sort]) VALUES (@Sname,@descrip,@Rname,@sort)";
                     cmd.Parameters.AddWithValue("@Sname", point.GetName());
                     cmd.Parameters.AddWithValue("@descrip", point.GetDescription());
                     cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Parameters.AddWithValue("@sort", order);
                     cmd.Connection = conn;
 
                     conn.Open();
@@ -342,7 +355,7 @@ namespace RocketRoadmap.DB
                 }
                     using (SqlCommand cmd2 = new SqlCommand())
                     {
-                        cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName =@Rname AND Name = @sname";
+                        cmd2.CommandText = "DELETE FROM [dbo].[SP_BV_Crosswalk] WHERE RoadmapName =@Rname AND StrategyPointName = @sname";
                         cmd2.Parameters.AddWithValue("@Rname", mName);
                         cmd2.Parameters.AddWithValue("@sname", name);
                         cmd2.Connection = conn;
@@ -368,9 +381,39 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
-        public void SetDependenyColor(string on, string of)
+        public bool SetDependenyColor(string on, string of)
         {
-            //emily do stuff here
+            mColor_of = of;
+            mColor_on = on;
+            bool flag;
+
+            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UPDATE [dbo].[Roadmap] SET [color_dep_of]= @on ,[color_dep_on]= @of WHERE Name=@Rname";
+                    cmd.Parameters.AddWithValue("@of", of);
+                    cmd.Parameters.AddWithValue("@on", on);
+                    cmd.Parameters.AddWithValue("@Rname", mName);
+                    cmd.Connection = conn;
+
+                    conn.Open();
+                    flag = cmd.ExecuteNonQuery() != 0;
+                    conn.Close();
+                }
+            }
+
+            return flag;
+        }
+
+        public string GetDependeny_of_Color(string on, string of)
+        {
+            return mColor_of;
+        }
+
+        public string GetDependeny_on_Color(string on, string of)
+        {
+            return mColor_on;
         }
 
         //Getters if needed
@@ -391,6 +434,8 @@ namespace RocketRoadmap.DB
         private User mUser;
         private TimeLine mTimeline;
         private List<StrategyPoint> mStrategyPoints = new List<StrategyPoint>();
+        private string mColor_on;
+        private string mColor_of;
 
     //    private RocketRoadmap.DB.Database mDatabase = new RocketRoadmap.DB.Database();
     //    private SqlDataReader mReader;
