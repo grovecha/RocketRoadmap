@@ -96,7 +96,7 @@
             <ul class="nav navbar-nav pull-right">
                 <li><a data-toggle="modal" href="#roadModal" class="pull-left">New Roadmap</a></li>
                 <li><a href="index.aspx" class="pull-right">Logout</a></li>
-                <li><asp:Textbox id = "search_text" runat="server" placeholder ="Search..."  /><asp:button type="button" ID="searchb" class="btn btn-default" runat="server" text ="Search" onclientclick="searchRoadmaps"/></li>
+                <li><asp:Textbox  id = "search_text" runat="server" placeholder ="Search..."  /><asp:button type="button" ID="searchb" class="btn btn-default" runat="server" text ="Search" onclick="searchRoadmaps"/></li>
 
             </ul>
         </div>
