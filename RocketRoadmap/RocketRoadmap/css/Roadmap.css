@@ -74,7 +74,7 @@ span {
 	-moz-border-radius:.188em;
 	-webkit-border-radius:.188em;
 	border-radius:.188em;
-	border:.063em solid #3c521e;
+	border:.1em solid #3c521e;
 	display:inline-block;
 	cursor:pointer;
 	color:#f5f5f5;
@@ -155,7 +155,7 @@ span {
 .timeline {
     border-left: solid ;
 	border-left-style: dashed;
-	height: 156.250em;
+	
 	cursor: e-resize;
     position: absolute;
     top: -.188em;
@@ -176,7 +176,7 @@ span {
 
 #containmentWrapper {position: absolute; left: 9.375em; width: 100%;   }
 
- .proj1:after, .proj2:after, .proj3:after {
+ /*.proj1:after, .proj2:after, .proj3:after {
   color: black;
   border-left: .75em solid;
   border-top: .75em solid transparent;
@@ -207,7 +207,52 @@ span {
     border-top: .75em solid transparent;
     border-left: .75em solid #d0d0d0;
     border-bottom: .75em solid transparent;  
+}*/
+
+
+ .proj1:before, .proj1:after{
+    border: solid transparent;
+    content: ' ';
+    height: 0em;
+    right:-1.25em;
+    top: 50%;
+    position: absolute;
+    width:0;
+ }
+
+
+
+  .proj1:before{
+
+  	border-color: rgba(194, 225, 245, 0);
+	border-left-color: black;
+	border-width: .75em;
+	margin-top: -.75em;
+    right:-1.45em;
+
 }
+
+
+.proj1, .proj2, .proj3 {
+    background-color:  white;
+    width: 9.375em;
+    height: 1.5em;
+    display: block;
+    position: relative;
+    text-align: center;
+    text-indent: .625em;
+    font-size: 1.5em;
+    font-weight:bold;
+    color:white;
+    border: .1em solid #000000;
+    border-color:black;
+    border-style:solid;
+    top:1em;
+    -moz-border-radius:.188em;
+	-webkit-border-radius:.188em;
+    
+}
+
 
 textarea{
     resize:vertical; 
@@ -261,10 +306,6 @@ textarea{
 .iptext{
     width: 35em;
 }
-
-#icontent{
-    background-color:#a8a8a8;
-}
 h2{
     font-family:Arial;
 }
@@ -273,6 +314,11 @@ p{
 }
 h3{
     font-family:Arial;
+}
+h5{
+    font-family:Arial;
+    color:white;
+    padding-left:.5em;
 }
 .disdepText{
     font-size: 1.4em;
@@ -292,3 +338,5 @@ h3{
 #display_title{
     color:white;
 }
+
+fieldset{font-size:1.3em;}

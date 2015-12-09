@@ -21,8 +21,7 @@ function Highlight(id) {
     var togglebool = document.getElementById("sidebar-wrapper").getAttribute("Present");
 
     if (togglebool == "true") {
-        $(cheche).css('background-color', 'yellow');
-        $(cheche).css('repeating-linear-gradient', '(-45deg, red, red 5px, white 5px, white 10px)');
+
 
         var disvalue = { 'ProjectID': button_id, 'RoadmapName': map_Name };
         $.ajax({
@@ -55,13 +54,16 @@ function Highlight(id) {
 function dependoncolor(id) {
     var id_x;
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'deepskyblue');
+        $(id[id_x]).css('border-color', document.getElementById("DependentOnColor").value);
+        $(id[id_x]).css('border-width', '.15em');
+        $(id[id_x]).css('border-style', 'dashed');
     }
 }
 function dependantofcolor(id) {
     var id_x;
     for (id_x = 0; id_x < id.length; id_x++) {
-        $(id[id_x]).css('background-color', 'purple');
+        $(id[id_x]).css('border-color', document.getElementById("DependentOfColor").value);
+        $(id[id_x]).css('border-width', '.15em');
     }
 }
 
@@ -75,7 +77,9 @@ function Uncolor(id) {
 
         var return_c = document.getElementById("ColorPicker" + temp).value;
 
-        $(id[id_x]).css('background-color', return_c);
+        $(id[id_x]).css('border-color', "#000000");
+        $(id[id_x]).css('border-width', '.1em');
+        $(id[id_x]).css('border-style', 'solid');
     }
 }
 

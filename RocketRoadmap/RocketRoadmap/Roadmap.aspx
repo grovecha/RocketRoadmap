@@ -79,6 +79,30 @@
         <br />        
         <br />
         <input style="width: 100px;" id="addtimelinetick" type="text" onkeyup="addTick(event,this)" placeholder='Add Timeline'/><input style="width: 120px;"  type="button" value="Toggle Timeline" onclick="showTime()">
+        <br />
+        <br />
+        <table>
+            <tr>
+                <td>
+                    <input type="color"  id="DependentOfColor" runat='server' class="stratColor" onchange="changeDependentColor()" value="#ffff00">
+                </td>
+                <td>
+                    <h5>Dependent <b>OF</b> Color</h5>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                 <input type="color"  id="DependentOnColor" runat='server' class="stratColor" onchange="changeDependentColor()" value="#FF0000">
+                </td>
+                <td>
+                    <h5>Dependent <b>ON</b> Color</h5>
+                </td>
+            </tr>
+        </table>
+
+
+ 
+        <hr />
         <!-- Data Input -->
         <div id="mainDiv">
             <table style="display:block;" id ="sidebarTable" runat ="server">
@@ -109,7 +133,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
+                    <a href="#menu-toggle" class="btn btn-default" style="float: left" id="menu-toggle">Presentation Mode</a> 
+                    <h2 id="roadmapnamelabel" runat="server" align="center"></h2>
+                  
                 </div>
                 <br />
                 <div id="containmentWrapper" runat="server">
@@ -255,7 +281,7 @@
                 <p>Projects that the chosen project depend on: YELLOW</p> 
 
                 <h4><b>Coloring</b></h4> 
-                <p>In irder to change the color of a strategy point and the corresponding projects, choose the color picker next to the strategy point and select the desired color.</p>
+                <p>In order to change the color of a strategy point and the corresponding projects, choose the color picker next to the strategy point and select the desired color.</p>
             
             </div> 
             <div class="modal-footer"> 
