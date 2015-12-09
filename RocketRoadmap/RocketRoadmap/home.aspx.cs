@@ -158,6 +158,7 @@ namespace RocketRoadmap
                         u4.Text = "Timestamp";
                         u4.Width = new Unit(20, UnitType.Percentage);
                         u5.Width = new Unit(5, UnitType.Percentage);
+                        u5.BackColor = System.Drawing.ColorTranslator.FromHtml("White");
 
                         uhead.Cells.Add(u1);
                         uhead.Cells.Add(u2);
@@ -188,12 +189,12 @@ namespace RocketRoadmap
                             //B2.CommandArgument = map[0];
                             //B2.Click += new EventHandler(EditRoadmap);
 
-                            HtmlInputButton deleteButton = new HtmlInputButton();
-                            deleteButton.Value = "X";
-                            deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
+                            //HtmlInputButton deleteButton = new HtmlInputButton();
+                            //deleteButton.Value = "";
+                            //deleteButton.Attributes.Add("onclick", "AreYouSure(\"" + map[0] + "\");");
 
 
-                             HyperLink link = new HyperLink();
+                            HyperLink link = new HyperLink();
                             link.NavigateUrl = "Roadmap.aspx?n=" + map[0];
                             link.Text = map[0];
 
@@ -204,7 +205,7 @@ namespace RocketRoadmap
                             cell_3.Text = map[2];
                             cell_4.Text = map[3];
 
-                            cell_5.Controls.Add(deleteButton);
+                            //cell_5.Controls.Add(deleteButton);
 
                             row.Cells.Add(cell_1);
                             row.Cells.Add(cell_2);
@@ -341,7 +342,7 @@ namespace RocketRoadmap
                 uhead.Cells.Add(u2);
                 uhead.Cells.Add(u3);
                 uhead.Cells.Add(u4);
-                uhead.Cells.Add(u5);
+                //uhead.Cells.Add(u5);
 
                 searchtable.Rows.Add(uhead);
                 searchtable.Visible = true;
@@ -379,8 +380,8 @@ namespace RocketRoadmap
                     cell_3.Text = map[2];
                     cell_4.Text = map[3];
 
-                    cell_5.Controls.Add(deleteButton);
-                    cell_6.Controls.Add(B2);
+                   // cell_5.Controls.Add(deleteButton);
+                    //cell_6.Controls.Add(B2);
 
                     row.Cells.Add(cell_1);
                     row.Cells.Add(cell_2);
