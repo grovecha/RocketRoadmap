@@ -24,6 +24,7 @@ namespace RocketRoadmap
             searchtable.Rows.Clear();
             searchtable.Visible = false;
             createbutton.Enabled = false;
+            searchb.Enabled = true;
 
             if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
