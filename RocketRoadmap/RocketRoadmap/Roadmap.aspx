@@ -84,7 +84,7 @@
         <table>
             <tr>
                 <td>
-                    <input type="color"  id="DependentOfColor" runat='server' class="stratColor" onchange="changeColor(0)" value="#ffff00">
+                    <input type="color"  id="DependentOfColor" runat='server' class="stratColor" onchange="changeDependentColor()" value="#ffff00">
                 </td>
                 <td>
                     <h5>Dependent <b>OF</b> Color</h5>
@@ -92,7 +92,7 @@
             </tr>
             <tr>
                 <td>
-                 <input type="color"  id="DependentOnColor" runat='server' class="stratColor" onchange="changeColor(0)" value="#FF0000">
+                 <input type="color"  id="DependentOnColor" runat='server' class="stratColor" onchange="changeDependentColor()" value="#FF0000">
                 </td>
                 <td>
                     <h5>Dependent <b>ON</b> Color</h5>
