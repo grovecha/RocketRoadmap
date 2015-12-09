@@ -194,15 +194,24 @@ namespace RocketRoadmap.DB
             {
                 bool flag;
                 //Add to both the BV table, and the BV/SP ownership table
+                int i = 8;
+                while (i<100)
+                {
+                    if (Char.IsNumber(name[i])) i++;
+                    else break;
+                }
+                string orderstring = name.Substring(i + 6, (name.Length) - (i + 6)); 
+                int order = Convert.ToInt32(name.Substring(i+6, (name.Length) - (i+6)));
 
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
                 {
                     using (SqlCommand cmd1 = new SqlCommand())
                     {
-                        cmd1.CommandText = "INSERT INTO [dbo].[BusinessValue] (Name, Description, RoadmapName) VALUES (@BVName, @desc,@Rname)";
+                        cmd1.CommandText = "INSERT INTO [dbo].[BusinessValue] (Name, Description, RoadmapName, Sort) VALUES (@BVName, @desc,@Rname, @sort)";
                         cmd1.Parameters.AddWithValue("@BVName", name);
                         cmd1.Parameters.AddWithValue("@desc", desc);
                         cmd1.Parameters.AddWithValue("@Rname", mRoadmapName);
+                        cmd1.Parameters.AddWithValue("@sort", order);
                         cmd1.Connection = conn;
 
                         conn.Open();

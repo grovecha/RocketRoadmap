@@ -285,15 +285,32 @@ namespace RocketRoadmap.DB
             try
             {
                 bool flag;
+                string name = proj.GetBusinessValue();
+                int i = 8;
+                while (i < 100)
+                {
+                    if (Char.IsNumber(name[i])) i++;
+                    else break;
+                }
+                int j = i+6;
+                while (j < 100)
+                {
+                    if (Char.IsNumber(proj.GetName()[j])) j++;
+                    else break;
+                }
+                string orderstring = proj.GetName().Substring(j + 7, (proj.GetName().Length) - (j + 7));
+                int order = Convert.ToInt32(proj.GetName().Substring(j+7, (proj.GetName().Length) - (j+7)));
+
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["connstring"].ConnectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName) VALUES (@PName, @pDescrip, @BVName, @RName)";
+                        cmd.CommandText = "INSERT INTO [dbo].[Project] (Name, Description, BusinessValueName, RoadmapName, Sort) VALUES (@PName, @pDescrip, @BVName, @RName, @sort)";
                         cmd.Parameters.AddWithValue("@PName", proj.GetName());
                         cmd.Parameters.AddWithValue("@PDescrip", proj.GetDescription());
                         cmd.Parameters.AddWithValue("@BVName", proj.GetBusinessValue());
                         cmd.Parameters.AddWithValue("@Rname", mRoadmapName);
+                        cmd.Parameters.AddWithValue("@sort", order);
                         cmd.Connection = conn;
 
                         conn.Open();
