@@ -368,6 +368,11 @@ namespace RocketRoadmap.DB
             return flag;
         }
 
+        public void SetDependenyColor(string on, string of)
+        {
+            //emily do stuff here
+        }
+
         //Getters if needed
         public string GetName() { return mName; }
         public void SetName(string name) { mName = name; }

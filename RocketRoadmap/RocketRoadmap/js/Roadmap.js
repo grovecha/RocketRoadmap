@@ -233,7 +233,18 @@ function deleteBus(obj) {
   
     //get projtotal of bus value
     projtotal = document.getElementById(BusId).getAttribute("ProjTotal")-1;
-    
+    BusTotal = parseInt(document.getElementById(StratId).getAttribute("BusTotal"));
+    //document.getElementById(StratId).setAttribute("BusTotal", (parseInt(BusTotal) - 1).toString());
+
+    //delete from database
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+    PageMethods.DeleteBus(BusId, StratId, mapName);
+
+    //delete input row
+    StratTable.deleteRow(RowIndex);
+
     //if projtotal > 2
     if (projtotal > 2) {
         currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
@@ -243,25 +254,26 @@ function deleteBus(obj) {
     
       //decrease size by 3.27 + projtotal * 1.7
     //else decrease size by 3.27
-    else {
+    else if (RowIndex >0) {
         currenstrattheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
         document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currenstrattheight) - (3.27)) + "em";
         totalHeight = totalHeight - 5;
     }
-    $(".timeline").height(totalHeight + "em");
-    console.log(String(parseFloat(currenstrattheight) - (parseFloat(projtotal * 1.7) + 3.27)) + "em");
+    else {
+        var ele = document.getElementById(StratId+"NewCellVis");
+        ele.parentNode.removeChild(ele);
+        return 0;
+    }
    
-    //delete input row
-    StratTable.deleteRow(RowIndex);
+    $(".timeline").height(totalHeight + "em");
+    //console.log(String(parseFloat(currenstrattheight) - (parseFloat(projtotal * 1.7) + 3.27)) + "em");
+   
+    
     //delete visual row 
     var table = document.getElementById(StratId + "VisualTable");
     table.deleteRow(RowIndex);
     
-    //delete from database
-    var url = window.location.href;
-    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
-    mapName = mapName.substr(2, mapName.length).split('#')[0];
-    PageMethods.DeleteBus(BusId, StratId, mapName);
+    
 }
 
 function deleteProj(obj) {
@@ -491,17 +503,22 @@ function addBus(e, obj, i) {
                 cell1.className = "BusVis";
                 cell1.id = NextVisualId;
                 cell1.innerHTML = obj.value;
-                currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
-                
-                document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
-                totalHeight = totalHeight + 5;
-                $(".timeline").height(totalHeight + "em");
 
+                BusTotal = parseInt(document.getElementById(StratId).getAttribute("BusTotal"));
+                if (BusTotal>1) {
+                    currentheight = document.getElementById("StratBut" + String(CurrentStratCount)).style.height.split('em')[0];
+                
+                    document.getElementById("StratBut" + String(CurrentStratCount)).style.height = String(parseFloat(currentheight) + 3.27) + "em";
+                    totalHeight = totalHeight + 5;
+                
+                    $(".timeline").height(totalHeight + "em");
+                }
             }
             else {
                 var newcell = row.insertCell(1);
                 var w = screen.width;
                 newcell.style.width = w.toString() + "px";
+                newcell.id = StratId + "NewCellVis";
                 //newcell.style.backgroundColor = "white";
                 newcell.className = "NewCellVis";
                 tableid = StratId + "VisualTable";
@@ -791,4 +808,14 @@ function changeColor(index)
             }
         }
     }
+}
+
+function changeDependentColor()
+{
+    console.log("got here");
+    var url = window.location.href;
+    var mapName = decodeURIComponent(url.substr(url.indexOf('?') + 1));
+    mapName = mapName.substr(2, mapName.length).split('#')[0];
+
+    PageMethods.SetDependencyColor(document.getElementById("DependentOnColor").value, document.getElementById("DependentOfColor").value, mapName);
 }
