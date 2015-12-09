@@ -15,3 +15,9 @@ function AreYouSure(name)
     document.getElementById("deleteModalTitle").setAttribute("modalName", name);
 
 }
+$(document).ready(function () {
+    $('#roadModal').on('show.bs.modal', function (e) {
+        $("#createbutton").setAttribute('dis')
+    }
+
+});

@@ -23,7 +23,7 @@ namespace RocketRoadmap
             name.InnerText = mUser.GetUserName() + "'s Roadmaps";
             searchtable.Rows.Clear();
             searchtable.Visible = false;
-            searchb.Enabled = false;
+            createbutton.Enabled = false;
 
             if (Request.Form["username_ID"] != "" && Request.Form["password_ID"] != "") //FIX: Lets null login.  is useful though
                 {
@@ -205,16 +205,14 @@ namespace RocketRoadmap
 
         public void newroadmap(object sender, EventArgs e)
         {
-
+            
             try {
                 RoadMaps nRoadmap = new RoadMaps();
-                if (roadmap_Name.Value == null)
+                if (roadmap_Name.Value != "")
                 {
-                    roadmap_Name.Value = "Allbriansfault";
+                    nRoadmap.CreateRoadMap(roadmap_Name.Value.ToString(), roadmap_Desc.Value.ToString(), mUser.GetUserName());
+                    Response.Redirect("Roadmap.aspx?n=" + roadmap_Name.Value, false);
                 }
-
-                nRoadmap.CreateRoadMap(roadmap_Name.Value.ToString(), roadmap_Desc.Value.ToString(), mUser.GetUserName());
-                Response.Redirect("Roadmap.aspx?n=" + roadmap_Name.Value, false);
             } catch {
                 System.Windows.Forms.MessageBox.Show("ERROR: Roadmap with name already exists! Please rename and try again");
             }
